@@ -85,7 +85,7 @@
 <meta name="keywords" content="Hexo,Node.js,Git,GitHub,Windows">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo - 借助GitHub搭建个人博客">
-<meta property="og:url" content="http://qiuzhi.github.io/hexo/index.html">
+<meta property="og:url" content="http://qiuzhi.github.io/posts/a5c6484a.html">
 <meta property="og:site_name" content="秋至、枫以落">
 <meta property="og:description" content="前言2017-09-05更新 一年多后，由于不再在封闭环境及云桌面办公，所以把Hexo得重新启用，打算用来做技术博客，或者叫Wiki，写一些自己的技术总结，按此前搭建的记录，部署起来。 有些日子没玩博客了，其实以前也一直很少去输出一些什么，但就是喜欢有一个属于个人的地方，向互联网展示一下自己的存在感！I’m here，嗯，是这个意思！以前和网友一起合租过服务器，也在Godady买过域名，但最后还是">
 <meta property="og:locale" content="zh-Hans">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://qiuzhi.github.io/hexo/"/>
+  <link rel="canonical" href="http://qiuzhi.github.io/posts/a5c6484a.html"/>
 
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qiuzhi.github.io/hexo/">
+    <link itemprop="mainEntityOfPage" href="http://qiuzhi.github.io/posts/a5c6484a.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feng">
@@ -345,9 +345,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/hexo/#comments" itemprop="discussionUrl">
+                <a href="/posts/a5c6484a.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="hexo/" itemprop="commentCount"></span>
+                        data-disqus-identifier="posts/a5c6484a.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -428,8 +428,28 @@
 </li>
 </ol>
 </li>
+<li><p>文章链接唯一化<br>  也许你会数次更改文章题目或者变更文章发布时间，在默认设置下，文章链接都会改变，不利于搜索引擎收录，也不利于分享。唯一永久链接才是更好的选择。</p>
+<p>  安装</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-abbrlink --save</div></pre></td></tr></table></figure>
+<p>  在站点配置文件中查找代码permalink，将其更改为:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">permalink: posts/:abbrlink/  # “posts/” 可自行更换</div></pre></td></tr></table></figure>
+<p>  这里有个知识点：</p>
+<pre><code>百度蜘蛛抓取网页的规则: 对于蜘蛛说网页权重越高、信用度越高抓取越频繁，例如网站的首页和内页。蜘蛛先抓取网站的首页，因为首页权重更高，并且大部分的链接都是指向首页。然后通过首页抓取网站的内页，并不是所有内页蜘蛛都会去抓取。
+</code></pre><p>  搜索引擎认为对于一般的中小型站点，3层足够承受所有的内容了，所以蜘蛛经常抓取的内容是前三层，而超过三层的内容蜘蛛认为那些内容并不重要，所以不经常爬取。出于这个原因所以permalink后面跟着的最好不要超过2个斜杠。</p>
+<p>  然后在站点配置文件中添加如下代码:</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># abbrlink config</span></div><div class="line"><span class="attr">abbrlink:</span></div><div class="line"><span class="attr">  alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default) and crc32</span></div><div class="line"><span class="attr">  rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default) and hex</span></div></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="发布到互联网"><a href="#发布到互联网" class="headerlink" title="发布到互联网"></a>发布到互联网</h2><ol>
+<pre><code>可选择模式：
+    crc16 &amp; hex
+    crc16 &amp; dec
+    crc32 &amp; hex
+    crc32 &amp; dec
+
+可参照样例以选择：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">crc16 &amp; hex</div><div class="line">https://post.zz173.com/posts/66c8.html</div><div class="line">crc16 &amp; dec</div><div class="line">https://post.zz173.com/posts/65535.html</div><div class="line">crc32 &amp; hex</div><div class="line">https://post.zz173.com/posts/8ddf18fb.html</div><div class="line">crc32 &amp; dec</div><div class="line">https://post.zz173.com/posts/1690090958.html</div></pre></td></tr></table></figure>
+</code></pre><h2 id="发布到互联网"><a href="#发布到互联网" class="headerlink" title="发布到互联网"></a>发布到互联网</h2><ol>
 <li>到<a href="https://github.com/" title="GitHub" target="_blank" rel="external">GitHub</a>注册<br> 新建repository(仓库)，填写格式如下图所示: [yourusername].github.io<br> 将[yourusername]换成你在GitHub注册的用户名！</li>
 <li><p>生成SSH Keys<br> 如何让本地git项目与远程的github建立联系？需要用到SSH Keys！</p>
 <ol>
@@ -541,7 +561,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hello-world/" rel="next" title="Hello World">
+              <a href="/posts/4a17b156.html" rel="next" title="Hello World">
                 <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
@@ -551,7 +571,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/sublime-text/" rel="prev" title="Sublime Text - 个人认为最好用的文本编辑器">
+              <a href="/posts/85e2a7e7.html" rel="prev" title="Sublime Text - 个人认为最好用的文本编辑器">
                 Sublime Text - 个人认为最好用的文本编辑器 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -868,8 +888,8 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://qiuzhi.github.io/hexo/';
-          this.page.identifier = 'hexo/';
+          this.page.url = 'http://qiuzhi.github.io/posts/a5c6484a.html';
+          this.page.identifier = 'posts/a5c6484a.html';
           this.page.title = 'Hexo - 借助GitHub搭建个人博客';
         };
         var d = document, s = d.createElement('script');

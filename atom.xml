@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://qiuzhi.github.io/"/>
-  <updated>2017-10-04T08:45:41.370Z</updated>
+  <updated>2017-10-04T16:10:38.462Z</updated>
   <id>http://qiuzhi.github.io/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Cmder - 替代Cmd，打造Windows命令行军刀</title>
-    <link href="http://qiuzhi.github.io/cmder/"/>
-    <id>http://qiuzhi.github.io/cmder/</id>
+    <link href="http://qiuzhi.github.io/posts/9c768d05.html"/>
+    <id>http://qiuzhi.github.io/posts/9c768d05.html</id>
     <published>2017-10-04T03:11:42.000Z</published>
-    <updated>2017-10-04T08:45:41.370Z</updated>
+    <updated>2017-10-04T16:10:38.462Z</updated>
     
     <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="http://cmder.net/" target="_blank" rel="external">Cmder</a>是一款Windows下终端工具，增强命令行的存在，把conemu，msysgit和clink打包在一起，让你无需配置就能使用一个真正干净的Linux终端！她甚至还附带了漂亮的monokai配色主题。官网下载的安装包其实是压缩档, 可即压即用。你甚至可以放到USB就可以虽时带着走，连调整过的设定都会放在这个目录下，不会用到系统机码(Registry)，所以也很适合放在Dropbox/Google Drive/OneDrive共享于多台电脑。</p>
 <p>下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版cmder自带了msysgit, 压缩包23M, 除了git本身这个命令之外, 里面可以使用大量的linux命令；比如grep，curl(没有wget)；像vim，grep，tar，unzip，ssh，ls，bash，perl对于爱折腾的Coder更是痛点需求。<br><a id="more"></a></p>
@@ -87,8 +87,8 @@
   
   <entry>
     <title>Sublime Text - 个人认为最好用的文本编辑器</title>
-    <link href="http://qiuzhi.github.io/sublime-text/"/>
-    <id>http://qiuzhi.github.io/sublime-text/</id>
+    <link href="http://qiuzhi.github.io/posts/85e2a7e7.html"/>
+    <id>http://qiuzhi.github.io/posts/85e2a7e7.html</id>
     <published>2017-09-05T13:17:47.000Z</published>
     <updated>2017-09-15T07:45:00.000Z</updated>
     
@@ -230,8 +230,8 @@
   
   <entry>
     <title>Hexo - 借助GitHub搭建个人博客</title>
-    <link href="http://qiuzhi.github.io/hexo/"/>
-    <id>http://qiuzhi.github.io/hexo/</id>
+    <link href="http://qiuzhi.github.io/posts/a5c6484a.html"/>
+    <id>http://qiuzhi.github.io/posts/a5c6484a.html</id>
     <published>2016-04-29T07:39:20.000Z</published>
     <updated>2017-09-05T01:45:42.000Z</updated>
     
@@ -288,8 +288,28 @@
 </li>
 </ol>
 </li>
+<li><p>文章链接唯一化<br>  也许你会数次更改文章题目或者变更文章发布时间，在默认设置下，文章链接都会改变，不利于搜索引擎收录，也不利于分享。唯一永久链接才是更好的选择。</p>
+<p>  安装</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-abbrlink --save</div></pre></td></tr></table></figure>
+<p>  在站点配置文件中查找代码permalink，将其更改为:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">permalink: posts/:abbrlink/  # “posts/” 可自行更换</div></pre></td></tr></table></figure>
+<p>  这里有个知识点：</p>
+<pre><code>百度蜘蛛抓取网页的规则: 对于蜘蛛说网页权重越高、信用度越高抓取越频繁，例如网站的首页和内页。蜘蛛先抓取网站的首页，因为首页权重更高，并且大部分的链接都是指向首页。然后通过首页抓取网站的内页，并不是所有内页蜘蛛都会去抓取。
+</code></pre><p>  搜索引擎认为对于一般的中小型站点，3层足够承受所有的内容了，所以蜘蛛经常抓取的内容是前三层，而超过三层的内容蜘蛛认为那些内容并不重要，所以不经常爬取。出于这个原因所以permalink后面跟着的最好不要超过2个斜杠。</p>
+<p>  然后在站点配置文件中添加如下代码:</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># abbrlink config</span></div><div class="line"><span class="attr">abbrlink:</span></div><div class="line"><span class="attr">  alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default) and crc32</span></div><div class="line"><span class="attr">  rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default) and hex</span></div></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="发布到互联网"><a href="#发布到互联网" class="headerlink" title="发布到互联网"></a>发布到互联网</h2><ol>
+<pre><code>可选择模式：
+    crc16 &amp; hex
+    crc16 &amp; dec
+    crc32 &amp; hex
+    crc32 &amp; dec
+
+可参照样例以选择：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">crc16 &amp; hex</div><div class="line">https://post.zz173.com/posts/66c8.html</div><div class="line">crc16 &amp; dec</div><div class="line">https://post.zz173.com/posts/65535.html</div><div class="line">crc32 &amp; hex</div><div class="line">https://post.zz173.com/posts/8ddf18fb.html</div><div class="line">crc32 &amp; dec</div><div class="line">https://post.zz173.com/posts/1690090958.html</div></pre></td></tr></table></figure>
+</code></pre><h2 id="发布到互联网"><a href="#发布到互联网" class="headerlink" title="发布到互联网"></a>发布到互联网</h2><ol>
 <li>到<a href="https://github.com/" title="GitHub" target="_blank" rel="external">GitHub</a>注册<br> 新建repository(仓库)，填写格式如下图所示: [yourusername].github.io<br> 将[yourusername]换成你在GitHub注册的用户名！</li>
 <li><p>生成SSH Keys<br> 如何让本地git项目与远程的github建立联系？需要用到SSH Keys！</p>
 <ol>
@@ -389,10 +409,10 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://qiuzhi.github.io/hello-world/"/>
-    <id>http://qiuzhi.github.io/hello-world/</id>
+    <link href="http://qiuzhi.github.io/posts/4a17b156.html"/>
+    <id>http://qiuzhi.github.io/posts/4a17b156.html</id>
     <published>2016-04-28T02:35:01.000Z</published>
-    <updated>2017-09-06T01:41:28.084Z</updated>
+    <updated>2017-10-04T16:10:38.466Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
