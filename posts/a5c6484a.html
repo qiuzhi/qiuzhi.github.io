@@ -278,7 +278,7 @@
     <link itemprop="mainEntityOfPage" href="http://qiuzhi.github.io/posts/a5c6484a.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feng">
+      <meta itemprop="name" content="Sam">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
@@ -432,24 +432,17 @@
 <p>  安装</p>
   <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-abbrlink --save</div></pre></td></tr></table></figure>
 <p>  在站点配置文件中查找代码permalink，将其更改为:</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">permalink: posts/:abbrlink/  # “posts/” 可自行更换</div></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">permalink: posts/:abbrlink.html  # “posts/” 可自行更换</div></pre></td></tr></table></figure>
 <p>  这里有个知识点：</p>
-<pre><code>百度蜘蛛抓取网页的规则: 对于蜘蛛说网页权重越高、信用度越高抓取越频繁，例如网站的首页和内页。蜘蛛先抓取网站的首页，因为首页权重更高，并且大部分的链接都是指向首页。然后通过首页抓取网站的内页，并不是所有内页蜘蛛都会去抓取。
-</code></pre><p>  搜索引擎认为对于一般的中小型站点，3层足够承受所有的内容了，所以蜘蛛经常抓取的内容是前三层，而超过三层的内容蜘蛛认为那些内容并不重要，所以不经常爬取。出于这个原因所以permalink后面跟着的最好不要超过2个斜杠。</p>
+<blockquote>
+<p>百度蜘蛛抓取网页的规则: 对于蜘蛛说网页权重越高、信用度越高抓取越频繁，例如网站的首页和内页。蜘蛛先抓取网站的首页，因为首页权重更高，并且大部分的链接都是指向首页。然后通过首页抓取网站的内页，并不是所有内页蜘蛛都会去抓取。</p>
+</blockquote>
+<p>  搜索引擎认为对于一般的中小型站点，3层足够承受所有的内容了，所以蜘蛛经常抓取的内容是前三层，而超过三层的内容蜘蛛认为那些内容并不重要，所以不经常爬取。出于这个原因所以permalink后面跟着的最好不要超过2个斜杠。</p>
 <p>  然后在站点配置文件中添加如下代码:</p>
-  <figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># abbrlink config</span></div><div class="line"><span class="attr">abbrlink:</span></div><div class="line"><span class="attr">  alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default) and crc32</span></div><div class="line"><span class="attr">  rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default) and hex</span></div></pre></td></tr></table></figure>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># abbrlink config</span></div><div class="line"><span class="comment">## e.g.</span></div><div class="line"><span class="comment">## crc16 &amp; hex</span></div><div class="line"><span class="comment">## https://post.zz173.com/posts/66c8.html</span></div><div class="line"><span class="comment">## crc16 &amp; dec</span></div><div class="line"><span class="comment">## https://post.zz173.com/posts/65535.html</span></div><div class="line"><span class="comment">## crc32 &amp; hex</span></div><div class="line"><span class="comment">## https://post.zz173.com/posts/8ddf18fb.html</span></div><div class="line"><span class="comment">## crc32 &amp; dec</span></div><div class="line"><span class="comment">## https://post.zz173.com/posts/1690090958.html</span></div><div class="line"><span class="attr">abbrlink:</span></div><div class="line"><span class="attr">  alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default) and crc32</span></div><div class="line"><span class="attr">  rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default) and hex</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
-<pre><code>可选择模式：
-    crc16 &amp; hex
-    crc16 &amp; dec
-    crc32 &amp; hex
-    crc32 &amp; dec
-
-可参照样例以选择：
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">crc16 &amp; hex</div><div class="line">https://post.zz173.com/posts/66c8.html</div><div class="line">crc16 &amp; dec</div><div class="line">https://post.zz173.com/posts/65535.html</div><div class="line">crc32 &amp; hex</div><div class="line">https://post.zz173.com/posts/8ddf18fb.html</div><div class="line">crc32 &amp; dec</div><div class="line">https://post.zz173.com/posts/1690090958.html</div></pre></td></tr></table></figure>
-</code></pre><h2 id="发布到互联网"><a href="#发布到互联网" class="headerlink" title="发布到互联网"></a>发布到互联网</h2><ol>
+<h2 id="发布到互联网"><a href="#发布到互联网" class="headerlink" title="发布到互联网"></a>发布到互联网</h2><ol>
 <li>到<a href="https://github.com/" title="GitHub" target="_blank" rel="external">GitHub</a>注册<br> 新建repository(仓库)，填写格式如下图所示: [yourusername].github.io<br> 将[yourusername]换成你在GitHub注册的用户名！</li>
 <li><p>生成SSH Keys<br> 如何让本地git项目与远程的github建立联系？需要用到SSH Keys！</p>
 <ol>
@@ -648,9 +641,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.jpg"
-                alt="Feng" />
+                alt="Sam" />
             
-              <p class="site-author-name" itemprop="name">Feng</p>
+              <p class="site-author-name" itemprop="name">Sam</p>
               <p class="site-description motion-element" itemprop="description">如果时间可以静止，我希望就停在此刻。</p>
           </div>
 
@@ -763,7 +756,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Feng</span>
+  <span class="author" itemprop="copyrightHolder">Sam</span>
 
   
 </div>
