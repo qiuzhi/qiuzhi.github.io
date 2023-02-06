@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qiuzhi.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一 前言zsh是来自普林斯顿大学的学生Paul Falstad于1990年发布的，这名字来自于当时也是普林斯顿大学的一名助教Zhong Shao（后来成为耶鲁大学教授）的login-id。zsh一开始的设计初衷是为Commodore公司于1985年出的个人电脑Amiga设计一个开源的csh的子集，结果一不小心就暴走了；它在发布的时候，已经成为了ksh和tcsh的交集——既吸收了ksh在命令式可编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zsh - shell中极品">
+<meta property="og:url" content="http://qiuzhi.github.io/posts/37881773.html">
+<meta property="og:site_name" content="秋至、枫以落">
+<meta property="og:description" content="一 前言zsh是来自普林斯顿大学的学生Paul Falstad于1990年发布的，这名字来自于当时也是普林斯顿大学的一名助教Zhong Shao（后来成为耶鲁大学教授）的login-id。zsh一开始的设计初衷是为Commodore公司于1985年出的个人电脑Amiga设计一个开源的csh的子集，结果一不小心就暴走了；它在发布的时候，已经成为了ksh和tcsh的交集——既吸收了ksh在命令式可编程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-14T07:27:44.000Z">
+<meta property="article:modified_time" content="2022-06-17T09:14:35.695Z">
+<meta property="article:author" content="Sam">
+<meta property="article:tag" content="Cmder">
+<meta property="article:tag" content="Cmd">
+<meta property="article:tag" content="PowerShell">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://qiuzhi.github.io/posts/37881773.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qiuzhi.github.io/posts/37881773.html","path":"posts/37881773.html","title":"zsh - shell中极品"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>zsh - shell中极品 | 秋至、枫以落</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="秋至、枫以落" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">秋至、枫以落</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">秋至枫必落，曲终人定散，物还在，人却非</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80-%E5%89%8D%E8%A8%80"><span class="nav-text">一 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-text">1 简介</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-text">二 安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-zsh"><span class="nav-text">1 zsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-oh-my-zsh"><span class="nav-text">2 oh-my-zsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Powerline%E5%AD%97%E4%BD%93"><span class="nav-text">3 Powerline字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AE-x2F-zshrc"><span class="nav-text">4 配置 ~&#x2F;.zshrc</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89-%E6%8F%92%E4%BB%B6"><span class="nav-text">三 插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B-%E6%9B%B4%E5%A4%9A"><span class="nav-text">四 更多</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-vscode%E4%B8%AD%E8%AE%BE%E7%BD%AE%E7%BB%88%E7%AB%AF"><span class="nav-text">1 vscode中设置终端</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Sam"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Sam</p>
+  <div class="site-description" itemprop="description">如果时间可以静止，我希望就停在此刻。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qiuzhi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qiuzhi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qiuzhi.github.io/posts/37881773.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Sam">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="秋至、枫以落">
+      <meta itemprop="description" content="如果时间可以静止，我希望就停在此刻。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="zsh - shell中极品 | 秋至、枫以落">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          zsh - shell中极品
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-14 15:27:44" itemprop="dateCreated datePublished" datetime="2022-06-14T15:27:44+08:00">2022-06-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-17 17:14:35" itemprop="dateModified" datetime="2022-06-17T17:14:35+08:00">2022-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/posts/37881773.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/37881773.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Z_shell">zsh</a>是来自普林斯顿大学的学生Paul Falstad于1990年发布的，这名字来自于当时也是普林斯顿大学的一名助教Zhong Shao（后来成为耶鲁大学教授）的login-id。zsh一开始的设计初衷是为Commodore公司于1985年出的个人电脑Amiga设计一个开源的csh的子集，结果一不小心就暴走了；它在发布的时候，已经成为了ksh和tcsh的交集——既吸收了ksh在命令式可编程脚本语言上的良好逻辑设计，又吸收了tcsh丝滑般的交互体验，集众家之长，自然牛逼了。</p>
+<p>2019年，Apple的macOS Catalina将zsh作为默认shell，取代了bash；2020年，Kali Linux（一个著名的安全领域的Linux操作系统）从2020.4版本后，也将zsh作为默认shell。</p>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>zsh 是一个 Linux 下强大的 shell, 由于大多数 Linux 产品安装，以及默认使用bash shell, 但是丝毫不影响极客们对 zsh 的热衷, 几乎每一款 Linux 产品都包含有 zsh，通常可以用 apt-get、urpmi 或 yum 等包管理器进行安装。</p>
+<span id="more"></span>
+
+<p>zsh 具有以下主要功能：</p>
+<ul>
+<li>开箱即用、可编程的命令行补全功能可以帮助用户输入各种参数以及选项；</li>
+<li>在用户启动的所有 shell 中共享命令历史；</li>
+<li>通过扩展的文件通配符，可以不利用外部命令达到 find 命令一般展开文件名；</li>
+<li>改进的变量与数组处理；</li>
+<li>在缓冲区中编辑多行命令；</li>
+<li>多种兼容模式，例如使用 &#x2F; bin&#x2F;sh 运行时可以伪装成 Bourne shell；</li>
+<li>可以定制呈现形式的提示符；包括在屏幕右端显示信息，并在键入长命令时自动隐藏；</li>
+<li>可加载的模块，提供其他各种支持：完整的 TCP 与 Unix 域套接字控制，FTP 客户端与扩充过的数学函数；</li>
+<li>完全可定制化。</li>
+</ul>
+<p>可见，zsh缺点就是配置太麻烦，好在有一个叫做oh-my-zsh的开源项目，很好的弥补了这一缺陷，只需要修修改改配置文件，就能很顺手。</p>
+<h1 id="二-安装配置"><a href="#二-安装配置" class="headerlink" title="二 安装配置"></a>二 安装配置</h1><h2 id="1-zsh"><a href="#1-zsh" class="headerlink" title="1 zsh"></a>1 zsh</h2><p>在 CentOS7 下，执行<code>yum</code>命令来安装需要的<code>zsh</code>原始程序与<code>git</code>程序来<code>pull</code>代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zsh git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看系统shell</span></span><br><span class="line"><span class="built_in">cat</span> /etc/shells</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">chsh -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更换</span></span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">chsh -s $(<span class="built_in">which</span> zsh)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-oh-my-zsh"><a href="#2-oh-my-zsh" class="headerlink" title="2 oh-my-zsh"></a>2 oh-my-zsh</h2><p>安装<a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh">oh-my-zsh</a>脚本 (这一步需要先安装 git)。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Powerline字体"><a href="#3-Powerline字体" class="headerlink" title="3 Powerline字体"></a>3 Powerline字体</h2><p>oh-my-zsh配置中采用的是Powerline字体，本地环境中若不包含该系列字体，则会出现乱码的问题。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/powerline/fonts.git --depth=1</span><br><span class="line"><span class="comment"># install</span></span><br><span class="line"><span class="built_in">cd</span> fonts</span><br><span class="line">./install.sh</span><br><span class="line"><span class="comment"># clean-up a bit</span></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"><span class="built_in">rm</span> -rf fonts</span><br><span class="line"><span class="comment"># uninstall</span></span><br><span class="line">./uninstall.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-配置-x2F-zshrc"><a href="#4-配置-x2F-zshrc" class="headerlink" title="4 配置 ~&#x2F;.zshrc"></a>4 配置 ~&#x2F;.zshrc</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 配置主题</span><br><span class="line">ZSH_THEME=&quot;agnoster&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="三-插件"><a href="#三-插件" class="headerlink" title="三 插件"></a>三 插件</h1><p>使用 ZSH 替换原有的 SHELL 最主要的原因就是要使用其功能强大的插件，这里只推荐安装三个插件，它们分别是 wd、zsh-syntax-highlighting、zsh-autosuggestions 。</p>
+<p>获取安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.oh-my-zsh/custom/plugins</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions.git</span><br></pre></td></tr></table></figure>
+
+<p>编辑 ~&#x2F;.zshrc 增加配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins=(git wd zsh-syntax-highlighting zsh-autosuggestions)</span><br><span class="line">source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</span><br><span class="line">source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh</span><br></pre></td></tr></table></figure>
+
+<h1 id="四-更多"><a href="#四-更多" class="headerlink" title="四 更多"></a>四 更多</h1><h2 id="1-vscode中设置终端"><a href="#1-vscode中设置终端" class="headerlink" title="1 vscode中设置终端"></a>1 vscode中设置终端</h2><p>在<code>setting</code>中搜索<code>terminal</code>选项，然后修改<code>Integrated: Font Family</code>的值为powerline字体即可。例如本人采用的是 Source Code Pro for Powerline 。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Cmder/" rel="tag"># Cmder</a>
+              <a href="/tags/Cmd/" rel="tag"># Cmd</a>
+              <a href="/tags/PowerShell/" rel="tag"># PowerShell</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/9c768d05.html" rel="prev" title="Cmder - 替代Cmd，打造Windows命令行军刀">
+                  <i class="fa fa-chevron-left"></i> Cmder - 替代Cmd，打造Windows命令行军刀
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"qiuyufeng","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>
