@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Hexo - 借助GitHub搭建个人博客 | 秋至、枫以落</title><meta name="author" content="枫"><meta name="copyright" content="枫"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言2017-09-05更新 一年多后，由于不再在封闭环境及云桌面办公，所以把Hexo得重新启用，打算用来做技术博客，或者叫Wiki，写一些自己的技术总结，按此前搭建的记录，部署起来。 有些日子没玩博客了，其实以前也一直很少去输出一些什么，但就是喜欢有一个属于个人的地方，向互联网展示一下自己的存在感！I’m here，嗯，是这个意思！以前和网友一起合租过服务器，也在Godady买过域名，但最后还是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo - 借助GitHub搭建个人博客">
+<meta property="og:url" content="https://b.izhi.ml/posts/a5c6484a.html">
+<meta property="og:site_name" content="秋至、枫以落">
+<meta property="og:description" content="前言2017-09-05更新 一年多后，由于不再在封闭环境及云桌面办公，所以把Hexo得重新启用，打算用来做技术博客，或者叫Wiki，写一些自己的技术总结，按此前搭建的记录，部署起来。 有些日子没玩博客了，其实以前也一直很少去输出一些什么，但就是喜欢有一个属于个人的地方，向互联网展示一下自己的存在感！I’m here，嗯，是这个意思！以前和网友一起合租过服务器，也在Godady买过域名，但最后还是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://b.izhi.ml/images/avatar.jpg">
+<meta property="article:published_time" content="2016-04-29T07:39:20.000Z">
+<meta property="article:modified_time" content="2017-09-05T01:45:42.000Z">
+<meta property="article:author" content="枫">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Node.js">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="GitHub">
+<meta property="article:tag" content="Windows">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://b.izhi.ml/images/avatar.jpg"><link rel="shortcut icon" href="/images/maple.png"><link rel="canonical" href="https://b.izhi.ml/posts/a5c6484a.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo - 借助GitHub搭建个人博客',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2017-09-05 09:45:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="秋至、枫以落" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><nav id="nav"><span id="blog-info"><a href="/" title="秋至、枫以落"><span class="site-name">秋至、枫以落</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo - 借助GitHub搭建个人博客</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2016-04-29T07:39:20.000Z" title="发表于 2016-04-29 15:39:20">2016-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2017-09-05T01:45:42.000Z" title="更新于 2017-09-05 09:45:42">2017-09-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Technology/">Technology</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Hexo - 借助GitHub搭建个人博客"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>2017-09-05更新</code> 一年多后，由于不再在封闭环境及云桌面办公，所以把Hexo得重新启用，打算用来做技术博客，或者叫Wiki，写一些自己的技术总结，按此前搭建的记录，部署起来。</p>
+<p>有些日子没玩博客了，其实以前也一直很少去输出一些什么，但就是喜欢有一个属于个人的地方，向互联网展示一下自己的存在感！<br>I’m here，嗯，是这个意思！<br>以前和网友一起合租过服务器，也在Godady买过域名，但最后还是没坚持下来，后来折腾完之后，最实用的反而是搭梯翻墙而已。<br>好了，再多的就不扯了，这篇就是为了记录下在Windows下用Hexo在GitHub上搭建个人博客的过程，希望可以对其他朋友有所帮助。</p>
+<span id="more"></span>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="Hexo是什么？"><a href="#Hexo是什么？" class="headerlink" title="Hexo是什么？"></a>Hexo是什么？</h3><p>Hexo是一个很好的开源静态博客生成器，基于Node.js开发，作者是台湾大学生tommy351。<br>Hexo依赖于Git与Node.js环境，就是说，你要玩Hexo，就必须先得把环境搭好，才能一起玩耍！</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>在Windows上装Git和Node.js都没什么好说的，和其它正常软件是一样的，就是下个安装包，双击打开，无脑下一步，默认选项即可，就完成了，下边附上下载包链接：</p>
+<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p><a target="_blank" rel="noopener" href="https://git-scm.com/" title="git-scm">https://git-scm.com/</a></p>
+<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p><a target="_blank" rel="noopener" href="https://nodejs.org/" title="Node.js">https://nodejs.org/</a><br>说明一下，下的是V6.11.2 LTS，长期支持版，而非最新的V8.4.0；非前端开发，没必要安装最新版。</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>正主来了，这个开始就要学会使用Git Bash来运行了！<br>如果安装的时候选择了集成到Windows的CMD中，打开CMD运行也是可行的。<br>带上了参数-g就是全局安装，所以不用纠结是在哪个目录下运行命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化（若非首次安装，不需要）"><a href="#初始化（若非首次安装，不需要）" class="headerlink" title="初始化（若非首次安装，不需要）"></a>初始化（若非首次安装，不需要）</h4><p>初始化有2种方式，下边以blog文件夹为例，初始化完还需要在文件夹里安装包依赖：</p>
+<ol>
+<li><p>直接指定目录</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入指定目录</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ hexo init</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>终端执行命令后显示的结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[info] Copying data[info] You are almost done! Don&#x27;t forget to run `npm install` before start blogging with Hexo!</span><br></pre></td></tr></table></figure>
+
+<h4 id="依赖安装"><a href="#依赖安装" class="headerlink" title="依赖安装"></a>依赖安装</h4><ul>
+<li><p>安装包依赖</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><ul>
+<li><p>生成静态文件</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动本地调试环境</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>至此，本地的环境算是完工了，你可以访问<code>http://localhost:4000</code>查看你的页面了！</p>
+<h2 id="定制配置"><a href="#定制配置" class="headerlink" title="定制配置"></a>定制配置</h2><ul>
+<li><p>在Hexo 3.0版本后<code>deploy-git</code><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-deployer-git">^1</a>被分开的，所以需要安装，安装命令如下：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加RSS订阅<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/hexo-generator-feed">^2</a>，需要安装，命令如下：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+
+<p>  站点配置文件<code>_config.yml</code>增加配置如下：</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Feed</span></span><br><span class="line"><span class="attr">feed:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">atom</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">atom.xml</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">hub:</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GitHub Pages 自定义404页面非常容易，直接在source根目录下创建自己的404.html就可以，代码如下：</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;content-type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html;charset=utf-8;&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge,chrome=1&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;all&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attr">content</span>=<span class="string">&quot;index,follow&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://www.qq.com/404/search_children.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> <span class="attr">homePageUrl</span>=<span class="string">&quot;http://qiuzhi.github.io/&quot;</span> <span class="attr">homePageName</span>=<span class="string">&quot;回到我的主页&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加<a target="_blank" rel="noopener" href="https://disqus.com/">disqus</a>评论</p>
+<ol>
+<li>到官网注册并配置账号，得到shortname</li>
+<li>在主题配置文件<code>_config.yml</code>相应位置修改如下：</li>
+</ol>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Disqus</span></span><br><span class="line"><span class="attr">disqus:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">shortname:</span> <span class="string">shortname</span></span><br><span class="line">  <span class="attr">count:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文章链接唯一化<br>  也许你会数次更改文章题目或者变更文章发布时间，在默认设置下，文章链接都会改变，不利于搜索引擎收录，也不利于分享。唯一永久链接才是更好的选择。</p>
+<p>  安装</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
+
+<p>  在站点配置文件中查找代码permalink，将其更改为:</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permalink: posts/:abbrlink/  # “posts/” 可自行更换</span><br></pre></td></tr></table></figure>
+
+<p>  这里有个知识点：<br>  百度蜘蛛抓取网页的规则: 对于蜘蛛说网页权重越高、信用度越高抓取越频繁，例如网站的首页和内页。蜘蛛先抓取网站的首页，因为首页权重更高，并且大部分的链接都是指向首页。然后通过首页抓取网站的内页，并不是所有内页蜘蛛都会去抓取。<br>  搜索引擎认为对于一般的中小型站点，3层足够承受所有的内容了，所以蜘蛛经常抓取的内容是前三层，而超过三层的内容蜘蛛认为那些内容并不重要，所以不经常爬取。出于这个原因所以permalink后面跟着的最好不要超过2个斜杠。</p>
+<p>  然后在站点配置文件中添加如下代码:</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># abbrlink config</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default) and hex</span></span><br></pre></td></tr></table></figure>
+<p>  可选择模式：<br>  crc16 &amp; hex<br>  crc16 &amp; dec<br>  crc32 &amp; hex<br>  crc32 &amp; dec<br>  可参照样例以选择：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">crc16 &amp; hex</span><br><span class="line">https://post.zz173.com/posts/66c8.html</span><br><span class="line">crc16 &amp; dec</span><br><span class="line">https://post.zz173.com/posts/65535.html</span><br><span class="line">crc32 &amp; hex</span><br><span class="line">https://post.zz173.com/posts/8ddf18fb.html</span><br><span class="line">crc32 &amp; dec</span><br><span class="line">https://post.zz173.com/posts/1690090958.html</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="发布到互联网"><a href="#发布到互联网" class="headerlink" title="发布到互联网"></a>发布到互联网</h2><ol>
+<li><p>到<a target="_blank" rel="noopener" href="https://github.com/" title="GitHub">GitHub</a>注册<br> 新建repository(仓库)，填写格式如下图所示: [yourusername].github.io<br> 将[yourusername]换成你在GitHub注册的用户名！</p>
+</li>
+<li><p>生成SSH Keys<br> 如何让本地git项目与远程的github建立联系？需要用到SSH Keys！</p>
+<ol>
+<li>使用ssh-keygen命令生成密钥对</li>
+</ol>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;这里是你申请Github账号时的邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p> 然后系统会要你输入密码：（我们输入的密码会在你提交项目的时候使用）</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (emptyforno passphrase):&lt;输入加密串&gt;</span><br><span class="line">Enter same passphrase again:&lt;再次输入加密串&gt;</span><br></pre></td></tr></table></figure>
+
+<p> 从终端提示生成的文件路径中找到你生成的密钥找到<code>id_rsa.pub</code>用终端进入编辑，复制密钥。</p>
+<ol>
+<li>添加SSH Key到GitHub<br> 登陆GitHub网站，找到<a target="_blank" rel="noopener" href="https://github.com/settings/keys">Setting-SSH and GPG keys</a>，点击<code>New SSH key</code>按钮，将复制的密钥粘贴到<code>Key</code>栏；<code>Title</code>栏填上你喜欢的标识随意标记，然后保存即可。</li>
+<li>验证SSH是否链通</li>
+</ol>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p> 终端执行命令后显示的结果：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxx! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<p> 现在就已经可以通过SSH链接到Github了！</p>
+<ol>
+<li>别忘记设置提交信息</li>
+</ol>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">&quot;xxx&quot;</span></span><br><span class="line">$ git config --global user.email <span class="string">&quot;xxx@xxx.com&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开站点配置文件，Hexo根目录下_config.yml：</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">https://github.com/[yourusername]/[yourusername].github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p> 将[yourusername]换成你在GitHub注册的用户名！  </p>
+</li>
+<li><p>发布到Github</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>至此，GitHub的环境算是完工了，你可以访问<code>http://[yourusername].github.io</code>查看你的页面了！</p>
+<h2 id="维护"><a href="#维护" class="headerlink" title="维护"></a>维护</h2><h3 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h3><ul>
+<li><p>查看node.js的版本</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">v6.11.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看node.js的版本</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="built_in">ls</span> --depth 0</span><br><span class="line">hexo-site@0.0.0 \Hexo</span><br><span class="line">├── hexo@3.3.8</span><br><span class="line">├── hexo-deployer-git@0.1.0</span><br><span class="line">├── hexo-generator-archive@0.1.4</span><br><span class="line">├── hexo-generator-category@0.1.3</span><br><span class="line">├── hexo-generator-feed@1.2.0</span><br><span class="line">├── hexo-generator-index@0.2.1</span><br><span class="line">├── hexo-generator-tag@0.2.0</span><br><span class="line">├── hexo-renderer-ejs@0.2.0</span><br><span class="line">├── hexo-renderer-marked@0.2.11</span><br><span class="line">├── hexo-renderer-stylus@0.3.3</span><br><span class="line">├── hexo-server@0.2.2</span><br><span class="line">└── hexo-util@0.6.1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="依赖更新"><a href="#依赖更新" class="headerlink" title="依赖更新"></a>依赖更新</h3><p>在hexo site（<code>_config.yml</code>及<code>package.json</code>的资料夹）下  </p>
+<ul>
+<li><p>查看是否存在新旧版本</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm outdated</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新版本</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm update -S</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>更多请参考 <a target="_blank" rel="noopener" href="https://docs.npmjs.com/">npm文档</a> 及 <a target="_blank" rel="noopener" href="https://hexo.io/docs/">hexo文档</a></p>
+<h2 id="过程中遇到的问题及解决"><a href="#过程中遇到的问题及解决" class="headerlink" title="过程中遇到的问题及解决"></a>过程中遇到的问题及解决</h2><h3 id="问题一：Cannot-find-module-‘hexo-util’"><a href="#问题一：Cannot-find-module-‘hexo-util’" class="headerlink" title="问题一：Cannot find module ‘hexo-util’"></a>问题一：Cannot find module ‘hexo-util’</h3><ul>
+<li>问题描述：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ERROR Script load failed: themes/hexo-theme-next/scripts/tags/exturl.js  </span><br><span class="line">Error: Cannot find module <span class="string">&#x27;hexo-util&#x27;</span>  </span><br><span class="line">    at Function.Module._resolveFilename (module.js:336:15)  </span><br><span class="line">    at Function.Module._load (module.js:286:25)  </span><br><span class="line">    at Module.require (module.js:365:17)  </span><br><span class="line">    at require (/data/github/hexo/node_modules/hexo/lib/hexo/index.js:213:21)  </span><br><span class="line">    at /data/github/hexo/themes/hexo-theme-next/scripts/tags/exturl.js:7:12  </span><br><span class="line">    at /data/github/hexo/node_modules/hexo/lib/hexo/index.js:229:12  </span><br><span class="line">    at tryCatcher (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/util.js:16:23)  </span><br><span class="line">    at Promise._settlePromiseFromHandler (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:512:31)  </span><br><span class="line">    at Promise._settlePromise (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:569:18)  </span><br><span class="line">    at Promise._settlePromise0 (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:614:10)  </span><br><span class="line">    at Promise._settlePromises (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:693:18)  </span><br><span class="line">    at Promise._fulfill (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:638:18)  </span><br><span class="line">    at Promise._resolveCallback (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:432:57)  </span><br><span class="line">    at Promise._settlePromiseFromHandler (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:524:17)  </span><br><span class="line">    at Promise._settlePromise (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:569:18)  </span><br><span class="line">    at Promise._settlePromise0 (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:614:10)  </span><br><span class="line">    at Promise._settlePromises (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:693:18)  </span><br><span class="line">    at Promise._fulfill (/data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/promise.js:638:18)  </span><br><span class="line">    at /data/github/hexo/node_modules/hexo/node_modules/bluebird/js/release/nodeback.js:42:21  </span><br><span class="line">    at /data/github/hexo/node_modules/hexo/node_modules/hexo-fs/node_modules/graceful-fs/graceful-fs.js:78:16  </span><br><span class="line">    at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解决方案<br>提示hexo-util找不到, 执行下面命令后就可以了</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-util --save</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="问题二：could-not-read-Username-for-‘https-github-com‘-Invalid-argument"><a href="#问题二：could-not-read-Username-for-‘https-github-com‘-Invalid-argument" class="headerlink" title="问题二：could not read Username for ‘https://github.com‘: Invalid argument"></a>问题二：could not read Username for ‘<a target="_blank" rel="noopener" href="https://github.com/">https://github.com</a>‘: Invalid argument</h3><ul>
+<li>问题描述：Windows下更换Comder作为CMD终端后，遇到</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">nothing to commit, working tree clean</span><br><span class="line">bash: /dev/tty: No such device or address</span><br><span class="line">error: failed to execute prompt script (<span class="built_in">exit</span> code 1)</span><br><span class="line">fatal: could not <span class="built_in">read</span> Username <span class="keyword">for</span> <span class="string">&#x27;https://github.com&#x27;</span>: Invalid argument</span><br><span class="line">FATAL Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">Error: bash: /dev/tty: No such device or address</span></span><br><span class="line"><span class="string">error: failed to execute prompt script (exit code 1)</span></span><br><span class="line"><span class="string">fatal: could not read Username for &#x27;</span>https://github.com<span class="string">&#x27;: Invalid argument</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    at ChildProcess.&lt;anonymous&gt; (E:\Dropbox\Hexo\node_modules\hexo-util\lib\spawn.js:37:17)</span></span><br><span class="line"><span class="string">    at emitTwo (events.js:106:13)</span></span><br><span class="line"><span class="string">    at ChildProcess.emit (events.js:191:7)</span></span><br><span class="line"><span class="string">    at ChildProcess.cp.emit (E:\Dropbox\Hexo\node_modules\cross-spawn\lib\enoent.js:40:29)</span></span><br><span class="line"><span class="string">    at maybeClose (internal/child_process.js:891:16)</span></span><br><span class="line"><span class="string">    at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解决方案<br>  由于新手还不明白运行的机制，使用了Cmder自带的git工具，好像只能走ssh通道去更新。进行下边两步即可</p>
+<ol>
+<li>那就先把hexo根目录下.deploy_git目录删除</li>
+<li>修改_config.yml文件：  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">repository:</span> <span class="string">https://github.com/username/username.github.io.git</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>  修改为</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">repository:</span> <span class="string">git@github.com:username/username.github.io.git</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://b.izhi.ml">枫</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://b.izhi.ml/posts/a5c6484a.html">https://b.izhi.ml/posts/a5c6484a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://b.izhi.ml" target="_blank">秋至、枫以落</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/Node-js/">Node.js</a><a class="post-meta__tags" href="/tags/Git/">Git</a><a class="post-meta__tags" href="/tags/GitHub/">GitHub</a><a class="post-meta__tags" href="/tags/Windows/">Windows</a></div><div class="post_share"><div class="social-share" data-image="/images/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/85e2a7e7.html" title="Sublime Text - 个人认为最好用的文本编辑器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Sublime Text - 个人认为最好用的文本编辑器</div></div></a></div><div class="next-post pull-right"><a href="/posts/4a17b156.html" title="Hello World"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hello World</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">枫</div><div class="author-info__description">如果时间可以静止，<br>我希望就停在此刻。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qiuyufeng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/qiuzhi" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:qiuyufeng@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">既然来了，就多留一会嘛！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">Hexo是什么？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Git"><span class="toc-number">3.1.</span> <span class="toc-text">安装Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Node-js"><span class="toc-number">3.2.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Hexo"><span class="toc-number">3.3.</span> <span class="toc-text">安装Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88%E8%8B%A5%E9%9D%9E%E9%A6%96%E6%AC%A1%E5%AE%89%E8%A3%85%EF%BC%8C%E4%B8%8D%E9%9C%80%E8%A6%81%EF%BC%89"><span class="toc-number">3.3.1.</span> <span class="toc-text">初始化（若非首次安装，不需要）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85"><span class="toc-number">3.3.2.</span> <span class="toc-text">依赖安装</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-number">4.</span> <span class="toc-text">部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E5%88%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">定制配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0%E4%BA%92%E8%81%94%E7%BD%91"><span class="toc-number">6.</span> <span class="toc-text">发布到互联网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%B4%E6%8A%A4"><span class="toc-number">7.</span> <span class="toc-text">维护</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF"><span class="toc-number">7.1.</span> <span class="toc-text">环境信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%9B%B4%E6%96%B0"><span class="toc-number">7.2.</span> <span class="toc-text">依赖更新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3"><span class="toc-number">8.</span> <span class="toc-text">过程中遇到的问题及解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9ACannot-find-module-%E2%80%98hexo-util%E2%80%99"><span class="toc-number">8.1.</span> <span class="toc-text">问题一：Cannot find module ‘hexo-util’</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%9Acould-not-read-Username-for-%E2%80%98https-github-com%E2%80%98-Invalid-argument"><span class="toc-number">8.2.</span> <span class="toc-text">问题二：could not read Username for ‘https:&#x2F;&#x2F;github.com‘: Invalid argument</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/f16f368c.html" title="Hexo版本更新">Hexo版本更新</a><time datetime="2023-02-08T02:36:06.000Z" title="发表于 2023-02-08 10:36:06">2023-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/37881773.html" title="zsh - shell中极品">zsh - shell中极品</a><time datetime="2022-06-14T07:27:44.000Z" title="发表于 2022-06-14 15:27:44">2022-06-14</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/posts/9c768d05.html" title="Cmder - 替代Cmd，打造Windows命令行军刀">Cmder - 替代Cmd，打造Windows命令行军刀</a><time datetime="2017-10-04T03:11:42.000Z" title="发表于 2017-10-04 11:11:42">2017-10-04</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/posts/85e2a7e7.html" title="Sublime Text - 个人认为最好用的文本编辑器">Sublime Text - 个人认为最好用的文本编辑器</a><time datetime="2017-09-05T13:17:47.000Z" title="发表于 2017-09-05 21:17:47">2017-09-05</time></div></div><div class="aside-list-item"><div class="content"><a class="title" href="/posts/a5c6484a.html" title="Hexo - 借助GitHub搭建个人博客">Hexo - 借助GitHub搭建个人博客</a><time datetime="2016-04-29T07:39:20.000Z" title="发表于 2016-04-29 15:39:20">2016-04-29</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><div id="footer-wrap"><div class="copyright">&copy;2016 - 2023 By 枫</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://b.izhi.ml/posts/a5c6484a.html'
+    this.page.identifier = '/posts/a5c6484a.html'
+    this.page.title = 'Hexo - 借助GitHub搭建个人博客'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://qiuyufeng.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+
+  document.getElementById('darkmode').addEventListener('click', () => {
+    setTimeout(() => window.disqusReset(), 200)
+  })
+}
+
+if ('Disqus' === 'Disqus' || !false) {
+  if (false) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

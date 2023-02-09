@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>秋至、枫以落</title>
   
-  <subtitle>秋至枫必落，曲终人定散，物还在，人却非</subtitle>
-  <link href="http://qiuzhi.github.io/atom.xml" rel="self"/>
+  <subtitle>秋至枫必落，曲终人定散，物还在，人却非。</subtitle>
+  <link href="https://b.izhi.ml/atom.xml" rel="self"/>
   
-  <link href="http://qiuzhi.github.io/"/>
-  <updated>2022-06-17T09:14:35.695Z</updated>
-  <id>http://qiuzhi.github.io/</id>
+  <link href="https://b.izhi.ml/"/>
+  <updated>2023-02-08T03:38:46.000Z</updated>
+  <id>https://b.izhi.ml/</id>
   
   <author>
     <name>枫</name>
@@ -17,36 +17,56 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Hexo版本更新</title>
+    <link href="https://b.izhi.ml/posts/f16f368c.html"/>
+    <id>https://b.izhi.ml/posts/f16f368c.html</id>
+    <published>2023-02-08T02:36:06.000Z</published>
+    <updated>2023-02-08T03:38:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="升级Hexo"><a href="#升级Hexo" class="headerlink" title="升级Hexo"></a>升级Hexo</h2><h3 id="npm的全局软件更新"><a href="#npm的全局软件更新" class="headerlink" title="npm的全局软件更新"></a>npm的全局软件更新</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">清理NPM缓存</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm cache clean -f</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">全局安装版本检测、版本升级工具</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm-check</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install -g npm-upgrade</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">全局检测哪些模块可以升级，这里可以根据打印的提示信息，手动安装最新版本的模块</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm-check -g</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">全局更新模块</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm update -g</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">全局安装或更新Hexo的最新版本</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install --global hexo</span></span><br></pre></td></tr></table></figure><h3 id="hexo当前目录的软件更新"><a href="#hexo当前目录的软件更新" class="headerlink" title="hexo当前目录的软件更新"></a>hexo当前目录的软件更新</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入博客的根目录</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> /blog-root</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">检测Hexo哪些模块可以升级</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm-check</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除package-lock.json</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">rm</span> -rf package-lock.json</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新package.json，一直回车即可</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm-upgrade</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除整个模块目录，这样可以避免很多坑</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rm</span> -rf node_modules</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新Hexo的模块</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm update --save</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若出现依赖的问题，用以下命令检查一下，然后把报错的统一修复一下即可</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm audix</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者强制更新</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm update --save --force</span></span><br></pre></td></tr></table></figure><h3 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h3><p>做完上述步骤完成后，可<code>package.json</code>检查文件中版本信息。</p><h3 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h3><p>至此Hexo的升级就结束了，但是不要着急将源文件上传到仓库，先在本地三连一下<code>hexo clean &amp;&amp; hexo g -d</code>，如果在执行<code>Hexo d</code>的时候报错了，可以尝试删除<code>.deploy_git</code>文件夹里面的内容，这个是前面生成的网站项目内容，与当前的不兼容。</p><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul><li><a href="https://blog.sianx.com/posts/f16f368c/">Hexo版本更新</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;升级Hexo&quot;&gt;&lt;a href=&quot;#升级Hexo&quot; class=&quot;headerlink&quot; title=&quot;升级Hexo&quot;&gt;&lt;/a&gt;升级Hexo&lt;/h2&gt;&lt;h3 id=&quot;npm的全局软件更新&quot;&gt;&lt;a href=&quot;#npm的全局软件更新&quot; class=&quot;headerli</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>zsh - shell中极品</title>
-    <link href="http://qiuzhi.github.io/posts/37881773.html"/>
-    <id>http://qiuzhi.github.io/posts/37881773.html</id>
+    <link href="https://b.izhi.ml/posts/37881773.html"/>
+    <id>https://b.izhi.ml/posts/37881773.html</id>
     <published>2022-06-14T07:27:44.000Z</published>
-    <updated>2022-06-17T09:14:35.695Z</updated>
+    <updated>2023-02-08T02:18:48.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h1><p><a href="https://en.wikipedia.org/wiki/Z_shell">zsh</a>是来自普林斯顿大学的学生Paul Falstad于1990年发布的，这名字来自于当时也是普林斯顿大学的一名助教Zhong Shao（后来成为耶鲁大学教授）的login-id。zsh一开始的设计初衷是为Commodore公司于1985年出的个人电脑Amiga设计一个开源的csh的子集，结果一不小心就暴走了；它在发布的时候，已经成为了ksh和tcsh的交集——既吸收了ksh在命令式可编程脚本语言上的良好逻辑设计，又吸收了tcsh丝滑般的交互体验，集众家之长，自然牛逼了。</p><p>2019年，Apple的macOS Catalina将zsh作为默认shell，取代了bash；2020年，Kali Linux（一个著名的安全领域的Linux操作系统）从2020.4版本后，也将zsh作为默认shell。</p><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h2><p>zsh 是一个 Linux 下强大的 shell, 由于大多数 Linux 产品安装，以及默认使用bash shell, 但是丝毫不影响极客们对 zsh 的热衷, 几乎每一款 Linux 产品都包含有 zsh，通常可以用 apt-get、urpmi 或 yum 等包管理器进行安装。</p><span id="more"></span><p>zsh 具有以下主要功能：</p><ul><li>开箱即用、可编程的命令行补全功能可以帮助用户输入各种参数以及选项；</li><li>在用户启动的所有 shell 中共享命令历史；</li><li>通过扩展的文件通配符，可以不利用外部命令达到 find 命令一般展开文件名；</li><li>改进的变量与数组处理；</li><li>在缓冲区中编辑多行命令；</li><li>多种兼容模式，例如使用 &#x2F; bin&#x2F;sh 运行时可以伪装成 Bourne shell；</li><li>可以定制呈现形式的提示符；包括在屏幕右端显示信息，并在键入长命令时自动隐藏；</li><li>可加载的模块，提供其他各种支持：完整的 TCP 与 Unix 域套接字控制，FTP 客户端与扩充过的数学函数；</li><li>完全可定制化。</li></ul><p>可见，zsh缺点就是配置太麻烦，好在有一个叫做oh-my-zsh的开源项目，很好的弥补了这一缺陷，只需要修修改改配置文件，就能很顺手。</p><h1 id="二-安装配置"><a href="#二-安装配置" class="headerlink" title="二 安装配置"></a>二 安装配置</h1><h2 id="1-zsh"><a href="#1-zsh" class="headerlink" title="1 zsh"></a>1 zsh</h2><p>在 CentOS7 下，执行<code>yum</code>命令来安装需要的<code>zsh</code>原始程序与<code>git</code>程序来<code>pull</code>代码。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zsh git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看系统shell</span></span><br><span class="line"><span class="built_in">cat</span> /etc/shells</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">chsh -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更换</span></span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">chsh -s $(<span class="built_in">which</span> zsh)</span><br></pre></td></tr></table></figure><h2 id="2-oh-my-zsh"><a href="#2-oh-my-zsh" class="headerlink" title="2 oh-my-zsh"></a>2 oh-my-zsh</h2><p>安装<a href="https://github.com/ohmyzsh/ohmyzsh">oh-my-zsh</a>脚本 (这一步需要先安装 git)。</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure><h2 id="3-Powerline字体"><a href="#3-Powerline字体" class="headerlink" title="3 Powerline字体"></a>3 Powerline字体</h2><p>oh-my-zsh配置中采用的是Powerline字体，本地环境中若不包含该系列字体，则会出现乱码的问题。</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/powerline/fonts.git --depth=1</span><br><span class="line"><span class="comment"># install</span></span><br><span class="line"><span class="built_in">cd</span> fonts</span><br><span class="line">./install.sh</span><br><span class="line"><span class="comment"># clean-up a bit</span></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"><span class="built_in">rm</span> -rf fonts</span><br><span class="line"><span class="comment"># uninstall</span></span><br><span class="line">./uninstall.sh</span><br></pre></td></tr></table></figure><h2 id="4-配置-x2F-zshrc"><a href="#4-配置-x2F-zshrc" class="headerlink" title="4 配置 ~&#x2F;.zshrc"></a>4 配置 ~&#x2F;.zshrc</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 配置主题</span><br><span class="line">ZSH_THEME=&quot;agnoster&quot;</span><br></pre></td></tr></table></figure><h1 id="三-插件"><a href="#三-插件" class="headerlink" title="三 插件"></a>三 插件</h1><p>使用 ZSH 替换原有的 SHELL 最主要的原因就是要使用其功能强大的插件，这里只推荐安装三个插件，它们分别是 wd、zsh-syntax-highlighting、zsh-autosuggestions 。</p><p>获取安装：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.oh-my-zsh/custom/plugins</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions.git</span><br></pre></td></tr></table></figure><p>编辑 ~&#x2F;.zshrc 增加配置：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins=(git wd zsh-syntax-highlighting zsh-autosuggestions)</span><br><span class="line">source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</span><br><span class="line">source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh</span><br></pre></td></tr></table></figure><h1 id="四-更多"><a href="#四-更多" class="headerlink" title="四 更多"></a>四 更多</h1><h2 id="1-vscode中设置终端"><a href="#1-vscode中设置终端" class="headerlink" title="1 vscode中设置终端"></a>1 vscode中设置终端</h2><p>在<code>setting</code>中搜索<code>terminal</code>选项，然后修改<code>Integrated: Font Family</code>的值为powerline字体即可。例如本人采用的是 Source Code Pro for Powerline 。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><a href="https://en.wikipedia.org/wiki/Z_shell">zsh</a>是来自普林斯顿大学的学生Paul Falstad于1990年发布的，这名字来自于当时也是普林斯顿大学的一名助教Zhong Shao（后来成为耶鲁大学教授）的login-id。zsh一开始的设计初衷是为Commodore公司于1985年出的个人电脑Amiga设计一个开源的csh的子集，结果一不小心就暴走了；它在发布的时候，已经成为了ksh和tcsh的交集——既吸收了ksh在命令式可编程脚本语言上的良好逻辑设计，又吸收了tcsh丝滑般的交互体验，集众家之长，自然牛逼了。</p><p>2019年，Apple的macOS Catalina将zsh作为默认shell，取代了bash；2020年，Kali Linux（一个著名的安全领域的Linux操作系统）从2020.4版本后，也将zsh作为默认shell。</p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>zsh 是一个 Linux 下强大的 shell, 由于大多数 Linux 产品安装，以及默认使用bash shell, 但是丝毫不影响极客们对 zsh 的热衷, 几乎每一款 Linux 产品都包含有 zsh，通常可以用 apt-get、urpmi 或 yum 等包管理器进行安装。</p><span id="more"></span><p>zsh 具有以下主要功能：</p><ul><li>开箱即用、可编程的命令行补全功能可以帮助用户输入各种参数以及选项；</li><li>在用户启动的所有 shell 中共享命令历史；</li><li>通过扩展的文件通配符，可以不利用外部命令达到 find 命令一般展开文件名；</li><li>改进的变量与数组处理；</li><li>在缓冲区中编辑多行命令；</li><li>多种兼容模式，例如使用 &#x2F; bin&#x2F;sh 运行时可以伪装成 Bourne shell；</li><li>可以定制呈现形式的提示符；包括在屏幕右端显示信息，并在键入长命令时自动隐藏；</li><li>可加载的模块，提供其他各种支持：完整的 TCP 与 Unix 域套接字控制，FTP 客户端与扩充过的数学函数；</li><li>完全可定制化。</li></ul><p>可见，zsh缺点就是配置太麻烦，好在有一个叫做oh-my-zsh的开源项目，很好的弥补了这一缺陷，只需要修修改改配置文件，就能很顺手。</p><h1 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h1><h2 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h2><p>在 CentOS7 下，执行<code>yum</code>命令来安装需要的<code>zsh</code>原始程序与<code>git</code>程序来<code>pull</code>代码。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zsh git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看系统shell</span></span><br><span class="line"><span class="built_in">cat</span> /etc/shells</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">chsh -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更换</span></span><br><span class="line">chsh -s /bin/zsh</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">chsh -s $(<span class="built_in">which</span> zsh)</span><br></pre></td></tr></table></figure><h2 id="oh-my-zsh"><a href="#oh-my-zsh" class="headerlink" title="oh-my-zsh"></a>oh-my-zsh</h2><p>安装<a href="https://github.com/ohmyzsh/ohmyzsh">oh-my-zsh</a>脚本 (这一步需要先安装 git)。</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure><h2 id="Powerline字体"><a href="#Powerline字体" class="headerlink" title="Powerline字体"></a>Powerline字体</h2><p>oh-my-zsh配置中采用的是Powerline字体，本地环境中若不包含该系列字体，则会出现乱码的问题。</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/powerline/fonts.git --depth=1</span><br><span class="line"><span class="comment"># install</span></span><br><span class="line"><span class="built_in">cd</span> fonts</span><br><span class="line">./install.sh</span><br><span class="line"><span class="comment"># clean-up a bit</span></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"><span class="built_in">rm</span> -rf fonts</span><br><span class="line"><span class="comment"># uninstall</span></span><br><span class="line">./uninstall.sh</span><br></pre></td></tr></table></figure><h2 id="配置-x2F-zshrc"><a href="#配置-x2F-zshrc" class="headerlink" title="配置 ~&#x2F;.zshrc"></a>配置 ~&#x2F;.zshrc</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 配置主题</span><br><span class="line">ZSH_THEME=&quot;agnoster&quot;</span><br></pre></td></tr></table></figure><h1 id="三-插件"><a href="#三-插件" class="headerlink" title="三 插件"></a>三 插件</h1><p>使用 ZSH 替换原有的 SHELL 最主要的原因就是要使用其功能强大的插件，这里只推荐安装三个插件，它们分别是 wd、zsh-syntax-highlighting、zsh-autosuggestions 。</p><p>获取安装：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.oh-my-zsh/custom/plugins</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions.git</span><br></pre></td></tr></table></figure><p>编辑 ~&#x2F;.zshrc 增加配置：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins=(git wd zsh-syntax-highlighting zsh-autosuggestions)</span><br><span class="line">source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</span><br><span class="line">source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh</span><br></pre></td></tr></table></figure><h1 id="四-更多"><a href="#四-更多" class="headerlink" title="四 更多"></a>四 更多</h1><h2 id="1-vscode中设置终端"><a href="#1-vscode中设置终端" class="headerlink" title="1 vscode中设置终端"></a>1 vscode中设置终端</h2><p>在<code>setting</code>中搜索<code>terminal</code>选项，然后修改<code>Integrated: Font Family</code>的值为powerline字体即可。例如本人采用的是 Source Code Pro for Powerline 。</p>]]></content>
     
     
-    <summary type="html">&lt;h1 id=&quot;一-前言&quot;&gt;&lt;a href=&quot;#一-前言&quot; class=&quot;headerlink&quot; title=&quot;一 前言&quot;&gt;&lt;/a&gt;一 前言&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Z_shell&quot;&gt;zsh&lt;/a&gt;是来自普林斯顿大学的学生Paul Falstad于1990年发布的，这名字来自于当时也是普林斯顿大学的一名助教Zhong Shao（后来成为耶鲁大学教授）的login-id。zsh一开始的设计初衷是为Commodore公司于1985年出的个人电脑Amiga设计一个开源的csh的子集，结果一不小心就暴走了；它在发布的时候，已经成为了ksh和tcsh的交集——既吸收了ksh在命令式可编程脚本语言上的良好逻辑设计，又吸收了tcsh丝滑般的交互体验，集众家之长，自然牛逼了。&lt;/p&gt;
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Z_shell&quot;&gt;zsh&lt;/a&gt;是来自普林斯顿大学的学生Paul Falstad于1990年发布的，这名字来自于当时也是普林斯顿大学的一名助教Zhong Shao（后来成为耶鲁大学教授）的login-id。zsh一开始的设计初衷是为Commodore公司于1985年出的个人电脑Amiga设计一个开源的csh的子集，结果一不小心就暴走了；它在发布的时候，已经成为了ksh和tcsh的交集——既吸收了ksh在命令式可编程脚本语言上的良好逻辑设计，又吸收了tcsh丝滑般的交互体验，集众家之长，自然牛逼了。&lt;/p&gt;
 &lt;p&gt;2019年，Apple的macOS Catalina将zsh作为默认shell，取代了bash；2020年，Kali Linux（一个著名的安全领域的Linux操作系统）从2020.4版本后，也将zsh作为默认shell。&lt;/p&gt;
-&lt;h2 id=&quot;1-简介&quot;&gt;&lt;a href=&quot;#1-简介&quot; class=&quot;headerlink&quot; title=&quot;1 简介&quot;&gt;&lt;/a&gt;1 简介&lt;/h2&gt;&lt;p&gt;zsh 是一个 Linux 下强大的 shell, 由于大多数 Linux 产品安装，以及默认使用bash shell, 但是丝毫不影响极客们对 zsh 的热衷, 几乎每一款 Linux 产品都包含有 zsh，通常可以用 apt-get、urpmi 或 yum 等包管理器进行安装。&lt;/p&gt;</summary>
+&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;zsh 是一个 Linux 下强大的 shell, 由于大多数 Linux 产品安装，以及默认使用bash shell, 但是丝毫不影响极客们对 zsh 的热衷, 几乎每一款 Linux 产品都包含有 zsh，通常可以用 apt-get、urpmi 或 yum 等包管理器进行安装。&lt;/p&gt;</summary>
     
     
     
-    <category term="Tool" scheme="http://qiuzhi.github.io/categories/Tool/"/>
+    <category term="Tool" scheme="https://b.izhi.ml/categories/Tool/"/>
     
     
-    <category term="Cmder" scheme="http://qiuzhi.github.io/tags/Cmder/"/>
+    <category term="Cmder" scheme="https://b.izhi.ml/tags/Cmder/"/>
     
-    <category term="Cmd" scheme="http://qiuzhi.github.io/tags/Cmd/"/>
+    <category term="Cmd" scheme="https://b.izhi.ml/tags/Cmd/"/>
     
-    <category term="PowerShell" scheme="http://qiuzhi.github.io/tags/PowerShell/"/>
+    <category term="PowerShell" scheme="https://b.izhi.ml/tags/PowerShell/"/>
     
   </entry>
   
   <entry>
     <title>Cmder - 替代Cmd，打造Windows命令行军刀</title>
-    <link href="http://qiuzhi.github.io/posts/9c768d05.html"/>
-    <id>http://qiuzhi.github.io/posts/9c768d05.html</id>
+    <link href="https://b.izhi.ml/posts/9c768d05.html"/>
+    <id>https://b.izhi.ml/posts/9c768d05.html</id>
     <published>2017-10-04T03:11:42.000Z</published>
     <updated>2023-02-06T07:50:59.576Z</updated>
     
@@ -58,21 +78,21 @@
     
     
     
-    <category term="Tool" scheme="http://qiuzhi.github.io/categories/Tool/"/>
+    <category term="Tool" scheme="https://b.izhi.ml/categories/Tool/"/>
     
     
-    <category term="Cmder" scheme="http://qiuzhi.github.io/tags/Cmder/"/>
+    <category term="Cmder" scheme="https://b.izhi.ml/tags/Cmder/"/>
     
-    <category term="Cmd" scheme="http://qiuzhi.github.io/tags/Cmd/"/>
+    <category term="Cmd" scheme="https://b.izhi.ml/tags/Cmd/"/>
     
-    <category term="PowerShell" scheme="http://qiuzhi.github.io/tags/PowerShell/"/>
+    <category term="PowerShell" scheme="https://b.izhi.ml/tags/PowerShell/"/>
     
   </entry>
   
   <entry>
     <title>Sublime Text - 个人认为最好用的文本编辑器</title>
-    <link href="http://qiuzhi.github.io/posts/85e2a7e7.html"/>
-    <id>http://qiuzhi.github.io/posts/85e2a7e7.html</id>
+    <link href="https://b.izhi.ml/posts/85e2a7e7.html"/>
+    <id>https://b.izhi.ml/posts/85e2a7e7.html</id>
     <published>2017-09-05T13:17:47.000Z</published>
     <updated>2017-09-15T07:45:00.000Z</updated>
     
@@ -84,19 +104,19 @@
     
     
     
-    <category term="Tool" scheme="http://qiuzhi.github.io/categories/Tool/"/>
+    <category term="Tool" scheme="https://b.izhi.ml/categories/Tool/"/>
     
     
-    <category term="Sublime Text" scheme="http://qiuzhi.github.io/tags/Sublime-Text/"/>
+    <category term="Sublime Text" scheme="https://b.izhi.ml/tags/Sublime-Text/"/>
     
-    <category term="Markdown" scheme="http://qiuzhi.github.io/tags/Markdown/"/>
+    <category term="Markdown" scheme="https://b.izhi.ml/tags/Markdown/"/>
     
   </entry>
   
   <entry>
     <title>Hexo - 借助GitHub搭建个人博客</title>
-    <link href="http://qiuzhi.github.io/posts/a5c6484a.html"/>
-    <id>http://qiuzhi.github.io/posts/a5c6484a.html</id>
+    <link href="https://b.izhi.ml/posts/a5c6484a.html"/>
+    <id>https://b.izhi.ml/posts/a5c6484a.html</id>
     <published>2016-04-29T07:39:20.000Z</published>
     <updated>2017-09-05T01:45:42.000Z</updated>
     
@@ -108,25 +128,25 @@
     
     
     
-    <category term="Technology" scheme="http://qiuzhi.github.io/categories/Technology/"/>
+    <category term="Technology" scheme="https://b.izhi.ml/categories/Technology/"/>
     
     
-    <category term="Hexo" scheme="http://qiuzhi.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://b.izhi.ml/tags/Hexo/"/>
     
-    <category term="Node.js" scheme="http://qiuzhi.github.io/tags/Node-js/"/>
+    <category term="Node.js" scheme="https://b.izhi.ml/tags/Node-js/"/>
     
-    <category term="Git" scheme="http://qiuzhi.github.io/tags/Git/"/>
+    <category term="Git" scheme="https://b.izhi.ml/tags/Git/"/>
     
-    <category term="GitHub" scheme="http://qiuzhi.github.io/tags/GitHub/"/>
+    <category term="GitHub" scheme="https://b.izhi.ml/tags/GitHub/"/>
     
-    <category term="Windows" scheme="http://qiuzhi.github.io/tags/Windows/"/>
+    <category term="Windows" scheme="https://b.izhi.ml/tags/Windows/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://qiuzhi.github.io/posts/4a17b156.html"/>
-    <id>http://qiuzhi.github.io/posts/4a17b156.html</id>
+    <link href="https://b.izhi.ml/posts/4a17b156.html"/>
+    <id>https://b.izhi.ml/posts/4a17b156.html</id>
     <published>2016-04-28T02:35:01.000Z</published>
     <updated>2022-06-13T07:38:48.901Z</updated>
     
