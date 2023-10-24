@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tools on 秋至、枫以落</title><link>https://blog.iqzhi.com/tools/</link><description>Recent content in Tools on 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>qiuyufeng@gmail.com (枫)</managingEditor><webMaster>qiuyufeng@gmail.com (枫)</webMaster><lastBuildDate>Wed, 18 Oct 2023 17:29:31 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tools/index.xml" rel="self" type="application/rss+xml"/><item><title>UFW 防火墙使用备忘</title><link>https://blog.iqzhi.com/tools/use-ufw/</link><pubDate>Wed, 18 Oct 2023 17:29:31 +0800</pubDate><author>qiuyufeng@gmail.com (枫)</author><guid>https://blog.iqzhi.com/tools/use-ufw/</guid><description>&lt;p>防火墙用于监控过滤传入和传出网络流量，可以定义一组规则用来放行或者组织特定流量。&lt;/p>
+&lt;p>很多大厂自带防火墙相当强力，但是对于大部分IDC商而言，并没有提供相应的面板，如果想要达到阻断某些流量的效果就需要自行安装并配置。比如22(ssh) 端口只允许特定IP登录。&lt;/p>
+&lt;p>Debian10 附赠UFW防火墙配置工具，用于管理iptables，不过更加友好，简单，易使用。&lt;/p>
+&lt;p>本文介绍如何使用UFW在Debian 系统中配置和管理防火墙。文章只包含基础用法。&lt;/p>
+&lt;p>本文环境：Debian11 默认root 权限&lt;/p></description></item></channel></rss>
