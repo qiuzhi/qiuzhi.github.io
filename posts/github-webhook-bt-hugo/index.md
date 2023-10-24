@@ -138,6 +138,7 @@ fi
 ## 参考
 
 [Github 自动构建 Hugo, 并通过 Webhook 同步到宝塔指定目录](https://koobai.com/hugo_action_webhooks/)
+[GitHub Pages Action](https://github.com/peaceiris/actions-gh-pages)
 
 
 ---
