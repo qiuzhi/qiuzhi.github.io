@@ -169,14 +169,12 @@ connections. Proceed with operation (y|n)?
 
 ## 问题解决
 
-{{< admonition question "Github：通过sshkey的方式拉取代码报错kex_exchange_identification: Connection closed by remote">}}
-近来家庭网络进行了调整，增加了科学上网，应该是网络引发问题产生；网上查资料，通过编辑 `~/.ssh/config` 文件（没有就新增），在用户目录下的.ssh目录，添加如下内容解决：
-```md
-Host github.com
-    HostName ssh.github.com
-    User git
-    Port 443
-```
+{{< admonition question "Docker 在UFW中的网络处理">}}
+
+安装了Docker后，涉及Docker网络放通存在变化，可以查以下资料适配。
+
+[解决-ufw-和-docker-的问题](https://github.com/chaifeng/ufw-docker#%E8%A7%A3%E5%86%B3-ufw-%E5%92%8C-docker-%E7%9A%84%E9%97%AE%E9%A2%98)
+
 {{< /admonition >}}
 
 
