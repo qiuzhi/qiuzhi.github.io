@@ -311,7 +311,7 @@ var avatar=document.querySelector(".item img")
 var footer=document.querySelector("div.is-size-7")
 footer.innerHTML="SimplyMiss の 天眼"
 footer.style.visibility="visible"
-avatar.src="https://b.izhi.ml/images/maple-transparent.png"
+avatar.src="https://blog.870211.xyz/images/maple-transparent.png"
 avatar.style.visibility="visible"
 }
 var faviconurl="https://b.izhi.ml/images/maple-transparent.png" ;            
@@ -323,11 +323,11 @@ document.getElementsByTagName('head')[0].appendChild(link);
 </script>
 ```
 
-## Custom主题 [转载](https://www.nodeseek.com/post-29231-1)
+## Custom主题 [转载](https://blog.amzayo.com/index.php/archives/28/)
 
-![show](https://cdn.amzayo.top/static/imgs/1.png)
+![show](https://cdn.amzayo.top/static/imgs/21.png)
 
-[下载地址](https://cdn.amzayo.top/static/public/amzayo_template.zip)
+[下载地址](https://cdn.amzayo.top/static/public/amzayo_template_fin_2.91.zip)
 
 使用方法
 1.template里面的文件解压出来放到服务端/opt/nezha/dashboard/theme-custom/template目录里面
