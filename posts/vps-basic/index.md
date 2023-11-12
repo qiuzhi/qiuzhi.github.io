@@ -42,23 +42,48 @@ curl -4 ip.sb
 curl -6 ip.sb
 ```
 
+### ZeroTier
+
+安装
+
+```shell
+curl -s https://install.zerotier.com/ | bash
+```
+
+填写网络ID，加入异地虚拟网络
+
+```shell
+zerotier-cli join (网络ID)
+```
+
+如果看见`200 join OK`字样就说明成功加入异地虚拟局域网了。
+
 ### Warp
 
 各大一键脚本，三选一即可。
 
 [FSCARMEN](https://github.com/fscarmen/warp) :
 
-- 首次运行 `wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh`
+- 首次运行 
+  ```shell
+  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh
+  ```
 - 日常维护 `warp`
 
 [P3TERX](https://github.com/P3TERX/warp.sh) :
 
-- 首次运行 `bash <(curl -fsSL git.io/warp.sh) menu`
+- 首次运行
+  ```shell
+  bash <(curl -fsSL git.io/warp.sh) menu
+  ```
 - 日常维护 `bash warp.sh`
 
 [WARP-GO](https://gitlab.com/ProjectWARP/warp-go/-/tree/master/) :
 
-- 首次运行 `wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh`
+- 首次运行
+  ```shell
+  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh
+  ```
 - 日常维护 `warp-go`
 
 ### 哪吒监控
