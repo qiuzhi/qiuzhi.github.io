@@ -181,5 +181,5 @@ connections. Proceed with operation (y|n)?
 ---
 
 > 作者: [枫](https://github.com/qiuzhi)  
-> URL: https://blog.iqzhi.com/tools/use-ufw/  
+> URL: https://blog.iqzhi.com/posts/use-ufw/  
 

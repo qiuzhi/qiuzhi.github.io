@@ -42,6 +42,32 @@ curl -4 ip.sb
 curl -6 ip.sb
 ```
 
+### 网络互联
+
+[ITDOG](https://www.itdog.cn/)
+
+[PING0](http://ip.ping0.cc/)
+
+[ping.pe](https://ping.pe/)
+
+### 融合怪脚本
+
+这个脚本非常不错，虽然是个融合脚本但是有很多别的脚本测不了的东西，有网络信息，IP信息，解锁信息，常用端口开放信息，硬件信息等。关于IP质量问题除了这个以外，IP信息还可以去这里查询，结果非常详细：https://ipinfo.io/
+
+github项目地址：https://github.com/spiritLHLS/ecs
+
+```shell
+bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh)
+bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
+```
+
+### 
+
+
+### 哪吒监控
+
+到监控管理后台直接拿命令
+
 ### ZeroTier
 
 安装
@@ -85,10 +111,6 @@ zerotier-cli join (网络ID)
   wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh
   ```
 - 日常维护 `warp-go`
-
-### 哪吒监控
-
-到监控管理后台直接拿命令
 
 
 ---
