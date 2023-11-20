@@ -1,3 +1,4 @@
+https://blog.iqzhi.com/friends/
 https://blog.iqzhi.com/history/
 https://blog.iqzhi.com/posts/bt-install-tt-rss/
 https://blog.iqzhi.com/posts/github-webhook-bt-hugo/
