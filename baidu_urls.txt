@@ -1,5 +1,6 @@
 https://blog.iqzhi.com/friends/
 https://blog.iqzhi.com/history/
+https://blog.iqzhi.com/posts/20231111-thoughts/
 https://blog.iqzhi.com/posts/bt-install-tt-rss/
 https://blog.iqzhi.com/posts/github-webhook-bt-hugo/
 https://blog.iqzhi.com/posts/use-ufw/
