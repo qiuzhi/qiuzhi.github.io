@@ -175,6 +175,22 @@ connections. Proceed with operation (y|n)?
 
 [解决-ufw-和-docker-的问题](https://github.com/chaifeng/ufw-docker#%E8%A7%A3%E5%86%B3-ufw-%E5%92%8C-docker-%E7%9A%84%E9%97%AE%E9%A2%98)
 
+```bash
+#命令备忘
+
+#按container_name管理
+ufw-docker allow nginx-proxy-manager
+ufw-docker allow nginx-proxy-manager 443/tcp
+ufw-docker delete allow nginx-proxy-manager
+
+#放通docker容器内部
+ufw allow from 172.16.0.0/12 to any
+#放通zerotier
+ufw allow from 10.147.x.0/24 to any
+#放通本地
+ufw allow from 192.168.x.0/24 to any
+```
+
 {{< /admonition >}}
 
 
