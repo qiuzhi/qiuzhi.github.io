@@ -67,6 +67,6 @@ All feedback is welcome! Head over to the [issues](https://github.com/hugo-fixit
 
 ---
 
-> 作者: [枫](https://github.com/qiuzhi)  
+> 作者:   
 > URL: https://blog.iqzhi.com/posts/hugo-hello-world/  
 

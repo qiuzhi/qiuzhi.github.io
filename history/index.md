@@ -21,6 +21,6 @@
 
 ---
 
-> 作者: [枫](https://github.com/qiuzhi)  
+> 作者:   
 > URL: https://blog.iqzhi.com/history/  
 

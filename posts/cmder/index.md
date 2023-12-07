@@ -81,6 +81,6 @@ git config --global core.quotepath false
 
 ---
 
-> 作者: [枫](https://github.com/qiuzhi)  
+> 作者:   
 > URL: https://blog.iqzhi.com/posts/cmder/  
 

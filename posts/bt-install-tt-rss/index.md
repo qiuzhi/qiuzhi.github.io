@@ -174,6 +174,6 @@ sudo -u www-data php ./update.php --daemon
 
 ---
 
-> 作者: [枫](https://github.com/qiuzhi)  
+> 作者:   
 > URL: https://blog.iqzhi.com/posts/bt-install-tt-rss/  
 

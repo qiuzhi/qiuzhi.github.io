@@ -41,6 +41,6 @@ More info: [Deployment](https://hexo.io/docs/deployment.html)
 
 ---
 
-> 作者: [枫](https://github.com/qiuzhi)  
+> 作者:   
 > URL: https://blog.iqzhi.com/posts/hexo-hello-world/  
 
