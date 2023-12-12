@@ -5,44 +5,80 @@
 
 <!--more-->
 
-## 简介
+## 一 简介
 
 记录玩VPS的点滴。
 
-## 系统分支
+## 二 关键记录
 
-### Debian
+### 1 Debian
 
-> 适用版本：11（Bullseye）
+> 适用版本：11（Bullseye）、12
 
-#### 开启SSH登录
+#### 1.1 查看内核版本
+
+```shell
+uname -r
+```
+
+#### 1.2 开启SSH登录
 
 ```shell
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 systemctl restart ssh
 ```
 
-#### 更新系统包
+#### 1.3 更新系统包
 
 ```shell
 apt update -y && apt upgrade -y
 ```
 
-#### 安装常用软件
+{{< admonition question "`apt-get update失败 Err:1 http://archive.ubuntu.com/ubuntu xenial InRelease`">}}
+
+出现此问题，一般是因为DNS设置的问题，将DNS设置为 *8.8.8.8*
+
+通过下面命令查看DNS
+
+```bash
+cat /etc/resolv.conf
+```
+
+通过下面命令修改DNS
+
+```bash
+echo "nameserver 8.8.8.8" | tee /etc/resolv.conf > /dev/null
+```
+
+修改后再次查看
+
+```bash
+cat /etc/resolv.conf
+nameserver 8.8.8.8
+```
+
+说明设置成功。
+
+{{< /admonition >}}
+
+#### 1.4 安装常用软件
 
 ```shell
+apt install -y sudo
 apt install -y curl
 apt install -y socat
 ```
 
-### IP
+### 4 系统通用
+
+### 4.1 IP
 
 ```shell
 curl -4 ip.sb
 curl -6 ip.sb
 ```
 
-### 网络互联
+### 4.2 网络互联
 
 [ITDOG](https://www.itdog.cn/)
 
@@ -50,7 +86,7 @@ curl -6 ip.sb
 
 [ping.pe](https://ping.pe/)
 
-### 融合怪脚本
+### 4.3 融合怪脚本
 
 这个脚本非常不错，虽然是个融合脚本但是有很多别的脚本测不了的东西，有网络信息，IP信息，解锁信息，常用端口开放信息，硬件信息等。关于IP质量问题除了这个以外，IP信息还可以去这里查询，结果非常详细：https://ipinfo.io/
 
@@ -61,14 +97,23 @@ bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/ma
 bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
 ```
 
-### 
+### 4.4 添加 SWAP
 
+swap 是 Linux 中的虚拟内存，用于扩充物理内存不足而用来存储临时数据存在的。它类似于 Windows 中的虚拟内存。在 Windows 中，只可以使用文件来当作虚拟内存。而 linux 可以文件或者分区来当作虚拟内存。
 
-### 哪吒监控
+这个虚拟内存对于内存小的 VPS 非常有必要，可以提高我们的运行效率。`建议设置为实际ram的 2 倍。`
 
-到监控管理后台直接拿命令
+```shell
+wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh && chmod +x box.sh && clear && ./box.sh
+```
 
-### ZeroTier
+### 4.5 哪吒监控
+
+从自建部署的监控管理后台直接拿命令。
+
+### 4.6 Docker
+
+### 4.7 ZeroTier
 
 安装
 
@@ -84,7 +129,7 @@ zerotier-cli join (网络ID)
 
 如果看见`200 join OK`字样就说明成功加入异地虚拟局域网了。
 
-### Warp
+### 4.8 Warp
 
 各大一键脚本，三选一即可。
 
