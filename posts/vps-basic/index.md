@@ -17,20 +17,20 @@
 
 #### 1.1 查看内核版本
 
-```shell
+```bash
 uname -r
 ```
 
 #### 1.2 开启SSH登录
 
-```shell
+```bash
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 systemctl restart ssh
 ```
 
 #### 1.3 更新系统包
 
-```shell
+```bash
 apt update -y && apt upgrade -y
 ```
 
@@ -63,7 +63,7 @@ nameserver 8.8.8.8
 
 #### 1.4 安装常用软件
 
-```shell
+```bash
 apt install -y sudo
 apt install -y curl
 apt install -y socat
@@ -73,7 +73,7 @@ apt install -y socat
 
 ### 4.1 IP
 
-```shell
+```bash
 curl -4 ip.sb
 curl -6 ip.sb
 ```
@@ -92,7 +92,7 @@ curl -6 ip.sb
 
 github项目地址：https://github.com/spiritLHLS/ecs
 
-```shell
+```bash
 bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh)
 bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
 ```
@@ -103,7 +103,7 @@ swap 是 Linux 中的虚拟内存，用于扩充物理内存不足而用来存�
 
 这个虚拟内存对于内存小的 VPS 非常有必要，可以提高我们的运行效率。`建议设置为实际ram的 2 倍。`
 
-```shell
+```bash
 wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh && chmod +x box.sh && clear && ./box.sh
 ```
 
@@ -113,17 +113,60 @@ wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh &
 
 ### 4.6 Docker
 
+官方一键安装脚本
+
+```bash
+wget -qO- get.docker.com | bash
+#查看docker版本
+docker -v
+```
+
+Docker-compose 安装
+
+```bash
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+```
+
+#### 4.6.1 修改 Docker 配置
+
+以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：
+
+```bash
+cat > /etc/docker/daemon.json
+{
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "20m",
+        "max-file": "3"
+    },
+    "ipv6": true,
+    "fixed-cidr-v6": "fd00:dead:beef:c0::/80",
+    "experimental":true,
+    "ip6tables":true
+}
+```
+
+然后重启 Docker 服务：
+
+```bash
+systemctl restart docker
+```
+
+好了，我们已经安装好了 Docker 和 Docker Compose，然后就可以开始愉快的安装各种软件。
+
 ### 4.7 ZeroTier
 
 安装
 
-```shell
+```bash
 curl -s https://install.zerotier.com/ | bash
 ```
 
 填写网络ID，加入异地虚拟网络
 
-```shell
+```bash
 zerotier-cli join (网络ID)
 ```
 
@@ -136,7 +179,7 @@ zerotier-cli join (网络ID)
 [FSCARMEN](https://github.com/fscarmen/warp) :
 
 - 首次运行 
-  ```shell
+  ```bash
   wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh
   ```
 - 日常维护 `warp`
@@ -144,7 +187,7 @@ zerotier-cli join (网络ID)
 [P3TERX](https://github.com/P3TERX/warp.sh) :
 
 - 首次运行
-  ```shell
+  ```bash
   bash <(curl -fsSL git.io/warp.sh) menu
   ```
 - 日常维护 `bash warp.sh`
@@ -152,7 +195,7 @@ zerotier-cli join (网络ID)
 [WARP-GO](https://gitlab.com/ProjectWARP/warp-go/-/tree/master/) :
 
 - 首次运行
-  ```shell
+  ```bash
   wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh
   ```
 - 日常维护 `warp-go`
