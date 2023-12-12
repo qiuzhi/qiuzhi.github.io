@@ -203,6 +203,6 @@ zerotier-cli join (网络ID)
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/posts/vps-basic/  
 

@@ -165,6 +165,6 @@ bash <(curl -fsSL git.io/key.sh) -og P3TERX -p 2222 -d
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/posts/linux-key-login/  
 

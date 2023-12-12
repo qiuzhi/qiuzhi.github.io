@@ -265,6 +265,6 @@ Sublime Text 基本的手动格式化操作包括： `Ctrl + [` 向左缩进， 
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/posts/sublime-text/  
 

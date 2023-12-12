@@ -375,6 +375,6 @@ fatal: could not read Username for 'https://github.com': Invalid argument
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/posts/build-hexo/  
 

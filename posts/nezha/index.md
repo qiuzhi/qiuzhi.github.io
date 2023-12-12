@@ -345,6 +345,6 @@ document.getElementsByTagName('head')[0].appendChild(link);
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/posts/nezha/  
 

@@ -196,6 +196,6 @@ ufw allow from 192.168.x.0/24 to any
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/posts/use-ufw/  
 

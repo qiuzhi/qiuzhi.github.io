@@ -44,6 +44,6 @@ Gmail：qiuyufeng@gmail.com
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/about/  
 

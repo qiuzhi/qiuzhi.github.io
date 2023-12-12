@@ -70,6 +70,6 @@ $ npm update --save --force
 
 ---
 
-> 作者:   
+> 作者: [枫](https://github.com/qiuzhi)  
 > URL: https://blog.iqzhi.com/posts/hexo-upgrade/  
 
