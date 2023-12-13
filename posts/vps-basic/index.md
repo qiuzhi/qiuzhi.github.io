@@ -134,7 +134,7 @@ docker-compose --version
 以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：
 
 ```bash
-cat > /etc/docker/daemon.json
+cat > /etc/docker/daemon.json <<EOF
 {
     "log-driver": "json-file",
     "log-opts": {
@@ -146,6 +146,7 @@ cat > /etc/docker/daemon.json
     "experimental":true,
     "ip6tables":true
 }
+EOF
 ```
 
 然后重启 Docker 服务：
