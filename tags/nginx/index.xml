@@ -1,1 +1,80 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nginx - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/nginx/</link><description>nginx - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 07 Oct 2023 14:55:39 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/nginx/" rel="self" type="application/rss+xml"/><item><title>Nginx学习笔记</title><link>https://blog.iqzhi.com/posts/nginx-study/</link><pubDate>Sat, 07 Oct 2023 14:55:39 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/nginx-study/</guid><description>&lt;p>Nginx的用法、配置及问题解决。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nginx - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/nginx/</link><description>nginx - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 07 Oct 2023 14:55:39 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/nginx/" rel="self" type="application/rss+xml"/><item><title>Nginx学习笔记</title><link>https://blog.iqzhi.com/posts/nginx-study/</link><pubDate>Sat, 07 Oct 2023 14:55:39 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/nginx-study/</guid><description><![CDATA[<p>Nginx的用法、配置及问题解决。</p>
+<h2 id="nginx-配置-http-请求重定向到-https">nginx 配置 http 请求重定向到 https</h2>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    listen 80;
+</span></span><span class="line"><span class="cl">    server_name aaa.abc.dd;
+</span></span><span class="line"><span class="cl">    rewrite ^(.*)$ https://${server_name}$1 permanent;
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就可以 <a href="http://aaa.abc.dd"target="_blank" rel="external nofollow noopener noreferrer">http://aaa.abc.dd</a> 转到 <a href="https://aaa.abc.dd"target="_blank" rel="external nofollow noopener noreferrer">https://aaa.abc.dd</a> 了。</p>
+<h2 id="nginx防止被域名恶意解析的配置">Nginx防止被域名恶意解析的配置</h2>
+<p>nginx在决定请求由哪个server块执行时，主要关注的是server块中的listen和server_name两个字段，如果根据listen指令无法得到最佳匹配，将会开始解析server_name指令。nginx会检查请求中的&quot;Host&quot;头，这个值包含了客户端实际试图请求的域名或者ip地址。nginx会根据这个值去匹配server_name指令，匹配规则会在文章中详细描述。其中有一个需要大家注意的地方是如果没有匹配到任何规则的话，则会选择可用列表中的第一个server，带来的问题就是未绑定域名或IP直接访问80和443端口会给后端逻辑服务增加压力并产生不合理的错误日志，合适的解决办法是通过在nginx的server块中添加default_server禁止未绑定域名或IP访问80和443端口过滤不合理的流量。</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server {
+</span></span><span class="line"><span class="cl">    server_name _;
+</span></span><span class="line"><span class="cl">    listen 80 default_server;
+</span></span><span class="line"><span class="cl">    listen 443 ssl default_server;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    ## To also support IPv6, uncomment this block
+</span></span><span class="line"><span class="cl">    # listen [::]:80 default_server;
+</span></span><span class="line"><span class="cl">    # listen [::]:443 ssl default_server;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    ssl_certificate &lt;path to cert&gt;;
+</span></span><span class="line"><span class="cl">    ssl_certificate_key &lt;path to key&gt;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    return 444;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    access_log /var/log/nginx/000_default.access.log;
+</span></span><span class="line"><span class="cl">    error_log /var/log/nginx/000_default.error.log;
+</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样在浏览器端访问的时候，浏览器会自动提示用户无法访问。</p>
+<h2 id="server_name指令">Server_name指令</h2>
+<p>如果根据listen指令无法得到最佳匹配,将会开始解析server_name指令.nginx会检查请求中的&quot;Host&quot;头,这个值包含了客户端实际试图请求的域名或者ip地址.nginx会根据这个值去匹配server_name指令,匹配规则如下:</p>
+<p>nginx会尝试寻找一个和sever_name和Host值完全匹配的server块,如果找到多个精确匹配,则会使用第一个匹配的server块
+如果没有找到精确匹配的server块,则nginx尝试找到server_name带有<em>开头的server块,如果找到多个,则选择最长匹配的server块
+如果没有找到使用开头的server块,则会寻找以结尾的server块,同样,如果有多个匹配, 选择最长匹配
+如果没有找到使用</em>匹配的server块,则会寻找使用正则表达式(以~开头)定义server_name的server块,如果找到多个匹配,会使用第一个匹配
+如果没有找到正则表达式匹配的server块,则nginx将会选择一个匹配listen字段的default server块.每一个ip和端口组合都可以配置一个且只能配置一个默认的default_server块,如果没有的话,则会选择可用列表中的第一个server</p>
+<h2 id="常用命令">常用命令</h2>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># reload nginx</span>
+</span></span><span class="line"><span class="cl">nginx -t
+</span></span><span class="line"><span class="cl">nginx -s reload</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>

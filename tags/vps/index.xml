@@ -1,1 +1,442 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>VPS - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/vps/</link><description>VPS - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 12 Dec 2023 12:20:05 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/vps/" rel="self" type="application/rss+xml"/><item><title>Linux设置密钥登陆</title><link>https://blog.iqzhi.com/posts/linux-key-login/</link><pubDate>Tue, 12 Dec 2023 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/linux-key-login/</guid><description>&lt;p>网上看了几篇对于Linux使用密钥登录的好文章，这里合并做个备用，如有系统安全类需求，这是一个很好的参考思路。&lt;/p></description></item><item><title>VPS到手基本流程</title><link>https://blog.iqzhi.com/posts/vps-basic/</link><pubDate>Sat, 18 Feb 2023 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/vps-basic/</guid><description>&lt;p>记录玩VPS的点滴。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>VPS - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/vps/</link><description>VPS - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 12 Dec 2023 12:20:05 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/vps/" rel="self" type="application/rss+xml"/><item><title>Linux设置密钥登陆</title><link>https://blog.iqzhi.com/posts/linux-key-login/</link><pubDate>Tue, 12 Dec 2023 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/linux-key-login/</guid><description><![CDATA[<p>网上看了几篇对于Linux使用密钥登录的好文章，这里合并做个备用，如有系统安全类需求，这是一个很好的参考思路。</p>
+<h2 id="方案一传统做法">方案一：传统做法</h2>
+<p>转载：<a href="https://zset.cc/archives/25/"target="_blank" rel="external nofollow noopener noreferrer">【有序集合】Linux设置密钥登陆</a></p>
+<p>首先在家目录下创建 <code>authorized_keys</code> 用于存放公钥，如果已有该文件可跳过</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir .ssh
+</span></span><span class="line"><span class="cl">touch .ssh/authorized_keys</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 <code>authorized_keys</code> 文件中添加公钥，并修改文件权限</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod <span class="m">600</span> .ssh/authorized_keys
+</span></span><span class="line"><span class="cl">chmod <span class="m">700</span> .ssh</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑 <code>/etc/ssh/sshd_config</code> 文件，进行如下设置：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">RSAAuthentication yes
+</span></span><span class="line"><span class="cl">PubkeyAuthentication yes</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外，请留意 root 用户能否通过 SSH 登录：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PermitRootLogin yes</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当你完成全部设置，并以密钥方式登录成功后，再禁用密码登录：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PasswordAuthentication no</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后，重启 SSH 服务：</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="方案二一键配置脚本">方案二：一键配置脚本</h2>
+<p>转载：<a href="https://p3terx.com/archives/ssh-key-installer.html"target="_blank" rel="external nofollow noopener noreferrer">【P3TERX ZONE】SSH 密钥一键配置脚本 使用教程</a></p>
+<p>对于新入手或重装后的 VPS 配置密钥登录需要创建 <code>~/.ssh</code> 目录、把公钥写入到 <code>~/.ssh/authorized_keys</code>、设置权限、禁用密码登录等操作，虽然都是很简单的基础操作，但过程麻烦且枯燥：</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p ~/.ssh
+</span></span><span class="line"><span class="cl">curl -fsSL https://github.com/P3TERX.keys &gt;&gt; ~/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl">chmod <span class="m">700</span> ~/.ssh
+</span></span><span class="line"><span class="cl">chmod <span class="m">600</span> ~/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl">sudo sed -i <span class="s2">&#34;s@.*\(PasswordAuthentication \).*@\1no@&#34;</span> /etc/ssh/sshd_config
+</span></span><span class="line"><span class="cl">sudo service sshd restart</span></span></code></pre></td></tr></table>
+</div>
+</div><p>SSH 密钥一键配置脚本是一套用于简化 SSH 密钥配置过程的解决方案。使用它以上操作只需要一行命令：</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -g P3TERX -d</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="语法及选项说明">语法及选项说明</h3>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> <span class="o">[</span>选项...<span class="o">]</span> &lt;参数&gt;</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>-o - 覆盖模式，必须写在最前面才会生效</li>
+<li>-g - 从 GitHub 获取公钥，参数为 GitHub 用户名</li>
+<li>-u - 从 URL 获取公钥，参数为 URL</li>
+<li>-f - 从本地文件获取公钥，参数为本地文件路径</li>
+<li>-p - 修改 SSH 端口，参数为端口号</li>
+<li>-d - 禁用密码登录</li>
+</ul>
+<h3 id="使用方法">使用方法</h3>
+<h4 id="生成-ssh-密钥对">生成 SSH 密钥对</h4>
+<p>如果没有密钥需要先生成，执行以下命令后一路回车即可。</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t ecdsa -b <span class="m">521</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<blockquote>
+<p>TIPS： 此方法适用于 Win­dows 10 (1803后)的 Pow­er­Shell 或 WSL，Linux 发行版和 ma­cOS 自带的终端，但不仅限于这些环境。
+科普： 521 位的 ECDSA 密钥比起 RSA 密钥更安全且验证速度更快。</p>
+</blockquote>
+</blockquote>
+<p>操作完后会在 <code>~/.ssh</code> 目录中生两个密钥文件，<code>id_ecdsa</code> 为私钥，<code>id_ecdsa.pub</code> 为公钥。公钥就是我们需要安装在远程主机上的。</p>
+<blockquote>
+<blockquote>
+<p>科普：~符号代表用户主目录，俗称家目录。其路径与当前登陆的用户有关，在 Linux 中普通用户家目录的路径是/home/用户名，而 root 用户是/root。Win­dows 10 中路径是C:\Users\用户名。在 ma­cOS 中路径是/Users/用户名。</p>
+</blockquote>
+</blockquote>
+<h4 id="安装公钥">安装公钥</h4>
+<h5 id="从-github-获取公钥">从 GitHub 获取公钥</h5>
+<p>在 GitHub 密钥管理页面 添加公钥，比如我的用户名是 P3TERX，那么在主机上输入以下命令即可：</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -g P3TERX</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="从-url-获取公钥">从 URL 获取公钥</h5>
+<p>把公钥上传到网盘，通过网盘链接获取公钥：</p>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -u https://p3terx.com/key.pub</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="从本地文件获取公钥">从本地文件获取公钥</h5>
+<p>通过 FTP 的方式把公钥传到 VPS 上，然后指定公钥路径：</p>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -f ~/key.pub</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="覆盖模式">覆盖模式</h4>
+<p>使用覆盖模式（-o）将覆盖 /.ssh/authorized_keys 文件，之前的密钥会被完全替换掉，选项必须写在最前面才会生效，比如：</p>
+<div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -o -g P3TERX</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -og P3TERX</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="禁用密码登录">禁用密码登录</h4>
+<p>在确定使用密钥能正常登录后禁用密码登录：</p>
+<div class="highlight" id="id-16"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -d</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="修改-ssh-端口">修改 SSH 端口</h4>
+<p>把 SSH 端口修改为 2222：</p>
+<div class="highlight" id="id-17"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -p <span class="m">2222</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="一键操作">一键操作</h4>
+<p>安装密钥、修改端口、禁用密码登录一键操作：</p>
+<div class="highlight" id="id-18"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -og P3TERX -p <span class="m">2222</span> -d</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>VPS到手基本流程</title><link>https://blog.iqzhi.com/posts/vps-basic/</link><pubDate>Sat, 18 Feb 2023 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/vps-basic/</guid><description><![CDATA[<p>记录玩VPS的点滴。</p>
+<h2 id="一-简介">一 简介</h2>
+<p>记录玩VPS的点滴。</p>
+<h2 id="二-关键记录">二 关键记录</h2>
+<h3 id="1-debian">1 Debian</h3>
+<blockquote>
+<p>适用版本：11（Bullseye）、12</p>
+</blockquote>
+<h4 id="11-查看内核版本">1.1 查看内核版本</h4>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">uname -r</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="12-开启ssh登录">1.2 开启SSH登录</h4>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g&#39;</span> /etc/ssh/sshd_config
+</span></span><span class="line"><span class="cl">systemctl restart ssh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="13-更新系统包">1.3 更新系统包</h4>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update -y <span class="o">&amp;&amp;</span> apt upgrade -y</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i><code>apt-get update失败 Err:1 http://archive.ubuntu.com/ubuntu xenial InRelease</code><i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>出现此问题，一般是因为DNS设置的问题，将DNS设置为 <em>8.8.8.8</em></p>
+<p>通过下面命令查看DNS</p>
+<div class="highlight" id="id-17"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/resolv.conf</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过下面命令修改DNS</p>
+<div class="highlight" id="id-18"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;nameserver 8.8.8.8&#34;</span> <span class="p">|</span> tee /etc/resolv.conf &gt; /dev/null</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改后再次查看</p>
+<div class="highlight" id="id-19"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/resolv.conf
+</span></span><span class="line"><span class="cl">nameserver 8.8.8.8</span></span></code></pre></td></tr></table>
+</div>
+</div><p>说明设置成功。</p>
+</div>
+    </div>
+  </div>
+<h4 id="14-安装常用软件">1.4 安装常用软件</h4>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y sudo
+</span></span><span class="line"><span class="cl">apt install -y curl
+</span></span><span class="line"><span class="cl">apt install -y socat</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-系统通用">4 系统通用</h3>
+<h3 id="41-ip">4.1 IP</h3>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -4 ip.sb
+</span></span><span class="line"><span class="cl">curl -6 ip.sb</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="42-网络互联">4.2 网络互联</h3>
+<p><a href="https://www.itdog.cn/"target="_blank" rel="external nofollow noopener noreferrer">ITDOG</a></p>
+<p><a href="http://ip.ping0.cc/"target="_blank" rel="external nofollow noopener noreferrer">PING0</a></p>
+<p><a href="https://ping.pe/"target="_blank" rel="external nofollow noopener noreferrer">ping.pe</a></p>
+<h3 id="43-融合怪脚本">4.3 融合怪脚本</h3>
+<p>这个脚本非常不错，虽然是个融合脚本但是有很多别的脚本测不了的东西，有网络信息，IP信息，解锁信息，常用端口开放信息，硬件信息等。关于IP质量问题除了这个以外，IP信息还可以去这里查询，结果非常详细：https://ipinfo.io/</p>
+<p>github项目地址：https://github.com/spiritLHLS/ecs</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh<span class="o">)</span>
+</span></span><span class="line"><span class="cl">bash &lt;<span class="o">(</span>wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh<span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="44-添加-swap">4.4 添加 SWAP</h3>
+<p>swap 是 Linux 中的虚拟内存，用于扩充物理内存不足而用来存储临时数据存在的。它类似于 Windows 中的虚拟内存。在 Windows 中，只可以使用文件来当作虚拟内存。而 linux 可以文件或者分区来当作虚拟内存。</p>
+<p>这个虚拟内存对于内存小的 VPS 非常有必要，可以提高我们的运行效率。<code>建议设置为实际ram的 2 倍。</code></p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh <span class="o">&amp;&amp;</span> chmod +x box.sh <span class="o">&amp;&amp;</span> clear <span class="o">&amp;&amp;</span> ./box.sh</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="45-哪吒监控">4.5 哪吒监控</h3>
+<p>从自建部署的监控管理后台直接拿命令。</p>
+<h3 id="46-docker">4.6 Docker</h3>
+<p>官方一键安装脚本</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -qO- get.docker.com <span class="p">|</span> bash
+</span></span><span class="line"><span class="cl"><span class="c1">#查看docker版本</span>
+</span></span><span class="line"><span class="cl">docker -v</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Docker-compose 安装</p>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 &gt; /usr/local/bin/docker-compose
+</span></span><span class="line"><span class="cl">sudo chmod +x /usr/local/bin/docker-compose
+</span></span><span class="line"><span class="cl">docker-compose --version</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="461-修改-docker-配置">4.6.1 修改 Docker 配置</h4>
+<p>以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; /etc/docker/daemon.json <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">{
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;log-driver&#34;: &#34;json-file&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;log-opts&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;max-size&#34;: &#34;20m&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;max-file&#34;: &#34;3&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    },
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;ipv6&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;fixed-cidr-v6&#34;: &#34;fd00:dead:beef:c0::/80&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;experimental&#34;:true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;ip6tables&#34;:true
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后重启 Docker 服务：</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart docker</span></span></code></pre></td></tr></table>
+</div>
+</div><p>好了，我们已经安装好了 Docker 和 Docker Compose，然后就可以开始愉快的安装各种软件。</p>
+<h3 id="47-zerotier">4.7 ZeroTier</h3>
+<p>安装</p>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s https://install.zerotier.com/ <span class="p">|</span> bash</span></span></code></pre></td></tr></table>
+</div>
+</div><p>填写网络ID，加入异地虚拟网络</p>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">zerotier-cli join <span class="o">(</span>网络ID<span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果看见<code>200 join OK</code>字样就说明成功加入异地虚拟局域网了。</p>
+<h3 id="48-warp">4.8 Warp</h3>
+<p>各大一键脚本，三选一即可。</p>
+<p><a href="https://github.com/fscarmen/warp"target="_blank" rel="external nofollow noopener noreferrer">FSCARMEN</a> :</p>
+<ul>
+<li>首次运行
+<div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh <span class="o">&amp;&amp;</span> bash menu.sh</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>日常维护 <code>warp</code></li>
+</ul>
+<p><a href="https://github.com/P3TERX/warp.sh"target="_blank" rel="external nofollow noopener noreferrer">P3TERX</a> :</p>
+<ul>
+<li>首次运行
+<div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/warp.sh<span class="o">)</span> menu</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>日常维护 <code>bash warp.sh</code></li>
+</ul>
+<p><a href="https://gitlab.com/ProjectWARP/warp-go/-/tree/master/"target="_blank" rel="external nofollow noopener noreferrer">WARP-GO</a> :</p>
+<ul>
+<li>首次运行
+<div class="highlight" id="id-16"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh <span class="o">&amp;&amp;</span> bash warp-go.sh</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>日常维护 <code>warp-go</code></li>
+</ul>]]></description></item></channel></rss>

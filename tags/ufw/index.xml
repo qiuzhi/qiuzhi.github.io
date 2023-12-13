@@ -2,4 +2,280 @@
 <p>很多大厂自带防火墙相当强力，但是对于大部分IDC商而言，并没有提供相应的面板，如果想要达到阻断某些流量的效果就需要自行安装并配置。比如22(ssh) 端口只允许特定IP登录。</p>
 <p>Debian10 附赠UFW防火墙配置工具，用于管理iptables，不过更加友好，简单，易使用。</p>
 <p>本文介绍如何使用UFW在Debian 系统中配置和管理防火墙。文章只包含基础用法。</p>
-<p>本文环境：Debian11 默认root 权限</p>]]></description></item></channel></rss>
+<p>本文环境：Debian11 默认root 权限</p>
+<h2 id="使用ufw">使用UFW</h2>
+<h3 id="安装ufw">安装UFW</h3>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update
+</span></span><span class="line"><span class="cl">apt install ufw</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完成后可以使用 <code>ufw status verbose</code> 查看当前状态</p>
+<h3 id="ufw默认策略">UFW默认策略</h3>
+<p>ufw防火墙默认阻止所有传入和转发流量，允许所有出站流量。这就意味着除非打开专门的ssh端口，否则所有访问服务器的流量，包括你自己都无法连接。</p>
+<h3 id="应用配置文件">应用配置文件</h3>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看软件安装包</span>
+</span></span><span class="line"><span class="cl">ufw app list
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看相应配置文件</span>
+</span></span><span class="line"><span class="cl">ufw app info <span class="s1">&#39;SSH&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="开启ufw">开启UFW</h3>
+<p>一定注意，使用UFW第一项就要开启你相应的ssh 端口，<strong>否则下次将无法登录！</strong></p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 按照默认配置开启tcp 22端口</span>
+</span></span><span class="line"><span class="cl">ufw allow ssh
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果改变了ssh 端口，如33</span>
+</span></span><span class="line"><span class="cl">ufw allow 33/tcp
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启ufw</span>
+</span></span><span class="line"><span class="cl">ufw enable</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="通用规则">通用规则</h2>
+<p>通过上文的开启ssh 端口并启用UFW，其实已经可以看出一般规则</p>
+<h3 id="增加规则">增加规则</h3>
+<ul>
+<li>开启指定端口</li>
+</ul>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 端口以999为例</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定端口协议</span>
+</span></span><span class="line"><span class="cl">ufw allow port/protoc
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定端口，不指定协议，将同时允许tcp，udp</span>
+</span></span><span class="line"><span class="cl">ufw allow port
+</span></span><span class="line"><span class="cl"><span class="c1"># 如开启999端口的udp 协议</span>
+</span></span><span class="line"><span class="cl">ufw allow 999/udp</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>开启指定范围端口</li>
+</ul>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 开启80，440端口</span>
+</span></span><span class="line"><span class="cl">ufw allow 80,443/tcp
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启888-999的tcp 协议端口</span>
+</span></span><span class="line"><span class="cl">ufw allow 888:999/tcp</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>指定IP访问端口</li>
+</ul>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># IP 66.66.66.66 可以访问连接所有服务器端口</span>
+</span></span><span class="line"><span class="cl">ufw allow from 66.66.66.66
+</span></span><span class="line"><span class="cl"><span class="c1"># 只有IP 66.66.66.66 可以访问22端口进行ssh连接</span>
+</span></span><span class="line"><span class="cl">ufw allow from 66.66.66.66 to any port <span class="m">22</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>子网/ip段 访问端口</li>
+</ul>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 192.168.1.1 - 192.168.1.254 可以访问3306 端口</span>
+</span></span><span class="line"><span class="cl">ufw allow from 192.168.1.0/24 to any port <span class="m">3306</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>拒绝访问</li>
+</ul>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 只需将allow 改为deny 即可</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 如拒绝1.2.3.4 访问网页</span>
+</span></span><span class="line"><span class="cl">ufw deny from 1.2.3.4 to any port 80,443</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>通过服务开启端口</li>
+</ul>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用服务名称，如http</span>
+</span></span><span class="line"><span class="cl">ufw allow http
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定协议端口</span>
+</span></span><span class="line"><span class="cl">ufw allow 80/tcp
+</span></span><span class="line"><span class="cl"><span class="c1"># 如安装了Nginx可使用</span>
+</span></span><span class="line"><span class="cl">ufw allow <span class="s1">&#39;Nginx HTTP&#39;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="查看当前已添加规则">查看当前已添加规则</h3>
+<p>使用 <code>ufw status numbered</code></p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@gogo:~# ufw status numbered
+</span></span><span class="line"><span class="cl">Status: active
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">     To                         Action      From
+</span></span><span class="line"><span class="cl">     --                         ------      ----
+</span></span><span class="line"><span class="cl"><span class="o">[</span> 1<span class="o">]</span> 668/tcp                    ALLOW IN    Anywhere                  
+</span></span><span class="line"><span class="cl"><span class="o">[</span> 2<span class="o">]</span> 80/tcp                     ALLOW IN    Anywhere                  
+</span></span><span class="line"><span class="cl"><span class="o">[</span> 3<span class="o">]</span> 668/tcp <span class="o">(</span>v6<span class="o">)</span>               ALLOW IN    Anywhere <span class="o">(</span>v6<span class="o">)</span>             
+</span></span><span class="line"><span class="cl"><span class="o">[</span> 4<span class="o">]</span> 80/tcp <span class="o">(</span>v6<span class="o">)</span>                ALLOW IN    Anywhere <span class="o">(</span>v6<span class="o">)</span>   </span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="删除规则">删除规则</h3>
+<ul>
+<li>使用编号删除</li>
+</ul>
+<p><code>ufw delete id</code></p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@gogo:~# ufw delete <span class="m">2</span>
+</span></span><span class="line"><span class="cl">Deleting:
+</span></span><span class="line"><span class="cl"> allow 80/tcp
+</span></span><span class="line"><span class="cl">Proceed with operation <span class="o">(</span>y<span class="p">|</span>n<span class="o">)</span>? y
+</span></span><span class="line"><span class="cl">Rule deleted</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用端口删除</li>
+</ul>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 删除端口访问</span>
+</span></span><span class="line"><span class="cl">ufw delete allow 80/tcp</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="设置-ufw-状态">设置 UFW 状态</h3>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 禁用ufw</span>
+</span></span><span class="line"><span class="cl">ufw disable
+</span></span><span class="line"><span class="cl"><span class="c1"># 启用ufw</span>
+</span></span><span class="line"><span class="cl">ufw enable</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下一条命令为危险命令，将会<strong>删除所有活动规则</strong>，谨慎使用</p>
+<p><code>ufw reset</code></p>
+<div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@gogo:~# ufw reset
+</span></span><span class="line"><span class="cl">Resetting all rules to installed defaults. This may disrupt existing ssh
+</span></span><span class="line"><span class="cl">connections. Proceed with operation <span class="o">(</span>y<span class="p">|</span>n<span class="o">)</span>? </span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="问题解决">问题解决</h2>
+<div class="details admonition question open">
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>Docker 在UFW中的网络处理<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>安装了Docker后，涉及Docker网络放通存在变化，可以查以下资料适配。</p>
+<p><a href="https://github.com/chaifeng/ufw-docker#%E8%A7%A3%E5%86%B3-ufw-%E5%92%8C-docker-%E7%9A%84%E9%97%AE%E9%A2%98"target="_blank" rel="external nofollow noopener noreferrer">解决-ufw-和-docker-的问题</a></p>
+<div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#命令备忘</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#按container_name管理</span>
+</span></span><span class="line"><span class="cl">ufw-docker allow nginx-proxy-manager
+</span></span><span class="line"><span class="cl">ufw-docker allow nginx-proxy-manager 443/tcp
+</span></span><span class="line"><span class="cl">ufw-docker delete allow nginx-proxy-manager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#放通docker容器内部</span>
+</span></span><span class="line"><span class="cl">ufw allow from 172.16.0.0/12 to any
+</span></span><span class="line"><span class="cl"><span class="c1">#放通zerotier</span>
+</span></span><span class="line"><span class="cl">ufw allow from 10.147.x.0/24 to any
+</span></span><span class="line"><span class="cl"><span class="c1">#放通本地</span>
+</span></span><span class="line"><span class="cl">ufw allow from 192.168.x.0/24 to any</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+    </div>
+  </div>]]></description></item></channel></rss>

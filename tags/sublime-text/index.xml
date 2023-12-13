@@ -1,1 +1,363 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>sublime text - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/sublime-text/</link><description>sublime text - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Sep 2017 21:17:47 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/sublime-text/" rel="self" type="application/rss+xml"/><item><title>Sublime Text - 个人认为最好用的文本编辑器</title><link>https://blog.iqzhi.com/posts/sublime-text/</link><pubDate>Tue, 05 Sep 2017 21:17:47 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/sublime-text/</guid><description>&lt;p>跨平台的文本编辑器。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>sublime text - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/sublime-text/</link><description>sublime text - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Sep 2017 21:17:47 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/sublime-text/" rel="self" type="application/rss+xml"/><item><title>Sublime Text - 个人认为最好用的文本编辑器</title><link>https://blog.iqzhi.com/posts/sublime-text/</link><pubDate>Tue, 05 Sep 2017 21:17:47 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/sublime-text/</guid><description><![CDATA[<p>跨平台的文本编辑器。</p>
+<h2 id="简介">简介</h2>
+<p><a href="http://www.sublimetext.com/"target="_blank" rel="external nofollow noopener noreferrer">Sublime Text</a>是付费软件，但非常之良心，只是偶尔弹出提示购买，并没有任何功能限制。作为一个跨平台的文本编辑器，支持基于Python的插件。可通过包（Package）扩充本身的功能。大多数的包使用自由软件授权发布，并由社区建置维护。</p>
+<p>虽然Sublime Text 3一直在Beta，但很多插件已经开始放弃支持ST2了，所以推荐使用ST3。</p>
+<ul>
+<li>
+<p>下载地址戳这里：http://www.sublimetext.com/3</p>
+</li>
+<li>
+<p>3143可用<code>Sublime Text</code>许可证一枚</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">----- BEGIN LICENSE -----
+</span></span><span class="line"><span class="cl">TwitterInc
+</span></span><span class="line"><span class="cl">200 User License
+</span></span><span class="line"><span class="cl">EA7E-890007
+</span></span><span class="line"><span class="cl">1D77F72E 390CDD93 4DCBA022 FAF60790
+</span></span><span class="line"><span class="cl">61AA12C0 A37081C5 D0316412 4584D136
+</span></span><span class="line"><span class="cl">94D7F7D4 95BC8C1C 527DA828 560BB037
+</span></span><span class="line"><span class="cl">D1EDDD8C AE7B379F 50C9D69D B35179EF
+</span></span><span class="line"><span class="cl">2FE898C4 8E4277A8 555CE714 E1FB0E43
+</span></span><span class="line"><span class="cl">D5D52613 C3D12E98 BC49967F 7652EED2
+</span></span><span class="line"><span class="cl">9D2D2E61 67610860 6D338B72 5CF95C69
+</span></span><span class="line"><span class="cl">E36B85CC 84991F19 7575D828 470A92AB
+</span></span><span class="line"><span class="cl">------ END LICENSE ------</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>3126可用<code>Sublime Text</code>许可证一枚</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">—– BEGIN LICENSE —–
+</span></span><span class="line"><span class="cl">Michael Barnes
+</span></span><span class="line"><span class="cl">Single User License
+</span></span><span class="line"><span class="cl">EA7E-821385
+</span></span><span class="line"><span class="cl">8A353C41 872A0D5C DF9B2950 AFF6F667
+</span></span><span class="line"><span class="cl">C458EA6D 8EA3C286 98D1D650 131A97AB
+</span></span><span class="line"><span class="cl">AA919AEC EF20E143 B361B1E7 4C8B7F04
+</span></span><span class="line"><span class="cl">B085E65E 2F5F5360 8489D422 FB8FC1AA
+</span></span><span class="line"><span class="cl">93F6323C FD7F7544 3F39C318 D95E6480
+</span></span><span class="line"><span class="cl">FCCC7561 8A4A1741 68FA4223 ADCEDE07
+</span></span><span class="line"><span class="cl">200C25BE DBBC4855 C4CFB774 C5EC138C
+</span></span><span class="line"><span class="cl">0FEC1CEF D9DCECEC D3A5DAD1 01316C36
+</span></span><span class="line"><span class="cl">—— END LICENSE ——</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="定制配置">定制配置</h2>
+<p>正所谓，没有插件的编辑器不是好的美工刀。
+要有一把顺手的美工刀，总少不了定（调）制（教）。</p>
+<ol>
+<li>
+<p>安装插件管理器
+<strong>ctrl+`</strong> 打开调试窗口，在输入框内粘贴如下代码，然后回车即可自动安装，安装完成可能需要重启ST。</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import urllib.request,os,hashlib; h = &#39;2915d1851351e5ee549c20394736b442&#39; + &#39;8bc59f460fa1548d1514676163dafc88&#39;; pf =     &#39;Package Control.sublime-package&#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener(  urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( &#39;http:// packagecontrol.io/&#39; + pf.replace(&#39; &#39;, &#39;%20&#39;)).read(); dh = hashlib.sha256(by).hexdigest(); print(&#39;Error validating   download (got %s instead of %s), please try manual install&#39; % (dh, h)) if dh != h else open(os.path.join( ipp, pf),   &#39;wb&#39; ).write(by)</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用方法：工具栏 Preferences – Package Control，或者 ctrl+shift+P ，插件的安装卸载都可以在这里操作。
+如何安装插件详见：https://packagecontrol.io/installation</p>
+</li>
+<li>
+<p>推荐安装的插件列表</p>
+<p>易用性：
+ChineseLocalization：完全汉化插件
+HTML5：HTML5标签拓展
+JsFormat：javascript格式化
+CSS Format：CSS格式化
+Tag：HTML格式化
+<a href="https://packagecontrol.io/packages/BracketHighlighter"target="_blank" rel="external nofollow noopener noreferrer">Brackethighlighter</a>：标签对标记，以高亮显示配对括号以及当前光标所在区域
+SideBarEnhancements：增强型侧边栏
+BufferScroll：代码折叠状态保留
+StyleToken：标记颜色代码
+<a href="https://packagecontrol.io/packages/AutoPEP8"target="_blank" rel="external nofollow noopener noreferrer">AutoPEP8</a>：格式化Python代码。
+<a href="https://packagecontrol.io/packages/Alignment"target="_blank" rel="external nofollow noopener noreferrer">Alignment</a>：进行智能对齐</p>
+<p>功能：
+<a href="https://packagecontrol.io/packages/MarkdownEditing"target="_blank" rel="external nofollow noopener noreferrer">Markdown Editing</a>：支持Markdown语法高亮；支持Github Favored Markdown语法；自带3个主题。本篇文章就是在此插件下完成
+Emmet：前端神器
+TortoiseSVN：SVN你懂的
+QuoteHTML：把HTML拼接成js插入字符串，神器
+Clipboard Manager：增强型剪贴板，可访问历史剪贴板记录
+FileHeader：文件模板，可自动更新修改时间
+AutoPrefixer：浏览器私有属性前缀补全 (Node.js依赖)
+ColorConvert：RGBA颜色转换，十六进制颜色转换为RGBA颜色
+Better Completion：全能代码提示
+LiveStyle：双向更改无刷新实时预览，包含chrome插件 Emmet LiveStyle
+SFTP：需要激活，看这里 <a href="http://mooring.iteye.com/blog/2067269"target="_blank" rel="external nofollow noopener noreferrer">http://mooring.iteye.com/blog/2067269</a>
+jQuery：jQuery 代码提示（Better Completion已可替代此插件）</p>
+<p>其他：
+<a href="https://packagecontrol.io/packages/ConvertToUTF8"target="_blank" rel="external nofollow noopener noreferrer">ConvertToUTF8</a>：GBK编码兼容
+<a href="https://packagecontrol.io/packages/IMESupport"target="_blank" rel="external nofollow noopener noreferrer">IMESupport</a>：输入法不跟随时安装
+TrailingSpaces：多余空格标记，强迫症患者福音
+Hasher：符号转义，ctrl+shift+p 选择 Entity Encode
+PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</p>
+</li>
+<li>
+<p>用户配置文件设置
+工具栏 Preferences – Settings-User 加入下面的代码：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="o">//</span><span class="w"> </span><span class="err">使光标更柔和</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;caret_style&#34;</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;phase&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">自动移除行尾多余空格</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;trim_trailing_white_space_on_save&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">文件末尾自动保留一个空行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;ensure_newline_at_eof_on_save&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">设置字体，推荐可以尝试</span><span class="w"> </span><span class="n">Yahei</span><span class="w"> </span><span class="n">Consolas</span><span class="w"> </span><span class="n">Hybrid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;font_face&#34;</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Microsoft Yahei UI&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">设置字体大小</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;font_size&#34;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">设置为</span><span class="w"> </span><span class="no">true</span><span class="w"> </span><span class="err">，禁用</span><span class="w"> </span><span class="n">Emmet</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="n">tab</span><span class="w"> </span><span class="err">键功能（请使用</span><span class="w"> </span><span class="n">ctrl</span><span class="o">+</span><span class="n">e</span><span class="err">），系统自带的</span><span class="o">`</span><span class="n">tab</span><span class="o">`</span><span class="w">  </span><span class="err">功能还是可圈可点的。当然也可以不设置它，以完全使用</span><span class="w"> </span><span class="n">Emmet</span><span class="w"> </span><span class="err">的</span><span class="w"> </span><span class="n">tab</span><span class="w"> </span><span class="err">补全功能</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;disable_tab_abbreviations&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">把代码</span><span class="w"> </span><span class="n">tab</span><span class="w"> </span><span class="err">对齐转换为空格对齐</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;translate_tabs_to_spaces&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">配合设置空格数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;tab_size&#34;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">用于右侧代码预览时给所在区域加上边框，方便识别</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;draw_minimap_border&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">窗口失焦立即保存文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;save_on_focus_lost&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">当前行高亮</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;highlight_line&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">设置自动换行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;word_wrap&#34;</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">默认显示行号右侧的代码段闭合展开三角号</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;fade_fold_buttons&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">false</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">侧边栏文件夹显示加粗，区别于文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;bold_folder_labels&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">高亮未保存文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;highlight_modified_tabs&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">使用</span><span class="w"> </span><span class="n">unix</span><span class="w"> </span><span class="err">风格的换行符</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;default_line_ending&#34;</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;unix&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="err">开启选中范围内搜索，而不是整个文档</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s2">&#34;auto_find_in_selection&#34;</span><span class="p">:</span><span class="w"> </span><span class="no">true</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Windows系统将Sublime Text 添加到鼠标右键功能：
+把以下内容复制并保存到文件，重命名为：sublime_addright.reg，然后双击就可以了。</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-reg" data-lang="reg"><span class="line"><span class="cl">Windows Registry Editor Version 5.00
+</span></span><span class="line"><span class="cl"><span class="k">[</span><span class="nb">HKEY_CLASSES_ROOT</span><span class="k">\*\shell\SublimeText3]</span>
+</span></span><span class="line"><span class="cl"><span class="na">@</span><span class="o">=</span><span class="s">&#34;Edit with Sublime Text3&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#34;Icon&#34;</span><span class="o">=</span><span class="s">&#34;C:\\Program Files\\Sublime Text 3\\sublime_text.exe,0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">[</span><span class="nb">HKEY_CLASSES_ROOT</span><span class="k">\*\shell\SublimeText3\command]</span>
+</span></span><span class="line"><span class="cl"><span class="na">@</span><span class="o">=</span><span class="s">&#34;C:\\Program Files\\Sublime Text 3\\sublime_text.exe %1&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">[</span><span class="nb">HKEY_CLASSES_ROOT</span><span class="k">\Directory\shell\SublimeText3]</span>
+</span></span><span class="line"><span class="cl"><span class="na">@</span><span class="o">=</span><span class="s">&#34;Edit with Sublime Text3&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#34;Icon&#34;</span><span class="o">=</span><span class="s">&#34;C:\\Program Files\\Sublime Text 3\\sublime_text.exe,0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">[</span><span class="nb">HKEY_CLASSES_ROOT</span><span class="k">\Directory\shell\SublimeText3\command]</span>
+</span></span><span class="line"><span class="cl"><span class="na">@</span><span class="o">=</span><span class="s">&#34;C:\\Program Files\\Sublime Text 3\\sublime_text.exe %1&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：</p>
+<ol>
+<li>需要把代码中的Sublime的安装目录（C:\Program Files\Sublime Text 3\sublime_text.exe），替换成自已实际的Sublime安装目录。</li>
+<li>其中，@=&ldquo;Edit with Sublime Text3&rdquo; 引号中的内容为出现在鼠标右键菜单中的文字内容。</li>
+</ol>
+</li>
+</ol>
+<h2 id="使用技巧">使用技巧</h2>
+<h3 id="代码段code-snippets">代码段（Code Snippets）</h3>
+<p>Sublime Text 支持代码段（Code Snippet），输入代码段名称后 Tab 即可生成代码段。
+可以通过Package Control安装第三方代码段，也可以自己创建代码段，参考<a href="http://www.hongkiat.com/blog/sublime-code-snippets/"target="_blank" rel="external nofollow noopener noreferrer">这里</a></p>
+<h3 id="全屏full-screen">全屏（Full Screen）</h3>
+<p>Sublime Text 有两种全屏模式：普通全屏和无干扰全屏。
+个人强烈建议在开启全屏前关闭菜单栏（Toggle Menu），否则全屏效果会大打折扣。</p>
+<p><code>F11</code> 切换普通全屏
+<code>Shift + F11</code> 切换无干扰全屏</p>
+<h3 id="格式化formatting">格式化（Formatting）</h3>
+<p>Sublime Text 基本的手动格式化操作包括： <code>Ctrl + [</code> 向左缩进， <code>Ctrl + ]</code> 向右缩进，此外 <code>Ctrl + Shift + V</code> 可以以当前缩进粘贴代码（非常实用）。</p>
+<h3 id="快捷键列表shortcuts-cheatsheet">快捷键列表（Shortcuts Cheatsheet）</h3>
+<p>我把本文出现的Sublime Text按其类型整理在这里，以便查阅。</p>
+<h4 id="通用general">通用（General）</h4>
+<ul>
+<li><code>↑↓←→</code>：上下左右移动光标，注意不是不是 KJHL ！</li>
+<li><code>Alt</code>：调出菜单</li>
+<li><code>Ctrl + Shift + P</code>：调出命令板（Command Palette）</li>
+<li><strong>Ctrl + `</strong>：调出控制台</li>
+</ul>
+<h4 id="编辑editing">编辑（Editing）</h4>
+<ul>
+<li><code>Ctrl + Enter</code>：在当前行下面新增一行然后跳至该行</li>
+<li><code>Ctrl + Shift + Enter</code>：在当前行上面增加一行并跳至该行</li>
+<li><code>Ctrl + ←/→</code>：进行逐词移动</li>
+<li><code>Ctrl + Shift + ←/→</code>：进行逐词选择</li>
+<li><code>Ctrl + ↑/↓</code>：移动当前显示区域</li>
+<li><code>Ctrl + Shift + ↑/↓</code>：移动当前行</li>
+</ul>
+<h4 id="选择selecting">选择（Selecting）</h4>
+<ul>
+<li><code>Ctrl + D</code>：选择当前光标所在的词并高亮该词所有出现的位置，再次 <code>Ctrl + D</code> 选择该词出现的下一个位置，在多重选词的过程中，使用 <code>Ctrl + K</code> 进行跳过，使用 <code>Ctrl + U</code> 进行回退，使用 <code>Esc</code> 退出多重编辑</li>
+<li><code>Ctrl + Shift + L</code>：将当前选中区域打散</li>
+<li><code>Ctrl + J</code>：把当前选中区域合并为一行</li>
+<li><code>Ctrl + M</code>：在起始括号和结尾括号间切换</li>
+<li><code>Ctrl + Shift + M</code>：快速选择括号间的内容</li>
+<li><code>Ctrl + Shift + J</code>：快速选择同缩进的内容</li>
+<li><code>Ctrl + Shift + Space</code>：快速选择当前作用域（Scope）的内容</li>
+</ul>
+<h4 id="查找替换findingreplacing">查找&amp;替换（Finding&amp;Replacing）</h4>
+<ul>
+<li><code>F3</code>：跳至当前关键字下一个位置</li>
+<li><code>Shift + F3</code>：跳到当前关键字上一个位置</li>
+<li><code>Alt + F3</code>：选中当前关键字出现的所有位置</li>
+<li><code>Ctrl + F/H</code>：进行标准查找/替换，之后：</li>
+<li><code>Alt + C</code>：切换大小写敏感（Case-sensitive）模式</li>
+<li><code>Alt + W</code>：切换整字匹配（Whole matching）模式</li>
+<li><code>Alt + R</code>：切换正则匹配（Regex matching）模式</li>
+<li><code>Ctrl + Shift + H</code>：替换当前关键字</li>
+<li><code>Ctrl + Alt + Enter</code>：替换所有关键字匹配</li>
+<li><code>Ctrl + Shift + F</code>：多文件搜索&amp;替换</li>
+</ul>
+<h4 id="跳转jumping">跳转（Jumping）</h4>
+<ul>
+<li><code>Ctrl + P</code>：跳转到指定文件，输入文件名后可以：
+<ul>
+<li><code>@</code> 符号跳转：输入 @symbol 跳转到 symbol 符号所在的位置</li>
+<li><code>#</code> 关键字跳转：输入 #keyword 跳转到 keyword 所在的位置</li>
+<li><code>:</code> 行号跳转：输入 :12 跳转到文件的第12行。</li>
+</ul>
+</li>
+<li><code>Ctrl + R</code>：跳转到指定符号</li>
+<li><code>Ctrl + G</code>：跳转到指定行号</li>
+</ul>
+<h4 id="窗口window">窗口（Window）</h4>
+<ul>
+<li><code>Ctrl + Shift + N</code>：创建一个新窗口</li>
+<li><code>Ctrl + N</code>：在当前窗口创建一个新标签</li>
+<li><code>Ctrl + W</code>：关闭当前标签，当窗口内没有标签时会关闭该窗口</li>
+<li><code>Ctrl + Shift + T</code>：恢复刚刚关闭的标签</li>
+</ul>
+<h4 id="屏幕screen">屏幕（Screen）</h4>
+<ul>
+<li><code>F11</code>：切换普通全屏</li>
+<li><code>Shift + F11</code>：切换无干扰全屏</li>
+<li><code>Alt + Shift + 2</code>：进行左右分屏</li>
+<li><code>Alt + Shift + 8</code>：进行上下分屏</li>
+<li><code>Alt + Shift + 5</code>：进行上下左右分屏</li>
+<li>分屏之后，使用 <code>Ctrl + 数字键</code> 跳转到指定屏，使用 <code>Ctrl + Shift + 数字键</code> 将当前屏移动到指定屏。例如， <code>Ctrl + 1</code> 会跳转到1屏，而 <code>Ctrl + Shift + 2</code> 会将当前屏移动到2屏。</li>
+</ul>
+<h2 id="常用插件">常用插件</h2>
+<ul>
+<li><a href="https://packagecontrol.io/packages/MarkdownEditing"target="_blank" rel="external nofollow noopener noreferrer">Markdown Editing</a>
+<ul>
+<li>
+<p>常用快捷键（Key Bindings）
+<code>Ctrl + 1...6</code> 1至6级标题
+<code>Ctrl + Win + V</code> 或 <code>Ctrl + Win + R</code> 插入链接
+<code>Shift + Win + K</code> 插入图片
+<code>Alt + Shift + 6</code> 插入标注</p>
+</li>
+<li>
+<p>代码段（Code Snippet）
+输入 <code>mdl + tab</code> 会自动生成下面的链接标记</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[](link)</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输入 <code>mdi + tab</code> 会自动插入下面的图片标记</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">![Alt text](/path/to/img.jpg &#34;Optional title&#34;)</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>官方文档：http://www.sublimetext.com/docs/3/</li>
+<li>官方论坛：http://www.sublimetext.com/forum/</li>
+<li>Package Control：https://packagecontrol.io/  大量的 Sublime Text 插件和主题。</li>
+<li>《Sublime Text 全程指南》：http://zh.lucida.me/blog/sublime-text-complete-guide/</li>
+<li>《Sublime Text：学习资源篇》：http://www.jianshu.com/p/d1b9a64e2e37</li>
+</ul>]]></description></item></channel></rss>

@@ -1,1 +1,501 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debian - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/debian/</link><description>debian - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 06 Mar 2023 09:47:38 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/debian/" rel="self" type="application/rss+xml"/><item><title>自装Debian系统折腾手记</title><link>https://blog.iqzhi.com/posts/debian-installation/</link><pubDate>Mon, 06 Mar 2023 09:47:38 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/debian-installation/</guid><description>&lt;p>CentOS离场，把玩debian。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debian - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/debian/</link><description>debian - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 06 Mar 2023 09:47:38 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/debian/" rel="self" type="application/rss+xml"/><item><title>自装Debian系统折腾手记</title><link>https://blog.iqzhi.com/posts/debian-installation/</link><pubDate>Mon, 06 Mar 2023 09:47:38 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/debian-installation/</guid><description><![CDATA[<p>CentOS离场，把玩debian。</p>
+<blockquote>
+<p>适用版本：11（Bullseye）</p>
+</blockquote>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@debian:~## uname -a
+</span></span><span class="line"><span class="cl">Linux debian 5.10.0-21-amd64 <span class="c1">#1 SMP Debian 5.10.162-1 (2023-01-21) x86_64 GNU/Linux</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="简言">简言</h2>
+<p>说起为什么我要折腾Debian，还是因为CentOS不再更新了，在外新买的VPS也都使用了Debian系统，所以也想将目前的服务往Debian转移。</p>
+<h2 id="安装">安装</h2>
+<p>从官网下载ISO，加载启动即可。</p>
+<p>Ps. 安装时root账号可设置空密码，这样就不能通过SSH登录了，必须另行设置新账号强密码即可。</p>
+<p>可选清华的源，在安装过程中会将软件更至最新。</p>
+<h3 id="时区">时区</h3>
+<p>我们默认安装是已经正确设置时区，但是如果是第三方云主机时区就未必符合本地要求。</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 查看时区，有 CST 正确</span>
+</span></span><span class="line"><span class="cl">date
+</span></span><span class="line"><span class="cl"><span class="c1">## 设置</span>
+</span></span><span class="line"><span class="cl">sudo timedatectl set-timezone Asia/Shanghai
+</span></span><span class="line"><span class="cl"><span class="c1">## 或者使用向导选择</span>
+</span></span><span class="line"><span class="cl">tzselect</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ipv6">IPv6</h3>
+<p>编辑interfaces文件<code>/etc/network/interfaces</code>，在文本最后面添加：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">iface xxx inet6 dhcp</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的xxx更换成接口名。</p>
+<p>查看ipv6的网关：</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ip -6 route show</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果有：<strong>default via fe80::2e2:69ff:fe55:83a4 dev ens192 metric 1 pref medium</strong>，类似这样的出现，说明ipv6一切正常。否则需要手动编辑interfaces文件<code>/etc/network/interfaces</code>，在文本最后面添加：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">up route -A inet6 add default gw fe80::2e2:69ff:fe55:83a4 dev ens192</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="zsh">zsh</h3>
+<p>好用的zsh怎么少得了。</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看当前shell</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$SHELL</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装</span>
+</span></span><span class="line"><span class="cl">apt install zsh
+</span></span><span class="line"><span class="cl"><span class="c1"># 为 root 设置默认 shell</span>
+</span></span><span class="line"><span class="cl">chsh -s /bin/zsh</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="全局配置-zsh">全局配置 zsh</h4>
+<blockquote>
+<p>注意：以下全局配置相关命令需要 root 权限，请切换到 root 账号，或者使用 sudo。</p>
+</blockquote>
+<p>全局安装 zsh 到 /etc 目录</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git /etc/oh-my-zsh</span></span></code></pre></td></tr></table>
+</div>
+</div><p>从模板文件复制 .zshrc 创建默认配置文件（新用户将使用该配置文件）</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /etc/oh-my-zsh/templates/zshrc.zsh-template /etc/skel/.zshrc</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 on-my-zsh 的安装目录 <code>export ZSH=$HOME/.oh-my-zsh</code> 为 <code>export ZSH=/etc/oh-my-zsh</code></p>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s|$HOME/.oh-my-zsh|/etc/oh-my-zsh|g&#39;</span> /etc/skel/.zshrc</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为每个用户配置独立的 cache 目录</p>
+<p>编辑 <code>/etc/skel/.zshrc</code> 在 <code>export ZSH=/etc/oh-my-zsh</code> 下添加一句：</p>
+<div class="highlight" id="id-10"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">ZSH_CACHE_DIR</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">XDG_CACHE_HOME</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.cache</span><span class="si">}</span><span class="s2">/oh-my-zsh&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>更改默认主题（推荐 ys）</p>
+<p>编辑 /etc/skel/.zshrc 文件修改：</p>
+<div class="highlight" id="id-11"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;/^ZSH_THEME=.*/c ZSH_THEME=&#34;ys&#34;&#39;</span> /etc/skel/.zshrc</span></span></code></pre></td></tr></table>
+</div>
+</div><p>取消每周自动检查更新（新版不用管）</p>
+<p>配置 ll 别名（可选）</p>
+<div class="highlight" id="id-12"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;alias ll=&#34;ls -lahF --color --time-style=long-iso&#34;&#39;</span> &gt;&gt; /etc/skel/.zshrc</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="全局配置插件">全局配置插件</h4>
+<p>全局安装插件（安装到 /etc/oh-my-zsh/custom/plugins/）</p>
+<h5 id="zsh-syntax-highlightinghttpsgithubcomzsh-userszsh-syntax-highlighting语法高亮插件"><a href="https://github.com/zsh-users/zsh-syntax-highlighting"target="_blank" rel="external nofollow noopener noreferrer">zsh-syntax-highlighting</a>：语法高亮插件</h5>
+<p>作用：命令错误会显示红色，直到你输入正确才会变绿色，另外路径正确会显示下划线。</p>
+<div class="highlight" id="id-13"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/zsh-users/zsh-syntax-highlighting.git /etc/oh-my-zsh/custom/plugins/zsh-syntax-highlighting</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="zsh-autosuggestionshttpsgithubcomzsh-userszsh-autosuggestions"><a href="https://github.com/zsh-users/zsh-autosuggestions"target="_blank" rel="external nofollow noopener noreferrer">zsh-autosuggestions</a></h5>
+<p>作用：根据历史输入命令的记录即时的提示（建议补全），然后按 → 键即可补全。</p>
+<div class="highlight" id="id-14"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/zsh-users/zsh-autosuggestions.git /etc/oh-my-zsh/custom/plugins/zsh-autosuggestions</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启用插件</p>
+<p>编辑 <code>/etc/skel/.zshrc</code>，找到 plugins=(git) 这一行，修改为：</p>
+<div class="highlight" id="id-15"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">plugins</span><span class="o">=([</span>plugins...<span class="o">]</span>zsh-syntax-highlighting zsh-autosuggestions<span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>快速修改：</p>
+<div class="highlight" id="id-16"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;/^plugins=.*/c plugins=(git zsh-syntax-highlighting zsh-autosuggestions)&#39;</span> /etc/skel/.zshrc</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="使用用户配置文件">使用用户配置文件</h4>
+<p>改变新用户的默认 shell</p>
+<div class="highlight" id="id-17"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vi /etc/default/useradd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将 SHELL= * (比如 SHELL=/bin/sh) 改成 SHELL=/bin/zsh</p>
+<div class="highlight" id="id-18"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;/^SHELL=.*/c SHELL=/bin/zsh&#39;</span> /etc/default/useradd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改后，使用 <code>useradd</code> 命令无需 <code>-s /bin/zsh</code>，用户默认使用 zsh，当然也可以不修改此项，<code>useradd</code> 命令继续追加 <code>-s /bin/zsh</code> 参数。</p>
+<p>新用户登录后，将自动复制 .zshrc 和上述 cache 目录到用户主目录下，并自动加载 zsh 配置。</p>
+<p>针对现有用户</p>
+<p>直接复制 <code>/etc/skel/.zshrc</code> 到 <code>~/</code></p>
+<div class="highlight" id="id-19"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /etc/skel/.zshrc ~/.zshrc
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.zshrc</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="git">Git</h3>
+<h4 id="解决中文乱码">解决中文乱码</h4>
+<div class="highlight" id="id-20"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --global core.quotepath false</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker">Docker</h3>
+<p>以下操作需要在 root 用户下完成，请使用 <code>sudo -i</code> 或 <code>su root</code> 切换到 root 用户进行操作。</p>
+<p>首先，安装一些必要的软件包：</p>
+<div class="highlight" id="id-21"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update
+</span></span><span class="line"><span class="cl">apt upgrade -y
+</span></span><span class="line"><span class="cl">apt install curl vim wget gnupg apt-transport-https lsb-release ca-certificate</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后加入 Docker 的 GPG 公钥和 apt 源：</p>
+<div class="highlight" id="id-22"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -O /usr/share/keyrings/docker.asc https://download.docker.com/linux/debian/gpg
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/usr/share/keyrings/docker.asc] https://download.docker.com/linux/debian </span><span class="k">$(</span>lsb_release -sc<span class="k">)</span><span class="s2"> stable&#34;</span> &gt; /etc/apt/sources.list.d/docker.list</span></span></code></pre></td></tr></table>
+</div>
+</div><p>国内机器可以用清华 TUNA的国内源：</p>
+<div class="highlight" id="id-23"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -O /usr/share/keyrings/docker.asc https://download.docker.com/linux/debian/gpg
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/usr/share/keyrings/docker.asc] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian </span><span class="k">$(</span>lsb_release -sc<span class="k">)</span><span class="s2"> stable&#34;</span> &gt; /etc/apt/sources.list.d/docker.list</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后更新系统后即可安装 Docker CE：</p>
+<div class="highlight" id="id-24"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update
+</span></span><span class="line"><span class="cl">apt-get install docker-ce docker-ce-cli containerd.io</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时可以使用 <code>docker version</code> 命令检查是否安装成功：</p>
+<div class="highlight" id="id-25"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@debian:~## docker version
+</span></span><span class="line"><span class="cl">Client: Docker Engine - Community
+</span></span><span class="line"><span class="cl"> Version:           23.0.1
+</span></span><span class="line"><span class="cl"> API version:       1.42
+</span></span><span class="line"><span class="cl"> Go version:        go1.19.5
+</span></span><span class="line"><span class="cl"> Git commit:        a5ee5b1
+</span></span><span class="line"><span class="cl"> Built:             Thu Feb  <span class="m">9</span> 19:46:54 <span class="m">2023</span>
+</span></span><span class="line"><span class="cl"> OS/Arch:           linux/amd64
+</span></span><span class="line"><span class="cl"> Context:           default
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Server: Docker Engine - Community
+</span></span><span class="line"><span class="cl"> Engine:
+</span></span><span class="line"><span class="cl">  Version:          23.0.1
+</span></span><span class="line"><span class="cl">  API version:      1.42 <span class="o">(</span>minimum version 1.12<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  Go version:       go1.19.5
+</span></span><span class="line"><span class="cl">  Git commit:       bc3805a
+</span></span><span class="line"><span class="cl">  Built:            Thu Feb  <span class="m">9</span> 19:46:54 <span class="m">2023</span>
+</span></span><span class="line"><span class="cl">  OS/Arch:          linux/amd64
+</span></span><span class="line"><span class="cl">  Experimental:     <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"> containerd:
+</span></span><span class="line"><span class="cl">  Version:          1.6.18
+</span></span><span class="line"><span class="cl">  GitCommit:        2456e983eb9e37e47538f59ea18f2043c9a73640
+</span></span><span class="line"><span class="cl"> runc:
+</span></span><span class="line"><span class="cl">  Version:          1.1.4
+</span></span><span class="line"><span class="cl">  GitCommit:        v1.1.4-0-g5fd4c4d
+</span></span><span class="line"><span class="cl"> docker-init:
+</span></span><span class="line"><span class="cl">  Version:          0.19.0
+</span></span><span class="line"><span class="cl">  GitCommit:        de40ad0</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="常用命令">常用命令</h4>
+<div class="highlight" id="id-26"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 跟踪日志</span>
+</span></span><span class="line"><span class="cl">docker logs -f --tail<span class="o">=</span><span class="m">200</span> xxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除未使用的镜像</span>
+</span></span><span class="line"><span class="cl">docker image prune</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="docker-compose">Docker Compose</h4>
+<p>我们可以使用 Docker 官方发布的 Github 直接安装最新版本：</p>
+<div class="highlight" id="id-27"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 &gt; /usr/local/bin/docker-compose
+</span></span><span class="line"><span class="cl">chmod +x /usr/local/bin/docker-compose</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时可以使用 <code>docker-compose version</code> 命令检查是否安装成功：</p>
+<div class="highlight" id="id-28"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root@debian ~ <span class="c1"># docker-compose version</span>
+</span></span><span class="line"><span class="cl">Docker Compose version v2.16.0</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="修改-docker-配置">修改 Docker 配置</h4>
+<p>以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：</p>
+<div class="highlight" id="id-29"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; /etc/docker/daemon.json
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;log-driver&#34;</span>: <span class="s2">&#34;json-file&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;log-opts&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;max-size&#34;</span>: <span class="s2">&#34;20m&#34;</span>,
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;max-file&#34;</span>: <span class="s2">&#34;3&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ipv6&#34;</span>: true,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;fixed-cidr-v6&#34;</span>: <span class="s2">&#34;fd00:dead:beef:c0::/80&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;experimental&#34;</span>:true,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;ip6tables&#34;</span>:true
+</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后重启 Docker 服务：</p>
+<div class="highlight" id="id-30"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart docker</span></span></code></pre></td></tr></table>
+</div>
+</div><p>好了，我们已经安装好了 Docker 和 Docker Compose，然后就可以开始愉快的安装各种软件。</p>
+<h3 id="scp-上传下载文件">scp 上传下载文件</h3>
+<p><strong>1、上传本地文件到服务器</strong></p>
+<div class="highlight" id="id-31"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scp /path/filename username@servername:/path/</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2、从服务器上下载文件</strong></p>
+<div class="highlight" id="id-32"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scp username@servername:/path/filename /var/www/local<span class="se">\_</span>dir<span class="o">(</span>本地目录<span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3、从服务器下载整个目录</strong></p>
+<div class="highlight" id="id-33"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scp -r username@servername:/var/www/remote<span class="se">\_</span>dir/<span class="o">(</span>远程目录<span class="o">)</span> /var/www/local<span class="se">\_</span>dir<span class="o">(</span>本地目录<span class="o">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>4、上传目录到服务器</strong></p>
+<div class="highlight" id="id-34"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scp -r local<span class="se">\_</span>dir username@servername:remote<span class="se">\_</span>dir</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="挂载">挂载</h2>
+<div class="highlight" id="id-35"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 只可以查看已经挂载的分区和文件系统类型。</span>
+</span></span><span class="line"><span class="cl">df -T
+</span></span><span class="line"><span class="cl"><span class="c1"># 可以显示出所有挂载和未挂载的分区，但不显示文件系统类型。</span>
+</span></span><span class="line"><span class="cl">fdisk -l
+</span></span><span class="line"><span class="cl"><span class="c1"># 也可以查看未挂载的文件系统类型。</span>
+</span></span><span class="line"><span class="cl">lsblk -f
+</span></span><span class="line"><span class="cl"><span class="c1"># 可以查看未挂载的文件系统类型，以及哪些分区尚未格式化。</span>
+</span></span><span class="line"><span class="cl">parted -l
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开机自动挂载</span>
+</span></span><span class="line"><span class="cl">vi /etc/fstab</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="硬盘">硬盘</h3>
+<div class="highlight" id="id-36"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 在 fstab 文件末位增加一行，用于设置开机自动挂载 硬盘</span>
+</span></span><span class="line"><span class="cl"><span class="nv">UUID</span><span class="o">=</span>25b53c64-94ec-4bd6-a322-a1b776ad86c1 /mnt/hdd1 ext4 <span class="nv">errors</span><span class="o">=</span>remount-ro <span class="m">0</span> <span class="m">2</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cifs">cifs</h3>
+<div class="highlight" id="id-37"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 单次挂载</span>
+</span></span><span class="line"><span class="cl">mount -t cifs //192.168.9.23/Disk_sataa5 /mnt/zidoo -o <span class="nv">username</span><span class="o">=</span>xxx,password<span class="o">=</span>xxx
+</span></span><span class="line"><span class="cl">mount -t cifs //192.168.9.23/Disk_sataa5 /mnt/zidoo -o <span class="nv">username</span><span class="o">=</span>guest,password<span class="o">=</span>guest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在 fstab 文件末位增加一行，用于设置开机自动挂载 smb</span>
+</span></span><span class="line"><span class="cl">//192.168.9.23/Disk_sataa5 /mnt/zidoo cifs <span class="nv">uid</span><span class="o">=</span>0,gid<span class="o">=</span>0,username<span class="o">=</span>xxx,password<span class="o">=</span>xxx,sec<span class="o">=</span>ntlm <span class="m">0</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">//192.168.9.23/Disk_sataa5 /mnt/zidoo cifs defaults <span class="m">0</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 若报错可尝试先安装cifs工具包</span>
+</span></span><span class="line"><span class="cl">apt install cifs-utils</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考</p>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/402960046?utm_id=0"target="_blank" rel="external nofollow noopener noreferrer">Debian 11 “bullseye” 安装笔记</a></li>
+<li><a href="https://sysin.org/blog/linux-zsh-all/"target="_blank" rel="external nofollow noopener noreferrer">Linux 全局安装配置 zsh + oh-my-zsh</a></li>
+<li><a href="https://www.mumupc.com/archives/20226.html"target="_blank" rel="external nofollow noopener noreferrer">非桌面版Debian 11自动配置获取ipv6地址教程</a></li>
+<li><a href="https://blog.csdn.net/tyro_java/article/details/53439537"target="_blank" rel="external nofollow noopener noreferrer">在git中出现中文乱码的解决方案</a></li>
+</ol>]]></description></item></channel></rss>

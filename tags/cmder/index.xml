@@ -1,1 +1,102 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>cmder - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/cmder/</link><description>cmder - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 04 Oct 2017 11:11:42 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/cmder/" rel="self" type="application/rss+xml"/><item><title>Cmder - 替代Cmd，打造Windows命令行军刀</title><link>https://blog.iqzhi.com/posts/cmder/</link><pubDate>Wed, 04 Oct 2017 11:11:42 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/cmder/</guid><description>&lt;p>Windows下终端工具。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>cmder - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/cmder/</link><description>cmder - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 04 Oct 2017 11:11:42 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/cmder/" rel="self" type="application/rss+xml"/><item><title>Cmder - 替代Cmd，打造Windows命令行军刀</title><link>https://blog.iqzhi.com/posts/cmder/</link><pubDate>Wed, 04 Oct 2017 11:11:42 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/cmder/</guid><description><![CDATA[<p>Windows下终端工具。</p>
+<h2 id="简介">简介</h2>
+<p><a href="http://cmder.net/"target="_blank" rel="external nofollow noopener noreferrer">Cmder</a>是一款Windows下终端工具，增强命令行的存在，把conemu，msysgit和clink打包在一起，让你无需配置就能使用一个真正干净的Linux终端！她甚至还附带了漂亮的monokai配色主题。官网下载的安装包其实是压缩档, 可即压即用。你甚至可以放到USB就可以虽时带着走，连调整过的设定都会放在这个目录下，不会用到系统机码(Registry)，所以也很适合放在Dropbox/Google Drive/OneDrive共享于多台电脑。</p>
+<p>下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版cmder自带了msysgit, 压缩包23M, 除了git本身这个命令之外, 里面可以使用大量的linux命令；比如grep，curl(没有wget)；像vim，grep，tar，unzip，ssh，ls，bash，perl对于爱折腾的Coder更是痛点需求。</p>
+<h2 id="定制配置">定制配置</h2>
+<p>为了军刀更锋利，更好用，少不了折腾一下配置，让它更适合个人的使用习惯。</p>
+<ul>
+<li>
+<p>打开管理员权限终端
+输入<code>Ctrl + t</code>，或者点击下面控制条的绿色加号，勾选&quot;Run as administrator&quot;</p>
+</li>
+<li>
+<p>添加 cmder 到右键菜单
+打开管理员权限的终端，去到Cmder根目录，输入以下语句即可：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Cmder.exe /REGISTER ALL</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>解决文字重叠问题
+<code>Win + ALT + P</code> 唤出设置界面 &gt; mian &gt; font &gt; monospce,去掉那勾勾即可。</p>
+</li>
+</ul>
+<h2 id="cmder常用快捷键">Cmder常用快捷键</h2>
+<ul>
+<li>跟一般浏览器页签操作习惯一致：</li>
+<li>可以利用Tab，自动路径补全(爽,赞！)；</li>
+<li>可以利用Ctrl+T建立新页签；</li>
+<li>利用Ctrl+W关闭页签;</li>
+<li>还可以透过Ctrl+Tab切换页签;</li>
+<li>Alt+F4：关闭所有页签</li>
+<li>Alt+Shift+1：开启cmd.exe</li>
+<li>Alt+Shift+2：开启powershell.exe</li>
+<li>Alt+Shift+3：开启powershell.exe (系统管理员权限)</li>
+<li>Ctrl+1：快速切换到第1个页签</li>
+<li>Ctrl+n：快速切换到第n个页签( n值无上限)</li>
+<li>Alt + enter：切换到全屏状态；</li>
+<li>Ctr+r：历史命令搜索;</li>
+<li>End, Home, Ctrl：Traversing text with as usual on Windows</li>
+</ul>
+<h2 id="其他功能">其他功能</h2>
+<ul>
+<li>Cmder还增加了alias功能；他让你用短短的指令执行一些常见但指令超长又难以记忆的语法；比如 ls cls等等；在其控制台输入alias可以查看（新版本已废除）。</li>
+<li>主控台文字自动放大缩小功能，你只要按下Ctrl+滑鼠滚轮就可以办到；如果你用支援两点触控的笔电，也可以在触控板上用两指放大的手势调整文字大小。还有：up，向上翻历史命令;</li>
+<li>Cmder有极为简单的复制粘贴操作。Ctr+V直接粘贴；用鼠标选中你想拷贝的内容，自动就复制到剪切板；</li>
+<li>自定义aliases：打开Cmder目录下的config文件夹，里面的<code>user-aliases.cmd</code>文件就是我们可以配置的别名文件。
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">l=ls --show-control-chars -alrtF --color $*</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="问题及解决">问题及解决</h2>
+<h3 id="问题一中文乱码">问题一：中文乱码</h3>
+<p>一般的乱码在加了下边的软件环境变量后都可以解决，在<code>Settings &gt; Startup &gt; Environment</code>中添加：</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">set LC_ALL=zh_CN.UTF8</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="问题二git-status-显示中文乱码">问题二：git status 显示中文乱码</h3>
+<p>场景：在中文情况下<code>Git status</code>是这样的:</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Your branch is up-to-date with &#39;origin/master&#39;.
+</span></span><span class="line"><span class="cl">Changes not staged for commit:
+</span></span><span class="line"><span class="cl">  (use &#34;git add &lt;file&gt;...&#34; to update what will be committed)
+</span></span><span class="line"><span class="cl">  (use &#34;git checkout -- &lt;file&gt;...&#34; to discard changes in working directory)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    modified:   &#34;\345\274\200\351\242\230\346\212\245\345\221\212/\345\267\245\347\250\213\347\241\225\345\243\253\347\240\224\347\251\266\347\224\237\345\255\246\344\275\215\350\256\272\346\226\207\345\274\200\351\242\230\346\212\245\345\221\212\342\200\224\346\235\250\345\263\273\351\271\217.doc&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解决方法：</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --global core.quotepath false</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考资料">参考资料</h2>
+<ul>
+<li>《Cmder&ndash;Windows下命令行利器》：http://www.cnblogs.com/zqzjs/p/6188605.html</li>
+<li>《Win下必备神器之Cmder》：https://segmentfault.com/a/1190000004408436</li>
+<li>《Windows 命令行增强 cmder chocolatey 配置指南》：http://www.jianshu.com/p/479d974078a7</li>
+</ul>]]></description></item></channel></rss>

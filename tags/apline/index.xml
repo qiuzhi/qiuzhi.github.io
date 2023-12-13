@@ -1,1 +1,133 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>apline - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/apline/</link><description>apline - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 09 Apr 2023 23:11:58 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/apline/" rel="self" type="application/rss+xml"/><item><title>Apline学习笔记</title><link>https://blog.iqzhi.com/posts/study-apline/</link><pubDate>Sun, 09 Apr 2023 23:11:58 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/study-apline/</guid><description>&lt;p>CentOS离场，把玩debian。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>apline - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/apline/</link><description>apline - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 09 Apr 2023 23:11:58 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/apline/" rel="self" type="application/rss+xml"/><item><title>Apline学习笔记</title><link>https://blog.iqzhi.com/posts/study-apline/</link><pubDate>Sun, 09 Apr 2023 23:11:58 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/study-apline/</guid><description><![CDATA[<p>CentOS离场，把玩debian。</p>
+<h2 id="docker">Docker</h2>
+<h3 id="开启远程管理">开启远程管理</h3>
+<p>Alpine管理服务是用RC的组件，如果开启远程管理，需要修改 <code>/etc/init.d/docker</code>，在<code>command_args</code>参数后 增加：<code>-H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock</code>， 完整的文件如下：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/sbin/openrc-run
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1"># Copyright 1999-2013 Gentoo Foundation</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Distributed under the terms of the GNU General Public License v2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">command</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKERD_BINARY</span><span class="k">:-</span><span class="p">/usr/bin/dockerd</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">pidfile</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKER_PIDFILE</span><span class="k">:-</span><span class="p">/run/</span><span class="si">${</span><span class="nv">RC_SVCNAME</span><span class="si">}</span><span class="p">.pid</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">command_args</span><span class="o">=</span><span class="s2">&#34;-p \&#34;</span><span class="si">${</span><span class="nv">pidfile</span><span class="si">}</span><span class="s2">\&#34; </span><span class="si">${</span><span class="nv">DOCKER_OPTS</span><span class="si">}</span><span class="s2"> -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DOCKER_LOGFILE</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKER_LOGFILE</span><span class="k">:-</span><span class="p">/var/log/</span><span class="si">${</span><span class="nv">RC_SVCNAME</span><span class="si">}</span><span class="p">.log</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DOCKER_ERRFILE</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKER_ERRFILE</span><span class="k">:-</span><span class="si">${</span><span class="nv">DOCKER_LOGFILE</span><span class="si">}}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DOCKER_OUTFILE</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKER_OUTFILE</span><span class="k">:-</span><span class="si">${</span><span class="nv">DOCKER_LOGFILE</span><span class="si">}}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">start_stop_daemon_args</span><span class="o">=</span><span class="s2">&#34;--background \
+</span></span></span><span class="line"><span class="cl"><span class="s2">    --stderr \&#34;</span><span class="si">${</span><span class="nv">DOCKER_ERRFILE</span><span class="si">}</span><span class="s2">\&#34; --stdout \&#34;</span><span class="si">${</span><span class="nv">DOCKER_OUTFILE</span><span class="si">}</span><span class="s2">\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">extra_started_commands</span><span class="o">=</span><span class="s2">&#34;reload&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">rc_ulimit</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKER_ULIMIT</span><span class="k">:-</span><span class="p">-c unlimited -n 1048576 -u unlimited</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">retry</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKER_RETRY</span><span class="k">:-</span><span class="nv">TERM</span><span class="p">/60/KILL/10</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">depend<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    need sysfs cgroups
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">start_pre<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    checkpath -f -m <span class="m">0644</span> -o root:docker <span class="s2">&#34;</span><span class="nv">$DOCKER_LOGFILE</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">reload<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        ebegin <span class="s2">&#34;Reloading </span><span class="si">${</span><span class="nv">RC_SVCNAME</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        start-stop-daemon --signal HUP --pidfile <span class="s2">&#34;</span><span class="si">${</span><span class="nv">pidfile</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        eend <span class="nv">$?</span> <span class="s2">&#34;Failed to stop </span><span class="si">${</span><span class="nv">RC_SVCNAME</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后重启 Docker 服务：</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service docker restart</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="挂载">挂载</h2>
+<h3 id="cifs">cifs</h3>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 必要的依赖组件</span>
+</span></span><span class="line"><span class="cl">apk add cifs-utils openrc
+</span></span><span class="line"><span class="cl">sudo rc-update add netmount
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">//192.168.9.23/Disk_sataa5 /mnt/zidoo cifs  _netdev,gid<span class="o">=</span>0,uid<span class="o">=</span>0,username<span class="o">=</span>guest,password<span class="o">=</span>guest,dynperm,exec,noacl,nobrl,nofail,nounix,rw,serverino,setuids,sfu <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在 /etc/fstab 文件末位增加一行，用于配置 SAMBA/SMB/CIFS 服务挂载项</span>
+</span></span><span class="line"><span class="cl">//192.168.9.23/Disk_sataa5 /mnt/zidoo cifs  _netdev,credentials<span class="o">=</span>/root/.smb.auth,gid<span class="o">=</span>1000,uid<span class="o">=</span>1000,dynperm,exec,noacl,nobrl,nofail,nounix,rw,serverino,setuids,sfu <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># credentials file content - 建议以下认证信息不要包含特殊符号，以免无法认证</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /root/.smb.auth</span>
+</span></span><span class="line"><span class="cl">cat &gt; /root/.smb.auth
+</span></span><span class="line"><span class="cl"><span class="nv">username</span><span class="o">=</span>username
+</span></span><span class="line"><span class="cl"><span class="nv">password</span><span class="o">=</span>password
+</span></span><span class="line"><span class="cl"><span class="nv">domain</span><span class="o">=</span>doaminname
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod <span class="m">600</span> /root/.smb.auth
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 初次手动挂载(免重启)</span>
+</span></span><span class="line"><span class="cl">mount -a</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考</p>
+<ol>
+<li><a href="https://www.cnblogs.com/alexyangchina/p/12973131.html"target="_blank" rel="external nofollow noopener noreferrer">Alpine Linux 中 Docker 开启远程管理</a></li>
+<li><a href="https://blog.gazer.win/essay/cifs-netmount-on-alpine-linux.html"target="_blank" rel="external nofollow noopener noreferrer">SAMBA/SMB/CIFS 开机自动挂载 for Alpine Linux</a></li>
+</ol>]]></description></item></channel></rss>

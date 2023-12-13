@@ -1,1 +1,108 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>portainer - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/portainer/</link><description>portainer - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 07 Mar 2023 17:00:19 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/portainer/" rel="self" type="application/rss+xml"/><item><title>Portainer - Docker可视化管理工具</title><link>https://blog.iqzhi.com/posts/portainer/</link><pubDate>Tue, 07 Mar 2023 17:00:19 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/portainer/</guid><description>&lt;p>配置Docker可视化管理工具。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>portainer - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/portainer/</link><description>portainer - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 07 Mar 2023 17:00:19 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/portainer/" rel="self" type="application/rss+xml"/><item><title>Portainer - Docker可视化管理工具</title><link>https://blog.iqzhi.com/posts/portainer/</link><pubDate>Tue, 07 Mar 2023 17:00:19 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/portainer/</guid><description><![CDATA[<p>配置Docker可视化管理工具。</p>
+<h2 id="连接远程和管理docker">连接远程和管理docker</h2>
+<p>远程管理docke，端口默认是2375，是未加密的docker socket，远程root无密码访问主机</p>
+<h3 id="开启配置">开启配置</h3>
+<h4 id="方法一">方法一</h4>
+<p>配置远程访问的API</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /etc/default/docker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">增加一行：
+</span></span><span class="line"><span class="cl"><span class="nv">DOCKER_OPTS</span><span class="o">=</span><span class="s2">&#34;-H tcp://0.0.0.0:2375&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>PS：这是网上给的配置方法，也是这种简单配置让Docker Daemon把服务暴露在tcp的2375端口上，这样就可以在网络上操作Docker了。Docker本身没有身份认证的功能，只要网络上能访问到服务端口，就可以操作Docker。</p>
+</blockquote>
+<h4 id="方法二">方法二</h4>
+<p>在/usr/lib/systemd/system/docker.service，配置远程访问。</p>
+<p>主要是在<code>[Service]</code>这个部分，找到 ExecStart字段修改如下</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /usr/lib/systemd/system/docker.service
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H fd:// --containerd<span class="o">=</span>/run/containerd/containerd.sock</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="方法三">方法三</h4>
+<p>修改<code>daemon.json</code>的配置</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /etc/docker/daemon.json
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;hosts&#34;</span>: <span class="o">[</span><span class="s2">&#34;tcp://0.0.0.0:2375&#34;</span>, <span class="s2">&#34;unix:///var/run/docker.sock&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="重启docker配置防火墙">重启docker，配置防火墙</h3>
+<ol>
+<li>重启docker重新读取配置文件，重新启动docker服务</li>
+</ol>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl daemon-reload
+</span></span><span class="line"><span class="cl">systemctl restart docker</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>开放防火墙端口</li>
+</ol>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">firewall-cmd --zone<span class="o">=</span>public --add-port<span class="o">=</span>2375/tcp --permanent
+</span></span><span class="line"><span class="cl"><span class="c1">#或</span>
+</span></span><span class="line"><span class="cl">ufw allow from 192.168.9.0/24 to any</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>刷新防火墙</li>
+</ol>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">firewall-cmd --reload
+</span></span><span class="line"><span class="cl"><span class="c1">#或</span>
+</span></span><span class="line"><span class="cl">systemctl restart ufw</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>如果重启起不来</li>
+</ol>
+<p>估计是这个 <code>unix://var/run/docker.sock</code> 文件位置不对，查找一下正确位置就好了。</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find / -name docker.sock</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>
