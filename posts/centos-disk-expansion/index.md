@@ -150,9 +150,11 @@ xfs_growfs /dev/centos/root
 
 ![查看最终成果](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-59-51-20231220115951.png)
 
-### 四 总结
+至此，本次扩容完成。
 
-至此，本次扩容完成，整体较为顺利，多谢大佬[Frank](http://www.qxzx.xyz/)的远程指导操作，让我更深刻学习Linux基础，收益甚多！
+## 总结
+
+回顾此次操作，整体较为顺利，ESXi稳定好折腾再次被验证，搞清楚底层逻辑是实践的基石，能达到一点即通，多谢大佬[Frank](http://www.qxzx.xyz/)的远程指导操作，让我更深刻学习Linux基础，收益甚多！
 
 ## 参考
 
