@@ -11,7 +11,7 @@
 
 - LVM结构图如下：
 
-  {{< image src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-10-57-16-20231220105716.png" width="50%" caption="LVM结构图" title="LVM结构图" >}}
+  {{< image src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png" width="50%" caption="LVM结构图" title="LVM结构图" >}}
 
   - 物理卷（Physical Volume，PV）
     指磁盘分区或从逻辑上与磁盘分区具有同样功能的设备（如RAID），是LVM的基本存储逻辑块，但和基本的物理存储介质（如分区、磁盘等）比较，却包含有与LVM相关的管理参数。
@@ -28,7 +28,7 @@
 
 打开ESXi中需要增加的虚拟机配置界面，直接修改硬盘大小（下图红框所示），点击保存，然后重启虚拟机即可。
 
-![ESXi修改原磁盘大小](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-10-31-55-20231220103154.png)
+![ESXi修改原磁盘大小](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png)
 
 至此，ESXi操作完毕。
 
@@ -42,7 +42,7 @@
 
 使用`lsblk`查看磁盘分配情况
 
-![原磁盘状态1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-00-12-20231220110012.png)
+![原磁盘状态1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png)
 
 使用`fdisk -l`确认
 
@@ -50,15 +50,15 @@
 fdisk -l |grep /dev/sda
 ```
 
-![原磁盘状态2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-02-05-20231220110205.png)
+![原磁盘状态2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png)
 
 在ESXi增加了磁盘大小重启后，再次使用`lsblk`
 
-![增加磁盘空间后的磁盘状态1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-03-49-20231220110349.png)
+![增加磁盘空间后的磁盘状态1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png)
 
 可以看到，`sda`总大小为64G，较原有的20G多了44G。
 
-![增加磁盘空间后的磁盘状态2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-08-48-20231220110847.png)
+![增加磁盘空间后的磁盘状态2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png)
 
 #### 对新增加的空间进行分区格式化
 
@@ -68,7 +68,7 @@ fdisk -l |grep /dev/sda
 fdisk /dev/sda
 ```
 
-![格式化并新建PV](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-16-38-20231220111636.png)
+![格式化并新建PV](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png)
 
 完成上述命令后，可观察终端输出，一般可能出现一些WARNING，说系统繁忙，我们直接重启虚拟机，能正常进入即成功。
 
@@ -76,7 +76,7 @@ fdisk /dev/sda
 
 使用`pvs`查看PV
 
-![查看PV1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-25-27-20231220112527.png)
+![查看PV1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png)
 
 创建新PV`pvcreate`
 
@@ -84,17 +84,17 @@ fdisk /dev/sda
 pvcreate /dev/sda3
 ```
 
-![新PV](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-27-39-20231220112739.png)
+![新PV](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png)
 
 再次`pvs`确认
 
-![查看PV2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-29-36-20231220112936.png)
+![查看PV2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png)
 
 #### 将新PV加入到VG
 
 使用`vgs`查看VG
 
-![查看VG1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-35-21-20231220113521.png)
+![查看VG1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png)
 
 使用`vgextend`进行增加
 
@@ -102,17 +102,17 @@ pvcreate /dev/sda3
 vgextend centos /dev/sda3
 ```
 
-![加入VG](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-43-51-20231220114351.png)
+![加入VG](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png)
 
 再次`vgs`确认
 
-![查看VG2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-42-38-20231220114237.png)
+![查看VG2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png)
 
 #### 扩容LV
 
 使用`lvs`查看LV
 
-![查看LV1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-45-55-20231220114555.png)
+![查看LV1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png)
 
 扩容43G空间到LV
 
@@ -120,7 +120,7 @@ vgextend centos /dev/sda3
 lvextend -L +43G /dev/centos/root
 ```
 
-![扩容LV1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-49-32-20231220114932.png)
+![扩容LV1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png)
 
 当初实际在ESXi加的是44G，但经过分区格式化后是不足44G的，在这里磁盘是有损耗的，一定要注意参数不要直接写44G，我们可以通过再加1G验证
 
@@ -128,11 +128,11 @@ lvextend -L +43G /dev/centos/root
 lvextend -L +1G /dev/centos/root
 ```
 
-![扩容LV2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-51-47-20231220115147.png)
+![扩容LV2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png)
 
 这次改用`lvdisplay`可以查看确认更详细的信息
 
-![查看LV2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-54-30-20231220115429.png)
+![查看LV2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png)
 
 可以看到`root`下空间增至60G，扩容成功。
 
@@ -144,11 +144,11 @@ lvextend -L +1G /dev/centos/root
 xfs_growfs /dev/centos/root
 ```
 
-![刷新文件系统](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-57-38-20231220115738.png)
+![刷新文件系统](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png)
 
 `reboot`后重新进入，通过`df -h`查看系统空间情况，确认扩容成功。
 
-![查看最终成果](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20-11-59-51-20231220115951.png)
+![查看最终成果](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png)
 
 至此，本次扩容完成。
 
