@@ -1,4 +1,128 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 秋至、枫以落</title><link>https://blog.iqzhi.com/posts/</link><description>所有文章 | 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://blog.iqzhi.com/posts/" rel="self" type="application/rss+xml"/><item><title>记2024春节</title><link>https://blog.iqzhi.com/posts/2024-spring-festival/</link><pubDate>Thu, 08 Feb 2024 13:47:38 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/2024-spring-festival/</guid><description><![CDATA[<p>原本不打算回老家过春节，但想着接下来两年春节更不确切会不会回，所以最后还是成行了。本文从回到信宜的第二天就想着要写，为了简单记录下过节的，实际到回广上班的第二天才陆续写完。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 秋至、枫以落</title><link>https://blog.iqzhi.com/posts/</link><description>所有文章 | 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://blog.iqzhi.com/posts/" rel="self" type="application/rss+xml"/><item><title>搭建uptime-kuma服务监控面板</title><link>https://blog.iqzhi.com/posts/build-uptime-kuma/</link><pubDate>Wed, 21 Feb 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/build-uptime-kuma/</guid><description><![CDATA[<p>随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫<code>uptime-kuma</code>的服务监控面板。</p>
+<h2 id="一-简介">一 简介</h2>
+<p>uptime-kuma是一款开源监控工具，类似于“Uptime Robot”，UI简洁美观，支持TCP/PING/HTTP监控等，支持多语言其中包括中文。当服务出现故障时，可自动通过 Telegram、Discord、Gotify、Slack、Pushover、Email (SMTP) 等多种服务发送通知消息。</p>
+<p>项目地址：https://github.com/louislam/uptime-kuma</p>
+<h2 id="二-docker搭建">二 Docker搭建</h2>
+<h3 id="1-使用docker-compose">1 使用docker-compose</h3>
+<p>创建<code>docker-compose.yml</code>。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">uptime-kuma</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">louislam/uptime-kuma:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">uptime-kuma</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./data/:/app/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3037</span><span class="p">:</span><span class="m">3001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后<code>docker-compose up -d</code>。</p>
+<h3 id="2-设置telegram消息通知">2 设置Telegram消息通知</h3>
+<h4 id="21-设置tg消息通知">2.1 设置TG消息通知</h4>
+<p>点击新增，创建监控项，填写 Bot Token 和 Chat ID 即可配置好 Telegram 消息通知。</p>
+<h4 id="22-解决国内部署无法发送tg通知的问题">2.2 解决国内部署无法发送TG通知的问题</h4>
+<h5 id="221-cloudflare-workers创建workers">2.2.1 CloudFlare workers创建workers</h5>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">const</span> <span class="n">whitelist</span> <span class="p">=</span> <span class="p">[</span><span class="s">&#34;/bot1111111111:&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="n">tg_host</span> <span class="p">=</span> <span class="s">&#34;api.telegram.org&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">addEventListener</span><span class="p">(</span><span class="err">&#39;</span><span class="n">fetch</span><span class="err">&#39;</span><span class="p">,</span> <span class="k">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">event</span><span class="p">.</span><span class="n">respondWith</span><span class="p">(</span><span class="n">handleRequest</span><span class="p">(</span><span class="k">event</span><span class="p">.</span><span class="n">request</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">function</span> <span class="n">validate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">whitelist</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">startsWith</span><span class="p">(</span><span class="n">whitelist</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">async</span> <span class="n">function</span> <span class="n">handleRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">u</span> <span class="p">=</span> <span class="k">new</span> <span class="n">URL</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u</span><span class="p">.</span><span class="n">host</span> <span class="p">=</span> <span class="n">tg_host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(!</span><span class="n">validate</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">pathname</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">Response</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Unauthorized</span><span class="err">&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">status</span><span class="p">:</span> <span class="m">403</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">req</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Request</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method</span><span class="p">:</span> <span class="n">request</span><span class="p">.</span><span class="n">method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="p">:</span> <span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">body</span><span class="p">:</span> <span class="n">request</span><span class="p">.</span><span class="n">body</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">const</span> <span class="n">result</span> <span class="p">=</span> <span class="k">await</span> <span class="n">fetch</span><span class="p">(</span><span class="n">req</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="222-修改uptime-kuma的代码">2.2.2 修改uptime-kuma的代码</h5>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker <span class="nb">exec</span> -it uptime-kuma /bin/bash
+</span></span><span class="line"><span class="cl">$ apt-get update <span class="o">&amp;&amp;</span> apt-get install vim -y             // 安装vim
+</span></span><span class="line"><span class="cl">$ vim /app/src/components/notifications/Telegram.vue   // 找到：api.telegram.org，将其替换成你的反代域名（就一处）
+</span></span><span class="line"><span class="cl">$ vim /app/server/notification-providers/telegram.js   // 找到：api.telegram.org，将其替换成你的反代域名（就一处）
+</span></span><span class="line"><span class="cl">$ <span class="nb">exit</span> 
+</span></span><span class="line"><span class="cl">$ docker restart uptime-kuma</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三-参考资料">三 参考资料</h2>
+<ul>
+<li><a href="https://nies.live/d/174"target="_blank" rel="external nofollow noopener noreferrer">搭建uptime-kuma服务监控面板</a></li>
+</ul>]]></description></item><item><title>记2024春节</title><link>https://blog.iqzhi.com/posts/2024-spring-festival/</link><pubDate>Sun, 18 Feb 2024 13:47:38 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/2024-spring-festival/</guid><description><![CDATA[<p>原本不打算回老家过春节，但想着接下来两年春节更不确切会不会回，所以最后还是成行了。本文从回到信宜的第二天就想着要写，为了简单记录下过节的，实际到回广上班的第二天才陆续写完。</p>
 <p>由于家里亲戚入住请吃席在前，小宝放假在后，而老人家又不想我们特意开车先送回老家，本是计划在广州过年的，又由于后续公司春节假期放早四天（含除夕），有了总共12天的假期，还是计划回老家过年，想着可以探探、热闹热闹，同时老家房子大点，住着当度假休息。</p>
 <h3 id="年廿七">年廿七</h3>
 <p>早上起床，吃完早餐，自驾车7:20出发回信宜，路上车不算多，挺顺利的，花费4小时11分回到信宜，下高速之后，中午饭在河堤那家甲天下羊肉火锅吃羊肉，还是那个味道，吃完就径直回到信宜的家。</p>
@@ -42,7 +166,131 @@
 <p>微信和媳妇聊天，媳妇说走的路多腿累，我就寻思着“献殷勤”，准点下班打卡去接媳妇，被媳妇夸了一通，舒服。</p>
 <h3 id="年初十">年初十</h3>
 <p>加油、洗车，公司到岗人也多了不少，我也终是把这个流水账写完。</p>
-<p>初来人间不知苦，潦草半生一身无。 转身回望来时路，才知生时为何哭。 皆是红尘悲伤客，莫笑谁是可怜人。 此生愿为无心人，来世绝不入凡尘。</p>]]></description></item><item><title>记2024春节</title><link>https://blog.iqzhi.com/posts/2024-spring-festival/</link><pubDate>Thu, 08 Feb 2024 13:47:38 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/2024-spring-festival/</guid><description><![CDATA[<p>原本不打算回老家过春节，但想着接下来两年春节更不确切会不会回，所以最后还是成行了。本文从回到信宜的第二天就想着要写，为了简单记录下过节的，实际到回广上班的第二天才陆续写完。</p>
+<p>初来人间不知苦，潦草半生一身无。 转身回望来时路，才知生时为何哭。 皆是红尘悲伤客，莫笑谁是可怜人。 此生愿为无心人，来世绝不入凡尘。</p>]]></description></item><item><title>搭建uptime-kuma服务监控面板</title><link>https://blog.iqzhi.com/posts/build-uptime-kuma/</link><pubDate>Wed, 21 Feb 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/build-uptime-kuma/</guid><description><![CDATA[<p>随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫<code>uptime-kuma</code>的服务监控面板。</p>
+<h2 id="一-简介">一 简介</h2>
+<p>uptime-kuma是一款开源监控工具，类似于“Uptime Robot”，UI简洁美观，支持TCP/PING/HTTP监控等，支持多语言其中包括中文。当服务出现故障时，可自动通过 Telegram、Discord、Gotify、Slack、Pushover、Email (SMTP) 等多种服务发送通知消息。</p>
+<p>项目地址：https://github.com/louislam/uptime-kuma</p>
+<h2 id="二-docker搭建">二 Docker搭建</h2>
+<h3 id="1-使用docker-compose">1 使用docker-compose</h3>
+<p>创建<code>docker-compose.yml</code>。</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">uptime-kuma</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">louislam/uptime-kuma:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">uptime-kuma</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./data/:/app/data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3037</span><span class="p">:</span><span class="m">3001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后<code>docker-compose up -d</code>。</p>
+<h3 id="2-设置telegram消息通知">2 设置Telegram消息通知</h3>
+<h4 id="21-设置tg消息通知">2.1 设置TG消息通知</h4>
+<p>点击新增，创建监控项，填写 Bot Token 和 Chat ID 即可配置好 Telegram 消息通知。</p>
+<h4 id="22-解决国内部署无法发送tg通知的问题">2.2 解决国内部署无法发送TG通知的问题</h4>
+<h5 id="221-cloudflare-workers创建workers">2.2.1 CloudFlare workers创建workers</h5>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">const</span> <span class="n">whitelist</span> <span class="p">=</span> <span class="p">[</span><span class="s">&#34;/bot1111111111:&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="n">tg_host</span> <span class="p">=</span> <span class="s">&#34;api.telegram.org&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">addEventListener</span><span class="p">(</span><span class="err">&#39;</span><span class="n">fetch</span><span class="err">&#39;</span><span class="p">,</span> <span class="k">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">event</span><span class="p">.</span><span class="n">respondWith</span><span class="p">(</span><span class="n">handleRequest</span><span class="p">(</span><span class="k">event</span><span class="p">.</span><span class="n">request</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">function</span> <span class="n">validate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">whitelist</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="p">.</span><span class="n">startsWith</span><span class="p">(</span><span class="n">whitelist</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">async</span> <span class="n">function</span> <span class="n">handleRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">u</span> <span class="p">=</span> <span class="k">new</span> <span class="n">URL</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u</span><span class="p">.</span><span class="n">host</span> <span class="p">=</span> <span class="n">tg_host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(!</span><span class="n">validate</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">pathname</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">Response</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Unauthorized</span><span class="err">&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">status</span><span class="p">:</span> <span class="m">403</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">req</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Request</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method</span><span class="p">:</span> <span class="n">request</span><span class="p">.</span><span class="n">method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">headers</span><span class="p">:</span> <span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">body</span><span class="p">:</span> <span class="n">request</span><span class="p">.</span><span class="n">body</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">const</span> <span class="n">result</span> <span class="p">=</span> <span class="k">await</span> <span class="n">fetch</span><span class="p">(</span><span class="n">req</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="222-修改uptime-kuma的代码">2.2.2 修改uptime-kuma的代码</h5>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker <span class="nb">exec</span> -it uptime-kuma /bin/bash
+</span></span><span class="line"><span class="cl">$ apt-get update <span class="o">&amp;&amp;</span> apt-get install vim -y             // 安装vim
+</span></span><span class="line"><span class="cl">$ vim /app/src/components/notifications/Telegram.vue   // 找到：api.telegram.org，将其替换成你的反代域名（就一处）
+</span></span><span class="line"><span class="cl">$ vim /app/server/notification-providers/telegram.js   // 找到：api.telegram.org，将其替换成你的反代域名（就一处）
+</span></span><span class="line"><span class="cl">$ <span class="nb">exit</span> 
+</span></span><span class="line"><span class="cl">$ docker restart uptime-kuma</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三-参考资料">三 参考资料</h2>
+<ul>
+<li><a href="https://nies.live/d/174"target="_blank" rel="external nofollow noopener noreferrer">搭建uptime-kuma服务监控面板</a></li>
+</ul>]]></description></item><item><title>记2024春节</title><link>https://blog.iqzhi.com/posts/2024-spring-festival/</link><pubDate>Sun, 18 Feb 2024 13:47:38 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/2024-spring-festival/</guid><description><![CDATA[<p>原本不打算回老家过春节，但想着接下来两年春节更不确切会不会回，所以最后还是成行了。本文从回到信宜的第二天就想着要写，为了简单记录下过节的，实际到回广上班的第二天才陆续写完。</p>
 <p>由于家里亲戚入住请吃席在前，小宝放假在后，而老人家又不想我们特意开车先送回老家，本是计划在广州过年的，又由于后续公司春节假期放早四天（含除夕），有了总共12天的假期，还是计划回老家过年，想着可以探探、热闹热闹，同时老家房子大点，住着当度假休息。</p>
 <h3 id="年廿七">年廿七</h3>
 <p>早上起床，吃完早餐，自驾车7:20出发回信宜，路上车不算多，挺顺利的，花费4小时11分回到信宜，下高速之后，中午饭在河堤那家甲天下羊肉火锅吃羊肉，还是那个味道，吃完就径直回到信宜的家。</p>
@@ -1358,54 +1606,4 @@
 <li>
 <p>配置结束，点击AdGuard Home里AdGuardHome Web:3003，可以打开ADG的管理界面，点击「过滤器-&gt;DNS封锁清单」，去网上找一些大神维护的ADG的去广告规则，加进去。</p>
 </li>
-</ul>]]></description></item><item><title>从Hexo迁移到Hugo</title><link>https://blog.iqzhi.com/posts/migrate-from-hexo-to-hugo/</link><pubDate>Sun, 10 Sep 2023 10:44:21 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/migrate-from-hexo-to-hugo/</guid><description><![CDATA[<p>无意网上看到大神使用Hugo建立的Blog，升起了自建的念头。</p>
-<h2 id="为什么要迁移">为什么要迁移</h2>
-<ol>
-<li>可能是一颗喜欢折腾的心。</li>
-<li>评估原来Hexo博客的情况，迁移工作不难。</li>
-<li>Hugo优势更吸引，独立二进制文件，简洁高效。</li>
-<li>Blog原有的文章数不多，希望有个新的开始，是时候积累点，无论是否流水账。</li>
-</ol>
-<h2 id="对博客发展的顾虑或是考虑过多">对博客发展的顾虑，或是考虑过多</h2>
-<ol>
-<li>还是不喜欢为博客配图，这个无法从根本上改善博客的观感。也可能是未找到靠谱的图库解决方案。</li>
-<li>总想着以后可能又不会继续书写下去，插入太多的图片，使用框架程序内特定的语法会影响后续迁移可能，带来的不确定性。</li>
-<li>所以有点感觉是放不开手脚去做，畏手畏尾，从而什么都没有做。</li>
-</ol>
-<h2 id="迁移发现惊喜">迁移发现惊喜</h2>
-<ol>
-<li>原来的Hexo博客已经折腾出后台管理解决方案了，通过Qoex可解决，但因为部署在Vercel上，大陆访问有一定的卡顿。</li>
-<li>由于Qoex也支持Hugo，本计划也使用其进行后台管理，但总有不得力的感觉，谈不上喜欢或讨厌，也没有书写的兴致。</li>
-<li>最后我也找到了合适的解决方案，通过VS Code可以远程管理部署在Debian上的Hugo程序代码，也方便在工作环境中远程管理，完美。</li>
-</ol>
-<h2 id="网站建设思路">网站建设思路</h2>
-<ol>
-<li>通过ZeroTier建立虚拟局域网，把家庭环境、工作环境、外出场景打通。</li>
-<li>Hugo程序部署在Debian服务器上，开放SSH访问远程管理，生成环境唯一部署，减少出错可能性。</li>
-<li>利用VS Code插件Remote SSH连接Debian系统上的Hugo源码目录，撰写文章。</li>
-<li>VS Code终端运行命令发布预览，自带端口转发部署，可实时调试页面展示。</li>
-<li>VS Code直接源码提交Github管理，使用Vercel监控提交记录，实现实时生成部署。</li>
-</ol>
-<h2 id="问题解决">问题解决</h2>
-<div class="details admonition question open">
-    <div class="details-summary admonition-title">
-      <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>Github：通过sshkey的方式拉取代码报错kex_exchange_identification: Connection closed by remote<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
-    </div>
-    <div class="details-content">
-      <div class="admonition-content"><p>近来家庭网络进行了调整，增加了科学上网，应该是网络引发问题产生；网上查资料，通过编辑 <code>~/.ssh/config</code> 文件（没有就新增），在用户目录下的.ssh目录，添加如下内容解决：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-md" data-lang="md"><span class="line"><span class="cl">Host github.com
-</span></span><span class="line"><span class="cl">    HostName ssh.github.com
-</span></span><span class="line"><span class="cl">    User git
-</span></span><span class="line"><span class="cl">    Port 443</span></span></code></pre></td></tr></table>
-</div>
-</div></div>
-    </div>
-  </div>]]></description></item></channel></rss>
+</ul>]]></description></item></channel></rss>
