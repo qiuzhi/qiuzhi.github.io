@@ -220,10 +220,15 @@ export default {
 
 不建议使用自带的 workers.dev 的域名，被墙了
 
-## 五 注意
+## 注意
 
 docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。
 
+## 参考
+
+1. [我再强调一遍 是所有的 docker hub镜像都关了 国内想要用只有这些方法](https://www.nodeseek.com/post-119619-1)
+2. [自建Docker Hub加速镜像](https://blog.lty520.faith/%E5%8D%9A%E6%96%87/%E8%87%AA%E5%BB%BAdocker-hub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F)
+3. [docker 设置国内镜像源](https://developer.aliyun.com/article/1294592)
 
 ---
 

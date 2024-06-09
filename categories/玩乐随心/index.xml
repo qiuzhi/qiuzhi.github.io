@@ -379,8 +379,14 @@
 </li>
 </ol>
 <p>不建议使用自带的 workers.dev 的域名，被墙了</p>
-<h2 id="五-注意">五 注意</h2>
-<p>docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。</p>]]></description></item><item><title>搭建uptime-kuma服务监控面板</title><link>https://blog.iqzhi.com/posts/build-uptime-kuma/</link><pubDate>Wed, 21 Feb 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/build-uptime-kuma/</guid><description><![CDATA[<p>随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫<code>uptime-kuma</code>的服务监控面板。</p>
+<h2 id="注意">注意</h2>
+<p>docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://www.nodeseek.com/post-119619-1"target="_blank" rel="external nofollow noopener noreferrer">我再强调一遍 是所有的 docker hub镜像都关了 国内想要用只有这些方法</a></li>
+<li><a href="https://blog.lty520.faith/%E5%8D%9A%E6%96%87/%E8%87%AA%E5%BB%BAdocker-hub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F"target="_blank" rel="external nofollow noopener noreferrer">自建Docker Hub加速镜像</a></li>
+<li><a href="https://developer.aliyun.com/article/1294592"target="_blank" rel="external nofollow noopener noreferrer">docker 设置国内镜像源</a></li>
+</ol>]]></description></item><item><title>搭建uptime-kuma服务监控面板</title><link>https://blog.iqzhi.com/posts/build-uptime-kuma/</link><pubDate>Wed, 21 Feb 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/build-uptime-kuma/</guid><description><![CDATA[<p>随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫<code>uptime-kuma</code>的服务监控面板。</p>
 <h2 id="一-简介">一 简介</h2>
 <p>uptime-kuma是一款开源监控工具，类似于“Uptime Robot”，UI简洁美观，支持TCP/PING/HTTP监控等，支持多语言其中包括中文。当服务出现故障时，可自动通过 Telegram、Discord、Gotify、Slack、Pushover、Email (SMTP) 等多种服务发送通知消息。</p>
 <p>项目地址：https://github.com/louislam/uptime-kuma</p>
