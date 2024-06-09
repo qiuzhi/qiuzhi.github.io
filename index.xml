@@ -1,4 +1,386 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 21 Feb 2024 12:20:05 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>搭建uptime-kuma服务监控面板</title><link>https://blog.iqzhi.com/posts/build-uptime-kuma/</link><pubDate>Wed, 21 Feb 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/build-uptime-kuma/</guid><description><![CDATA[<p>随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫<code>uptime-kuma</code>的服务监控面板。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 09 Jun 2024 12:20:05 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Hub 连接指南</title><link>https://blog.iqzhi.com/posts/link-docker-hub/</link><pubDate>Sun, 09 Jun 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/link-docker-hub/</guid><description><![CDATA[<p>记录连接Docker Hub受阻后的吃用方法。</p>
+<h2 id="一-简介">一 简介</h2>
+<p>受网络影响，某地区可能连接Docker Hub受阻。</p>
+<h2 id="二-连接指南">二 连接指南</h2>
+<h3 id="1-配置镜像加速">1 配置镜像加速</h3>
+<p>创建或修改 /etc/docker/daemon.json 文件，修改为如下形式：</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;registry-mirrors&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.agsvpt.work&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.agsv.top&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://hub-mirror.c.163.com&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://registry.docker-cn.com&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-通过代理服务器">2 通过代理服务器</h3>
+<p>如OpenClash等。</p>
+<ol>
+<li>创建 dockerd 相关的 systemd 目录，这个目录下的配置将覆盖 dockerd 的默认配置</li>
+</ol>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p /etc/systemd/system/docker.service.d</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>新建配置文件 /etc/systemd/system/docker.service.d/http-proxy.conf，这个文件中将包含环境变量</li>
+</ol>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vi /etc/systemd/system/docker.service.d/http-proxy.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;HTTP_PROXY=http://proxy.example.com:80&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;HTTPS_PROXY=https://proxy.example.com:443&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>如果你自己建了私有的镜像仓库，需要 dockerd 绕过代理服务器直连，那么配置 NO_PROXY 变量</li>
+</ol>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;HTTP_PROXY=http://proxy.example.com:80&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;HTTPS_PROXY=https://proxy.example.com:443&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;NO_PROXY=your-registry.com,10.10.10.10,*.example.com&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三-重启docker并确认设置成功">三 重启Docker并确认设置成功</h2>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl daemon-reload
+</span></span><span class="line"><span class="cl">systemctl restart docker.service
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">systemctl show --property<span class="o">=</span>Environment docker
+</span></span><span class="line"><span class="cl">docker info</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如此，这样配置后，应该可以正常拉取 docker 镜像。</p>
+<h2 id="四-自建镜像">四 自建镜像</h2>
+<h3 id="使用-cloudflare-worker-搭建">使用 CloudFlare Worker 搭建</h3>
+<ol>
+<li>
+<p>在面板左侧找到 <strong>Workers 和 Pages</strong>，然后点击右侧的 <strong>创建应用程序</strong>、<strong>创建 Worker</strong>，修改一个好记的名字，<strong>部署</strong></p>
+</li>
+<li>
+<p>接下来编辑代码，将 <code>worker.js</code> 的内容替换为下面内容</p>
+</li>
+</ol>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">HTML</span> <span class="nx">from</span> <span class="s1">&#39;./docker.html&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">async</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">URL</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">pathname</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">originalHost</span> <span class="o">=</span> <span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;host&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">registryHost</span> <span class="o">=</span> <span class="s2">&#34;registry-1.docker.io&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">&#34;/v2/&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;host&#34;</span><span class="p">,</span> <span class="nx">registryHost</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">registryUrl</span> <span class="o">=</span> <span class="sb">`https://</span><span class="si">${</span><span class="nx">registryHost</span><span class="si">}${</span><span class="nx">path</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">registryRequest</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Request</span><span class="p">(</span><span class="nx">registryUrl</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">method</span><span class="o">:</span> <span class="nx">request</span><span class="p">.</span><span class="nx">method</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">headers</span><span class="o">:</span> <span class="nx">headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">body</span><span class="o">:</span> <span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// redirect: &#34;manual&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">redirect</span><span class="o">:</span> <span class="s2">&#34;follow&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">registryResponse</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">registryRequest</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">registryResponse</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">responseHeaders</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">(</span><span class="nx">registryResponse</span><span class="p">.</span><span class="nx">headers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">responseHeaders</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;access-control-allow-origin&#34;</span><span class="p">,</span> <span class="nx">originalHost</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">responseHeaders</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&#34;access-control-allow-headers&#34;</span><span class="p">,</span> <span class="s2">&#34;Authorization&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">registryResponse</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">status</span><span class="o">:</span> <span class="nx">registryResponse</span><span class="p">.</span><span class="nx">status</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">statusText</span><span class="o">:</span> <span class="nx">registryResponse</span><span class="p">.</span><span class="nx">statusText</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">headers</span><span class="o">:</span> <span class="nx">responseHeaders</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nx">HTML</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/{{host}}/g</span><span class="p">,</span> <span class="nx">originalHost</span><span class="p">),</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">status</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;content-type&#34;</span><span class="o">:</span> <span class="s2">&#34;text/html&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里相比原项目，将 <strong>redirect: “manual”</strong> 修改为了 <strong>redirect: “follow”</strong>，目的是为了让脚本自行处理 307 跳转，直接返回给我们跳转后的数据。
+新建一个名为 <code>docker.html</code> 的 文件，内容如下</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;viewport&#34;</span> <span class="na">content</span><span class="o">=</span><span class="s">&#34;width=device-width, initial-scale=1&#34;</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Mirror Usage<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">html</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">font-family</span><span class="p">:</span> <span class="s2">&#34;Roboto&#34;</span><span class="p">,</span> <span class="s2">&#34;Helvetica&#34;</span><span class="p">,</span> <span class="s2">&#34;Arial&#34;</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">font-size</span><span class="p">:</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">color</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">justify-content</span><span class="p">:</span> <span class="kc">space-between</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">max-width</span><span class="p">:</span> <span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nc">header</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">background-color</span><span class="p">:</span> <span class="mh">#438cf8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">align-items</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nt">h1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">font-size</span><span class="p">:</span> <span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nc">content</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">padding</span><span class="p">:</span> <span class="mi">32</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="nc">footer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">background-color</span><span class="p">:</span> <span class="mh">#f2f2f2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">font-size</span><span class="p">:</span> <span class="mi">14</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Mirror Usage<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;content&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>镜像加速说明<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            为了加速镜像拉取,你可以使用以下命令设置registery mirror:
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            sudo tee /etc/docker/daemon.json <span class="ni">&amp;lt;&amp;lt;</span>EOF
+</span></span><span class="line"><span class="cl">            {
+</span></span><span class="line"><span class="cl">                &#34;registry-mirrors&#34;: [&#34;https://{{host}}&#34;]
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">            EOF
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            为了避免 Worker 用量耗尽,你可以手动 pull 镜像然后 re-tag 之后 push 至本地镜像仓库:
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            docker pull {{host}}/library/alpine:latest # 拉取 library 镜像
+</span></span><span class="line"><span class="cl">            docker pull {{host}}/coredns/coredns:latest # 拉取 library 镜像
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;footer&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Powered by Cloudflare Workers<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>
+<p>接下来，点击右上角的 <strong>部署</strong>，稍等片刻</p>
+</li>
+<li>
+<p>最后，返回面板，在 <strong>设置</strong>，<strong>触发器</strong> 处设置一个自己的域名，一切就大功告成了</p>
+</li>
+</ol>
+<p>不建议使用自带的 workers.dev 的域名，被墙了</p>
+<h2 id="五-注意">五 注意</h2>
+<p>docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。</p>]]></description></item><item><title>搭建uptime-kuma服务监控面板</title><link>https://blog.iqzhi.com/posts/build-uptime-kuma/</link><pubDate>Wed, 21 Feb 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/build-uptime-kuma/</guid><description><![CDATA[<p>随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫<code>uptime-kuma</code>的服务监控面板。</p>
 <h2 id="一-简介">一 简介</h2>
 <p>uptime-kuma是一款开源监控工具，类似于“Uptime Robot”，UI简洁美观，支持TCP/PING/HTTP监控等，支持多语言其中包括中文。当服务出现故障时，可自动通过 Telegram、Discord、Gotify、Slack、Pushover、Email (SMTP) 等多种服务发送通知消息。</p>
 <p>项目地址：https://github.com/louislam/uptime-kuma</p>
@@ -3408,105 +3790,4 @@
 </div>
 </div><h2 id="更多">更多</h2>
 <h3 id="vscode中设置终端">vscode中设置终端</h3>
-<p>在<code>setting</code>中搜索<code>terminal</code>选项，然后修改<code>Integrated: Font Family</code>的值为powerline字体即可。例如本人采用的是 Source Code Pro for Powerline 。</p>]]></description></item><item><title>Cmder - 替代Cmd，打造Windows命令行军刀</title><link>https://blog.iqzhi.com/posts/cmder/</link><pubDate>Wed, 04 Oct 2017 11:11:42 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/cmder/</guid><description><![CDATA[<p>Windows下终端工具。</p>
-<h2 id="简介">简介</h2>
-<p><a href="http://cmder.net/"target="_blank" rel="external nofollow noopener noreferrer">Cmder</a>是一款Windows下终端工具，增强命令行的存在，把conemu，msysgit和clink打包在一起，让你无需配置就能使用一个真正干净的Linux终端！她甚至还附带了漂亮的monokai配色主题。官网下载的安装包其实是压缩档, 可即压即用。你甚至可以放到USB就可以虽时带着走，连调整过的设定都会放在这个目录下，不会用到系统机码(Registry)，所以也很适合放在Dropbox/Google Drive/OneDrive共享于多台电脑。</p>
-<p>下载的时候，有两个版本，分别是mini与full版；唯一的差别在于有没有内建msysgit工具，这是Git for Windows的标准配备；全安装版cmder自带了msysgit, 压缩包23M, 除了git本身这个命令之外, 里面可以使用大量的linux命令；比如grep，curl(没有wget)；像vim，grep，tar，unzip，ssh，ls，bash，perl对于爱折腾的Coder更是痛点需求。</p>
-<h2 id="定制配置">定制配置</h2>
-<p>为了军刀更锋利，更好用，少不了折腾一下配置，让它更适合个人的使用习惯。</p>
-<ul>
-<li>
-<p>打开管理员权限终端
-输入<code>Ctrl + t</code>，或者点击下面控制条的绿色加号，勾选&quot;Run as administrator&quot;</p>
-</li>
-<li>
-<p>添加 cmder 到右键菜单
-打开管理员权限的终端，去到Cmder根目录，输入以下语句即可：</p>
-<div class="highlight" id="id-1"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Cmder.exe /REGISTER ALL</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>解决文字重叠问题
-<code>Win + ALT + P</code> 唤出设置界面 &gt; mian &gt; font &gt; monospce,去掉那勾勾即可。</p>
-</li>
-</ul>
-<h2 id="cmder常用快捷键">Cmder常用快捷键</h2>
-<ul>
-<li>跟一般浏览器页签操作习惯一致：</li>
-<li>可以利用Tab，自动路径补全(爽,赞！)；</li>
-<li>可以利用Ctrl+T建立新页签；</li>
-<li>利用Ctrl+W关闭页签;</li>
-<li>还可以透过Ctrl+Tab切换页签;</li>
-<li>Alt+F4：关闭所有页签</li>
-<li>Alt+Shift+1：开启cmd.exe</li>
-<li>Alt+Shift+2：开启powershell.exe</li>
-<li>Alt+Shift+3：开启powershell.exe (系统管理员权限)</li>
-<li>Ctrl+1：快速切换到第1个页签</li>
-<li>Ctrl+n：快速切换到第n个页签( n值无上限)</li>
-<li>Alt + enter：切换到全屏状态；</li>
-<li>Ctr+r：历史命令搜索;</li>
-<li>End, Home, Ctrl：Traversing text with as usual on Windows</li>
-</ul>
-<h2 id="其他功能">其他功能</h2>
-<ul>
-<li>Cmder还增加了alias功能；他让你用短短的指令执行一些常见但指令超长又难以记忆的语法；比如 ls cls等等；在其控制台输入alias可以查看（新版本已废除）。</li>
-<li>主控台文字自动放大缩小功能，你只要按下Ctrl+滑鼠滚轮就可以办到；如果你用支援两点触控的笔电，也可以在触控板上用两指放大的手势调整文字大小。还有：up，向上翻历史命令;</li>
-<li>Cmder有极为简单的复制粘贴操作。Ctr+V直接粘贴；用鼠标选中你想拷贝的内容，自动就复制到剪切板；</li>
-<li>自定义aliases：打开Cmder目录下的config文件夹，里面的<code>user-aliases.cmd</code>文件就是我们可以配置的别名文件。
-<div class="highlight" id="id-2"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">l=ls --show-control-chars -alrtF --color $*</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-</ul>
-<h2 id="问题及解决">问题及解决</h2>
-<h3 id="问题一中文乱码">问题一：中文乱码</h3>
-<p>一般的乱码在加了下边的软件环境变量后都可以解决，在<code>Settings &gt; Startup &gt; Environment</code>中添加：</p>
-<div class="highlight" id="id-3"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">set LC_ALL=zh_CN.UTF8</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="问题二git-status-显示中文乱码">问题二：git status 显示中文乱码</h3>
-<p>场景：在中文情况下<code>Git status</code>是这样的:</p>
-<div class="highlight" id="id-4"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Your branch is up-to-date with &#39;origin/master&#39;.
-</span></span><span class="line"><span class="cl">Changes not staged for commit:
-</span></span><span class="line"><span class="cl">  (use &#34;git add &lt;file&gt;...&#34; to update what will be committed)
-</span></span><span class="line"><span class="cl">  (use &#34;git checkout -- &lt;file&gt;...&#34; to discard changes in working directory)
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    modified:   &#34;\345\274\200\351\242\230\346\212\245\345\221\212/\345\267\245\347\250\213\347\241\225\345\243\253\347\240\224\347\251\266\347\224\237\345\255\246\344\275\215\350\256\272\346\226\207\345\274\200\351\242\230\346\212\245\345\221\212\342\200\224\346\235\250\345\263\273\351\271\217.doc&#34;</span></span></code></pre></td></tr></table>
-</div>
-</div><p>解决方法：</p>
-<div class="highlight" id="id-5"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git config --global core.quotepath false</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="参考资料">参考资料</h2>
-<ul>
-<li>《Cmder&ndash;Windows下命令行利器》：http://www.cnblogs.com/zqzjs/p/6188605.html</li>
-<li>《Win下必备神器之Cmder》：https://segmentfault.com/a/1190000004408436</li>
-<li>《Windows 命令行增强 cmder chocolatey 配置指南》：http://www.jianshu.com/p/479d974078a7</li>
-</ul>]]></description></item></channel></rss>
+<p>在<code>setting</code>中搜索<code>terminal</code>选项，然后修改<code>Integrated: Font Family</code>的值为powerline字体即可。例如本人采用的是 Source Code Pro for Powerline 。</p>]]></description></item></channel></rss>
