@@ -69,6 +69,45 @@ apt install -y curl
 apt install -y socat
 ```
 
+#### 1.5 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录
+
+1. 在 Debian 中添加 sudo 用户
+
+首先，要创建用户，当前用户必须是 root 用户或者 sudo 用户。
+
+使用下面adduser 命令创建一个用户名为test的sudo用户，按照提示输入密码，使用 adduser 命令，还会创建用户的主目录。
+
+```bash
+adduser test
+```
+
+2. 将用户设为 sudo 用户
+
+创建test用户后，可以使用 -aG 组合选项将其添加到 sudo 组，就可以将其转为 sudo 用户。使用 -a 选项是为了确保向组中“追加”。
+
+```bash
+usermod -aG sudo test
+```
+
+3. 验证 sudo 权限
+
+使用下面命令验证test用户是否被赋予sudo权限，在命令输出中，末尾你会看到是否可以 sudo 权限运行所有命令：(ALL : ALL) ALL
+
+```bash
+sudo -l -U test
+```
+
+4. 修改 `/etc/ssh/sshd_config` 文件
+
+将 `PermitRootLogin` 设置为 `no` ，`PasswordAuthentication` 设置为 `yes` 即可，保存退出即可。
+
+5. 重启 SSH 服务
+
+```bash
+systemctl start ssh.service
+/etc/init.d/ssh restart
+```
+
 ### 4 系统通用
 
 ### 4.1 IP

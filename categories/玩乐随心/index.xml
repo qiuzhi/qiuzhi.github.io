@@ -2599,7 +2599,7 @@
     <div class="details-content">
       <div class="admonition-content"><p>出现此问题，一般是因为DNS设置的问题，将DNS设置为 <em>8.8.8.8</em></p>
 <p>通过下面命令查看DNS</p>
-<div class="highlight" id="id-17"><div class="chroma">
+<div class="highlight" id="id-21"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2607,7 +2607,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/resolv.conf</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过下面命令修改DNS</p>
-<div class="highlight" id="id-18"><div class="chroma">
+<div class="highlight" id="id-22"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2615,7 +2615,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;nameserver 8.8.8.8&#34;</span> <span class="p">|</span> tee /etc/resolv.conf &gt; /dev/null</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改后再次查看</p>
-<div class="highlight" id="id-19"><div class="chroma">
+<div class="highlight" id="id-23"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2640,9 +2640,60 @@
 </span></span><span class="line"><span class="cl">apt install -y curl
 </span></span><span class="line"><span class="cl">apt install -y socat</span></span></code></pre></td></tr></table>
 </div>
+</div><h4 id="15-创建新用户并允许远程ssh远程登录并禁止root用户远程ssh登录">1.5 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录</h4>
+<ol>
+<li>在 Debian 中添加 sudo 用户</li>
+</ol>
+<p>首先，要创建用户，当前用户必须是 root 用户或者 sudo 用户。</p>
+<p>使用下面adduser 命令创建一个用户名为test的sudo用户，按照提示输入密码，使用 adduser 命令，还会创建用户的主目录。</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">adduser test</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>将用户设为 sudo 用户</li>
+</ol>
+<p>创建test用户后，可以使用 -aG 组合选项将其添加到 sudo 组，就可以将其转为 sudo 用户。使用 -a 选项是为了确保向组中“追加”。</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">usermod -aG sudo test</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>验证 sudo 权限</li>
+</ol>
+<p>使用下面命令验证test用户是否被赋予sudo权限，在命令输出中，末尾你会看到是否可以 sudo 权限运行所有命令：(ALL : ALL) ALL</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -l -U test</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>修改 <code>/etc/ssh/sshd_config</code> 文件</li>
+</ol>
+<p>将 <code>PermitRootLogin</code> 设置为 <code>no</code> ，<code>PasswordAuthentication</code> 设置为 <code>yes</code> 即可，保存退出即可。</p>
+<ol start="5">
+<li>重启 SSH 服务</li>
+</ol>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start ssh.service
+</span></span><span class="line"><span class="cl">/etc/init.d/ssh restart</span></span></code></pre></td></tr></table>
+</div>
 </div><h3 id="4-系统通用">4 系统通用</h3>
 <h3 id="41-ip">4.1 IP</h3>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight" id="id-9"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2658,7 +2709,7 @@
 <h3 id="43-融合怪脚本">4.3 融合怪脚本</h3>
 <p>这个脚本非常不错，虽然是个融合脚本但是有很多别的脚本测不了的东西，有网络信息，IP信息，解锁信息，常用端口开放信息，硬件信息等。关于IP质量问题除了这个以外，IP信息还可以去这里查询，结果非常详细：https://ipinfo.io/</p>
 <p>github项目地址：https://github.com/spiritLHLS/ecs</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight" id="id-10"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2670,7 +2721,7 @@
 </div><h3 id="44-添加-swap">4.4 添加 SWAP</h3>
 <p>swap 是 Linux 中的虚拟内存，用于扩充物理内存不足而用来存储临时数据存在的。它类似于 Windows 中的虚拟内存。在 Windows 中，只可以使用文件来当作虚拟内存。而 linux 可以文件或者分区来当作虚拟内存。</p>
 <p>这个虚拟内存对于内存小的 VPS 非常有必要，可以提高我们的运行效率。<code>建议设置为实际ram的 2 倍。</code></p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight" id="id-11"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2681,7 +2732,7 @@
 <p>从自建部署的监控管理后台直接拿命令。</p>
 <h3 id="46-docker">4.6 Docker</h3>
 <p>官方一键安装脚本</p>
-<div class="highlight" id="id-8"><div class="chroma">
+<div class="highlight" id="id-12"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2693,7 +2744,7 @@
 </span></span><span class="line"><span class="cl">docker -v</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Docker-compose 安装</p>
-<div class="highlight" id="id-9"><div class="chroma">
+<div class="highlight" id="id-13"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2706,7 +2757,7 @@
 </div>
 </div><h4 id="461-修改-docker-配置">4.6.1 修改 Docker 配置</h4>
 <p>以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：</p>
-<div class="highlight" id="id-10"><div class="chroma">
+<div class="highlight" id="id-14"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2738,7 +2789,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后重启 Docker 服务：</p>
-<div class="highlight" id="id-11"><div class="chroma">
+<div class="highlight" id="id-15"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2748,7 +2799,7 @@
 </div><p>好了，我们已经安装好了 Docker 和 Docker Compose，然后就可以开始愉快的安装各种软件。</p>
 <h3 id="47-zerotier">4.7 ZeroTier</h3>
 <p>安装</p>
-<div class="highlight" id="id-12"><div class="chroma">
+<div class="highlight" id="id-16"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2756,7 +2807,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s https://install.zerotier.com/ <span class="p">|</span> bash</span></span></code></pre></td></tr></table>
 </div>
 </div><p>填写网络ID，加入异地虚拟网络</p>
-<div class="highlight" id="id-13"><div class="chroma">
+<div class="highlight" id="id-17"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2769,7 +2820,7 @@
 <p><a href="https://github.com/fscarmen/warp"target="_blank" rel="external nofollow noopener noreferrer">FSCARMEN</a> :</p>
 <ul>
 <li>首次运行
-<div class="highlight" id="id-14"><div class="chroma">
+<div class="highlight" id="id-18"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2782,7 +2833,7 @@
 <p><a href="https://github.com/P3TERX/warp.sh"target="_blank" rel="external nofollow noopener noreferrer">P3TERX</a> :</p>
 <ul>
 <li>首次运行
-<div class="highlight" id="id-15"><div class="chroma">
+<div class="highlight" id="id-19"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2795,7 +2846,7 @@
 <p><a href="https://gitlab.com/ProjectWARP/warp-go/-/tree/master/"target="_blank" rel="external nofollow noopener noreferrer">WARP-GO</a> :</p>
 <ul>
 <li>首次运行
-<div class="highlight" id="id-16"><div class="chroma">
+<div class="highlight" id="id-20"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
