@@ -1958,23 +1958,23 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server {
-</span></span><span class="line"><span class="cl">    server_name _;
-</span></span><span class="line"><span class="cl">    listen 80 default_server;
-</span></span><span class="line"><span class="cl">    listen 443 ssl default_server;
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">server_name</span> <span class="n">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span> <span class="mi">80</span> <span class="n">default_server</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span> <span class="mi">443</span> <span class="n">ssl</span> <span class="n">default_server</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    ## To also support IPv6, uncomment this block
-</span></span><span class="line"><span class="cl">    # listen [::]:80 default_server;
-</span></span><span class="line"><span class="cl">    # listen [::]:443 ssl default_server;
+</span></span><span class="line"><span class="cl">    <span class="c1">## To also support IPv6, uncomment this block</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># listen [::]:80 default_server;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># listen [::]:443 ssl default_server;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    ssl_certificate &lt;path to cert&gt;;
-</span></span><span class="line"><span class="cl">    ssl_certificate_key &lt;path to key&gt;;
+</span></span><span class="line"><span class="cl">    <span class="n">ssl_certificate</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">cert</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ssl_certificate_key</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">key</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    return 444;
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">444</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    access_log /var/log/nginx/000_default.access.log;
-</span></span><span class="line"><span class="cl">    error_log /var/log/nginx/000_default.error.log;
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="n">access_log</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="mi">000</span><span class="n">_default</span><span class="o">.</span><span class="n">access</span><span class="o">.</span><span class="n">log</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error_log</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="mi">000</span><span class="n">_default</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">log</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样在浏览器端访问的时候，浏览器会自动提示用户无法访问。</p>
 <h2 id="server_name指令" class="heading-element"><span>Server_name指令</span>
@@ -2045,7 +2045,7 @@
 <li>客户端→Dnsmasq(53)→AdGuard Home(5335)→OpenClash(7874)</li>
 <li>客户端→AdGuard Home(53)→OpenClash(7874)</li>
 </ol>
-<p>按思路1，在OpenClash里开启DNS劫持，让Dnsmasq把请求转发到OpenClash，然后在OpenClash里设置自定义上游DNS，把底下所有的上游DNS勾选都去掉，新建一个FallBack从AdGuard Home里获取结果；配置虽然成功了，但广告去除效果不好，根因是要屏蔽广告的地址经过OpenClash时就被代理出去了，所以不会向上游AdGuard Home去请求解析，而且AdGuard Home里客户端只能看见127.0.0.1这一条，也不够完美，所以这方案放弃；随后尝试方案2，AdGuard Home里的客户端也都能正常显示了，发现前面多了Dnsmasq似乎多余了，因为它只负责转发，所以衍生出方案3，但有个缺点，因为Dnsmasq和DHCP功能是在一起的，跳过了Dnsmasq则DHCP也不能用了，解决方案就是禁用旁路由DHCP功能，去lan接口里设置忽略此接口(不在此接口提供DHCP服务)，完美。</div>
+<p>按思路1，在OpenClash里开启DNS劫持，让Dnsmasq把请求转发到OpenClash，然后在OpenClash里设置自定义上游DNS，把底下所有的上游DNS勾选都去掉，新建一个FallBack从AdGuard Home里获取结果；配置虽然成功了，但广告去除效果不好，根因是要屏蔽广告的地址经过OpenClash时就被代理出去了，所以不会向上游AdGuard Home去请求解析，而且AdGuard Home里客户端只能看见127.0.0.1这一条，也不够完美，所以这方案放弃；随后尝试方案2，AdGuard Home里的客户端也都能正常显示了，发现前面多了Dnsmasq似乎多余了，因为它只负责转发，所以衍生出方案3，但有个缺点，因为Dnsmasq和DHCP功能是在一起的，跳过了Dnsmasq则DHCP也不能用了，解决方案就是禁用旁路由DHCP功能，去lan接口里设置忽略此接口(不在此接口提供DHCP服务)，完美。</p></div>
     </div>
   </div>
 <h3 id="安装openwrt系统" class="heading-element"><span>安装OpenWrt系统</span>

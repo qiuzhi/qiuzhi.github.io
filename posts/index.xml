@@ -2724,23 +2724,23 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server {
-</span></span><span class="line"><span class="cl">    server_name _;
-</span></span><span class="line"><span class="cl">    listen 80 default_server;
-</span></span><span class="line"><span class="cl">    listen 443 ssl default_server;
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">server_name</span> <span class="n">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span> <span class="mi">80</span> <span class="n">default_server</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span> <span class="mi">443</span> <span class="n">ssl</span> <span class="n">default_server</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    ## To also support IPv6, uncomment this block
-</span></span><span class="line"><span class="cl">    # listen [::]:80 default_server;
-</span></span><span class="line"><span class="cl">    # listen [::]:443 ssl default_server;
+</span></span><span class="line"><span class="cl">    <span class="c1">## To also support IPv6, uncomment this block</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># listen [::]:80 default_server;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># listen [::]:443 ssl default_server;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    ssl_certificate &lt;path to cert&gt;;
-</span></span><span class="line"><span class="cl">    ssl_certificate_key &lt;path to key&gt;;
+</span></span><span class="line"><span class="cl">    <span class="n">ssl_certificate</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">cert</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ssl_certificate_key</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">key</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    return 444;
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">444</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    access_log /var/log/nginx/000_default.access.log;
-</span></span><span class="line"><span class="cl">    error_log /var/log/nginx/000_default.error.log;
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="n">access_log</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="mi">000</span><span class="n">_default</span><span class="o">.</span><span class="n">access</span><span class="o">.</span><span class="n">log</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">error_log</span> <span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="nb">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="mi">000</span><span class="n">_default</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">log</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样在浏览器端访问的时候，浏览器会自动提示用户无法访问。</p>
 <h2 id="server_name指令" class="heading-element"><span>Server_name指令</span>
