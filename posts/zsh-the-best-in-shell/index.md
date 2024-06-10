@@ -3,7 +3,7 @@
 
 zsh固然是好工具，但配置使用也同样重要，一定要“就手”。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 前言
 
@@ -54,7 +54,7 @@ chsh -s $(which zsh)
 安装[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)脚本 (这一步需要先安装 git)。
 
 ```sh
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c &#34;$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&#34;
 ```
 
 ### Powerline字体
@@ -78,7 +78,7 @@ rm -rf fonts
 
 ```
 # 配置主题
-ZSH_THEME="agnoster"
+ZSH_THEME=&#34;agnoster&#34;
 ```
 
 ## 插件

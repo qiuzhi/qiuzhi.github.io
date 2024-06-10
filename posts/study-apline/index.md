@@ -3,7 +3,7 @@
 
 CentOS离场，把玩debian。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## Docker
 
@@ -16,33 +16,33 @@ Alpine管理服务是用RC的组件，如果开启远程管理，需要修改 `/
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-command="${DOCKERD_BINARY:-/usr/bin/dockerd}"
-pidfile="${DOCKER_PIDFILE:-/run/${RC_SVCNAME}.pid}"
-command_args="-p \"${pidfile}\" ${DOCKER_OPTS} -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock"
-DOCKER_LOGFILE="${DOCKER_LOGFILE:-/var/log/${RC_SVCNAME}.log}"
-DOCKER_ERRFILE="${DOCKER_ERRFILE:-${DOCKER_LOGFILE}}"
-DOCKER_OUTFILE="${DOCKER_OUTFILE:-${DOCKER_LOGFILE}}"
-start_stop_daemon_args="--background \
-    --stderr \"${DOCKER_ERRFILE}\" --stdout \"${DOCKER_OUTFILE}\""
+command=&#34;${DOCKERD_BINARY:-/usr/bin/dockerd}&#34;
+pidfile=&#34;${DOCKER_PIDFILE:-/run/${RC_SVCNAME}.pid}&#34;
+command_args=&#34;-p \&#34;${pidfile}\&#34; ${DOCKER_OPTS} -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock&#34;
+DOCKER_LOGFILE=&#34;${DOCKER_LOGFILE:-/var/log/${RC_SVCNAME}.log}&#34;
+DOCKER_ERRFILE=&#34;${DOCKER_ERRFILE:-${DOCKER_LOGFILE}}&#34;
+DOCKER_OUTFILE=&#34;${DOCKER_OUTFILE:-${DOCKER_LOGFILE}}&#34;
+start_stop_daemon_args=&#34;--background \
+    --stderr \&#34;${DOCKER_ERRFILE}\&#34; --stdout \&#34;${DOCKER_OUTFILE}\&#34;&#34;
 
-extra_started_commands="reload"
+extra_started_commands=&#34;reload&#34;
 
-rc_ulimit="${DOCKER_ULIMIT:--c unlimited -n 1048576 -u unlimited}"
+rc_ulimit=&#34;${DOCKER_ULIMIT:--c unlimited -n 1048576 -u unlimited}&#34;
 
-retry="${DOCKER_RETRY:-TERM/60/KILL/10}"
+retry=&#34;${DOCKER_RETRY:-TERM/60/KILL/10}&#34;
 
 depend() {
     need sysfs cgroups
 }
 
 start_pre() {
-    checkpath -f -m 0644 -o root:docker "$DOCKER_LOGFILE"
+    checkpath -f -m 0644 -o root:docker &#34;$DOCKER_LOGFILE&#34;
 }
 
 reload() {
-        ebegin "Reloading ${RC_SVCNAME}"
-        start-stop-daemon --signal HUP --pidfile "${pidfile}"
-        eend $? "Failed to stop ${RC_SVCNAME}"
+        ebegin &#34;Reloading ${RC_SVCNAME}&#34;
+        start-stop-daemon --signal HUP --pidfile &#34;${pidfile}&#34;
+        eend $? &#34;Failed to stop ${RC_SVCNAME}&#34;
 }
 ```
 
@@ -68,7 +68,7 @@ sudo rc-update add netmount
 
 # credentials file content - 建议以下认证信息不要包含特殊符号，以免无法认证
 # /root/.smb.auth
-cat > /root/.smb.auth
+cat &gt; /root/.smb.auth
 username=username
 password=password
 domain=doaminname

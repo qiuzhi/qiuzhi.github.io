@@ -3,7 +3,7 @@
 
 配置Docker可视化管理工具。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 连接远程和管理docker
 
@@ -19,10 +19,10 @@
 vim /etc/default/docker
 
 增加一行：
-DOCKER_OPTS="-H tcp://0.0.0.0:2375"
+DOCKER_OPTS=&#34;-H tcp://0.0.0.0:2375&#34;
 ```
 
-> PS：这是网上给的配置方法，也是这种简单配置让Docker Daemon把服务暴露在tcp的2375端口上，这样就可以在网络上操作Docker了。Docker本身没有身份认证的功能，只要网络上能访问到服务端口，就可以操作Docker。
+&gt; PS：这是网上给的配置方法，也是这种简单配置让Docker Daemon把服务暴露在tcp的2375端口上，这样就可以在网络上操作Docker了。Docker本身没有身份认证的功能，只要网络上能访问到服务端口，就可以操作Docker。
 
 #### 方法二
 
@@ -45,7 +45,7 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H fd:// --containerd=/run/cont
 vim /etc/docker/daemon.json
 
 {
-  "hosts": ["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]
+  &#34;hosts&#34;: [&#34;tcp://0.0.0.0:2375&#34;, &#34;unix:///var/run/docker.sock&#34;]
 }
 ```
 

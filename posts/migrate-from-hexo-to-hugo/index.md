@@ -3,7 +3,7 @@
 
 无意网上看到大神使用Hugo建立的Blog，升起了自建的念头。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 为什么要迁移
 
@@ -34,7 +34,7 @@
 
 ## 问题解决
 
-{{< admonition question "Github：通过sshkey的方式拉取代码报错kex_exchange_identification: Connection closed by remote">}}
+{{&lt; admonition question &#34;Github：通过sshkey的方式拉取代码报错kex_exchange_identification: Connection closed by remote&#34;&gt;}}
 近来家庭网络进行了调整，增加了科学上网，应该是网络引发问题产生；网上查资料，通过编辑 `~/.ssh/config` 文件（没有就新增），在用户目录下的.ssh目录，添加如下内容解决：
 ```md
 Host github.com
@@ -42,7 +42,7 @@ Host github.com
     User git
     Port 443
 ```
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 
 ---

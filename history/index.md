@@ -8,7 +8,7 @@
 - [ ] 建站日志时间线展示
 - [ ] 梳理网站目录，考虑路径、分类、标签的关系
 - [ ] 留言
-- [ ] 给文章《OpenWrt + OpenClash + AdGuard Home 打造家庭专用网络》增加些图例
+- [ ] 给文章《OpenWrt &#43; OpenClash &#43; AdGuard Home 打造家庭专用网络》增加些图例
 - [ ] 研究CDN给博客加速，附带图例
 
 
@@ -23,6 +23,6 @@
 
 ---
 
-> 作者: [枫](https://github.com/qiuzhi)  
+> 作者:   
 > URL: https://blog.iqzhi.com/history/  
 

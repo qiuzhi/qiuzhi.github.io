@@ -1,10 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - 秋至、枫以落</title><link>https://blog.iqzhi.com/posts/</link><description>所有文章 | 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://blog.iqzhi.com/posts/" rel="self" type="application/rss+xml"/><item><title>Docker Hub 连接指南</title><link>https://blog.iqzhi.com/posts/link-docker-hub/</link><pubDate>Sun, 09 Jun 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/link-docker-hub/</guid><description><![CDATA[<p>记录连接Docker Hub受阻后的吃用方法。</p>
-<h2 id="一-简介">一 简介</h2>
-<p>受网络影响，某地区可能连接Docker Hub受阻。</p>
-<h2 id="二-连接指南">二 连接指南</h2>
-<h3 id="1-配置镜像加速">1 配置镜像加速</h3>
-<p>创建或修改 /etc/docker/daemon.json 文件，修改为如下形式：</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>文章 - 秋至、枫以落</title><link>https://blog.iqzhi.com/posts/</link><description>文章 | 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="https://blog.iqzhi.com/posts/" rel="self" type="application/rss+xml"/><item><title>Docker Hub 连接指南</title><link>https://blog.iqzhi.com/posts/link-docker-hub/</link><pubDate>Sun, 09 Jun 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/link-docker-hub/</guid><description><![CDATA[<p>记录连接Docker Hub受阻后的吃用方法。</p>
+<h2 id="一-简介" class="heading-element"><span>一 简介</span>
+  <a href="#%e4%b8%80-%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>受网络影响，某地区可能连接Docker Hub受阻。</p>
+<h2 id="二-连接指南" class="heading-element"><span>二 连接指南</span>
+  <a href="#%e4%ba%8c-%e8%bf%9e%e6%8e%a5%e6%8c%87%e5%8d%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="1-配置镜像加速" class="heading-element"><span>1 配置镜像加速</span>
+  <a href="#1-%e9%85%8d%e7%bd%ae%e9%95%9c%e5%83%8f%e5%8a%a0%e9%80%9f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>创建或修改 /etc/docker/daemon.json 文件，修改为如下形式：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -27,12 +36,15 @@
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="2-通过代理服务器">2 通过代理服务器</h3>
-<p>如OpenClash等。</p>
+</div><h3 id="2-通过代理服务器" class="heading-element"><span>2 通过代理服务器</span>
+  <a href="#2-%e9%80%9a%e8%bf%87%e4%bb%a3%e7%90%86%e6%9c%8d%e5%8a%a1%e5%99%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>如OpenClash等。</p>
 <ol>
 <li>创建 dockerd 相关的 systemd 目录，这个目录下的配置将覆盖 dockerd 的默认配置</li>
 </ol>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -42,7 +54,7 @@
 </div><ol start="2">
 <li>新建配置文件 /etc/systemd/system/docker.service.d/http-proxy.conf，这个文件中将包含环境变量</li>
 </ol>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -60,7 +72,7 @@
 </div><ol start="3">
 <li>如果你自己建了私有的镜像仓库，需要 dockerd 绕过代理服务器直连，那么配置 NO_PROXY 变量</li>
 </ol>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -73,8 +85,11 @@
 </span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;HTTPS_PROXY=https://proxy.example.com:443&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;NO_PROXY=your-registry.com,10.10.10.10,*.example.com&#34;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="三-重启docker并确认设置成功">三 重启Docker并确认设置成功</h2>
-<div class="highlight" id="id-5"><div class="chroma">
+</div><h2 id="三-重启docker并确认设置成功" class="heading-element"><span>三 重启Docker并确认设置成功</span>
+  <a href="#%e4%b8%89-%e9%87%8d%e5%90%afdocker%e5%b9%b6%e7%a1%ae%e8%ae%a4%e8%ae%be%e7%bd%ae%e6%88%90%e5%8a%9f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -90,9 +105,15 @@
 </span></span><span class="line"><span class="cl">docker info</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如此，这样配置后，应该可以正常拉取 docker 镜像。</p>
-<h2 id="四-自建镜像">四 自建镜像</h2>
-<h3 id="使用-cloudflare-worker-搭建">使用 CloudFlare Worker 搭建</h3>
-<ol>
+<h2 id="四-自建镜像" class="heading-element"><span>四 自建镜像</span>
+  <a href="#%e5%9b%9b-%e8%87%aa%e5%bb%ba%e9%95%9c%e5%83%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="使用-cloudflare-worker-搭建" class="heading-element"><span>使用 CloudFlare Worker 搭建</span>
+  <a href="#%e4%bd%bf%e7%94%a8-cloudflare-worker-%e6%90%ad%e5%bb%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>
 <p>在面板左侧找到 <strong>Workers 和 Pages</strong>，然后点击右侧的 <strong>创建应用程序</strong>、<strong>创建 Worker</strong>，修改一个好记的名字，<strong>部署</strong></p>
 </li>
@@ -100,7 +121,7 @@
 <p>接下来编辑代码，将 <code>worker.js</code> 的内容替换为下面内容</p>
 </li>
 </ol>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -195,7 +216,7 @@
 </div>
 </div><p>这里相比原项目，将 <strong>redirect: “manual”</strong> 修改为了 <strong>redirect: “follow”</strong>，目的是为了让脚本自行处理 307 跳转，直接返回给我们跳转后的数据。
 新建一个名为 <code>docker.html</code> 的 文件，内容如下</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -379,31 +400,52 @@
 </li>
 </ol>
 <p>不建议使用自带的 workers.dev 的域名，被墙了</p>
-<h2 id="注意">注意</h2>
-<p>docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。</p>
-<h2 id="参考">参考</h2>
-<ol>
+<h2 id="注意" class="heading-element"><span>注意</span>
+  <a href="#%e6%b3%a8%e6%84%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。</p>
+<h2 id="参考" class="heading-element"><span>参考</span>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li><a href="https://www.nodeseek.com/post-119619-1"target="_blank" rel="external nofollow noopener noreferrer">我再强调一遍 是所有的 docker hub镜像都关了 国内想要用只有这些方法</a></li>
 <li><a href="https://blog.lty520.faith/%E5%8D%9A%E6%96%87/%E8%87%AA%E5%BB%BAdocker-hub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F"target="_blank" rel="external nofollow noopener noreferrer">自建Docker Hub加速镜像</a></li>
 <li><a href="https://developer.aliyun.com/article/1294592"target="_blank" rel="external nofollow noopener noreferrer">docker 设置国内镜像源</a></li>
 </ol>]]></description></item><item><title>VPS到手基本流程</title><link>https://blog.iqzhi.com/posts/vps-basic/</link><pubDate>Sat, 18 Feb 2023 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/vps-basic/</guid><description><![CDATA[<p>记录玩VPS的点滴。</p>
-<h2 id="一-简介">一 简介</h2>
-<p>记录玩VPS的点滴。</p>
-<h2 id="二-关键记录">二 关键记录</h2>
-<h3 id="1-debian">1 Debian</h3>
-<blockquote>
+<h2 id="一-简介" class="heading-element"><span>一 简介</span>
+  <a href="#%e4%b8%80-%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>记录玩VPS的点滴。</p>
+<h2 id="二-关键记录" class="heading-element"><span>二 关键记录</span>
+  <a href="#%e4%ba%8c-%e5%85%b3%e9%94%ae%e8%ae%b0%e5%bd%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="1-debian" class="heading-element"><span>1 Debian</span>
+  <a href="#1-debian" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
 <p>适用版本：11（Bullseye）、12</p>
 </blockquote>
-<h4 id="11-查看内核版本">1.1 查看内核版本</h4>
-<div class="highlight" id="id-1"><div class="chroma">
+<h4 id="11-查看内核版本" class="heading-element"><span>1.1 查看内核版本</span>
+  <a href="#11-%e6%9f%a5%e7%9c%8b%e5%86%85%e6%a0%b8%e7%89%88%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">uname -r</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="12-开启ssh登录">1.2 开启SSH登录</h4>
-<div class="highlight" id="id-2"><div class="chroma">
+</div><h4 id="12-开启ssh登录" class="heading-element"><span>1.2 开启SSH登录</span>
+  <a href="#12-%e5%bc%80%e5%90%afssh%e7%99%bb%e5%bd%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -412,8 +454,11 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g&#39;</span> /etc/ssh/sshd_config
 </span></span><span class="line"><span class="cl">systemctl restart ssh</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="13-更新系统包">1.3 更新系统包</h4>
-<div class="highlight" id="id-3"><div class="chroma">
+</div><h4 id="13-更新系统包" class="heading-element"><span>1.3 更新系统包</span>
+  <a href="#13-%e6%9b%b4%e6%96%b0%e7%b3%bb%e7%bb%9f%e5%8c%85" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -427,7 +472,7 @@
     <div class="details-content">
       <div class="admonition-content"><p>出现此问题，一般是因为DNS设置的问题，将DNS设置为 <em>8.8.8.8</em></p>
 <p>通过下面命令查看DNS</p>
-<div class="highlight" id="id-21"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -435,7 +480,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /etc/resolv.conf</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过下面命令修改DNS</p>
-<div class="highlight" id="id-22"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -443,7 +488,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;nameserver 8.8.8.8&#34;</span> <span class="p">|</span> tee /etc/resolv.conf &gt; /dev/null</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改后再次查看</p>
-<div class="highlight" id="id-23"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -456,8 +501,11 @@
 </div>
     </div>
   </div>
-<h4 id="14-安装常用软件">1.4 安装常用软件</h4>
-<div class="highlight" id="id-4"><div class="chroma">
+<h4 id="14-安装常用软件" class="heading-element"><span>1.4 安装常用软件</span>
+  <a href="#14-%e5%ae%89%e8%a3%85%e5%b8%b8%e7%94%a8%e8%bd%af%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -468,13 +516,16 @@
 </span></span><span class="line"><span class="cl">apt install -y curl
 </span></span><span class="line"><span class="cl">apt install -y socat</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="15-创建新用户并允许远程ssh远程登录并禁止root用户远程ssh登录">1.5 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录</h4>
-<ol>
+</div><h4 id="15-创建新用户并允许远程ssh远程登录并禁止root用户远程ssh登录" class="heading-element"><span>1.5 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录</span>
+  <a href="#15-%e5%88%9b%e5%bb%ba%e6%96%b0%e7%94%a8%e6%88%b7%e5%b9%b6%e5%85%81%e8%ae%b8%e8%bf%9c%e7%a8%8bssh%e8%bf%9c%e7%a8%8b%e7%99%bb%e5%bd%95%e5%b9%b6%e7%a6%81%e6%ad%a2root%e7%94%a8%e6%88%b7%e8%bf%9c%e7%a8%8bssh%e7%99%bb%e5%bd%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
 <li>在 Debian 中添加 sudo 用户</li>
 </ol>
 <p>首先，要创建用户，当前用户必须是 root 用户或者 sudo 用户。</p>
 <p>使用下面adduser 命令创建一个用户名为test的sudo用户，按照提示输入密码，使用 adduser 命令，还会创建用户的主目录。</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -485,7 +536,7 @@
 <li>将用户设为 sudo 用户</li>
 </ol>
 <p>创建test用户后，可以使用 -aG 组合选项将其添加到 sudo 组，就可以将其转为 sudo 用户。使用 -a 选项是为了确保向组中“追加”。</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -496,7 +547,7 @@
 <li>验证 sudo 权限</li>
 </ol>
 <p>使用下面命令验证test用户是否被赋予sudo权限，在命令输出中，末尾你会看到是否可以 sudo 权限运行所有命令：(ALL : ALL) ALL</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -510,7 +561,7 @@
 <ol start="5">
 <li>重启 SSH 服务</li>
 </ol>
-<div class="highlight" id="id-8"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -519,9 +570,15 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start ssh.service
 </span></span><span class="line"><span class="cl">/etc/init.d/ssh restart</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="4-系统通用">4 系统通用</h3>
-<h3 id="41-ip">4.1 IP</h3>
-<div class="highlight" id="id-9"><div class="chroma">
+</div><h3 id="4-系统通用" class="heading-element"><span>4 系统通用</span>
+  <a href="#4-%e7%b3%bb%e7%bb%9f%e9%80%9a%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 id="41-ip" class="heading-element"><span>4.1 IP</span>
+  <a href="#41-ip" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -530,14 +587,20 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -4 ip.sb
 </span></span><span class="line"><span class="cl">curl -6 ip.sb</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="42-网络互联">4.2 网络互联</h3>
-<p><a href="https://www.itdog.cn/"target="_blank" rel="external nofollow noopener noreferrer">ITDOG</a></p>
+</div><h3 id="42-网络互联" class="heading-element"><span>4.2 网络互联</span>
+  <a href="#42-%e7%bd%91%e7%bb%9c%e4%ba%92%e8%81%94" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><a href="https://www.itdog.cn/"target="_blank" rel="external nofollow noopener noreferrer">ITDOG</a></p>
 <p><a href="http://ip.ping0.cc/"target="_blank" rel="external nofollow noopener noreferrer">PING0</a></p>
 <p><a href="https://ping.pe/"target="_blank" rel="external nofollow noopener noreferrer">ping.pe</a></p>
-<h3 id="43-融合怪脚本">4.3 融合怪脚本</h3>
-<p>这个脚本非常不错，虽然是个融合脚本但是有很多别的脚本测不了的东西，有网络信息，IP信息，解锁信息，常用端口开放信息，硬件信息等。关于IP质量问题除了这个以外，IP信息还可以去这里查询，结果非常详细：https://ipinfo.io/</p>
+<h3 id="43-融合怪脚本" class="heading-element"><span>4.3 融合怪脚本</span>
+  <a href="#43-%e8%9e%8d%e5%90%88%e6%80%aa%e8%84%9a%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>这个脚本非常不错，虽然是个融合脚本但是有很多别的脚本测不了的东西，有网络信息，IP信息，解锁信息，常用端口开放信息，硬件信息等。关于IP质量问题除了这个以外，IP信息还可以去这里查询，结果非常详细：https://ipinfo.io/</p>
 <p>github项目地址：https://github.com/spiritLHLS/ecs</p>
-<div class="highlight" id="id-10"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -546,21 +609,30 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh<span class="o">)</span>
 </span></span><span class="line"><span class="cl">bash &lt;<span class="o">(</span>wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh<span class="o">)</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="44-添加-swap">4.4 添加 SWAP</h3>
-<p>swap 是 Linux 中的虚拟内存，用于扩充物理内存不足而用来存储临时数据存在的。它类似于 Windows 中的虚拟内存。在 Windows 中，只可以使用文件来当作虚拟内存。而 linux 可以文件或者分区来当作虚拟内存。</p>
+</div><h3 id="44-添加-swap" class="heading-element"><span>4.4 添加 SWAP</span>
+  <a href="#44-%e6%b7%bb%e5%8a%a0-swap" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>swap 是 Linux 中的虚拟内存，用于扩充物理内存不足而用来存储临时数据存在的。它类似于 Windows 中的虚拟内存。在 Windows 中，只可以使用文件来当作虚拟内存。而 linux 可以文件或者分区来当作虚拟内存。</p>
 <p>这个虚拟内存对于内存小的 VPS 非常有必要，可以提高我们的运行效率。<code>建议设置为实际ram的 2 倍。</code></p>
-<div class="highlight" id="id-11"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh <span class="o">&amp;&amp;</span> chmod +x box.sh <span class="o">&amp;&amp;</span> clear <span class="o">&amp;&amp;</span> ./box.sh</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="45-哪吒监控">4.5 哪吒监控</h3>
-<p>从自建部署的监控管理后台直接拿命令。</p>
-<h3 id="46-docker">4.6 Docker</h3>
-<p>官方一键安装脚本</p>
-<div class="highlight" id="id-12"><div class="chroma">
+</div><h3 id="45-哪吒监控" class="heading-element"><span>4.5 哪吒监控</span>
+  <a href="#45-%e5%93%aa%e5%90%92%e7%9b%91%e6%8e%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>从自建部署的监控管理后台直接拿命令。</p>
+<h3 id="46-docker" class="heading-element"><span>4.6 Docker</span>
+  <a href="#46-docker" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>官方一键安装脚本</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -572,7 +644,7 @@
 </span></span><span class="line"><span class="cl">docker -v</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Docker-compose 安装</p>
-<div class="highlight" id="id-13"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -583,9 +655,12 @@
 </span></span><span class="line"><span class="cl">sudo chmod +x /usr/local/bin/docker-compose
 </span></span><span class="line"><span class="cl">docker-compose --version</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="461-修改-docker-配置">4.6.1 修改 Docker 配置</h4>
-<p>以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：</p>
-<div class="highlight" id="id-14"><div class="chroma">
+</div><h4 id="461-修改-docker-配置" class="heading-element"><span>4.6.1 修改 Docker 配置</span>
+  <a href="#461-%e4%bf%ae%e6%94%b9-docker-%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -617,7 +692,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后重启 Docker 服务：</p>
-<div class="highlight" id="id-15"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -625,9 +700,12 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart docker</span></span></code></pre></td></tr></table>
 </div>
 </div><p>好了，我们已经安装好了 Docker 和 Docker Compose，然后就可以开始愉快的安装各种软件。</p>
-<h3 id="47-zerotier">4.7 ZeroTier</h3>
-<p>安装</p>
-<div class="highlight" id="id-16"><div class="chroma">
+<h3 id="47-zerotier" class="heading-element"><span>4.7 ZeroTier</span>
+  <a href="#47-zerotier" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>安装</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -635,7 +713,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s https://install.zerotier.com/ <span class="p">|</span> bash</span></span></code></pre></td></tr></table>
 </div>
 </div><p>填写网络ID，加入异地虚拟网络</p>
-<div class="highlight" id="id-17"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -643,12 +721,15 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">zerotier-cli join <span class="o">(</span>网络ID<span class="o">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果看见<code>200 join OK</code>字样就说明成功加入异地虚拟局域网了。</p>
-<h3 id="48-warp">4.8 Warp</h3>
-<p>各大一键脚本，三选一即可。</p>
+<h3 id="48-warp" class="heading-element"><span>4.8 Warp</span>
+  <a href="#48-warp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>各大一键脚本，三选一即可。</p>
 <p><a href="https://github.com/fscarmen/warp"target="_blank" rel="external nofollow noopener noreferrer">FSCARMEN</a> :</p>
 <ul>
 <li>首次运行
-<div class="highlight" id="id-18"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -661,7 +742,7 @@
 <p><a href="https://github.com/P3TERX/warp.sh"target="_blank" rel="external nofollow noopener noreferrer">P3TERX</a> :</p>
 <ul>
 <li>首次运行
-<div class="highlight" id="id-19"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -674,7 +755,7 @@
 <p><a href="https://gitlab.com/ProjectWARP/warp-go/-/tree/master/"target="_blank" rel="external nofollow noopener noreferrer">WARP-GO</a> :</p>
 <ul>
 <li>首次运行
-<div class="highlight" id="id-20"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -684,12 +765,21 @@
 </div></li>
 <li>日常维护 <code>warp-go</code></li>
 </ul>]]></description></item><item><title>Docker Hub 连接指南</title><link>https://blog.iqzhi.com/posts/link-docker-hub/</link><pubDate>Sun, 09 Jun 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/link-docker-hub/</guid><description><![CDATA[<p>记录连接Docker Hub受阻后的吃用方法。</p>
-<h2 id="一-简介">一 简介</h2>
-<p>受网络影响，某地区可能连接Docker Hub受阻。</p>
-<h2 id="二-连接指南">二 连接指南</h2>
-<h3 id="1-配置镜像加速">1 配置镜像加速</h3>
-<p>创建或修改 /etc/docker/daemon.json 文件，修改为如下形式：</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<h2 id="一-简介" class="heading-element"><span>一 简介</span>
+  <a href="#%e4%b8%80-%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>受网络影响，某地区可能连接Docker Hub受阻。</p>
+<h2 id="二-连接指南" class="heading-element"><span>二 连接指南</span>
+  <a href="#%e4%ba%8c-%e8%bf%9e%e6%8e%a5%e6%8c%87%e5%8d%97" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="1-配置镜像加速" class="heading-element"><span>1 配置镜像加速</span>
+  <a href="#1-%e9%85%8d%e7%bd%ae%e9%95%9c%e5%83%8f%e5%8a%a0%e9%80%9f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>创建或修改 /etc/docker/daemon.json 文件，修改为如下形式：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -712,12 +802,15 @@
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="2-通过代理服务器">2 通过代理服务器</h3>
-<p>如OpenClash等。</p>
+</div><h3 id="2-通过代理服务器" class="heading-element"><span>2 通过代理服务器</span>
+  <a href="#2-%e9%80%9a%e8%bf%87%e4%bb%a3%e7%90%86%e6%9c%8d%e5%8a%a1%e5%99%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>如OpenClash等。</p>
 <ol>
 <li>创建 dockerd 相关的 systemd 目录，这个目录下的配置将覆盖 dockerd 的默认配置</li>
 </ol>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -727,7 +820,7 @@
 </div><ol start="2">
 <li>新建配置文件 /etc/systemd/system/docker.service.d/http-proxy.conf，这个文件中将包含环境变量</li>
 </ol>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -745,7 +838,7 @@
 </div><ol start="3">
 <li>如果你自己建了私有的镜像仓库，需要 dockerd 绕过代理服务器直连，那么配置 NO_PROXY 变量</li>
 </ol>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -758,8 +851,11 @@
 </span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;HTTPS_PROXY=https://proxy.example.com:443&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">Environment</span><span class="o">=</span><span class="s2">&#34;NO_PROXY=your-registry.com,10.10.10.10,*.example.com&#34;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="三-重启docker并确认设置成功">三 重启Docker并确认设置成功</h2>
-<div class="highlight" id="id-5"><div class="chroma">
+</div><h2 id="三-重启docker并确认设置成功" class="heading-element"><span>三 重启Docker并确认设置成功</span>
+  <a href="#%e4%b8%89-%e9%87%8d%e5%90%afdocker%e5%b9%b6%e7%a1%ae%e8%ae%a4%e8%ae%be%e7%bd%ae%e6%88%90%e5%8a%9f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -775,9 +871,15 @@
 </span></span><span class="line"><span class="cl">docker info</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如此，这样配置后，应该可以正常拉取 docker 镜像。</p>
-<h2 id="四-自建镜像">四 自建镜像</h2>
-<h3 id="使用-cloudflare-worker-搭建">使用 CloudFlare Worker 搭建</h3>
-<ol>
+<h2 id="四-自建镜像" class="heading-element"><span>四 自建镜像</span>
+  <a href="#%e5%9b%9b-%e8%87%aa%e5%bb%ba%e9%95%9c%e5%83%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="使用-cloudflare-worker-搭建" class="heading-element"><span>使用 CloudFlare Worker 搭建</span>
+  <a href="#%e4%bd%bf%e7%94%a8-cloudflare-worker-%e6%90%ad%e5%bb%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>
 <p>在面板左侧找到 <strong>Workers 和 Pages</strong>，然后点击右侧的 <strong>创建应用程序</strong>、<strong>创建 Worker</strong>，修改一个好记的名字，<strong>部署</strong></p>
 </li>
@@ -785,7 +887,7 @@
 <p>接下来编辑代码，将 <code>worker.js</code> 的内容替换为下面内容</p>
 </li>
 </ol>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -880,7 +982,7 @@
 </div>
 </div><p>这里相比原项目，将 <strong>redirect: “manual”</strong> 修改为了 <strong>redirect: “follow”</strong>，目的是为了让脚本自行处理 307 跳转，直接返回给我们跳转后的数据。
 新建一个名为 <code>docker.html</code> 的 文件，内容如下</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1064,21 +1166,36 @@
 </li>
 </ol>
 <p>不建议使用自带的 workers.dev 的域名，被墙了</p>
-<h2 id="注意">注意</h2>
-<p>docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。</p>
-<h2 id="参考">参考</h2>
-<ol>
+<h2 id="注意" class="heading-element"><span>注意</span>
+  <a href="#%e6%b3%a8%e6%84%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>docker 镜像由 docker daemon 管理，所以不能用修改 shell 环境变量的方法使用代理服务，而是从 systemd 角度设置环境变量。</p>
+<h2 id="参考" class="heading-element"><span>参考</span>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li><a href="https://www.nodeseek.com/post-119619-1"target="_blank" rel="external nofollow noopener noreferrer">我再强调一遍 是所有的 docker hub镜像都关了 国内想要用只有这些方法</a></li>
 <li><a href="https://blog.lty520.faith/%E5%8D%9A%E6%96%87/%E8%87%AA%E5%BB%BAdocker-hub%E5%8A%A0%E9%80%9F%E9%95%9C%E5%83%8F"target="_blank" rel="external nofollow noopener noreferrer">自建Docker Hub加速镜像</a></li>
 <li><a href="https://developer.aliyun.com/article/1294592"target="_blank" rel="external nofollow noopener noreferrer">docker 设置国内镜像源</a></li>
 </ol>]]></description></item><item><title>搭建uptime-kuma服务监控面板</title><link>https://blog.iqzhi.com/posts/build-uptime-kuma/</link><pubDate>Wed, 21 Feb 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/build-uptime-kuma/</guid><description><![CDATA[<p>随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫<code>uptime-kuma</code>的服务监控面板。</p>
-<h2 id="一-简介">一 简介</h2>
-<p>uptime-kuma是一款开源监控工具，类似于“Uptime Robot”，UI简洁美观，支持TCP/PING/HTTP监控等，支持多语言其中包括中文。当服务出现故障时，可自动通过 Telegram、Discord、Gotify、Slack、Pushover、Email (SMTP) 等多种服务发送通知消息。</p>
+<h2 id="一-简介" class="heading-element"><span>一 简介</span>
+  <a href="#%e4%b8%80-%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>uptime-kuma是一款开源监控工具，类似于“Uptime Robot”，UI简洁美观，支持TCP/PING/HTTP监控等，支持多语言其中包括中文。当服务出现故障时，可自动通过 Telegram、Discord、Gotify、Slack、Pushover、Email (SMTP) 等多种服务发送通知消息。</p>
 <p>项目地址：https://github.com/louislam/uptime-kuma</p>
-<h2 id="二-docker搭建">二 Docker搭建</h2>
-<h3 id="1-使用docker-compose">1 使用docker-compose</h3>
-<p>创建<code>docker-compose.yml</code>。</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<h2 id="二-docker搭建" class="heading-element"><span>二 Docker搭建</span>
+  <a href="#%e4%ba%8c-docker%e6%90%ad%e5%bb%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="1-使用docker-compose" class="heading-element"><span>1 使用docker-compose</span>
+  <a href="#1-%e4%bd%bf%e7%94%a8docker-compose" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>创建<code>docker-compose.yml</code>。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1104,12 +1221,24 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后<code>docker-compose up -d</code>。</p>
-<h3 id="2-设置telegram消息通知">2 设置Telegram消息通知</h3>
-<h4 id="21-设置tg消息通知">2.1 设置TG消息通知</h4>
-<p>点击新增，创建监控项，填写 Bot Token 和 Chat ID 即可配置好 Telegram 消息通知。</p>
-<h4 id="22-解决国内部署无法发送tg通知的问题">2.2 解决国内部署无法发送TG通知的问题</h4>
-<h5 id="221-cloudflare-workers创建workers">2.2.1 CloudFlare workers创建workers</h5>
-<div class="highlight" id="id-2"><div class="chroma">
+<h3 id="2-设置telegram消息通知" class="heading-element"><span>2 设置Telegram消息通知</span>
+  <a href="#2-%e8%ae%be%e7%bd%aetelegram%e6%b6%88%e6%81%af%e9%80%9a%e7%9f%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 id="21-设置tg消息通知" class="heading-element"><span>2.1 设置TG消息通知</span>
+  <a href="#21-%e8%ae%be%e7%bd%aetg%e6%b6%88%e6%81%af%e9%80%9a%e7%9f%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>点击新增，创建监控项，填写 Bot Token 和 Chat ID 即可配置好 Telegram 消息通知。</p>
+<h4 id="22-解决国内部署无法发送tg通知的问题" class="heading-element"><span>2.2 解决国内部署无法发送TG通知的问题</span>
+  <a href="#22-%e8%a7%a3%e5%86%b3%e5%9b%bd%e5%86%85%e9%83%a8%e7%bd%b2%e6%97%a0%e6%b3%95%e5%8f%91%e9%80%81tg%e9%80%9a%e7%9f%a5%e7%9a%84%e9%97%ae%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><h5 id="221-cloudflare-workers创建workers" class="heading-element"><span>2.2.1 CloudFlare workers创建workers</span>
+  <a href="#221-cloudflare-workers%e5%88%9b%e5%bb%baworkers" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1174,8 +1303,11 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="222-修改uptime-kuma的代码">2.2.2 修改uptime-kuma的代码</h5>
-<div class="highlight" id="id-3"><div class="chroma">
+</div><h5 id="222-修改uptime-kuma的代码" class="heading-element"><span>2.2.2 修改uptime-kuma的代码</span>
+  <a href="#222-%e4%bf%ae%e6%94%b9uptime-kuma%e7%9a%84%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1192,62 +1324,110 @@
 </span></span><span class="line"><span class="cl">$ <span class="nb">exit</span> 
 </span></span><span class="line"><span class="cl">$ docker restart uptime-kuma</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="三-参考资料">三 参考资料</h2>
-<ul>
+</div><h2 id="三-参考资料" class="heading-element"><span>三 参考资料</span>
+  <a href="#%e4%b8%89-%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li><a href="https://nies.live/d/174"target="_blank" rel="external nofollow noopener noreferrer">搭建uptime-kuma服务监控面板</a></li>
 </ul>]]></description></item><item><title>记2024春节</title><link>https://blog.iqzhi.com/posts/2024-spring-festival/</link><pubDate>Sun, 18 Feb 2024 13:47:38 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/2024-spring-festival/</guid><description><![CDATA[<p>原本不打算回老家过春节，但想着接下来两年春节更不确切会不会回，所以最后还是成行了。本文从回到信宜的第二天就想着要写，为了简单记录下过节的，实际到回广上班的第二天才陆续写完。</p>
 <p>由于家里亲戚入住请吃席在前，小宝放假在后，而老人家又不想我们特意开车先送回老家，本是计划在广州过年的，又由于后续公司春节假期放早四天（含除夕），有了总共12天的假期，还是计划回老家过年，想着可以探探、热闹热闹，同时老家房子大点，住着当度假休息。</p>
-<h3 id="年廿七">年廿七</h3>
-<p>早上起床，吃完早餐，自驾车7:20出发回信宜，路上车不算多，挺顺利的，花费4小时11分回到信宜，下高速之后，中午饭在河堤那家甲天下羊肉火锅吃羊肉，还是那个味道，吃完就径直回到信宜的家。</p>
+<h3 id="年廿七" class="heading-element"><span>年廿七</span>
+  <a href="#%e5%b9%b4%e5%bb%bf%e4%b8%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>早上起床，吃完早餐，自驾车7:20出发回信宜，路上车不算多，挺顺利的，花费4小时11分回到信宜，下高速之后，中午饭在河堤那家甲天下羊肉火锅吃羊肉，还是那个味道，吃完就径直回到信宜的家。</p>
 <p>下午参加公司远程会议，需要放假，但公司分休前三或者后三（我选前三），所有还是有需要的时候得远程接入，时长一小时结束，然后就投入清洁大军之中。</p>
 <p>晚饭前洗了个车，街边找的60大洋，不是机洗，近年关这价格还是升起来了，平时30。</p>
-<h3 id="年廿八">年廿八</h3>
-<p>房子较大，抓紧时间搞卫生。</p>
+<h3 id="年廿八" class="heading-element"><span>年廿八</span>
+  <a href="#%e5%b9%b4%e5%bb%bf%e5%85%ab" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>房子较大，抓紧时间搞卫生。</p>
 <p>下午去了趟外母家，给送点年礼，难得回来一趟，多走动是应该的嘛，回来的路上花20块理发。</p>
 <p>晚饭前舅妈送来自家包的粽子，真好食。</p>
-<h3 id="年廿九">年廿九</h3>
-<p>早上搞完房子卫生，亲戚、朋友送来鸡鸭，</p>
+<h3 id="年廿九" class="heading-element"><span>年廿九</span>
+  <a href="#%e5%b9%b4%e5%bb%bf%e4%b9%9d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>早上搞完房子卫生，亲戚、朋友送来鸡鸭，</p>
 <p>下午公共卫生间的洗脸盆下水阀坏了，和爸外出五金店花20元买了个换上，效果比原来好多了，全家都十分满意。</p>
 <p>晚上花40块上车Spotify巴基斯坦车，这国际级音乐APP值得推荐。</p>
-<h3 id="年三十">年三十</h3>
-<p>把鸡、鸭都宰掉，下午开弄年晚饭，电视这天故障，笔记本接音响收看央视春晚，跟家人打着麻将守岁。</p>
-<h3 id="年初一">年初一</h3>
-<p>吃饺子，派利是，开车兜县城一圈，中午回家吃粽子。</p>
-<h3 id="年初二">年初二</h3>
-<p>早上早点宰鸡拜神，吃开年饭。</p>
+<h3 id="年三十" class="heading-element"><span>年三十</span>
+  <a href="#%e5%b9%b4%e4%b8%89%e5%8d%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>把鸡、鸭都宰掉，下午开弄年晚饭，电视这天故障，笔记本接音响收看央视春晚，跟家人打着麻将守岁。</p>
+<h3 id="年初一" class="heading-element"><span>年初一</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e4%b8%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>吃饺子，派利是，开车兜县城一圈，中午回家吃粽子。</p>
+<h3 id="年初二" class="heading-element"><span>年初二</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e4%ba%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>早上早点宰鸡拜神，吃开年饭。</p>
 <p>中午出发上锦衣老家，祠堂烧炮两封（60元/每封），原想在老房子地堂烧一封，奈何太过荒凉故放弃。</p>
 <p>下午到怀乡小舅家去探亲，大家平平安安，生活也越来越好，吃完饭就回信宜。</p>
-<h3 id="年初三">年初三</h3>
-<p>媳妇“休假”找朋友聚会去，我在家陪小宝午觉和玩游戏，下午洗澡吃饭时，媳妇回家加入“清煲”行动，合伙基本把过年剩菜清掉。</p>
+<h3 id="年初三" class="heading-element"><span>年初三</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e4%b8%89" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>媳妇“休假”找朋友聚会去，我在家陪小宝午觉和玩游戏，下午洗澡吃饭时，媳妇回家加入“清煲”行动，合伙基本把过年剩菜清掉。</p>
 <p>晚上朋友约到育龙湾打麻将，其中差点做成两盘十三幺，运气还不错。到1点半打完去宵夜，谈人生、谈变迁、谈进步、谈际遇，至3点回家睡觉。</p>
-<h3 id="年初四">年初四</h3>
-<p>早上过禹神轩大舅家吃饭，两表妹出落更标致了，但就是还没结婚，大伙各种“催”，小宝跟着他表妹表弟接触玩《蛋仔派对》。</p>
+<h3 id="年初四" class="heading-element"><span>年初四</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e5%9b%9b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>早上过禹神轩大舅家吃饭，两表妹出落更标致了，但就是还没结婚，大伙各种“催”，小宝跟着他表妹表弟接触玩《蛋仔派对》。</p>
 <p>中午吃完家，小宝带着他表妹表弟到自家玩Switch。</p>
 <p>下午就去了外母家探亲食饭，除二姐外其它人都到了，大家喜气洋洋，各种逗利是派利是，小孩子更是“蛋仔”不断。</p>
-<h3 id="年初五">年初五</h3>
-<p>恭贺二表兄新家入住满月，于好年华设宴吃席。</p>
-<h3 id="年初六">年初六</h3>
-<p>收搭大件物品，宅家休息充足，准备回程。</p>
-<h3 id="年初七">年初七</h3>
-<p>起了个大早，4点半起床边收拾边吃早餐，6点出门，正式启程回广州，从丁堡入口上高速，进平塘服务区，中间拐汕湛高速从云浮下高速走国道避开深岑高速极度拥堵路段，从佛山高明再上高速，12点进松岗服务区休息吃粽子充饥，然后14点平安到广州的家，总花费8个小时。</p>
+<h3 id="年初五" class="heading-element"><span>年初五</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e4%ba%94" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>恭贺二表兄新家入住满月，于好年华设宴吃席。</p>
+<h3 id="年初六" class="heading-element"><span>年初六</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e5%85%ad" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>收搭大件物品，宅家休息充足，准备回程。</p>
+<h3 id="年初七" class="heading-element"><span>年初七</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e4%b8%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>起了个大早，4点半起床边收拾边吃早餐，6点出门，正式启程回广州，从丁堡入口上高速，进平塘服务区，中间拐汕湛高速从云浮下高速走国道避开深岑高速极度拥堵路段，从佛山高明再上高速，12点进松岗服务区休息吃粽子充饥，然后14点平安到广州的家，总花费8个小时。</p>
 <p>慢其实并不是事故引起的，主要是车多，加上不知道是不是新手多，不敢开高速，前边没车都不开，还有两车道两台车并排慢悠悠的开的情况，导致跟车多，特别是每个隧道前必是超级慢速。</p>
-<h3 id="年初八">年初八</h3>
-<p>早起在家早餐，就约上朋友去荔湾新开的竹溪好运酒家吃午饭，然后逛海珠湖公园，逛完回家。</p>
-<h3 id="年初九">年初九</h3>
-<p>回公司上班第一天，果然人不多，但相熟的几个同事也是今天回，还是有聊兴的。</p>
+<h3 id="年初八" class="heading-element"><span>年初八</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e5%85%ab" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>早起在家早餐，就约上朋友去荔湾新开的竹溪好运酒家吃午饭，然后逛海珠湖公园，逛完回家。</p>
+<h3 id="年初九" class="heading-element"><span>年初九</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e4%b9%9d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>回公司上班第一天，果然人不多，但相熟的几个同事也是今天回，还是有聊兴的。</p>
 <p>上车币安的新春16U红包活动。</p>
 <p>微信和媳妇聊天，媳妇说走的路多腿累，我就寻思着“献殷勤”，准点下班打卡去接媳妇，被媳妇夸了一通，舒服。</p>
-<h3 id="年初十">年初十</h3>
-<p>加油、洗车，公司到岗人也多了不少，我也终是把这个流水账写完。</p>
+<h3 id="年初十" class="heading-element"><span>年初十</span>
+  <a href="#%e5%b9%b4%e5%88%9d%e5%8d%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>加油、洗车，公司到岗人也多了不少，我也终是把这个流水账写完。</p>
 <p>初来人间不知苦，潦草半生一身无。 转身回望来时路，才知生时为何哭。 皆是红尘悲伤客，莫笑谁是可怜人。 此生愿为无心人，来世绝不入凡尘。</p>]]></description></item><item><title>记一次CentOS磁盘扩容操作</title><link>https://blog.iqzhi.com/posts/centos-disk-expansion/</link><pubDate>Wed, 20 Dec 2023 09:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/centos-disk-expansion/</guid><description><![CDATA[<p>前期安装的CentOS，专门拿来挂机跑青龙、机器人等项目，当时估算的磁盘分配少了，监控程序一直处于黄色告警，虽然不影响正常使用，但有空还是处理下为好，正常的资源利用率更有利于系统稳定运行。</p>
-<h2 id="引言-lvm概述">引言 LVM概述</h2>
-<ul>
+<h2 id="引言-lvm概述" class="heading-element"><span>引言 LVM概述</span>
+  <a href="#%e5%bc%95%e8%a8%80-lvm%e6%a6%82%e8%bf%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>
 <p>在 Linux 系统中，我们经常使用 LVM （逻辑卷管理）的方式去管理和使用磁盘， LVM 可以动态扩容，给我们的使用带来了很多的便捷性。</p>
 </li>
 <li>
 <p>LVM结构图如下：</p>
-<figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=large" data-thumbnail="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=small" data-sub-html="<h2>LVM结构图</h2><p>LVM结构图</p>"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=large 2x" sizes="auto" data-title="LVM结构图" data-alt="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png" width="50%" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">LVM结构图</figcaption>
+<figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=large" data-thumbnail="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=small" data-sub-html="<h2>LVM结构图</h2><p>LVM结构图</p>"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png" alt="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png?size=large 2x" data-title="LVM结构图" width="50%" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></a><figcaption class="image-caption">LVM结构图</figcaption>
     </figure>
 <ul>
 <li>物理卷（Physical Volume，PV）
@@ -1259,117 +1439,153 @@
 </ul>
 </li>
 </ul>
-<h2 id="centos实操">CentOS实操</h2>
-<p>下边主要通过截图记录本次操作，以便回顾关键点。</p>
-<h3 id="一-esxi修改磁盘大小">一 ESXi修改磁盘大小</h3>
-<p>打开ESXi中需要增加的虚拟机配置界面，直接修改硬盘大小（下图红框所示），点击保存，然后重启虚拟机即可。</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png?size=large 2x" sizes="auto" data-title="ESXi修改原磁盘大小" data-alt="ESXi修改原磁盘大小" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="centos实操" class="heading-element"><span>CentOS实操</span>
+  <a href="#centos%e5%ae%9e%e6%93%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>下边主要通过截图记录本次操作，以便回顾关键点。</p>
+<h3 id="一-esxi修改磁盘大小" class="heading-element"><span>一 ESXi修改磁盘大小</span>
+  <a href="#%e4%b8%80-esxi%e4%bf%ae%e6%94%b9%e7%a3%81%e7%9b%98%e5%a4%a7%e5%b0%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>打开ESXi中需要增加的虚拟机配置界面，直接修改硬盘大小（下图红框所示），点击保存，然后重启虚拟机即可。</p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png" alt="ESXi修改原磁盘大小" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220103154.png?size=large 2x" data-title="ESXi修改原磁盘大小" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>至此，ESXi操作完毕。</p>
-<h3 id="二-centos扩容">二 CentOS扩容</h3>
-<p>使用SSH终端连接CentOS操作后续步骤。</p>
+<h3 id="二-centos扩容" class="heading-element"><span>二 CentOS扩容</span>
+  <a href="#%e4%ba%8c-centos%e6%89%a9%e5%ae%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>使用SSH终端连接CentOS操作后续步骤。</p>
 <p><strong>核心思想：使用增加的磁盘空间创建一个新PV，跟原有的PV接接，整合到同一个LV上去，完成扩容。</strong></p>
-<h4 id="观察系统是否正常识别需要扩容的空间">观察系统是否正常识别需要扩容的空间</h4>
-<p>使用<code>lsblk</code>查看磁盘分配情况</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png?size=large 2x" sizes="auto" data-title="原磁盘状态1" data-alt="原磁盘状态1" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="观察系统是否正常识别需要扩容的空间" class="heading-element"><span>观察系统是否正常识别需要扩容的空间</span>
+  <a href="#%e8%a7%82%e5%af%9f%e7%b3%bb%e7%bb%9f%e6%98%af%e5%90%a6%e6%ad%a3%e5%b8%b8%e8%af%86%e5%88%ab%e9%9c%80%e8%a6%81%e6%89%a9%e5%ae%b9%e7%9a%84%e7%a9%ba%e9%97%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>使用<code>lsblk</code>查看磁盘分配情况</p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png" alt="原磁盘状态1" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110012.png?size=large 2x" data-title="原磁盘状态1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>使用<code>fdisk -l</code>确认</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">fdisk -l <span class="p">|</span>grep /dev/sda</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png?size=large 2x" sizes="auto" data-title="原磁盘状态2" data-alt="原磁盘状态2" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png" alt="原磁盘状态2" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110205.png?size=large 2x" data-title="原磁盘状态2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>在ESXi增加了磁盘大小重启后，再次使用<code>lsblk</code></p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png?size=large 2x" sizes="auto" data-title="增加磁盘空间后的磁盘状态1" data-alt="增加磁盘空间后的磁盘状态1" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png" alt="增加磁盘空间后的磁盘状态1" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110349.png?size=large 2x" data-title="增加磁盘空间后的磁盘状态1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>可以看到，<code>sda</code>总大小为64G，较原有的20G多了44G。</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png?size=large 2x" sizes="auto" data-title="增加磁盘空间后的磁盘状态2" data-alt="增加磁盘空间后的磁盘状态2" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="对新增加的空间进行分区格式化">对新增加的空间进行分区格式化</h4>
-<p>使用<code>fdisk</code>命令启动格式化</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png" alt="增加磁盘空间后的磁盘状态2" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220110847.png?size=large 2x" data-title="增加磁盘空间后的磁盘状态2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="对新增加的空间进行分区格式化" class="heading-element"><span>对新增加的空间进行分区格式化</span>
+  <a href="#%e5%af%b9%e6%96%b0%e5%a2%9e%e5%8a%a0%e7%9a%84%e7%a9%ba%e9%97%b4%e8%bf%9b%e8%a1%8c%e5%88%86%e5%8c%ba%e6%a0%bc%e5%bc%8f%e5%8c%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>使用<code>fdisk</code>命令启动格式化</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">fdisk /dev/sda</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png?size=large 2x" sizes="auto" data-title="格式化并新建PV" data-alt="格式化并新建PV" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png" alt="格式化并新建PV" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220111636.png?size=large 2x" data-title="格式化并新建PV" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>完成上述命令后，可观察终端输出，一般可能出现一些WARNING，说系统繁忙，我们直接重启虚拟机，能正常进入即成功。</p>
-<h4 id="新建pv">新建PV</h4>
-<p>使用<code>pvs</code>查看PV</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png?size=large 2x" sizes="auto" data-title="查看PV1" data-alt="查看PV1" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="新建pv" class="heading-element"><span>新建PV</span>
+  <a href="#%e6%96%b0%e5%bb%bapv" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>使用<code>pvs</code>查看PV</p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png" alt="查看PV1" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112527.png?size=large 2x" data-title="查看PV1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>创建新PV<code>pvcreate</code></p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pvcreate /dev/sda3</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png?size=large 2x" sizes="auto" data-title="新PV" data-alt="新PV" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png" alt="新PV" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112739.png?size=large 2x" data-title="新PV" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>再次<code>pvs</code>确认</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png?size=large 2x" sizes="auto" data-title="查看PV2" data-alt="查看PV2" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="将新pv加入到vg">将新PV加入到VG</h4>
-<p>使用<code>vgs</code>查看VG</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png?size=large 2x" sizes="auto" data-title="查看VG1" data-alt="查看VG1" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png" alt="查看PV2" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220112936.png?size=large 2x" data-title="查看PV2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="将新pv加入到vg" class="heading-element"><span>将新PV加入到VG</span>
+  <a href="#%e5%b0%86%e6%96%b0pv%e5%8a%a0%e5%85%a5%e5%88%b0vg" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>使用<code>vgs</code>查看VG</p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png" alt="查看VG1" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220113521.png?size=large 2x" data-title="查看VG1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>使用<code>vgextend</code>进行增加</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">vgextend centos /dev/sda3</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png?size=large 2x" sizes="auto" data-title="加入VG" data-alt="加入VG" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png" alt="加入VG" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114351.png?size=large 2x" data-title="加入VG" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>再次<code>vgs</code>确认</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png?size=large 2x" sizes="auto" data-title="查看VG2" data-alt="查看VG2" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
-<h4 id="扩容lv">扩容LV</h4>
-<p>使用<code>lvs</code>查看LV</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png?size=large 2x" sizes="auto" data-title="查看LV1" data-alt="查看LV1" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png" alt="查看VG2" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114237.png?size=large 2x" data-title="查看VG2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h4 id="扩容lv" class="heading-element"><span>扩容LV</span>
+  <a href="#%e6%89%a9%e5%ae%b9lv" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>使用<code>lvs</code>查看LV</p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png" alt="查看LV1" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114555.png?size=large 2x" data-title="查看LV1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>扩容43G空间到LV</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">lvextend -L +43G /dev/centos/root</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png?size=large 2x" sizes="auto" data-title="扩容LV1" data-alt="扩容LV1" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png" alt="扩容LV1" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png?size=large 2x" data-title="扩容LV1" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>当初实际在ESXi加的是44G，但经过分区格式化后是不足44G的，在这里磁盘是有损耗的，一定要注意参数不要直接写44G，我们可以通过再加1G验证</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">lvextend -L +1G /dev/centos/root</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png?size=large 2x" sizes="auto" data-title="扩容LV2" data-alt="扩容LV2" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png" alt="扩容LV2" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png?size=large 2x" data-title="扩容LV2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>这次改用<code>lvdisplay</code>可以查看确认更详细的信息</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png?size=large 2x" sizes="auto" data-title="查看LV2" data-alt="查看LV2" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png" alt="查看LV2" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115429.png?size=large 2x" data-title="查看LV2" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>可以看到<code>root</code>下空间增至60G，扩容成功。</p>
-<h4 id="刷新文件系统信息">刷新文件系统信息</h4>
-<p>本次CentOS使用的是XFS文件系统，所以使用<code>xfs_growfs</code>刷新；若是EXT文件系统就要用<code>resize2fs</code>命令；可以通过<code>lsblk -f</code>或<code>cat /etc/fstab</code>查看文件系统。</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<h4 id="刷新文件系统信息" class="heading-element"><span>刷新文件系统信息</span>
+  <a href="#%e5%88%b7%e6%96%b0%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>本次CentOS使用的是XFS文件系统，所以使用<code>xfs_growfs</code>刷新；若是EXT文件系统就要用<code>resize2fs</code>命令；可以通过<code>lsblk -f</code>或<code>cat /etc/fstab</code>查看文件系统。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">xfs_growfs /dev/centos/root</span></span></code></pre></td></tr></table>
 </div>
-</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png?size=large 2x" sizes="auto" data-title="刷新文件系统" data-alt="刷新文件系统" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png" alt="刷新文件系统" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115738.png?size=large 2x" data-title="刷新文件系统" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><code>reboot</code>后重新进入，通过<code>df -h</code>查看系统空间情况，确认扩容成功。</p>
-<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png?size=large 2x" sizes="auto" data-title="查看最终成果" data-alt="查看最终成果" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png" alt="查看最终成果" srcset="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png?size=small, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png?size=medium 1.5x, https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115951.png?size=large 2x" data-title="查看最终成果" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p>至此，本次扩容完成。</p>
-<h2 id="总结">总结</h2>
-<p>回顾此次操作，整体较为顺利，ESXi稳定好折腾再次被验证，搞清楚底层逻辑是实践的基石，能达到一点即通，多谢大佬<a href="http://www.qxzx.xyz/"target="_blank" rel="external nofollow noopener noreferrer">Frank</a>的远程指导操作，让我更深刻学习Linux基础，收益甚多！</p>
-<h2 id="参考">参考</h2>
-<ul>
+<h2 id="总结" class="heading-element"><span>总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>回顾此次操作，整体较为顺利，ESXi稳定好折腾再次被验证，搞清楚底层逻辑是实践的基石，能达到一点即通，多谢大佬<a href="http://www.qxzx.xyz/"target="_blank" rel="external nofollow noopener noreferrer">Frank</a>的远程指导操作，让我更深刻学习Linux基础，收益甚多！</p>
+<h2 id="参考" class="heading-element"><span>参考</span>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li><a href="https://www.jianshu.com/p/4c7acf819046"target="_blank" rel="external nofollow noopener noreferrer">LV扩容(lvextend)</a></li>
 </ul>]]></description></item><item><title>Linux设置密钥登陆</title><link>https://blog.iqzhi.com/posts/linux-key-login/</link><pubDate>Tue, 12 Dec 2023 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/linux-key-login/</guid><description><![CDATA[<p>网上看了几篇对于Linux使用密钥登录的好文章，这里合并做个备用，如有系统安全类需求，这是一个很好的参考思路。</p>
-<h2 id="方案一传统做法">方案一：传统做法</h2>
-<p>转载：<a href="https://zset.cc/archives/25/"target="_blank" rel="external nofollow noopener noreferrer">【有序集合】Linux设置密钥登陆</a></p>
+<h2 id="方案一传统做法" class="heading-element"><span>方案一：传统做法</span>
+  <a href="#%e6%96%b9%e6%a1%88%e4%b8%80%e4%bc%a0%e7%bb%9f%e5%81%9a%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>转载：<a href="https://zset.cc/archives/25/"target="_blank" rel="external nofollow noopener noreferrer">【有序集合】Linux设置密钥登陆</a></p>
 <p>首先在家目录下创建 <code>authorized_keys</code> 用于存放公钥，如果已有该文件可跳过</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1379,7 +1595,7 @@
 </span></span><span class="line"><span class="cl">touch .ssh/authorized_keys</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在 <code>authorized_keys</code> 文件中添加公钥，并修改文件权限</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1389,7 +1605,7 @@
 </span></span><span class="line"><span class="cl">chmod <span class="m">700</span> .ssh</span></span></code></pre></td></tr></table>
 </div>
 </div><p>编辑 <code>/etc/ssh/sshd_config</code> 文件，进行如下设置：</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1399,7 +1615,7 @@
 </span></span><span class="line"><span class="cl">PubkeyAuthentication yes</span></span></code></pre></td></tr></table>
 </div>
 </div><p>另外，请留意 root 用户能否通过 SSH 登录：</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1407,7 +1623,7 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PermitRootLogin yes</span></span></code></pre></td></tr></table>
 </div>
 </div><p>当你完成全部设置，并以密钥方式登录成功后，再禁用密码登录：</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1415,17 +1631,20 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PasswordAuthentication no</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后，重启 SSH 服务：</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">service sshd restart</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="方案二一键配置脚本">方案二：一键配置脚本</h2>
-<p>转载：<a href="https://p3terx.com/archives/ssh-key-installer.html"target="_blank" rel="external nofollow noopener noreferrer">【P3TERX ZONE】SSH 密钥一键配置脚本 使用教程</a></p>
+</div><h2 id="方案二一键配置脚本" class="heading-element"><span>方案二：一键配置脚本</span>
+  <a href="#%e6%96%b9%e6%a1%88%e4%ba%8c%e4%b8%80%e9%94%ae%e9%85%8d%e7%bd%ae%e8%84%9a%e6%9c%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>转载：<a href="https://p3terx.com/archives/ssh-key-installer.html"target="_blank" rel="external nofollow noopener noreferrer">【P3TERX ZONE】SSH 密钥一键配置脚本 使用教程</a></p>
 <p>对于新入手或重装后的 VPS 配置密钥登录需要创建 <code>~/.ssh</code> 目录、把公钥写入到 <code>~/.ssh/authorized_keys</code>、设置权限、禁用密码登录等操作，虽然都是很简单的基础操作，但过程麻烦且枯燥：</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1443,15 +1662,18 @@
 </span></span><span class="line"><span class="cl">sudo service sshd restart</span></span></code></pre></td></tr></table>
 </div>
 </div><p>SSH 密钥一键配置脚本是一套用于简化 SSH 密钥配置过程的解决方案。使用它以上操作只需要一行命令：</p>
-<div class="highlight" id="id-8"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -g P3TERX -d</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="语法及选项说明">语法及选项说明</h3>
-<div class="highlight" id="id-9"><div class="chroma">
+</div><h3 id="语法及选项说明" class="heading-element"><span>语法及选项说明</span>
+  <a href="#%e8%af%ad%e6%b3%95%e5%8f%8a%e9%80%89%e9%a1%b9%e8%af%b4%e6%98%8e" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1466,10 +1688,16 @@
 <li>-p - 修改 SSH 端口，参数为端口号</li>
 <li>-d - 禁用密码登录</li>
 </ul>
-<h3 id="使用方法">使用方法</h3>
-<h4 id="生成-ssh-密钥对">生成 SSH 密钥对</h4>
-<p>如果没有密钥需要先生成，执行以下命令后一路回车即可。</p>
-<div class="highlight" id="id-10"><div class="chroma">
+<h3 id="使用方法" class="heading-element"><span>使用方法</span>
+  <a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 id="生成-ssh-密钥对" class="heading-element"><span>生成 SSH 密钥对</span>
+  <a href="#%e7%94%9f%e6%88%90-ssh-%e5%af%86%e9%92%a5%e5%af%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>如果没有密钥需要先生成，执行以下命令后一路回车即可。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1488,37 +1716,52 @@
 <p>科普：~符号代表用户主目录，俗称家目录。其路径与当前登陆的用户有关，在 Linux 中普通用户家目录的路径是/home/用户名，而 root 用户是/root。Win­dows 10 中路径是C:\Users\用户名。在 ma­cOS 中路径是/Users/用户名。</p>
 </blockquote>
 </blockquote>
-<h4 id="安装公钥">安装公钥</h4>
-<h5 id="从-github-获取公钥">从 GitHub 获取公钥</h5>
-<p>在 GitHub 密钥管理页面 添加公钥，比如我的用户名是 P3TERX，那么在主机上输入以下命令即可：</p>
-<div class="highlight" id="id-11"><div class="chroma">
+<h4 id="安装公钥" class="heading-element"><span>安装公钥</span>
+  <a href="#%e5%ae%89%e8%a3%85%e5%85%ac%e9%92%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><h5 id="从-github-获取公钥" class="heading-element"><span>从 GitHub 获取公钥</span>
+  <a href="#%e4%bb%8e-github-%e8%8e%b7%e5%8f%96%e5%85%ac%e9%92%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>在 GitHub 密钥管理页面 添加公钥，比如我的用户名是 P3TERX，那么在主机上输入以下命令即可：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -g P3TERX</span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="从-url-获取公钥">从 URL 获取公钥</h5>
-<p>把公钥上传到网盘，通过网盘链接获取公钥：</p>
-<div class="highlight" id="id-12"><div class="chroma">
+</div><h5 id="从-url-获取公钥" class="heading-element"><span>从 URL 获取公钥</span>
+  <a href="#%e4%bb%8e-url-%e8%8e%b7%e5%8f%96%e5%85%ac%e9%92%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>把公钥上传到网盘，通过网盘链接获取公钥：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -u https://p3terx.com/key.pub</span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="从本地文件获取公钥">从本地文件获取公钥</h5>
-<p>通过 FTP 的方式把公钥传到 VPS 上，然后指定公钥路径：</p>
-<div class="highlight" id="id-13"><div class="chroma">
+</div><h5 id="从本地文件获取公钥" class="heading-element"><span>从本地文件获取公钥</span>
+  <a href="#%e4%bb%8e%e6%9c%ac%e5%9c%b0%e6%96%87%e4%bb%b6%e8%8e%b7%e5%8f%96%e5%85%ac%e9%92%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h5><p>通过 FTP 的方式把公钥传到 VPS 上，然后指定公钥路径：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -f ~/key.pub</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="覆盖模式">覆盖模式</h4>
-<p>使用覆盖模式（-o）将覆盖 /.ssh/authorized_keys 文件，之前的密钥会被完全替换掉，选项必须写在最前面才会生效，比如：</p>
-<div class="highlight" id="id-14"><div class="chroma">
+</div><h4 id="覆盖模式" class="heading-element"><span>覆盖模式</span>
+  <a href="#%e8%a6%86%e7%9b%96%e6%a8%a1%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>使用覆盖模式（-o）将覆盖 /.ssh/authorized_keys 文件，之前的密钥会被完全替换掉，选项必须写在最前面才会生效，比如：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1526,34 +1769,43 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -o -g P3TERX</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
-<div class="highlight" id="id-15"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -og P3TERX</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="禁用密码登录">禁用密码登录</h4>
-<p>在确定使用密钥能正常登录后禁用密码登录：</p>
-<div class="highlight" id="id-16"><div class="chroma">
+</div><h4 id="禁用密码登录" class="heading-element"><span>禁用密码登录</span>
+  <a href="#%e7%a6%81%e7%94%a8%e5%af%86%e7%a0%81%e7%99%bb%e5%bd%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>在确定使用密钥能正常登录后禁用密码登录：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -d</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="修改-ssh-端口">修改 SSH 端口</h4>
-<p>把 SSH 端口修改为 2222：</p>
-<div class="highlight" id="id-17"><div class="chroma">
+</div><h4 id="修改-ssh-端口" class="heading-element"><span>修改 SSH 端口</span>
+  <a href="#%e4%bf%ae%e6%94%b9-ssh-%e7%ab%af%e5%8f%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>把 SSH 端口修改为 2222：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/key.sh<span class="o">)</span> -p <span class="m">2222</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="一键操作">一键操作</h4>
-<p>安装密钥、修改端口、禁用密码登录一键操作：</p>
-<div class="highlight" id="id-18"><div class="chroma">
+</div><h4 id="一键操作" class="heading-element"><span>一键操作</span>
+  <a href="#%e4%b8%80%e9%94%ae%e6%93%8d%e4%bd%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>安装密钥、修改端口、禁用密码登录一键操作：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1575,8 +1827,11 @@
 <p>其中我又得到了什么乐趣呢？我总是在反问，或许是想着便宜，不剁手对不起知道这样的资讯。</p>
 <p>机器有了，能折腾的空间也更多了，可以部署一些程序玩下，其实外边的成品服务还是很贵的，很多都能找到开源自建方案，更有成就感。</p>]]></description></item><item><title>宝塔面板安装Tiny Tiny RSS</title><link>https://blog.iqzhi.com/posts/bt-install-tt-rss/</link><pubDate>Fri, 27 Oct 2023 15:28:18 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/bt-install-tt-rss/</guid><description><![CDATA[<p>物尽其用，刚好雨云免费的宝塔面板可以绑定两个域名，一个用作博客备站，另一个刚好可以玩下Tiny Tiny RSS。</p>
 <p>官网最新教程已然推荐使用docker进行安装了，但雨云的虚拟主机无法安装docker，只能使用源码安装，好在基础环境宝塔面板还是简化了些操作，但是由于多年更新，此种安装方式官方wiki也不再更新，导致还是碰上了很多坑，一路坑一路填，居然成功了。</p>
-<h2 id="宝塔面板新建站点">宝塔面板新建站点</h2>
-<ol>
+<h2 id="宝塔面板新建站点" class="heading-element"><span>宝塔面板新建站点</span>
+  <a href="#%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf%e6%96%b0%e5%bb%ba%e7%ab%99%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>
 <p>面站 -&gt; PHP项目 -&gt; 添加站点，确定文件目录，选用PHP7.4版本</p>
 </li>
@@ -1584,12 +1839,15 @@
 <p>软件商店 -&gt; PHP-7.4 -&gt; 安装扩展<code>fileinfo</code></p>
 </li>
 </ol>
-<h2 id="tiny-tiny-rss">Tiny Tiny RSS</h2>
-<p><a href="https://tt-rss.org/wiki.php"target="_blank" rel="external nofollow noopener noreferrer">wiki</a></p>
+<h2 id="tiny-tiny-rss" class="heading-element"><span>Tiny Tiny RSS</span>
+  <a href="#tiny-tiny-rss" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://tt-rss.org/wiki.php"target="_blank" rel="external nofollow noopener noreferrer">wiki</a></p>
 <ol>
 <li>按<a href="https://tt-rss.org/wiki/InstallationNotesHost"target="_blank" rel="external nofollow noopener noreferrer">教程</a>，先下载源码。</li>
 </ol>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1600,7 +1858,7 @@
 <li>配置<code>config.php</code></li>
 </ol>
 <p>网上某些教程说可以访问<code>/install</code>路径进行数据库配置安装，但访问后报了404，那些教程已然落后了。</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1628,7 +1886,7 @@
 </div><ol start="3">
 <li>安装数据库</li>
 </ol>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1640,14 +1898,20 @@
 </ol>
 <p>but，WTF！！！</p>
 <p>我遇到了下列一系列的坑。</p>
-<h2 id="踩坑过程">踩坑过程</h2>
-<h3 id="坑一php多版本共存">坑一：PHP多版本共存</h3>
-<div class="details admonition question open">
+<h2 id="踩坑过程" class="heading-element"><span>踩坑过程</span>
+  <a href="#%e8%b8%a9%e5%9d%91%e8%bf%87%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="坑一php多版本共存" class="heading-element"><span>坑一：PHP多版本共存</span>
+  <a href="#%e5%9d%91%e4%b8%80php%e5%a4%9a%e7%89%88%e6%9c%ac%e5%85%b1%e5%ad%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>宝塔面板有两个版本的PHP，默认是更高的8以上版本，可能不支持！<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
     <div class="details-content">
-      <div class="admonition-content"><div class="highlight" id="id-4"><div class="chroma">
+      <div class="admonition-content"><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1665,7 +1929,7 @@
 </span></span><span class="line"><span class="cl">  thrown in /www/wwwroot/rss.izhi.tk/config.php on line 3</span></span></code></pre></td></tr></table>
 </div>
 </div><p>指定php命令版本</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1675,13 +1939,16 @@
 </div></div>
     </div>
   </div>
-<h3 id="坑二函数-putenv-过期">坑二：函数 <code>putenv</code> 过期</h3>
-<div class="details admonition question open">
+<h3 id="坑二函数-putenv-过期" class="heading-element"><span>坑二：函数 <code>putenv</code> 过期</span>
+  <a href="#%e5%9d%91%e4%ba%8c%e5%87%bd%e6%95%b0-putenv-%e8%bf%87%e6%9c%9f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>Exception while creating PDO object:could not find driver<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
     <div class="details-content">
-      <div class="admonition-content"><div class="highlight" id="id-6"><div class="chroma">
+      <div class="admonition-content"><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1693,7 +1960,7 @@
 <ol>
 <li>直接在<code>classes/Confing.php</code>中配置默认值</li>
 </ol>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1727,7 +1994,7 @@
 </div><ol start="2">
 <li>去掉禁用函数<code>putenv()</code> ,改用<code>define()</code>定义,详见<a href="https://community.tt-rss.org/t/error-pdo-object-sqlstate-08006-7-could-not-connect-to-server/4369"target="_blank" rel="external nofollow noopener noreferrer">Error: PDO object:SQLSTATE[08006] [7] could not connect to server</a></li>
 </ol>
-<div class="highlight" id="id-8"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1821,8 +2088,11 @@
 </div></div>
     </div>
   </div>
-<h3 id="坑三非root用户运行">坑三：非root用户运行</h3>
-<div class="details admonition question open">
+<h3 id="坑三非root用户运行" class="heading-element"><span>坑三：非root用户运行</span>
+  <a href="#%e5%9d%91%e4%b8%89%e9%9d%9eroot%e7%94%a8%e6%88%b7%e8%bf%90%e8%a1%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i><ul>
 <li>Please don&rsquo;t run this script as root.</li>
@@ -1831,7 +2101,7 @@
     </div>
     <div class="details-content">
       <div class="admonition-content"><p>不能使用root运行，通过<code>su</code>切换指定<code>www</code>用户运行。</p>
-<div class="highlight" id="id-9"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1839,7 +2109,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -u www /www/server/php/74/bin/php ./update.php --update-schema</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以下<a href="https://community.tt-rss.org/t/cannot-run-update-php-by-any-means/2516/2"target="_blank" rel="external nofollow noopener noreferrer">备用</a></p>
-<div class="highlight" id="id-10"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -1849,11 +2119,17 @@
 </div></div>
     </div>
   </div>]]></description></item><item><title>使用github的webhook自动触发宝塔部署的hugo博客更新</title><link>https://blog.iqzhi.com/posts/github-webhook-bt-hugo/</link><pubDate>Tue, 24 Oct 2023 16:21:21 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/github-webhook-bt-hugo/</guid><description><![CDATA[<p>博客部署到vercel上，有时终究是会遇到网络抽风，听说雨云线路还不错，也有免费用度，于是搞了台雨云的香港宝塔面板，研究如何可以达到像vercel上的自动部署效果。</p>
-<h2 id="解决方案">解决方案</h2>
-<p>本地提交 hugo 源码到 Github，自动触发构建并同步到宝塔指定的网站目录。</p>
-<h3 id="github自动构建">Github自动构建</h3>
-<p>在 Github 的 Hugo 源码仓库根目录，新建&quot;.github/workflows/xxx.yml 文件，复制以下代码。作用：借助 Github Action 实现自动构建，并同步到另外一个仓库。其中 <code>PERSONAL_TOKEN</code> 为另外仓库的访问密钥；<code>external_repository</code> 为另外仓库地址。</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<h2 id="解决方案" class="heading-element"><span>解决方案</span>
+  <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>本地提交 hugo 源码到 Github，自动触发构建并同步到宝塔指定的网站目录。</p>
+<h3 id="github自动构建" class="heading-element"><span>Github自动构建</span>
+  <a href="#github%e8%87%aa%e5%8a%a8%e6%9e%84%e5%bb%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在 Github 的 Hugo 源码仓库根目录，新建&quot;.github/workflows/xxx.yml 文件，复制以下代码。作用：借助 Github Action 实现自动构建，并同步到另外一个仓库。其中 <code>PERSONAL_TOKEN</code> 为另外仓库的访问密钥；<code>external_repository</code> 为另外仓库地址。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1924,8 +2200,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l">./public</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="宝塔面板终端生成-git-公钥">宝塔面板终端生成 git 公钥</h3>
-<div class="highlight" id="id-2"><div class="chroma">
+</div><h3 id="宝塔面板终端生成-git-公钥" class="heading-element"><span>宝塔面板终端生成 git 公钥</span>
+  <a href="#%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf%e7%bb%88%e7%ab%af%e7%94%9f%e6%88%90-git-%e5%85%ac%e9%92%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1948,11 +2227,17 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 查看git公钥</span>
 </span></span><span class="line"><span class="cl">cat ~/.ssh/id_rsa.pub</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="添加公钥到到-github">添加公钥到到 Github</h3>
-<p>头像–Settings–SSH and GPG keys–New SSH key</p>
-<h3 id="宝塔面板安装-webhook-触发同步">宝塔面板安装 WebHook 触发同步</h3>
-<p>打开宝塔面板商店，安装 WebHook 插件–添加执行脚本 (复制以下代码)。其中&quot;gitHttp 为需同步的 github 仓库地址&quot;，“gh-pages&quot;为仓库分支名称。</p>
-<div class="highlight" id="id-3"><div class="chroma">
+</div><h3 id="添加公钥到到-github" class="heading-element"><span>添加公钥到到 Github</span>
+  <a href="#%e6%b7%bb%e5%8a%a0%e5%85%ac%e9%92%a5%e5%88%b0%e5%88%b0-github" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>头像–Settings–SSH and GPG keys–New SSH key</p>
+<h3 id="宝塔面板安装-webhook-触发同步" class="heading-element"><span>宝塔面板安装 WebHook 触发同步</span>
+  <a href="#%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf%e5%ae%89%e8%a3%85-webhook-%e8%a7%a6%e5%8f%91%e5%90%8c%e6%ad%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>打开宝塔面板商店，安装 WebHook 插件–添加执行脚本 (复制以下代码)。其中&quot;gitHttp 为需同步的 github 仓库地址&quot;，“gh-pages&quot;为仓库分支名称。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2061,9 +2346,12 @@
 </span></span><span class="line"><span class="cl">        <span class="nb">exit</span>
 </span></span><span class="line"><span class="cl"><span class="k">fi</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="github-网页仓库配置-webhook">Github 网页仓库配置 WebHook</h3>
-<p>查看 WebHook 插件密钥，复制密钥地址。添加到 Github 需同步的仓库–Settings–Webhooks–Add webhook。其中 Content type 选择 application/json。</p>
-<div class="highlight" id="id-4"><div class="chroma">
+</div><h3 id="github-网页仓库配置-webhook" class="heading-element"><span>Github 网页仓库配置 WebHook</span>
+  <a href="#github-%e7%bd%91%e9%a1%b5%e4%bb%93%e5%ba%93%e9%85%8d%e7%bd%ae-webhook" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>查看 WebHook 插件密钥，复制密钥地址。添加到 Github 需同步的仓库–Settings–Webhooks–Add webhook。其中 Content type 选择 application/json。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -2071,16 +2359,25 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">格式如：https://面板地址:面板端口/hook?access_key=密钥&amp;param=需同步到的目录名称</span></span></code></pre></td></tr></table>
 </div>
 </div><p>至此，步骤全部完成。当本地提交新文件到 Github hugo 源码 main 分支，就会自动触发（hugo 生成静态文件——同步到另一个仓库——同步到宝塔网站指定目录）。如果域名指定境外访问路径是 vercel 或 cloudflare 服务，当 hugo 源码更新的时候也会自动触发构建更新。</p>
-<h2 id="参考">参考</h2>
-<p><a href="https://koobai.com/hugo_action_webhooks/"target="_blank" rel="external nofollow noopener noreferrer">Github 自动构建 Hugo, 并通过 Webhook 同步到宝塔指定目录</a>
+<h2 id="参考" class="heading-element"><span>参考</span>
+  <a href="#%e5%8f%82%e8%80%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://koobai.com/hugo_action_webhooks/"target="_blank" rel="external nofollow noopener noreferrer">Github 自动构建 Hugo, 并通过 Webhook 同步到宝塔指定目录</a>
 <a href="https://github.com/peaceiris/actions-gh-pages"target="_blank" rel="external nofollow noopener noreferrer">GitHub Pages Action</a></p>]]></description></item><item><title>UFW 防火墙使用备忘</title><link>https://blog.iqzhi.com/posts/use-ufw/</link><pubDate>Wed, 18 Oct 2023 17:29:31 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/use-ufw/</guid><description><![CDATA[<p>防火墙用于监控过滤传入和传出网络流量，可以定义一组规则用来放行或者组织特定流量。</p>
 <p>很多大厂自带防火墙相当强力，但是对于大部分IDC商而言，并没有提供相应的面板，如果想要达到阻断某些流量的效果就需要自行安装并配置。比如22(ssh) 端口只允许特定IP登录。</p>
 <p>Debian10 附赠UFW防火墙配置工具，用于管理iptables，不过更加友好，简单，易使用。</p>
 <p>本文介绍如何使用UFW在Debian 系统中配置和管理防火墙。文章只包含基础用法。</p>
 <p>本文环境：Debian11 默认root 权限</p>
-<h2 id="使用ufw">使用UFW</h2>
-<h3 id="安装ufw">安装UFW</h3>
-<div class="highlight" id="id-1"><div class="chroma">
+<h2 id="使用ufw" class="heading-element"><span>使用UFW</span>
+  <a href="#%e4%bd%bf%e7%94%a8ufw" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="安装ufw" class="heading-element"><span>安装UFW</span>
+  <a href="#%e5%ae%89%e8%a3%85ufw" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2090,10 +2387,16 @@
 </span></span><span class="line"><span class="cl">apt install ufw</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完成后可以使用 <code>ufw status verbose</code> 查看当前状态</p>
-<h3 id="ufw默认策略">UFW默认策略</h3>
-<p>ufw防火墙默认阻止所有传入和转发流量，允许所有出站流量。这就意味着除非打开专门的ssh端口，否则所有访问服务器的流量，包括你自己都无法连接。</p>
-<h3 id="应用配置文件">应用配置文件</h3>
-<div class="highlight" id="id-2"><div class="chroma">
+<h3 id="ufw默认策略" class="heading-element"><span>UFW默认策略</span>
+  <a href="#ufw%e9%bb%98%e8%ae%a4%e7%ad%96%e7%95%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>ufw防火墙默认阻止所有传入和转发流量，允许所有出站流量。这就意味着除非打开专门的ssh端口，否则所有访问服务器的流量，包括你自己都无法连接。</p>
+<h3 id="应用配置文件" class="heading-element"><span>应用配置文件</span>
+  <a href="#%e5%ba%94%e7%94%a8%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2106,9 +2409,12 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 查看相应配置文件</span>
 </span></span><span class="line"><span class="cl">ufw app info <span class="s1">&#39;SSH&#39;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="开启ufw">开启UFW</h3>
-<p>一定注意，使用UFW第一项就要开启你相应的ssh 端口，<strong>否则下次将无法登录！</strong></p>
-<div class="highlight" id="id-3"><div class="chroma">
+</div><h3 id="开启ufw" class="heading-element"><span>开启UFW</span>
+  <a href="#%e5%bc%80%e5%90%afufw" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>一定注意，使用UFW第一项就要开启你相应的ssh 端口，<strong>否则下次将无法登录！</strong></p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2125,13 +2431,19 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 开启ufw</span>
 </span></span><span class="line"><span class="cl">ufw enable</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="通用规则">通用规则</h2>
-<p>通过上文的开启ssh 端口并启用UFW，其实已经可以看出一般规则</p>
-<h3 id="增加规则">增加规则</h3>
-<ul>
+</div><h2 id="通用规则" class="heading-element"><span>通用规则</span>
+  <a href="#%e9%80%9a%e7%94%a8%e8%a7%84%e5%88%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>通过上文的开启ssh 端口并启用UFW，其实已经可以看出一般规则</p>
+<h3 id="增加规则" class="heading-element"><span>增加规则</span>
+  <a href="#%e5%a2%9e%e5%8a%a0%e8%a7%84%e5%88%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>开启指定端口</li>
 </ul>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2153,7 +2465,7 @@
 </div><ul>
 <li>开启指定范围端口</li>
 </ul>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2169,7 +2481,7 @@
 </div><ul>
 <li>指定IP访问端口</li>
 </ul>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2185,7 +2497,7 @@
 </div><ul>
 <li>子网/ip段 访问端口</li>
 </ul>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2197,7 +2509,7 @@
 </div><ul>
 <li>拒绝访问</li>
 </ul>
-<div class="highlight" id="id-8"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2211,7 +2523,7 @@
 </div><ul>
 <li>通过服务开启端口</li>
 </ul>
-<div class="highlight" id="id-9"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2228,9 +2540,12 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 如安装了Nginx可使用</span>
 </span></span><span class="line"><span class="cl">ufw allow <span class="s1">&#39;Nginx HTTP&#39;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="查看当前已添加规则">查看当前已添加规则</h3>
-<p>使用 <code>ufw status numbered</code></p>
-<div class="highlight" id="id-10"><div class="chroma">
+</div><h3 id="查看当前已添加规则" class="heading-element"><span>查看当前已添加规则</span>
+  <a href="#%e6%9f%a5%e7%9c%8b%e5%bd%93%e5%89%8d%e5%b7%b2%e6%b7%bb%e5%8a%a0%e8%a7%84%e5%88%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>使用 <code>ufw status numbered</code></p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2253,12 +2568,15 @@
 </span></span><span class="line"><span class="cl"><span class="o">[</span> 3<span class="o">]</span> 668/tcp <span class="o">(</span>v6<span class="o">)</span>               ALLOW IN    Anywhere <span class="o">(</span>v6<span class="o">)</span>             
 </span></span><span class="line"><span class="cl"><span class="o">[</span> 4<span class="o">]</span> 80/tcp <span class="o">(</span>v6<span class="o">)</span>                ALLOW IN    Anywhere <span class="o">(</span>v6<span class="o">)</span>   </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="删除规则">删除规则</h3>
-<ul>
+</div><h3 id="删除规则" class="heading-element"><span>删除规则</span>
+  <a href="#%e5%88%a0%e9%99%a4%e8%a7%84%e5%88%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>使用编号删除</li>
 </ul>
 <p><code>ufw delete id</code></p>
-<div class="highlight" id="id-11"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2276,7 +2594,7 @@
 </div><ul>
 <li>使用端口删除</li>
 </ul>
-<div class="highlight" id="id-12"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2285,8 +2603,11 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 删除端口访问</span>
 </span></span><span class="line"><span class="cl">ufw delete allow 80/tcp</span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="设置-ufw-状态">设置 UFW 状态</h3>
-<div class="highlight" id="id-13"><div class="chroma">
+</div><h3 id="设置-ufw-状态" class="heading-element"><span>设置 UFW 状态</span>
+  <a href="#%e8%ae%be%e7%bd%ae-ufw-%e7%8a%b6%e6%80%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2301,7 +2622,7 @@
 </div>
 </div><p>下一条命令为危险命令，将会<strong>删除所有活动规则</strong>，谨慎使用</p>
 <p><code>ufw reset</code></p>
-<div class="highlight" id="id-14"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2312,15 +2633,18 @@
 </span></span><span class="line"><span class="cl">Resetting all rules to installed defaults. This may disrupt existing ssh
 </span></span><span class="line"><span class="cl">connections. Proceed with operation <span class="o">(</span>y<span class="p">|</span>n<span class="o">)</span>? </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="问题解决">问题解决</h2>
-<div class="details admonition question open">
+</div><h2 id="问题解决" class="heading-element"><span>问题解决</span>
+  <a href="#%e9%97%ae%e9%a2%98%e8%a7%a3%e5%86%b3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="details admonition question open">
     <div class="details-summary admonition-title">
       <i class="icon fa-solid fa-question-circle fa-fw" aria-hidden="true"></i>Docker 在UFW中的网络处理<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
     <div class="details-content">
       <div class="admonition-content"><p>安装了Docker后，涉及Docker网络放通存在变化，可以查以下资料适配。</p>
 <p><a href="https://github.com/chaifeng/ufw-docker#%E8%A7%A3%E5%86%B3-ufw-%E5%92%8C-docker-%E7%9A%84%E9%97%AE%E9%A2%98"target="_blank" rel="external nofollow noopener noreferrer">解决-ufw-和-docker-的问题</a></p>
-<div class="highlight" id="id-15"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2354,8 +2678,11 @@
 </div></div>
     </div>
   </div>]]></description></item><item><title>Nginx学习笔记</title><link>https://blog.iqzhi.com/posts/nginx-study/</link><pubDate>Sat, 07 Oct 2023 14:55:39 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/nginx-study/</guid><description><![CDATA[<p>Nginx的用法、配置及问题解决。</p>
-<h2 id="nginx-配置-http-请求重定向到-https">nginx 配置 http 请求重定向到 https</h2>
-<div class="highlight" id="id-1"><div class="chroma">
+<h2 id="nginx-配置-http-请求重定向到-https" class="heading-element"><span>nginx 配置 http 请求重定向到 https</span>
+  <a href="#nginx-%e9%85%8d%e7%bd%ae-http-%e8%af%b7%e6%b1%82%e9%87%8d%e5%ae%9a%e5%90%91%e5%88%b0-https" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2371,9 +2698,12 @@
 </span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样就可以 <a href="http://aaa.abc.dd"target="_blank" rel="external nofollow noopener noreferrer">http://aaa.abc.dd</a> 转到 <a href="https://aaa.abc.dd"target="_blank" rel="external nofollow noopener noreferrer">https://aaa.abc.dd</a> 了。</p>
-<h2 id="nginx防止被域名恶意解析的配置">Nginx防止被域名恶意解析的配置</h2>
-<p>nginx在决定请求由哪个server块执行时，主要关注的是server块中的listen和server_name两个字段，如果根据listen指令无法得到最佳匹配，将会开始解析server_name指令。nginx会检查请求中的&quot;Host&quot;头，这个值包含了客户端实际试图请求的域名或者ip地址。nginx会根据这个值去匹配server_name指令，匹配规则会在文章中详细描述。其中有一个需要大家注意的地方是如果没有匹配到任何规则的话，则会选择可用列表中的第一个server，带来的问题就是未绑定域名或IP直接访问80和443端口会给后端逻辑服务增加压力并产生不合理的错误日志，合适的解决办法是通过在nginx的server块中添加default_server禁止未绑定域名或IP访问80和443端口过滤不合理的流量。</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<h2 id="nginx防止被域名恶意解析的配置" class="heading-element"><span>Nginx防止被域名恶意解析的配置</span>
+  <a href="#nginx%e9%98%b2%e6%ad%a2%e8%a2%ab%e5%9f%9f%e5%90%8d%e6%81%b6%e6%84%8f%e8%a7%a3%e6%9e%90%e7%9a%84%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>nginx在决定请求由哪个server块执行时，主要关注的是server块中的listen和server_name两个字段，如果根据listen指令无法得到最佳匹配，将会开始解析server_name指令。nginx会检查请求中的&quot;Host&quot;头，这个值包含了客户端实际试图请求的域名或者ip地址。nginx会根据这个值去匹配server_name指令，匹配规则会在文章中详细描述。其中有一个需要大家注意的地方是如果没有匹配到任何规则的话，则会选择可用列表中的第一个server，带来的问题就是未绑定域名或IP直接访问80和443端口会给后端逻辑服务增加压力并产生不合理的错误日志，合适的解决办法是通过在nginx的server块中添加default_server禁止未绑定域名或IP访问80和443端口过滤不合理的流量。</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2413,15 +2743,21 @@
 </span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样在浏览器端访问的时候，浏览器会自动提示用户无法访问。</p>
-<h2 id="server_name指令">Server_name指令</h2>
-<p>如果根据listen指令无法得到最佳匹配,将会开始解析server_name指令.nginx会检查请求中的&quot;Host&quot;头,这个值包含了客户端实际试图请求的域名或者ip地址.nginx会根据这个值去匹配server_name指令,匹配规则如下:</p>
+<h2 id="server_name指令" class="heading-element"><span>Server_name指令</span>
+  <a href="#server_name%e6%8c%87%e4%bb%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>如果根据listen指令无法得到最佳匹配,将会开始解析server_name指令.nginx会检查请求中的&quot;Host&quot;头,这个值包含了客户端实际试图请求的域名或者ip地址.nginx会根据这个值去匹配server_name指令,匹配规则如下:</p>
 <p>nginx会尝试寻找一个和sever_name和Host值完全匹配的server块,如果找到多个精确匹配,则会使用第一个匹配的server块
 如果没有找到精确匹配的server块,则nginx尝试找到server_name带有<em>开头的server块,如果找到多个,则选择最长匹配的server块
 如果没有找到使用开头的server块,则会寻找以结尾的server块,同样,如果有多个匹配, 选择最长匹配
 如果没有找到使用</em>匹配的server块,则会寻找使用正则表达式(以~开头)定义server_name的server块,如果找到多个匹配,会使用第一个匹配
 如果没有找到正则表达式匹配的server块,则nginx将会选择一个匹配listen字段的default server块.每一个ip和端口组合都可以配置一个且只能配置一个默认的default_server块,如果没有的话,则会选择可用列表中的第一个server</p>
-<h2 id="常用命令">常用命令</h2>
-<div class="highlight" id="id-3"><div class="chroma">
+<h2 id="常用命令" class="heading-element"><span>常用命令</span>
+  <a href="#%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2

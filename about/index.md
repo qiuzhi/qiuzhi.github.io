@@ -16,7 +16,7 @@
 
 自2007年起，陆续在各博客网站（新浪、CSDN）切换至独立博客（WordPress），但因当时未留意备份，故不作迁移，
 
-从2016年4月起，始用Hexo+GitHub构建博客，用于记录日常一些技术学习总结及实践中的收获，
+从2016年4月起，始用Hexo&#43;GitHub构建博客，用于记录日常一些技术学习总结及实践中的收获，
 
 时间来到了2023年9月，弃用hexo，转到hugo，
 
@@ -44,6 +44,6 @@ Gmail：qiuyufeng@gmail.com
 
 ---
 
-> 作者: [枫](https://github.com/qiuzhi)  
+> 作者:   
 > URL: https://blog.iqzhi.com/about/  
 

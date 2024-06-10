@@ -1,6 +1,9 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>sublime text - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/sublime-text/</link><description>sublime text - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Sep 2017 21:17:47 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/sublime-text/" rel="self" type="application/rss+xml"/><item><title>Sublime Text - 个人认为最好用的文本编辑器</title><link>https://blog.iqzhi.com/posts/sublime-text/</link><pubDate>Tue, 05 Sep 2017 21:17:47 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/sublime-text/</guid><description><![CDATA[<p>跨平台的文本编辑器。</p>
-<h2 id="简介">简介</h2>
-<p><a href="http://www.sublimetext.com/"target="_blank" rel="external nofollow noopener noreferrer">Sublime Text</a>是付费软件，但非常之良心，只是偶尔弹出提示购买，并没有任何功能限制。作为一个跨平台的文本编辑器，支持基于Python的插件。可通过包（Package）扩充本身的功能。大多数的包使用自由软件授权发布，并由社区建置维护。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>sublime text - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/sublime-text/</link><description>sublime text - 标签 | 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 05 Sep 2017 21:17:47 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/sublime-text/" rel="self" type="application/rss+xml"/><item><title>Sublime Text - 个人认为最好用的文本编辑器</title><link>https://blog.iqzhi.com/posts/sublime-text/</link><pubDate>Tue, 05 Sep 2017 21:17:47 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/sublime-text/</guid><description><![CDATA[<p>跨平台的文本编辑器。</p>
+<h2 id="简介" class="heading-element"><span>简介</span>
+  <a href="#%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="http://www.sublimetext.com/"target="_blank" rel="external nofollow noopener noreferrer">Sublime Text</a>是付费软件，但非常之良心，只是偶尔弹出提示购买，并没有任何功能限制。作为一个跨平台的文本编辑器，支持基于Python的插件。可通过包（Package）扩充本身的功能。大多数的包使用自由软件授权发布，并由社区建置维护。</p>
 <p>虽然Sublime Text 3一直在Beta，但很多插件已经开始放弃支持ST2了，所以推荐使用ST3。</p>
 <ul>
 <li>
@@ -8,7 +11,7 @@
 </li>
 <li>
 <p>3143可用<code>Sublime Text</code>许可证一枚</p>
-<div class="highlight" id="id-1"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -42,7 +45,7 @@
 </div></li>
 <li>
 <p>3126可用<code>Sublime Text</code>许可证一枚</p>
-<div class="highlight" id="id-2"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -75,14 +78,17 @@
 </div>
 </div></li>
 </ul>
-<h2 id="定制配置">定制配置</h2>
-<p>正所谓，没有插件的编辑器不是好的美工刀。
+<h2 id="定制配置" class="heading-element"><span>定制配置</span>
+  <a href="#%e5%ae%9a%e5%88%b6%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>正所谓，没有插件的编辑器不是好的美工刀。
 要有一把顺手的美工刀，总少不了定（调）制（教）。</p>
 <ol>
 <li>
 <p>安装插件管理器
 <strong>ctrl+`</strong> 打开调试窗口，在输入框内粘贴如下代码，然后回车即可自动安装，安装完成可能需要重启ST。</p>
-<div class="highlight" id="id-3"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -129,7 +135,7 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li>
 <p>用户配置文件设置
 工具栏 Preferences – Settings-User 加入下面的代码：</p>
-<div class="highlight" id="id-4"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -206,7 +212,7 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li>
 <p>Windows系统将Sublime Text 添加到鼠标右键功能：
 把以下内容复制并保存到文件，重命名为：sublime_addright.reg，然后双击就可以了。</p>
-<div class="highlight" id="id-5"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -240,28 +246,49 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 </ol>
 </li>
 </ol>
-<h2 id="使用技巧">使用技巧</h2>
-<h3 id="代码段code-snippets">代码段（Code Snippets）</h3>
-<p>Sublime Text 支持代码段（Code Snippet），输入代码段名称后 Tab 即可生成代码段。
+<h2 id="使用技巧" class="heading-element"><span>使用技巧</span>
+  <a href="#%e4%bd%bf%e7%94%a8%e6%8a%80%e5%b7%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 id="代码段code-snippets" class="heading-element"><span>代码段（Code Snippets）</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e6%ae%b5code-snippets" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Sublime Text 支持代码段（Code Snippet），输入代码段名称后 Tab 即可生成代码段。
 可以通过Package Control安装第三方代码段，也可以自己创建代码段，参考<a href="http://www.hongkiat.com/blog/sublime-code-snippets/"target="_blank" rel="external nofollow noopener noreferrer">这里</a></p>
-<h3 id="全屏full-screen">全屏（Full Screen）</h3>
-<p>Sublime Text 有两种全屏模式：普通全屏和无干扰全屏。
+<h3 id="全屏full-screen" class="heading-element"><span>全屏（Full Screen）</span>
+  <a href="#%e5%85%a8%e5%b1%8ffull-screen" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Sublime Text 有两种全屏模式：普通全屏和无干扰全屏。
 个人强烈建议在开启全屏前关闭菜单栏（Toggle Menu），否则全屏效果会大打折扣。</p>
 <p><code>F11</code> 切换普通全屏
 <code>Shift + F11</code> 切换无干扰全屏</p>
-<h3 id="格式化formatting">格式化（Formatting）</h3>
-<p>Sublime Text 基本的手动格式化操作包括： <code>Ctrl + [</code> 向左缩进， <code>Ctrl + ]</code> 向右缩进，此外 <code>Ctrl + Shift + V</code> 可以以当前缩进粘贴代码（非常实用）。</p>
-<h3 id="快捷键列表shortcuts-cheatsheet">快捷键列表（Shortcuts Cheatsheet）</h3>
-<p>我把本文出现的Sublime Text按其类型整理在这里，以便查阅。</p>
-<h4 id="通用general">通用（General）</h4>
-<ul>
+<h3 id="格式化formatting" class="heading-element"><span>格式化（Formatting）</span>
+  <a href="#%e6%a0%bc%e5%bc%8f%e5%8c%96formatting" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Sublime Text 基本的手动格式化操作包括： <code>Ctrl + [</code> 向左缩进， <code>Ctrl + ]</code> 向右缩进，此外 <code>Ctrl + Shift + V</code> 可以以当前缩进粘贴代码（非常实用）。</p>
+<h3 id="快捷键列表shortcuts-cheatsheet" class="heading-element"><span>快捷键列表（Shortcuts Cheatsheet）</span>
+  <a href="#%e5%bf%ab%e6%8d%b7%e9%94%ae%e5%88%97%e8%a1%a8shortcuts-cheatsheet" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我把本文出现的Sublime Text按其类型整理在这里，以便查阅。</p>
+<h4 id="通用general" class="heading-element"><span>通用（General）</span>
+  <a href="#%e9%80%9a%e7%94%a8general" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ul>
 <li><code>↑↓←→</code>：上下左右移动光标，注意不是不是 KJHL ！</li>
 <li><code>Alt</code>：调出菜单</li>
 <li><code>Ctrl + Shift + P</code>：调出命令板（Command Palette）</li>
 <li><strong>Ctrl + `</strong>：调出控制台</li>
 </ul>
-<h4 id="编辑editing">编辑（Editing）</h4>
-<ul>
+<h4 id="编辑editing" class="heading-element"><span>编辑（Editing）</span>
+  <a href="#%e7%bc%96%e8%be%91editing" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ul>
 <li><code>Ctrl + Enter</code>：在当前行下面新增一行然后跳至该行</li>
 <li><code>Ctrl + Shift + Enter</code>：在当前行上面增加一行并跳至该行</li>
 <li><code>Ctrl + ←/→</code>：进行逐词移动</li>
@@ -269,8 +296,11 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li><code>Ctrl + ↑/↓</code>：移动当前显示区域</li>
 <li><code>Ctrl + Shift + ↑/↓</code>：移动当前行</li>
 </ul>
-<h4 id="选择selecting">选择（Selecting）</h4>
-<ul>
+<h4 id="选择selecting" class="heading-element"><span>选择（Selecting）</span>
+  <a href="#%e9%80%89%e6%8b%a9selecting" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ul>
 <li><code>Ctrl + D</code>：选择当前光标所在的词并高亮该词所有出现的位置，再次 <code>Ctrl + D</code> 选择该词出现的下一个位置，在多重选词的过程中，使用 <code>Ctrl + K</code> 进行跳过，使用 <code>Ctrl + U</code> 进行回退，使用 <code>Esc</code> 退出多重编辑</li>
 <li><code>Ctrl + Shift + L</code>：将当前选中区域打散</li>
 <li><code>Ctrl + J</code>：把当前选中区域合并为一行</li>
@@ -279,8 +309,11 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li><code>Ctrl + Shift + J</code>：快速选择同缩进的内容</li>
 <li><code>Ctrl + Shift + Space</code>：快速选择当前作用域（Scope）的内容</li>
 </ul>
-<h4 id="查找替换findingreplacing">查找&amp;替换（Finding&amp;Replacing）</h4>
-<ul>
+<h4 id="查找替换findingreplacing" class="heading-element"><span>查找&amp;替换（Finding&amp;Replacing）</span>
+  <a href="#%e6%9f%a5%e6%89%be%e6%9b%bf%e6%8d%a2findingreplacing" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ul>
 <li><code>F3</code>：跳至当前关键字下一个位置</li>
 <li><code>Shift + F3</code>：跳到当前关键字上一个位置</li>
 <li><code>Alt + F3</code>：选中当前关键字出现的所有位置</li>
@@ -292,8 +325,11 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li><code>Ctrl + Alt + Enter</code>：替换所有关键字匹配</li>
 <li><code>Ctrl + Shift + F</code>：多文件搜索&amp;替换</li>
 </ul>
-<h4 id="跳转jumping">跳转（Jumping）</h4>
-<ul>
+<h4 id="跳转jumping" class="heading-element"><span>跳转（Jumping）</span>
+  <a href="#%e8%b7%b3%e8%bd%acjumping" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ul>
 <li><code>Ctrl + P</code>：跳转到指定文件，输入文件名后可以：
 <ul>
 <li><code>@</code> 符号跳转：输入 @symbol 跳转到 symbol 符号所在的位置</li>
@@ -304,15 +340,21 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li><code>Ctrl + R</code>：跳转到指定符号</li>
 <li><code>Ctrl + G</code>：跳转到指定行号</li>
 </ul>
-<h4 id="窗口window">窗口（Window）</h4>
-<ul>
+<h4 id="窗口window" class="heading-element"><span>窗口（Window）</span>
+  <a href="#%e7%aa%97%e5%8f%a3window" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ul>
 <li><code>Ctrl + Shift + N</code>：创建一个新窗口</li>
 <li><code>Ctrl + N</code>：在当前窗口创建一个新标签</li>
 <li><code>Ctrl + W</code>：关闭当前标签，当窗口内没有标签时会关闭该窗口</li>
 <li><code>Ctrl + Shift + T</code>：恢复刚刚关闭的标签</li>
 </ul>
-<h4 id="屏幕screen">屏幕（Screen）</h4>
-<ul>
+<h4 id="屏幕screen" class="heading-element"><span>屏幕（Screen）</span>
+  <a href="#%e5%b1%8f%e5%b9%95screen" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ul>
 <li><code>F11</code>：切换普通全屏</li>
 <li><code>Shift + F11</code>：切换无干扰全屏</li>
 <li><code>Alt + Shift + 2</code>：进行左右分屏</li>
@@ -320,8 +362,11 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li><code>Alt + Shift + 5</code>：进行上下左右分屏</li>
 <li>分屏之后，使用 <code>Ctrl + 数字键</code> 跳转到指定屏，使用 <code>Ctrl + Shift + 数字键</code> 将当前屏移动到指定屏。例如， <code>Ctrl + 1</code> 会跳转到1屏，而 <code>Ctrl + Shift + 2</code> 会将当前屏移动到2屏。</li>
 </ul>
-<h2 id="常用插件">常用插件</h2>
-<ul>
+<h2 id="常用插件" class="heading-element"><span>常用插件</span>
+  <a href="#%e5%b8%b8%e7%94%a8%e6%8f%92%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li><a href="https://packagecontrol.io/packages/MarkdownEditing"target="_blank" rel="external nofollow noopener noreferrer">Markdown Editing</a>
 <ul>
 <li>
@@ -334,7 +379,7 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <li>
 <p>代码段（Code Snippet）
 输入 <code>mdl + tab</code> 会自动生成下面的链接标记</p>
-<div class="highlight" id="id-6"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -342,7 +387,7 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[](link)</span></span></code></pre></td></tr></table>
 </div>
 </div><p>输入 <code>mdi + tab</code> 会自动插入下面的图片标记</p>
-<div class="highlight" id="id-7"><div class="chroma">
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -353,8 +398,11 @@ PackageResourceViewer：插件修改必备，ctrl+shift+p 调用 Open Resource</
 </ul>
 </li>
 </ul>
-<h2 id="参考资料">参考资料</h2>
-<ul>
+<h2 id="参考资料" class="heading-element"><span>参考资料</span>
+  <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>官方文档：http://www.sublimetext.com/docs/3/</li>
 <li>官方论坛：http://www.sublimetext.com/forum/</li>
 <li>Package Control：https://packagecontrol.io/  大量的 Sublime Text 插件和主题。</li>

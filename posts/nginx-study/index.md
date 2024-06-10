@@ -3,7 +3,7 @@
 
 Nginx的用法、配置及问题解决。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## nginx 配置 http 请求重定向到 https
 
@@ -19,7 +19,7 @@ server {
 
 ## Nginx防止被域名恶意解析的配置
 
-nginx在决定请求由哪个server块执行时，主要关注的是server块中的listen和server_name两个字段，如果根据listen指令无法得到最佳匹配，将会开始解析server_name指令。nginx会检查请求中的"Host"头，这个值包含了客户端实际试图请求的域名或者ip地址。nginx会根据这个值去匹配server_name指令，匹配规则会在文章中详细描述。其中有一个需要大家注意的地方是如果没有匹配到任何规则的话，则会选择可用列表中的第一个server，带来的问题就是未绑定域名或IP直接访问80和443端口会给后端逻辑服务增加压力并产生不合理的错误日志，合适的解决办法是通过在nginx的server块中添加default_server禁止未绑定域名或IP访问80和443端口过滤不合理的流量。
+nginx在决定请求由哪个server块执行时，主要关注的是server块中的listen和server_name两个字段，如果根据listen指令无法得到最佳匹配，将会开始解析server_name指令。nginx会检查请求中的&#34;Host&#34;头，这个值包含了客户端实际试图请求的域名或者ip地址。nginx会根据这个值去匹配server_name指令，匹配规则会在文章中详细描述。其中有一个需要大家注意的地方是如果没有匹配到任何规则的话，则会选择可用列表中的第一个server，带来的问题就是未绑定域名或IP直接访问80和443端口会给后端逻辑服务增加压力并产生不合理的错误日志，合适的解决办法是通过在nginx的server块中添加default_server禁止未绑定域名或IP访问80和443端口过滤不合理的流量。
 
 ```conf
 server {
@@ -31,8 +31,8 @@ server {
     # listen [::]:80 default_server;
     # listen [::]:443 ssl default_server;
 
-    ssl_certificate <path to cert>;
-    ssl_certificate_key <path to key>;
+    ssl_certificate &lt;path to cert&gt;;
+    ssl_certificate_key &lt;path to key&gt;;
 
     return 444;
 
@@ -45,7 +45,7 @@ server {
 
 ## Server_name指令
 
-如果根据listen指令无法得到最佳匹配,将会开始解析server_name指令.nginx会检查请求中的"Host"头,这个值包含了客户端实际试图请求的域名或者ip地址.nginx会根据这个值去匹配server_name指令,匹配规则如下:
+如果根据listen指令无法得到最佳匹配,将会开始解析server_name指令.nginx会检查请求中的&#34;Host&#34;头,这个值包含了客户端实际试图请求的域名或者ip地址.nginx会根据这个值去匹配server_name指令,匹配规则如下:
 
 nginx会尝试寻找一个和sever_name和Host值完全匹配的server块,如果找到多个精确匹配,则会使用第一个匹配的server块
 如果没有找到精确匹配的server块,则nginx尝试找到server_name带有*开头的server块,如果找到多个,则选择最长匹配的server块

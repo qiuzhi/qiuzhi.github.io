@@ -3,7 +3,7 @@
 
 记录玩VPS的点滴。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 一 简介
 
@@ -13,7 +13,7 @@
 
 ### 1 Debian
 
-> 适用版本：11（Bullseye）、12
+&gt; 适用版本：11（Bullseye）、12
 
 #### 1.1 查看内核版本
 
@@ -24,17 +24,17 @@ uname -r
 #### 1.2 开启SSH登录
 
 ```bash
-sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+sed -i &#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g&#39; /etc/ssh/sshd_config
 systemctl restart ssh
 ```
 
 #### 1.3 更新系统包
 
 ```bash
-apt update -y && apt upgrade -y
+apt update -y &amp;&amp; apt upgrade -y
 ```
 
-{{< admonition question "`apt-get update失败 Err:1 http://archive.ubuntu.com/ubuntu xenial InRelease`">}}
+{{&lt; admonition question &#34;`apt-get update失败 Err:1 http://archive.ubuntu.com/ubuntu xenial InRelease`&#34;&gt;}}
 
 出现此问题，一般是因为DNS设置的问题，将DNS设置为 *8.8.8.8*
 
@@ -47,7 +47,7 @@ cat /etc/resolv.conf
 通过下面命令修改DNS
 
 ```bash
-echo "nameserver 8.8.8.8" | tee /etc/resolv.conf > /dev/null
+echo &#34;nameserver 8.8.8.8&#34; | tee /etc/resolv.conf &gt; /dev/null
 ```
 
 修改后再次查看
@@ -59,7 +59,7 @@ nameserver 8.8.8.8
 
 说明设置成功。
 
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 #### 1.4 安装常用软件
 
@@ -132,8 +132,8 @@ curl -6 ip.sb
 github项目地址：https://github.com/spiritLHLS/ecs
 
 ```bash
-bash <(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh)
-bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
+bash &lt;(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh)
+bash &lt;(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
 ```
 
 ### 4.4 添加 SWAP
@@ -143,7 +143,7 @@ swap 是 Linux 中的虚拟内存，用于扩充物理内存不足而用来存�
 这个虚拟内存对于内存小的 VPS 非常有必要，可以提高我们的运行效率。`建议设置为实际ram的 2 倍。`
 
 ```bash
-wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh && chmod +x box.sh && clear && ./box.sh
+wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh &amp;&amp; chmod &#43;x box.sh &amp;&amp; clear &amp;&amp; ./box.sh
 ```
 
 ### 4.5 哪吒监控
@@ -163,8 +163,8 @@ docker -v
 Docker-compose 安装
 
 ```bash
-curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 &gt; /usr/local/bin/docker-compose
+sudo chmod &#43;x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
@@ -173,17 +173,17 @@ docker-compose --version
 以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：
 
 ```bash
-cat > /etc/docker/daemon.json <<EOF
+cat &gt; /etc/docker/daemon.json &lt;&lt;EOF
 {
-    "log-driver": "json-file",
-    "log-opts": {
-        "max-size": "20m",
-        "max-file": "3"
+    &#34;log-driver&#34;: &#34;json-file&#34;,
+    &#34;log-opts&#34;: {
+        &#34;max-size&#34;: &#34;20m&#34;,
+        &#34;max-file&#34;: &#34;3&#34;
     },
-    "ipv6": true,
-    "fixed-cidr-v6": "fd00:dead:beef:c0::/80",
-    "experimental":true,
-    "ip6tables":true
+    &#34;ipv6&#34;: true,
+    &#34;fixed-cidr-v6&#34;: &#34;fd00:dead:beef:c0::/80&#34;,
+    &#34;experimental&#34;:true,
+    &#34;ip6tables&#34;:true
 }
 EOF
 ```
@@ -220,7 +220,7 @@ zerotier-cli join (网络ID)
 
 - 首次运行 
   ```bash
-  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh && bash menu.sh
+  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh &amp;&amp; bash menu.sh
   ```
 - 日常维护 `warp`
 
@@ -228,7 +228,7 @@ zerotier-cli join (网络ID)
 
 - 首次运行
   ```bash
-  bash <(curl -fsSL git.io/warp.sh) menu
+  bash &lt;(curl -fsSL git.io/warp.sh) menu
   ```
 - 日常维护 `bash warp.sh`
 
@@ -236,7 +236,7 @@ zerotier-cli join (网络ID)
 
 - 首次运行
   ```bash
-  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh
+  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh &amp;&amp; bash warp-go.sh
   ```
 - 日常维护 `warp-go`
 

@@ -3,13 +3,13 @@
 
 Hexo静态博客框架。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 前言
 `2017-09-05更新` 一年多后，由于不再在封闭环境及云桌面办公，所以把Hexo得重新启用，打算用来做技术博客，或者叫Wiki，写一些自己的技术总结，按此前搭建的记录，部署起来。
 
 有些日子没玩博客了，其实以前也一直很少去输出一些什么，但就是喜欢有一个属于个人的地方，向互联网展示一下自己的存在感！
-I'm here，嗯，是这个意思！
+I&#39;m here，嗯，是这个意思！
 以前和网友一起合租过服务器，也在Godady买过域名，但最后还是没坚持下来，后来折腾完之后，最实用的反而是搭梯翻墙而已。
 好了，再多的就不扯了，这篇就是为了记录下在Windows下用Hexo在GitHub上搭建个人博客的过程，希望可以对其他朋友有所帮助。
 
@@ -56,7 +56,7 @@ $ npm install hexo-cli -g
 终端执行命令后显示的结果：
 
 ```
-[info] Copying data[info] You are almost done! Don't forget to run `npm install` before start blogging with Hexo!
+[info] Copying data[info] You are almost done! Don&#39;t forget to run `npm install` before start blogging with Hexo!
 ```
 
 #### 依赖安装
@@ -110,19 +110,19 @@ $ npm install hexo-cli -g
 * GitHub Pages 自定义404页面非常容易，直接在source根目录下创建自己的404.html就可以，代码如下：
 
 	```html
-	<!DOCTYPE HTML>
-	<html>
-	<head>
-	  <meta http-equiv="content-type" content="text/html;charset=utf-8;"/>
-	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	  <meta name="robots" content="all" />
-	  <meta name="robots" content="index,follow"/>
-	</head>
-	<body>
-	  <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8" homePageUrl="http://qiuzhi.github.io/" homePageName="回到我的主页">
-	  </script>
-	</body>
-	</html>
+	&lt;!DOCTYPE HTML&gt;
+	&lt;html&gt;
+	&lt;head&gt;
+	  &lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html;charset=utf-8;&#34;/&gt;
+	  &lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;IE=edge,chrome=1&#34; /&gt;
+	  &lt;meta name=&#34;robots&#34; content=&#34;all&#34; /&gt;
+	  &lt;meta name=&#34;robots&#34; content=&#34;index,follow&#34;/&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+	  &lt;script type=&#34;text/javascript&#34; src=&#34;http://www.qq.com/404/search_children.js&#34; charset=&#34;utf-8&#34; homePageUrl=&#34;http://qiuzhi.github.io/&#34; homePageName=&#34;回到我的主页&#34;&gt;
+	  &lt;/script&gt;
+	&lt;/body&gt;
+	&lt;/html&gt;
 	```
 
 * 增加[disqus](https://disqus.com/)评论
@@ -167,21 +167,21 @@ $ npm install hexo-cli -g
 	```
 	
 	可选择模式：
-		crc16 & hex
-		crc16 & dec
-		crc32 & hex
-		crc32 & dec
+		crc16 &amp; hex
+		crc16 &amp; dec
+		crc32 &amp; hex
+		crc32 &amp; dec
 
 	可参照样例以选择：
 
 	```
-	crc16 & hex
+	crc16 &amp; hex
 	https://post.zz173.com/posts/66c8.html
-	crc16 & dec
+	crc16 &amp; dec
 	https://post.zz173.com/posts/65535.html
-	crc32 & hex
+	crc32 &amp; hex
 	https://post.zz173.com/posts/8ddf18fb.html
-	crc32 & dec
+	crc32 &amp; dec
 	https://post.zz173.com/posts/1690090958.html
 	```
 
@@ -194,14 +194,14 @@ $ npm install hexo-cli -g
 	1. 使用ssh-keygen命令生成密钥对
 
 	```bash
-	$ ssh-keygen -t rsa -C "这里是你申请Github账号时的邮箱"
+	$ ssh-keygen -t rsa -C &#34;这里是你申请Github账号时的邮箱&#34;
 	```
 
 	然后系统会要你输入密码：（我们输入的密码会在你提交项目的时候使用）
 
 	```bash
-	Enter passphrase (emptyforno passphrase):<输入加密串>
-	Enter same passphrase again:<再次输入加密串>
+	Enter passphrase (emptyforno passphrase):&lt;输入加密串&gt;
+	Enter same passphrase again:&lt;再次输入加密串&gt;
 	```
 
 	从终端提示生成的文件路径中找到你生成的密钥找到`id_rsa.pub`用终端进入编辑，复制密钥。
@@ -216,15 +216,15 @@ $ npm install hexo-cli -g
 	终端执行命令后显示的结果：
 
 	```
-	Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.
+	Hi xxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
 	```
 
 	现在就已经可以通过SSH链接到Github了！
 	1. 别忘记设置提交信息
 
 	```bash
-	$ git config --global user.name "xxx"
-	$ git config --global user.email "xxx@xxx.com"
+	$ git config --global user.name &#34;xxx&#34;
+	$ git config --global user.email &#34;xxx@xxx.com&#34;
 	```
 
 1. 打开站点配置文件，Hexo根目录下_config.yml：
@@ -294,12 +294,12 @@ $ npm install hexo-cli -g
 
 ## 过程中遇到的问题及解决
 
-### 问题一：Cannot find module 'hexo-util'
+### 问题一：Cannot find module &#39;hexo-util&#39;
 * 问题描述：
 
 ```bash
 ERROR Script load failed: themes/hexo-theme-next/scripts/tags/exturl.js  
-Error: Cannot find module 'hexo-util'  
+Error: Cannot find module &#39;hexo-util&#39;  
     at Function.Module._resolveFilename (module.js:336:15)  
     at Function.Module._load (module.js:286:25)  
     at Module.require (module.js:365:17)  
@@ -330,20 +330,20 @@ Error: Cannot find module 'hexo-util'
 	$ npm install hexo-util --save
 	```
 
-### 问题二：could not read Username for 'https://github.com': Invalid argument
+### 问题二：could not read Username for &#39;https://github.com&#39;: Invalid argument
 * 问题描述：Windows下更换Comder作为CMD终端后，遇到
 
 ```bash
 nothing to commit, working tree clean
 bash: /dev/tty: No such device or address
 error: failed to execute prompt script (exit code 1)
-fatal: could not read Username for 'https://github.com': Invalid argument
-FATAL Something's wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html
+fatal: could not read Username for &#39;https://github.com&#39;: Invalid argument
+FATAL Something&#39;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html
 Error: bash: /dev/tty: No such device or address
 error: failed to execute prompt script (exit code 1)
-fatal: could not read Username for 'https://github.com': Invalid argument
+fatal: could not read Username for &#39;https://github.com&#39;: Invalid argument
 
-    at ChildProcess.<anonymous> (E:\Dropbox\Hexo\node_modules\hexo-util\lib\spawn.js:37:17)
+    at ChildProcess.&lt;anonymous&gt; (E:\Dropbox\Hexo\node_modules\hexo-util\lib\spawn.js:37:17)
     at emitTwo (events.js:106:13)
     at ChildProcess.emit (events.js:191:7)
     at ChildProcess.cp.emit (E:\Dropbox\Hexo\node_modules\cross-spawn\lib\enoent.js:40:29)
@@ -365,9 +365,9 @@ fatal: could not read Username for 'https://github.com': Invalid argument
 	repository: git@github.com:username/username.github.io.git
 	```
 
-[id1]: https://git-scm.com/ "git-scm"
-[id2]: https://nodejs.org/ "Node.js"
-[id3]: https://github.com/ "GitHub"
+[id1]: https://git-scm.com/ &#34;git-scm&#34;
+[id2]: https://nodejs.org/ &#34;Node.js&#34;
+[id3]: https://github.com/ &#34;GitHub&#34;
 
 [^1]: https://github.com/hexojs/hexo-deployer-git
 [^2]: https://www.npmjs.com/package/hexo-generator-feed

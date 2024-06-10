@@ -1,7 +1,10 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nezha - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/nezha/</link><description>nezha - 标签 - 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Feb 2023 21:25:54 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/nezha/" rel="self" type="application/rss+xml"/><item><title>哪吒监控 - 轻量服务器运维监控工具</title><link>https://blog.iqzhi.com/posts/nezha/</link><pubDate>Mon, 13 Feb 2023 21:25:54 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/nezha/</guid><description><![CDATA[<p><a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控</a>，可以说是拿到VPS，更新完系统后，几乎第一个就要装的监控程序。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>nezha - 标签 - 秋至、枫以落</title><link>https://blog.iqzhi.com/tags/nezha/</link><description>nezha - 标签 | 秋至、枫以落</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Feb 2023 21:25:54 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/tags/nezha/" rel="self" type="application/rss+xml"/><item><title>哪吒监控 - 轻量服务器运维监控工具</title><link>https://blog.iqzhi.com/posts/nezha/</link><pubDate>Mon, 13 Feb 2023 21:25:54 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/nezha/</guid><description><![CDATA[<p><a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控</a>，可以说是拿到VPS，更新完系统后，几乎第一个就要装的监控程序。</p>
 <p>几乎支持各种系统部署。</p>
-<h2 id="透明主题">透明主题</h2>
-<div class="highlight" id="id-1"><div class="chroma">
+<h2 id="透明主题" class="heading-element"><span>透明主题</span>
+  <a href="#%e9%80%8f%e6%98%8e%e4%b8%bb%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -628,15 +631,21 @@
 </span></span><span class="line"><span class="cl"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="custom主题-转载httpsblogamzayocomindexphparchives28">Custom主题 <a href="https://blog.amzayo.com/index.php/archives/28/"target="_blank" rel="external nofollow noopener noreferrer">转载</a></h2>
-<p><img loading="lazy" src="https://cdn.amzayo.top/static/imgs/21.png" srcset="https://cdn.amzayo.top/static/imgs/21.png?size=small, https://cdn.amzayo.top/static/imgs/21.png?size=medium 1.5x, https://cdn.amzayo.top/static/imgs/21.png?size=large 2x" sizes="auto" data-title="show" data-alt="show" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const i of ['style', 'data-title','data-alt','onerror','onload']){this.removeAttribute(i);}"/></p>
+</div><h2 id="custom主题-转载httpsblogamzayocomindexphparchives28" class="heading-element"><span>Custom主题 <a href="https://blog.amzayo.com/index.php/archives/28/"target="_blank" rel="external nofollow noopener noreferrer">转载</a></span>
+  <a href="#custom%e4%b8%bb%e9%a2%98-%e8%bd%ac%e8%bd%bdhttpsblogamzayocomindexphparchives28" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src="https://cdn.amzayo.top/static/imgs/21.png" alt="show" srcset="https://cdn.amzayo.top/static/imgs/21.png?size=small, https://cdn.amzayo.top/static/imgs/21.png?size=medium 1.5x, https://cdn.amzayo.top/static/imgs/21.png?size=large 2x" data-title="show" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <p><a href="https://cdn.amzayo.top/static/public/amzayo_template_fin_2.91.zip"target="_blank" rel="external nofollow noopener noreferrer">下载地址</a></p>
 <p>使用方法
 1.template里面的文件解压出来放到服务端/opt/nezha/dashboard/theme-custom/template目录里面</p>
 <p>2.重启哪吒面板服务</p>
 <p>3.在哪吒面板后台主题选择Custom(local)</p>
 <p>4.将css.txt里面的CSS样式代码复制到哪吒面板后台的“自定义代码”文本框里</p>
-<h2 id="注意事项">注意事项</h2>
-<ul>
+<h2 id="注意事项" class="heading-element"><span>注意事项</span>
+  <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>将面板和数据域名换成https的过程中，如果套在CloudFlare上，建议使用<code>完全</code>或<code>完全（严格）</code>的方式，因为如果使用的是<code>灵活</code>，CloudFlare有可能回落使用80端口与服务器间的访问，导致连通性各种问题，时通时不通。</li>
 </ul>]]></description></item></channel></rss>

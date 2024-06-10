@@ -1,9 +1,9 @@
-# OpenWrt + OpenClash + AdGuard Home 打造家庭专用网络
+# OpenWrt &#43; OpenClash &#43; AdGuard Home 打造家庭专用网络
 
 
 搞了个低功耗小玩具N5105，做软路由刚刚好。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 总体方案
 
@@ -29,13 +29,13 @@
 
 最终方案：客户端→AdGuard Home(53)→OpenClash(7874)
 
-{{< admonition tip "配置思路">}}
+{{&lt; admonition tip &#34;配置思路&#34;&gt;}}
 1. 客户端→Dnsmasq(53)→Clash(7874)→AdGuard Home(5335)
 2. 客户端→Dnsmasq(53)→AdGuard Home(5335)→OpenClash(7874)
 3. 客户端→AdGuard Home(53)→OpenClash(7874)
 
 按思路1，在OpenClash里开启DNS劫持，让Dnsmasq把请求转发到OpenClash，然后在OpenClash里设置自定义上游DNS，把底下所有的上游DNS勾选都去掉，新建一个FallBack从AdGuard Home里获取结果；配置虽然成功了，但广告去除效果不好，根因是要屏蔽广告的地址经过OpenClash时就被代理出去了，所以不会向上游AdGuard Home去请求解析，而且AdGuard Home里客户端只能看见127.0.0.1这一条，也不够完美，所以这方案放弃；随后尝试方案2，AdGuard Home里的客户端也都能正常显示了，发现前面多了Dnsmasq似乎多余了，因为它只负责转发，所以衍生出方案3，但有个缺点，因为Dnsmasq和DHCP功能是在一起的，跳过了Dnsmasq则DHCP也不能用了，解决方案就是禁用旁路由DHCP功能，去lan接口里设置忽略此接口(不在此接口提供DHCP服务)，完美。
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 ### 安装OpenWrt系统
 
@@ -48,7 +48,7 @@
 
 ### AdGuard Home广告过滤
 
-- 服务-AdGuard Home，点更新核心，点启用，重定向选择「无」，点手动设置，按如下修改，改完保存&应用
+- 服务-AdGuard Home，点更新核心，点启用，重定向选择「无」，点手动设置，按如下修改，改完保存&amp;应用
 
   ```yml
   bind_host: 0.0.0.0
@@ -63,7 +63,7 @@
     - 127.0.0.1:7874
   ```
 
-- 配置结束，点击AdGuard Home里AdGuardHome Web:3003，可以打开ADG的管理界面，点击「过滤器->DNS封锁清单」，去网上找一些大神维护的ADG的去广告规则，加进去。
+- 配置结束，点击AdGuard Home里AdGuardHome Web:3003，可以打开ADG的管理界面，点击「过滤器-&gt;DNS封锁清单」，去网上找一些大神维护的ADG的去广告规则，加进去。
 
 
 ---

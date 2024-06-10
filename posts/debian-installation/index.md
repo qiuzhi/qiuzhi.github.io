@@ -3,9 +3,9 @@
 
 CentOS离场，把玩debian。
 
-<!--more-->
+&lt;!--more--&gt;
 
-> 适用版本：11（Bullseye）
+&gt; 适用版本：11（Bullseye）
 
 ```bash
 root@debian:~## uname -a
@@ -74,7 +74,7 @@ chsh -s /bin/zsh
 
 #### 全局配置 zsh
 
-> 注意：以下全局配置相关命令需要 root 权限，请切换到 root 账号，或者使用 sudo。
+&gt; 注意：以下全局配置相关命令需要 root 权限，请切换到 root 账号，或者使用 sudo。
 
 全局安装 zsh 到 /etc 目录
 
@@ -91,7 +91,7 @@ cp /etc/oh-my-zsh/templates/zshrc.zsh-template /etc/skel/.zshrc
 修改 on-my-zsh 的安装目录 `export ZSH=$HOME/.oh-my-zsh` 为 `export ZSH=/etc/oh-my-zsh`
 
 ```bash
-sed -i 's|$HOME/.oh-my-zsh|/etc/oh-my-zsh|g' /etc/skel/.zshrc
+sed -i &#39;s|$HOME/.oh-my-zsh|/etc/oh-my-zsh|g&#39; /etc/skel/.zshrc
 ```
 
 为每个用户配置独立的 cache 目录
@@ -99,7 +99,7 @@ sed -i 's|$HOME/.oh-my-zsh|/etc/oh-my-zsh|g' /etc/skel/.zshrc
 编辑 `/etc/skel/.zshrc` 在 `export ZSH=/etc/oh-my-zsh` 下添加一句：
 
 ```bash
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
+export ZSH_CACHE_DIR=&#34;${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh&#34;
 ```
 
 更改默认主题（推荐 ys）
@@ -107,7 +107,7 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 编辑 /etc/skel/.zshrc 文件修改：
 
 ```bash
-sed -i '/^ZSH_THEME=.*/c ZSH_THEME="ys"' /etc/skel/.zshrc
+sed -i &#39;/^ZSH_THEME=.*/c ZSH_THEME=&#34;ys&#34;&#39; /etc/skel/.zshrc
 ```
 
 取消每周自动检查更新（新版不用管）
@@ -115,7 +115,7 @@ sed -i '/^ZSH_THEME=.*/c ZSH_THEME="ys"' /etc/skel/.zshrc
 配置 ll 别名（可选）
 
 ```bash
-echo 'alias ll="ls -lahF --color --time-style=long-iso"' >> /etc/skel/.zshrc
+echo &#39;alias ll=&#34;ls -lahF --color --time-style=long-iso&#34;&#39; &gt;&gt; /etc/skel/.zshrc
 ```
 
 #### 全局配置插件
@@ -149,7 +149,7 @@ plugins=([plugins...]zsh-syntax-highlighting zsh-autosuggestions)
 快速修改：
 
 ```bash
-sed -i '/^plugins=.*/c plugins=(git zsh-syntax-highlighting zsh-autosuggestions)' /etc/skel/.zshrc
+sed -i &#39;/^plugins=.*/c plugins=(git zsh-syntax-highlighting zsh-autosuggestions)&#39; /etc/skel/.zshrc
 ```
 
 #### 使用用户配置文件
@@ -163,7 +163,7 @@ vi /etc/default/useradd
 将 SHELL= \* (比如 SHELL=/bin/sh) 改成 SHELL=/bin/zsh
 
 ```bash
-sed -i '/^SHELL=.*/c SHELL=/bin/zsh' /etc/default/useradd
+sed -i &#39;/^SHELL=.*/c SHELL=/bin/zsh&#39; /etc/default/useradd
 ```
 
 修改后，使用 `useradd` 命令无需 `-s /bin/zsh`，用户默认使用 zsh，当然也可以不修改此项，`useradd` 命令继续追加 `-s /bin/zsh` 参数。
@@ -203,14 +203,14 @@ apt install curl vim wget gnupg apt-transport-https lsb-release ca-certificate
 
 ```bash
 wget -O /usr/share/keyrings/docker.asc https://download.docker.com/linux/debian/gpg
-echo "deb [signed-by=/usr/share/keyrings/docker.asc] https://download.docker.com/linux/debian $(lsb_release -sc) stable" > /etc/apt/sources.list.d/docker.list
+echo &#34;deb [signed-by=/usr/share/keyrings/docker.asc] https://download.docker.com/linux/debian $(lsb_release -sc) stable&#34; &gt; /etc/apt/sources.list.d/docker.list
 ```
 
 国内机器可以用清华 TUNA的国内源：
 
 ```bash
 wget -O /usr/share/keyrings/docker.asc https://download.docker.com/linux/debian/gpg
-echo "deb [signed-by=/usr/share/keyrings/docker.asc] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian $(lsb_release -sc) stable" > /etc/apt/sources.list.d/docker.list
+echo &#34;deb [signed-by=/usr/share/keyrings/docker.asc] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian $(lsb_release -sc) stable&#34; &gt; /etc/apt/sources.list.d/docker.list
 ```
 
 然后更新系统后即可安装 Docker CE：
@@ -268,8 +268,8 @@ docker image prune
 我们可以使用 Docker 官方发布的 Github 直接安装最新版本：
 
 ```bash
-curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 &gt; /usr/local/bin/docker-compose
+chmod &#43;x /usr/local/bin/docker-compose
 ```
 
 此时可以使用 `docker-compose version` 命令检查是否安装成功：
@@ -284,17 +284,17 @@ Docker Compose version v2.16.0
 以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：
 
 ```bash
-cat > /etc/docker/daemon.json
+cat &gt; /etc/docker/daemon.json
 {
-    "log-driver": "json-file",
-    "log-opts": {
-        "max-size": "20m",
-        "max-file": "3"
+    &#34;log-driver&#34;: &#34;json-file&#34;,
+    &#34;log-opts&#34;: {
+        &#34;max-size&#34;: &#34;20m&#34;,
+        &#34;max-file&#34;: &#34;3&#34;
     },
-    "ipv6": true,
-    "fixed-cidr-v6": "fd00:dead:beef:c0::/80",
-    "experimental":true,
-    "ip6tables":true
+    &#34;ipv6&#34;: true,
+    &#34;fixed-cidr-v6&#34;: &#34;fd00:dead:beef:c0::/80&#34;,
+    &#34;experimental&#34;:true,
+    &#34;ip6tables&#34;:true
 }
 ```
 
@@ -373,7 +373,7 @@ apt install cifs-utils
 参考
 
 1. [Debian 11 “bullseye” 安装笔记](https://zhuanlan.zhihu.com/p/402960046?utm_id=0)
-2. [Linux 全局安装配置 zsh + oh-my-zsh](https://sysin.org/blog/linux-zsh-all/)
+2. [Linux 全局安装配置 zsh &#43; oh-my-zsh](https://sysin.org/blog/linux-zsh-all/)
 3. [非桌面版Debian 11自动配置获取ipv6地址教程](https://www.mumupc.com/archives/20226.html)
 4. [在git中出现中文乱码的解决方案](https://blog.csdn.net/tyro_java/article/details/53439537)
 

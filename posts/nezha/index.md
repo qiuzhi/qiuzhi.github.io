@@ -3,14 +3,14 @@
 
 [哪吒监控](https://nezha.wiki)，可以说是拿到VPS，更新完系统后，几乎第一个就要装的监控程序。
 
-<!--more-->
+&lt;!--more--&gt;
 
 几乎支持各种系统部署。
 
 ## 透明主题
 
 ```js
-<style>
+&lt;style&gt;
 /* 屏幕适配 */
 @media only screen and (min-width: 1200px) {
     .ui.container {
@@ -19,7 +19,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-    .ui.card>.content>.header:not(.ui), .ui.cards>.card>.content>.header:not(.ui) {
+    .ui.card&gt;.content&gt;.header:not(.ui), .ui.cards&gt;.card&gt;.content&gt;.header:not(.ui) {
         margin-top: 0.4em !important;
     }
 }
@@ -32,7 +32,7 @@ i.icon {
 
 /* 背景图片 */
 body {
-    content: " " !important;
+    content: &#34; &#34; !important;
     background: fixed !important;
     z-index: -1 !important;
     top: 0 !important;
@@ -78,7 +78,7 @@ body {
 }
 
 /* 小卡片 */
-.ui.four.cards>.card {
+.ui.four.cards&gt;.card {
     border-radius: 0.6rem !important;
     background-color: #fafafaa3 !important;
 }
@@ -111,7 +111,7 @@ body {
 }
 
 /* 弹出卡片图标 */
-.status.cards .header > .info.icon {
+.status.cards .header &gt; .info.icon {
     margin-right: 0 !important;
 }
 
@@ -130,11 +130,11 @@ body {
     line-height: 1.65em !important;
 }
 
-.ui.fine.progress> .bar {
+.ui.fine.progress&gt; .bar {
     background-color: #21ba45 !important;
 }
 
-.ui.progress> .bar {
+.ui.progress&gt; .bar {
     background-color: #000 !important;
 }
 
@@ -302,25 +302,25 @@ i.arrow.alternate.circle.up.outline.icon {
     font-weight: bold !important;
     background-color: #fafafaa3 !important;
 }
-</style>
+&lt;/style&gt;
 
-<!--Logo和版权-->
-<script>
+&lt;!--Logo和版权--&gt;
+&lt;script&gt;
 window.onload = function(){
-var avatar=document.querySelector(".item img")
-var footer=document.querySelector("div.is-size-7")
-footer.innerHTML="SimplyMiss の 天眼"
-footer.style.visibility="visible"
-avatar.src="https://blog.870211.xyz/images/maple-transparent.png"
-avatar.style.visibility="visible"
+var avatar=document.querySelector(&#34;.item img&#34;)
+var footer=document.querySelector(&#34;div.is-size-7&#34;)
+footer.innerHTML=&#34;SimplyMiss の 天眼&#34;
+footer.style.visibility=&#34;visible&#34;
+avatar.src=&#34;https://blog.870211.xyz/images/maple-transparent.png&#34;
+avatar.style.visibility=&#34;visible&#34;
 }
-var faviconurl="https://b.izhi.ml/images/maple-transparent.png" ;            
-var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-link.type = 'image/x-icon';
-link.rel = 'shortcut icon';
+var faviconurl=&#34;https://b.izhi.ml/images/maple-transparent.png&#34; ;            
+var link = document.querySelector(&#34;link[rel*=&#39;icon&#39;]&#34;) || document.createElement(&#39;link&#39;);
+link.type = &#39;image/x-icon&#39;;
+link.rel = &#39;shortcut icon&#39;;
 link.href = faviconurl;
-document.getElementsByTagName('head')[0].appendChild(link);
-</script>
+document.getElementsByTagName(&#39;head&#39;)[0].appendChild(link);
+&lt;/script&gt;
 ```
 
 ## Custom主题 [转载](https://blog.amzayo.com/index.php/archives/28/)

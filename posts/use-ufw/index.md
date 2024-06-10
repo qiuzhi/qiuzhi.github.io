@@ -11,7 +11,7 @@ Debian10 附赠UFW防火墙配置工具，用于管理iptables，不过更加友
 
 本文环境：Debian11 默认root 权限
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 使用UFW
 
@@ -34,7 +34,7 @@ ufw防火墙默认阻止所有传入和转发流量，允许所有出站流量�
 # 查看软件安装包
 ufw app list
 # 查看相应配置文件
-ufw app info 'SSH'
+ufw app info &#39;SSH&#39;
 ```
 
 ### 开启UFW
@@ -109,7 +109,7 @@ ufw allow http
 # 指定协议端口
 ufw allow 80/tcp
 # 如安装了Nginx可使用
-ufw allow 'Nginx HTTP'
+ufw allow &#39;Nginx HTTP&#39;
 ```
 
 ### 查看当前已添加规则
@@ -169,7 +169,7 @@ connections. Proceed with operation (y|n)?
 
 ## 问题解决
 
-{{< admonition question "Docker 在UFW中的网络处理">}}
+{{&lt; admonition question &#34;Docker 在UFW中的网络处理&#34;&gt;}}
 
 安装了Docker后，涉及Docker网络放通存在变化，可以查以下资料适配。
 
@@ -191,7 +191,7 @@ ufw allow from 10.147.x.0/24 to any
 ufw allow from 192.168.x.0/24 to any
 ```
 
-{{< /admonition >}}
+{{&lt; /admonition &gt;}}
 
 
 ---

@@ -3,7 +3,7 @@
 
 记录连接Docker Hub受阻后的吃用方法。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 一 简介
 
@@ -17,12 +17,12 @@
 
 ```json
 {
-    "registry-mirrors": [
-        "https://docker.agsvpt.work",
-        "https://docker.agsv.top",
-        "http://hub-mirror.c.163.com",
-        "https://docker.mirrors.ustc.edu.cn",
-        "https://registry.docker-cn.com"
+    &#34;registry-mirrors&#34;: [
+        &#34;https://docker.agsvpt.work&#34;,
+        &#34;https://docker.agsv.top&#34;,
+        &#34;http://hub-mirror.c.163.com&#34;,
+        &#34;https://docker.mirrors.ustc.edu.cn&#34;,
+        &#34;https://registry.docker-cn.com&#34;
     ]
 }
 ```
@@ -43,17 +43,17 @@ mkdir -p /etc/systemd/system/docker.service.d
 vi /etc/systemd/system/docker.service.d/http-proxy.conf
 
 [Service]
-Environment="HTTP_PROXY=http://proxy.example.com:80"
-Environment="HTTPS_PROXY=https://proxy.example.com:443"
+Environment=&#34;HTTP_PROXY=http://proxy.example.com:80&#34;
+Environment=&#34;HTTPS_PROXY=https://proxy.example.com:443&#34;
 ```
 
 3. 如果你自己建了私有的镜像仓库，需要 dockerd 绕过代理服务器直连，那么配置 NO_PROXY 变量
 
 ```bash
 [Service]
-Environment="HTTP_PROXY=http://proxy.example.com:80"
-Environment="HTTPS_PROXY=https://proxy.example.com:443"
-Environment="NO_PROXY=your-registry.com,10.10.10.10,*.example.com"
+Environment=&#34;HTTP_PROXY=http://proxy.example.com:80&#34;
+Environment=&#34;HTTPS_PROXY=https://proxy.example.com:443&#34;
+Environment=&#34;NO_PROXY=your-registry.com,10.10.10.10,*.example.com&#34;
 ```
 
 ## 三 重启Docker并确认设置成功
@@ -77,26 +77,26 @@ docker info
 2. 接下来编辑代码，将 `worker.js` 的内容替换为下面内容
 
 ```js
-import HTML from './docker.html';
+import HTML from &#39;./docker.html&#39;;
 
 export default {
     async fetch(request) {
         const url = new URL(request.url);
         const path = url.pathname;
-        const originalHost = request.headers.get("host");
-        const registryHost = "registry-1.docker.io";
+        const originalHost = request.headers.get(&#34;host&#34;);
+        const registryHost = &#34;registry-1.docker.io&#34;;
 
-        if (path.startsWith("/v2/")) {
+        if (path.startsWith(&#34;/v2/&#34;)) {
         const headers = new Headers(request.headers);
-        headers.set("host", registryHost);
+        headers.set(&#34;host&#34;, registryHost);
 
         const registryUrl = `https://${registryHost}${path}`;
         const registryRequest = new Request(registryUrl, {
             method: request.method,
             headers: headers,
             body: request.body,
-            // redirect: "manual",
-            redirect: "follow",
+            // redirect: &#34;manual&#34;,
+            redirect: &#34;follow&#34;,
         });
 
         const registryResponse = await fetch(registryRequest);
@@ -104,8 +104,8 @@ export default {
         console.log(registryResponse.status);
 
         const responseHeaders = new Headers(registryResponse.headers);
-        responseHeaders.set("access-control-allow-origin", originalHost);
-        responseHeaders.set("access-control-allow-headers", "Authorization");
+        responseHeaders.set(&#34;access-control-allow-origin&#34;, originalHost);
+        responseHeaders.set(&#34;access-control-allow-headers&#34;, &#34;Authorization&#34;);
         return new Response(registryResponse.body, {
             status: registryResponse.status,
             statusText: registryResponse.statusText,
@@ -115,7 +115,7 @@ export default {
         return new Response(HTML.replace(/{{host}}/g, originalHost), {
             status: 200,
             headers: {
-            "content-type": "text/html"
+            &#34;content-type&#34;: &#34;text/html&#34;
             }
         });
         }
@@ -127,18 +127,18 @@ export default {
 新建一个名为 `docker.html` 的 文件，内容如下
 
 ```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Mirror Usage</title>
-        <style>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&#34;utf-8&#34; /&gt;
+        &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34; /&gt;
+        &lt;title&gt;Mirror Usage&lt;/title&gt;
+        &lt;style&gt;
         html {
         height: 100%;
         }
         body {
-        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-family: &#34;Roboto&#34;, &#34;Helvetica&#34;, &#34;Arial&#34;, sans-serif;
         font-size: 16px;
         color: #333;
         margin: 0;
@@ -178,40 +178,40 @@ export default {
             text-align: center;
             font-size: 14px;
         }
-        </style>
-    </head>
-    <body>
-        <div class="header">
-        <h1>Mirror Usage</h1>
-        </div>
-        <div class="container">
-        <div class="content">
-            <p>镜像加速说明</p>
-            <p>
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class=&#34;header&#34;&gt;
+        &lt;h1&gt;Mirror Usage&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;container&#34;&gt;
+        &lt;div class=&#34;content&#34;&gt;
+            &lt;p&gt;镜像加速说明&lt;/p&gt;
+            &lt;p&gt;
             为了加速镜像拉取,你可以使用以下命令设置registery mirror:
-            </p>
-            <pre>
-            sudo tee /etc/docker/daemon.json &lt;&lt;EOF
+            &lt;/p&gt;
+            &lt;pre&gt;
+            sudo tee /etc/docker/daemon.json &amp;lt;&amp;lt;EOF
             {
-                "registry-mirrors": ["https://{{host}}"]
+                &#34;registry-mirrors&#34;: [&#34;https://{{host}}&#34;]
             }
             EOF
-            </pre>
-            </br>
-            <p>
+            &lt;/pre&gt;
+            &lt;/br&gt;
+            &lt;p&gt;
             为了避免 Worker 用量耗尽,你可以手动 pull 镜像然后 re-tag 之后 push 至本地镜像仓库:
-            </p>
-            <pre>
+            &lt;/p&gt;
+            &lt;pre&gt;
             docker pull {{host}}/library/alpine:latest # 拉取 library 镜像
             docker pull {{host}}/coredns/coredns:latest # 拉取 library 镜像
-            </pre>
-        </div>
-        </div>
-        <div class="footer">
-        <p>Powered by Cloudflare Workers</p>
-        </div>
-    </body>
-</html>
+            &lt;/pre&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;footer&#34;&gt;
+        &lt;p&gt;Powered by Cloudflare Workers&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
 ```
 
 3. 接下来，点击右上角的 **部署**，稍等片刻

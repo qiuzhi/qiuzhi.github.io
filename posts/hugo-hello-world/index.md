@@ -3,17 +3,17 @@
 
 Welcome to Hugo FixIt! This is your very first post.
 
-<!--more-->
+&lt;!--more--&gt;
 
 Head to the documentation page linked below for a complete guidence to get started with the [FixIt](https://github.com/hugo-fixit/FixIt) theme.
 
-{{< link href="https://fixit.lruihao.cn/documentation/" content="All Documentation - FixIt" title="documentation of FixIt Theme" card=true >}}
+{{&lt; link href=&#34;https://fixit.lruihao.cn/documentation/&#34; content=&#34;All Documentation - FixIt&#34; title=&#34;documentation of FixIt Theme&#34; card=true &gt;}}
 
 ## Quick Start
 
 ### Prerequisites
 
-Just install latest version of [Hugo(>= 0.109.0)](https://gohugo.io/installation/) for your OS (Windows, Linux, macOS).
+Just install latest version of [Hugo(&gt;= 0.109.0)](https://gohugo.io/installation/) for your OS (Windows, Linux, macOS).
 
 ### Clone Template
 
@@ -32,8 +32,8 @@ hugo server --disableFastRender --navigateToChanged --bind 0.0.0.0
 hugo server --disableFastRender --navigateToChanged --environment production --bind 0.0.0.0
 ```
 
-<details>
-  <summary>Start via NPM script</summary>
+&lt;details&gt;
+  &lt;summary&gt;Start via NPM script&lt;/summary&gt;
 
   ```bash
   npm install
@@ -47,7 +47,7 @@ hugo server --disableFastRender --navigateToChanged --environment production --b
   npm run update:theme
   ```
 
-</details>
+&lt;/details&gt;
 
 
 ### Build the Site

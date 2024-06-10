@@ -1,9 +1,9 @@
-# 搭建uptime-kuma服务监控面板
+# 搭建uptime-Kuma服务监控面板
 
 
 随着在互联网VPS和家里软路由搭建了不少项目后，为了监控探活，及时通知报告，我物色到了一款叫`uptime-kuma`的服务监控面板。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 一 简介
 
@@ -18,7 +18,7 @@ uptime-kuma是一款开源监控工具，类似于“Uptime Robot”，UI简洁�
 创建`docker-compose.yml`。
 
 ```yml
-version: "3.0"
+version: &#34;3.0&#34;
 services:
   uptime-kuma:
     image: louislam/uptime-kuma:latest
@@ -43,15 +43,15 @@ services:
 ##### 2.2.1 CloudFlare workers创建workers
 
 ```csharp
-const whitelist = ["/bot1111111111:"];
-const tg_host = "api.telegram.org";
+const whitelist = [&#34;/bot1111111111:&#34;];
+const tg_host = &#34;api.telegram.org&#34;;
 
-addEventListener('fetch', event => {
+addEventListener(&#39;fetch&#39;, event =&gt; {
     event.respondWith(handleRequest(event.request))
 })
 
 function validate(path) {
-    for (var i = 0; i < whitelist.length; i++) {
+    for (var i = 0; i &lt; whitelist.length; i&#43;&#43;) {
         if (path.startsWith(whitelist[i]))
             return true;
     }
@@ -62,7 +62,7 @@ async function handleRequest(request) {
     var u = new URL(request.url);
     u.host = tg_host;
     if (!validate(u.pathname))
-        return new Response('Unauthorized', {
+        return new Response(&#39;Unauthorized&#39;, {
             status: 403
         });
     var req = new Request(u, {
@@ -79,7 +79,7 @@ async function handleRequest(request) {
 
 ```bash
 $ docker exec -it uptime-kuma /bin/bash
-$ apt-get update && apt-get install vim -y             // 安装vim
+$ apt-get update &amp;&amp; apt-get install vim -y             // 安装vim
 $ vim /app/src/components/notifications/Telegram.vue   // 找到：api.telegram.org，将其替换成你的反代域名（就一处）
 $ vim /app/server/notification-providers/telegram.js   // 找到：api.telegram.org，将其替换成你的反代域名（就一处）
 $ exit 

@@ -3,7 +3,7 @@
 
 前期安装的CentOS，专门拿来挂机跑青龙、机器人等项目，当时估算的磁盘分配少了，监控程序一直处于黄色告警，虽然不影响正常使用，但有空还是处理下为好，正常的资源利用率更有利于系统稳定运行。
 
-<!--more-->
+&lt;!--more--&gt;
 
 ## 引言 LVM概述
 
@@ -11,7 +11,7 @@
 
 - LVM结构图如下：
 
-  {{< image src="https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png" width="50%" caption="LVM结构图" title="LVM结构图" >}}
+  {{&lt; image src=&#34;https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220105716.png&#34; width=&#34;50%&#34; caption=&#34;LVM结构图&#34; title=&#34;LVM结构图&#34; &gt;}}
 
   - 物理卷（Physical Volume，PV）
     指磁盘分区或从逻辑上与磁盘分区具有同样功能的设备（如RAID），是LVM的基本存储逻辑块，但和基本的物理存储介质（如分区、磁盘等）比较，却包含有与LVM相关的管理参数。
@@ -117,7 +117,7 @@ vgextend centos /dev/sda3
 扩容43G空间到LV
 
 ```sh
-lvextend -L +43G /dev/centos/root
+lvextend -L &#43;43G /dev/centos/root
 ```
 
 ![扩容LV1](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220114932.png)
@@ -125,7 +125,7 @@ lvextend -L +43G /dev/centos/root
 当初实际在ESXi加的是44G，但经过分区格式化后是不足44G的，在这里磁盘是有损耗的，一定要注意参数不要直接写44G，我们可以通过再加1G验证
 
 ```sh
-lvextend -L +1G /dev/centos/root
+lvextend -L &#43;1G /dev/centos/root
 ```
 
 ![扩容LV2](https://cdn.jsdelivr.net/gh/qiuzhi/static/blog/2023-12-20/20231220115147.png)
