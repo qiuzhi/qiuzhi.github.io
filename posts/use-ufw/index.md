@@ -178,6 +178,16 @@ connections. Proceed with operation (y|n)?
 ```bash
 #命令备忘
 
+#安装 ufw-docker 工具
+sudo wget -O /usr/local/bin/ufw-docker https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
+chmod &#43;x /usr/local/bin/ufw-docker
+
+#使用下列命令来修改 ufw 的 after.rules 文件
+ufw-docker install
+
+#显示当前防火墙允许的转发规则
+ufw-docker status
+
 #按container_name管理
 ufw-docker allow nginx-proxy-manager
 ufw-docker allow nginx-proxy-manager 443/tcp

@@ -293,9 +293,29 @@
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#命令备忘</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#安装 ufw-docker 工具</span>
+</span></span><span class="line"><span class="cl">sudo wget -O /usr/local/bin/ufw-docker https://github.com/chaifeng/ufw-docker/raw/master/ufw-docker
+</span></span><span class="line"><span class="cl">chmod +x /usr/local/bin/ufw-docker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#使用下列命令来修改 ufw 的 after.rules 文件</span>
+</span></span><span class="line"><span class="cl">ufw-docker install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#显示当前防火墙允许的转发规则</span>
+</span></span><span class="line"><span class="cl">ufw-docker status
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#按container_name管理</span>
 </span></span><span class="line"><span class="cl">ufw-docker allow nginx-proxy-manager
