@@ -136,6 +136,35 @@ sudo netstat -tulnp | grep &lt;port_number&gt;
 sudo ss -tulw | grep &lt;port_number&gt;
 ```
 
+#### 3.6 更改主机名
+
+备份当前配置
+
+```bash
+cp /etc/hostname /etc/hostname.bak
+cp /etc/hosts /etc/hosts.bak
+```
+
+查看当前主机名
+
+```bash
+hostnamectl
+```
+
+修改当前主机名
+
+```bash
+hostnamectl set-hostname mydebian
+```
+
+打开`/etc/hosts`文件，将原主机名修改为新主机名即可。
+
+应用更改
+
+```bash
+systemctl restart systemd-hostnamed
+```
+
 ### 4 系统通用
 
 #### 4.1 IP
