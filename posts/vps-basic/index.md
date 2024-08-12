@@ -124,6 +124,18 @@ systemctl start ssh.service
 /etc/init.d/ssh restart
 ```
 
+#### 3.6 查看系统端口状态
+
+```bash
+sudo netstat -tulnp | grep &lt;port_number&gt;
+```
+
+或者
+
+```bash
+sudo ss -tulw | grep &lt;port_number&gt;
+```
+
 ### 4 系统通用
 
 #### 4.1 IP
@@ -264,6 +276,11 @@ docker inspect -f &#39;{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddre
 docker inspect --format=&#39;{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; $(docker ps -aq)
 ```
 
+##### 4.7.3 进入 Docker 容器内部
+
+```bash
+docker exec -it &lt;container id&gt; /bin/bash
+```
 
 #### 4.8 ZeroTier
 
