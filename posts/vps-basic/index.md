@@ -21,6 +21,12 @@ sudo chmod &#43;x ./reinstall.sh
 sudo ./reinstall.sh debian 12
 ```
 
+或者
+
+```bash
+wget --no-check-certificate -qO InstallNET.sh &#39;https://raw.githubusercontent.com/leitbogioro/Tools/master/Linux_reinstall/InstallNET.sh&#39; &amp;&amp; chmod a&#43;x InstallNET.sh &amp;&amp; bash InstallNET.sh -debian 12 -pwd &#39;1qaz@WSX&#39;
+```
+
 ### 3 Debian
 
 &gt; 适用版本：11（Bullseye）、12
@@ -215,6 +221,49 @@ systemctl restart docker
 ```
 
 好了，我们已经安装好了 Docker 和 Docker Compose，然后就可以开始愉快的安装各种软件。
+
+##### 4.7.2 获取 Docker 容器的 IP 地址
+
+查询单个容器 IP 地址：
+
+使用下面命令可以查看容器详细信息，里面包含 IP 地址信息：
+
+```bash
+docker inspect &lt;container id&gt;
+```
+
+或者使用下面命令直接输出 IP 地址信息：
+
+```bash
+docker inspect --format &#39;{{ .NetworkSettings.IPAddress }}&#39; &lt;container id&gt;
+```
+
+或者：
+
+```bash
+docker inspect -f &#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; &lt;container id&gt;
+```
+
+查询全部容器 IP 地址：
+
+下面三个命令，任选其一即可：
+
+```bash
+docker inspect -f &#39;{{.Name}} - {{.NetworkSettings.IPAddress }}&#39; $(docker ps -aq)
+```
+
+或者：
+
+```bash
+docker inspect -f &#39;{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; $(docker ps -aq)
+```
+
+或者：
+
+```bash
+docker inspect --format=&#39;{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; $(docker ps -aq)
+```
+
 
 #### 4.8 ZeroTier
 
