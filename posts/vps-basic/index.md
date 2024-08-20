@@ -477,6 +477,10 @@ zerotier-cli join (网络ID)
   ```
 - 日常维护 `warp-go`
 
+## 参考
+
+1. [如何在 Debian 12/11/10 中启用 BBR](https://jigutech.com/2172.html)
+
 
 ---
 
