@@ -218,6 +218,75 @@ sudo netstat -tulnp | grep &lt;port_number&gt;
 sudo ss -tulw | grep &lt;port_number&gt;
 ```
 
+#### 3.9 BBR
+
+##### 3.9.1 如何检查您的系统是否启用了 BBR？
+
+在启用 BBR 之前，检查它是否已在您的系统上启用是必不可少的。为此，请运行以下命令：
+
+```bash
+sysctl net.ipv4.tcp_congestion_control
+```
+
+如果启用了 BBR，您将看到以下输出：
+
+```bash
+net.ipv4.tcp_congestion_control = bbr
+```
+
+如果您看到不同的拥塞控制算法，例如 cubic 或 reno，则 BBR 未启用。
+
+##### 3.9.2 如何在 Debian Linux 中启用 BBR？
+
+要在 Ubuntu Linux 上启用 BBR，请执行以下步骤：
+
+第 1 步：更新您的系统
+在对系统进行任何更改之前，更新它以确保您拥有最新的软件包和安全修复程序至关重要。为此，请运行以下命令：
+
+```bash
+sudo apt update &amp;&amp; sudo apt-get upgrade
+```
+
+第 2 步：检查是否支持 BBR
+并非所有系统都支持 BBR，因此检查您的系统是否必不可少。为此，请运行以下命令：
+
+```bash
+sudo modprobe tcp_bbr
+```
+
+如果您的系统支持 BBR，您将看不到任何输出。如果您的系统不支持 BBR，您将看到一条错误消息。
+
+第 3 步：启用 BBR
+要启用 BBR，请运行以下命令：
+
+```bash
+sudo sh -c &#39;echo &#34;net.core.default_qdisc=fq&#34; &gt;&gt; /etc/sysctl.conf&#39;
+sudo sh -c &#39;echo &#34;net.ipv4.tcp_congestion_control=bbr&#34; &gt;&gt; /etc/sysctl.conf&#39;
+```
+
+这些命令会将默认排队规则设置为 fq 并启用 BBR 作为拥塞控制算法。
+
+第 4 步：重新加载 sysctl
+要应用更改，请运行以下命令：
+
+```bash
+sudo sysctl -p
+```
+
+##### 3.9.3 如何验证是否启用了 BBR？
+
+要验证 BBR 是否已启用，请运行以下命令：
+
+```bash
+sysctl net.ipv4.tcp_congestion_control
+```
+
+如果启用了 BBR，您将看到以下输出：
+
+```bash
+net.ipv4.tcp_congestion_control = bbr
+```
+
 ### 4 系统通用
 
 #### 4.1 IP
