@@ -3603,6 +3603,7 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><ol>
+<li><a href="https://cnboy.org/2883"target="_blank" rel="external nofollow noopener noreferrer">在Dedian系统上设置时间同步&ndash;解决Debian系统时间无法同步</a></li>
 <li><a href="https://jigutech.com/2172.html"target="_blank" rel="external nofollow noopener noreferrer">如何在 Debian 12/11/10 中启用 BBR</a></li>
 </ol>]]></description></item><item><title>哪吒监控 - 轻量服务器运维监控工具</title><link>https://blog.iqzhi.com/posts/nezha/</link><pubDate>Mon, 13 Feb 2023 21:25:54 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/nezha/</guid><description><![CDATA[<p><a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控</a>，可以说是拿到VPS，更新完系统后，几乎第一个就要装的监控程序。</p>
 <p>几乎支持各种系统部署。</p>

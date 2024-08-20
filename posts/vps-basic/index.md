@@ -479,6 +479,7 @@ zerotier-cli join (网络ID)
 
 ## 参考
 
+1. [在Dedian系统上设置时间同步--解决Debian系统时间无法同步](https://cnboy.org/2883)
 1. [如何在 Debian 12/11/10 中启用 BBR](https://jigutech.com/2172.html)
 
 
