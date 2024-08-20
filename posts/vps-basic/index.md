@@ -77,7 +77,89 @@ nameserver 8.8.8.8
 
 {{&lt; /admonition &gt;}}
 
-#### 3.4 安装常用软件
+#### 3.4 更改主机名
+
+备份当前配置
+
+```bash
+cp /etc/hostname /etc/hostname.bak
+cp /etc/hosts /etc/hosts.bak
+```
+
+查看当前主机名
+
+```bash
+hostnamectl
+```
+
+修改当前主机名
+
+```bash
+hostnamectl set-hostname mydebian
+```
+
+打开`/etc/hosts`文件，将原主机名修改为新主机名即可。
+
+应用更改
+
+```bash
+systemctl restart systemd-hostnamed
+```
+
+#### 3.5 时区时间
+
+1. 第三方云主机时区就未必符合本地要求。
+
+```bash
+## 查看时区，有 CST 正确
+date
+## 设置
+timedatectl set-timezone Asia/Shanghai
+## 或者使用向导选择
+tzselect
+```
+
+2. 检查授时同步是否打开
+
+检查`ntpd`的状态：
+
+```bash
+systemctl status ntp
+```
+
+一般来说，我们只作为客户端使用，而不需要作为服务端提供的话，不需要用到`ntp`，直接使用`timesyncd`即可
+
+检查`timesyncd`的状态：
+
+```bash
+systemctl status systemd-timesyncd
+```
+
+`ntpd`与`timesyncd`冲突，若已安装`ntpd`，需要先删除：
+
+```bash
+apt purge ntp
+```
+
+安装`timesyncd`：
+
+```bash
+apt install systemd-timesyncd
+```
+
+启动`timesyncd`服务：
+
+```bash
+systemctl start systemd-timesyncd
+```
+
+输出确认`timesyncd`正在运行。要显示当前时间和日期，请运行：
+
+```bash
+timedatectl
+```
+
+#### 3.6 安装常用软件
 
 ```bash
 apt install -y sudo
@@ -85,7 +167,7 @@ apt install -y curl
 apt install -y socat
 ```
 
-#### 3.5 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录
+#### 3.7 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录
 
 1. 在 Debian 中添加 sudo 用户
 
@@ -124,7 +206,7 @@ systemctl start ssh.service
 /etc/init.d/ssh restart
 ```
 
-#### 3.6 查看系统端口状态
+#### 3.8 查看系统端口状态
 
 ```bash
 sudo netstat -tulnp | grep &lt;port_number&gt;
@@ -134,35 +216,6 @@ sudo netstat -tulnp | grep &lt;port_number&gt;
 
 ```bash
 sudo ss -tulw | grep &lt;port_number&gt;
-```
-
-#### 3.6 更改主机名
-
-备份当前配置
-
-```bash
-cp /etc/hostname /etc/hostname.bak
-cp /etc/hosts /etc/hosts.bak
-```
-
-查看当前主机名
-
-```bash
-hostnamectl
-```
-
-修改当前主机名
-
-```bash
-hostnamectl set-hostname mydebian
-```
-
-打开`/etc/hosts`文件，将原主机名修改为新主机名即可。
-
-应用更改
-
-```bash
-systemctl restart systemd-hostnamed
 ```
 
 ### 4 系统通用

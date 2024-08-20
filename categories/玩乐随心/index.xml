@@ -3029,8 +3029,123 @@
 </div>
     </div>
   </div>
-<h4 id="34-安装常用软件" class="heading-element"><span>3.4 安装常用软件</span>
-  <a href="#34-%e5%ae%89%e8%a3%85%e5%b8%b8%e7%94%a8%e8%bd%af%e4%bb%b6" class="heading-mark">
+<h4 id="34-更改主机名" class="heading-element"><span>3.4 更改主机名</span>
+  <a href="#34-%e6%9b%b4%e6%94%b9%e4%b8%bb%e6%9c%ba%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>备份当前配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /etc/hostname /etc/hostname.bak
+</span></span><span class="line"><span class="cl">cp /etc/hosts /etc/hosts.bak</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看当前主机名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hostnamectl</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改当前主机名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hostnamectl set-hostname mydebian</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开<code>/etc/hosts</code>文件，将原主机名修改为新主机名即可。</p>
+<p>应用更改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart systemd-hostnamed</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="35-时区时间" class="heading-element"><span>3.5 时区时间</span>
+  <a href="#35-%e6%97%b6%e5%8c%ba%e6%97%b6%e9%97%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
+<li>第三方云主机时区就未必符合本地要求。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 查看时区，有 CST 正确</span>
+</span></span><span class="line"><span class="cl">date
+</span></span><span class="line"><span class="cl"><span class="c1">## 设置</span>
+</span></span><span class="line"><span class="cl">timedatectl set-timezone Asia/Shanghai
+</span></span><span class="line"><span class="cl"><span class="c1">## 或者使用向导选择</span>
+</span></span><span class="line"><span class="cl">tzselect</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>检查授时同步是否打开</li>
+</ol>
+<p>检查<code>ntpd</code>的状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl status ntp</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一般来说，我们只作为客户端使用，而不需要作为服务端提供的话，不需要用到<code>ntp</code>，直接使用<code>timesyncd</code>即可</p>
+<p>检查<code>timesyncd</code>的状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl status systemd-timesyncd</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>ntpd</code>与<code>timesyncd</code>冲突，若已安装<code>ntpd</code>，需要先删除：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt purge ntp</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装<code>timesyncd</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install systemd-timesyncd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动<code>timesyncd</code>服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start systemd-timesyncd</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出确认<code>timesyncd</code>正在运行。要显示当前时间和日期，请运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">timedatectl</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="36-安装常用软件" class="heading-element"><span>3.6 安装常用软件</span>
+  <a href="#36-%e5%ae%89%e8%a3%85%e5%b8%b8%e7%94%a8%e8%bd%af%e4%bb%b6" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><div class="highlight"><div class="chroma">
@@ -3044,8 +3159,8 @@
 </span></span><span class="line"><span class="cl">apt install -y curl
 </span></span><span class="line"><span class="cl">apt install -y socat</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="35-创建新用户并允许远程ssh远程登录并禁止root用户远程ssh登录" class="heading-element"><span>3.5 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录</span>
-  <a href="#35-%e5%88%9b%e5%bb%ba%e6%96%b0%e7%94%a8%e6%88%b7%e5%b9%b6%e5%85%81%e8%ae%b8%e8%bf%9c%e7%a8%8bssh%e8%bf%9c%e7%a8%8b%e7%99%bb%e5%bd%95%e5%b9%b6%e7%a6%81%e6%ad%a2root%e7%94%a8%e6%88%b7%e8%bf%9c%e7%a8%8bssh%e7%99%bb%e5%bd%95" class="heading-mark">
+</div><h4 id="37-创建新用户并允许远程ssh远程登录并禁止root用户远程ssh登录" class="heading-element"><span>3.7 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录</span>
+  <a href="#37-%e5%88%9b%e5%bb%ba%e6%96%b0%e7%94%a8%e6%88%b7%e5%b9%b6%e5%85%81%e8%ae%b8%e8%bf%9c%e7%a8%8bssh%e8%bf%9c%e7%a8%8b%e7%99%bb%e5%bd%95%e5%b9%b6%e7%a6%81%e6%ad%a2root%e7%94%a8%e6%88%b7%e8%bf%9c%e7%a8%8bssh%e7%99%bb%e5%bd%95" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><ol>
@@ -3098,8 +3213,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start ssh.service
 </span></span><span class="line"><span class="cl">/etc/init.d/ssh restart</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="36-查看系统端口状态" class="heading-element"><span>3.6 查看系统端口状态</span>
-  <a href="#36-%e6%9f%a5%e7%9c%8b%e7%b3%bb%e7%bb%9f%e7%ab%af%e5%8f%a3%e7%8a%b6%e6%80%81" class="heading-mark">
+</div><h4 id="38-查看系统端口状态" class="heading-element"><span>3.8 查看系统端口状态</span>
+  <a href="#38-%e6%9f%a5%e7%9c%8b%e7%b3%bb%e7%bb%9f%e7%ab%af%e5%8f%a3%e7%8a%b6%e6%80%81" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><div class="highlight"><div class="chroma">
@@ -3116,45 +3231,6 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo ss -tulw <span class="p">|</span> grep &lt;port_number&gt;</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="36-更改主机名" class="heading-element"><span>3.6 更改主机名</span>
-  <a href="#36-%e6%9b%b4%e6%94%b9%e4%b8%bb%e6%9c%ba%e5%90%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>备份当前配置</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /etc/hostname /etc/hostname.bak
-</span></span><span class="line"><span class="cl">cp /etc/hosts /etc/hosts.bak</span></span></code></pre></td></tr></table>
-</div>
-</div><p>查看当前主机名</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hostnamectl</span></span></code></pre></td></tr></table>
-</div>
-</div><p>修改当前主机名</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hostnamectl set-hostname mydebian</span></span></code></pre></td></tr></table>
-</div>
-</div><p>打开<code>/etc/hosts</code>文件，将原主机名修改为新主机名即可。</p>
-<p>应用更改</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart systemd-hostnamed</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-系统通用" class="heading-element"><span>4 系统通用</span>
   <a href="#4-%e7%b3%bb%e7%bb%9f%e9%80%9a%e7%94%a8" class="heading-mark">
