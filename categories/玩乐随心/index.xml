@@ -2958,8 +2958,39 @@
 </h3><blockquote>
 <p>适用版本：11（Bullseye）、12</p>
 </blockquote>
-<h4 id="31-查看内核版本" class="heading-element"><span>3.1 查看内核版本</span>
-  <a href="#31-%e6%9f%a5%e7%9c%8b%e5%86%85%e6%a0%b8%e7%89%88%e6%9c%ac" class="heading-mark">
+<h4 id="31-修改语言设置成英文" class="heading-element"><span>3.1 修改语言设置成英文</span>
+  <a href="#31-%e4%bf%ae%e6%94%b9%e8%af%ad%e8%a8%80%e8%ae%be%e7%bd%ae%e6%88%90%e8%8b%b1%e6%96%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>打开以下文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vi /etc/default/locale</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将对应内容修改为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">LANG=&#34;en_US.UTF-8&#34;
+</span></span><span class="line"><span class="cl">LANGUAGE=&#34;en_US:en&#34;</span></span></code></pre></td></tr></table>
+</div>
+</div><p>更新：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后重启reboot机器。</p>
+<h4 id="32-查看内核版本" class="heading-element"><span>3.2 查看内核版本</span>
+  <a href="#32-%e6%9f%a5%e7%9c%8b%e5%86%85%e6%a0%b8%e7%89%88%e6%9c%ac" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><div class="highlight"><div class="chroma">
@@ -2969,8 +3000,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">uname -r</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="32-开启ssh登录" class="heading-element"><span>3.2 开启SSH登录</span>
-  <a href="#32-%e5%bc%80%e5%90%afssh%e7%99%bb%e5%bd%95" class="heading-mark">
+</div><h4 id="33-开启ssh登录" class="heading-element"><span>3.3 开启SSH登录</span>
+  <a href="#33-%e5%bc%80%e5%90%afssh%e7%99%bb%e5%bd%95" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><div class="highlight"><div class="chroma">
@@ -2982,8 +3013,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g&#39;</span> /etc/ssh/sshd_config
 </span></span><span class="line"><span class="cl">systemctl restart ssh</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="33-更新系统包" class="heading-element"><span>3.3 更新系统包</span>
-  <a href="#33-%e6%9b%b4%e6%96%b0%e7%b3%bb%e7%bb%9f%e5%8c%85" class="heading-mark">
+</div><h4 id="34-更新系统包" class="heading-element"><span>3.4 更新系统包</span>
+  <a href="#34-%e6%9b%b4%e6%96%b0%e7%b3%bb%e7%bb%9f%e5%8c%85" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><div class="highlight"><div class="chroma">
@@ -3029,8 +3060,8 @@
 </div>
     </div>
   </div>
-<h4 id="34-更改主机名" class="heading-element"><span>3.4 更改主机名</span>
-  <a href="#34-%e6%9b%b4%e6%94%b9%e4%b8%bb%e6%9c%ba%e5%90%8d" class="heading-mark">
+<h4 id="35-更改主机名" class="heading-element"><span>3.5 更改主机名</span>
+  <a href="#35-%e6%9b%b4%e6%94%b9%e4%b8%bb%e6%9c%ba%e5%90%8d" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><p>备份当前配置</p>
@@ -3068,8 +3099,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart systemd-hostnamed</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="35-时区时间" class="heading-element"><span>3.5 时区时间</span>
-  <a href="#35-%e6%97%b6%e5%8c%ba%e6%97%b6%e9%97%b4" class="heading-mark">
+</div><h4 id="36-时区时间" class="heading-element"><span>3.6 时区时间</span>
+  <a href="#36-%e6%97%b6%e5%8c%ba%e6%97%b6%e9%97%b4" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><ol>
@@ -3144,8 +3175,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">timedatectl</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="36-安装常用软件" class="heading-element"><span>3.6 安装常用软件</span>
-  <a href="#36-%e5%ae%89%e8%a3%85%e5%b8%b8%e7%94%a8%e8%bd%af%e4%bb%b6" class="heading-mark">
+</div><h4 id="37-安装常用软件" class="heading-element"><span>3.7 安装常用软件</span>
+  <a href="#37-%e5%ae%89%e8%a3%85%e5%b8%b8%e7%94%a8%e8%bd%af%e4%bb%b6" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><div class="highlight"><div class="chroma">
@@ -3159,8 +3190,8 @@
 </span></span><span class="line"><span class="cl">apt install -y curl
 </span></span><span class="line"><span class="cl">apt install -y socat</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="37-创建新用户并允许远程ssh远程登录并禁止root用户远程ssh登录" class="heading-element"><span>3.7 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录</span>
-  <a href="#37-%e5%88%9b%e5%bb%ba%e6%96%b0%e7%94%a8%e6%88%b7%e5%b9%b6%e5%85%81%e8%ae%b8%e8%bf%9c%e7%a8%8bssh%e8%bf%9c%e7%a8%8b%e7%99%bb%e5%bd%95%e5%b9%b6%e7%a6%81%e6%ad%a2root%e7%94%a8%e6%88%b7%e8%bf%9c%e7%a8%8bssh%e7%99%bb%e5%bd%95" class="heading-mark">
+</div><h4 id="38-创建新用户并允许远程ssh远程登录并禁止root用户远程ssh登录" class="heading-element"><span>3.8 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录</span>
+  <a href="#38-%e5%88%9b%e5%bb%ba%e6%96%b0%e7%94%a8%e6%88%b7%e5%b9%b6%e5%85%81%e8%ae%b8%e8%bf%9c%e7%a8%8bssh%e8%bf%9c%e7%a8%8b%e7%99%bb%e5%bd%95%e5%b9%b6%e7%a6%81%e6%ad%a2root%e7%94%a8%e6%88%b7%e8%bf%9c%e7%a8%8bssh%e7%99%bb%e5%bd%95" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><ol>
@@ -3213,8 +3244,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start ssh.service
 </span></span><span class="line"><span class="cl">/etc/init.d/ssh restart</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="38-查看系统端口状态" class="heading-element"><span>3.8 查看系统端口状态</span>
-  <a href="#38-%e6%9f%a5%e7%9c%8b%e7%b3%bb%e7%bb%9f%e7%ab%af%e5%8f%a3%e7%8a%b6%e6%80%81" class="heading-mark">
+</div><h4 id="39-查看系统端口状态" class="heading-element"><span>3.9 查看系统端口状态</span>
+  <a href="#39-%e6%9f%a5%e7%9c%8b%e7%b3%bb%e7%bb%9f%e7%ab%af%e5%8f%a3%e7%8a%b6%e6%80%81" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h4><div class="highlight"><div class="chroma">
@@ -3232,12 +3263,12 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo ss -tulw <span class="p">|</span> grep &lt;port_number&gt;</span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="39-bbr" class="heading-element"><span>3.9 BBR</span>
-  <a href="#39-bbr" class="heading-mark">
+</div><h4 id="310-bbr" class="heading-element"><span>3.10 BBR</span>
+  <a href="#310-bbr" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><h5 id="391-如何检查您的系统是否启用了-bbr" class="heading-element"><span>3.9.1 如何检查您的系统是否启用了 BBR？</span>
-  <a href="#391-%e5%a6%82%e4%bd%95%e6%a3%80%e6%9f%a5%e6%82%a8%e7%9a%84%e7%b3%bb%e7%bb%9f%e6%98%af%e5%90%a6%e5%90%af%e7%94%a8%e4%ba%86-bbr" class="heading-mark">
+</h4><h5 id="3101-如何检查您的系统是否启用了-bbr" class="heading-element"><span>3.10.1 如何检查您的系统是否启用了 BBR？</span>
+  <a href="#3101-%e5%a6%82%e4%bd%95%e6%a3%80%e6%9f%a5%e6%82%a8%e7%9a%84%e7%b3%bb%e7%bb%9f%e6%98%af%e5%90%a6%e5%90%af%e7%94%a8%e4%ba%86-bbr" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h5><p>在启用 BBR 之前，检查它是否已在您的系统上启用是必不可少的。为此，请运行以下命令：</p>
@@ -3257,8 +3288,8 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">net.ipv4.tcp_congestion_control <span class="o">=</span> bbr</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果您看到不同的拥塞控制算法，例如 cubic 或 reno，则 BBR 未启用。</p>
-<h5 id="392-如何在-debian-linux-中启用-bbr" class="heading-element"><span>3.9.2 如何在 Debian Linux 中启用 BBR？</span>
-  <a href="#392-%e5%a6%82%e4%bd%95%e5%9c%a8-debian-linux-%e4%b8%ad%e5%90%af%e7%94%a8-bbr" class="heading-mark">
+<h5 id="3102-如何在-debian-linux-中启用-bbr" class="heading-element"><span>3.10.2 如何在 Debian Linux 中启用 BBR？</span>
+  <a href="#3102-%e5%a6%82%e4%bd%95%e5%9c%a8-debian-linux-%e4%b8%ad%e5%90%af%e7%94%a8-bbr" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h5><p>要在 Ubuntu Linux 上启用 BBR，请执行以下步骤：</p>
@@ -3302,8 +3333,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo sysctl -p</span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="393-如何验证是否启用了-bbr" class="heading-element"><span>3.9.3 如何验证是否启用了 BBR？</span>
-  <a href="#393-%e5%a6%82%e4%bd%95%e9%aa%8c%e8%af%81%e6%98%af%e5%90%a6%e5%90%af%e7%94%a8%e4%ba%86-bbr" class="heading-mark">
+</div><h5 id="3103-如何验证是否启用了-bbr" class="heading-element"><span>3.10.3 如何验证是否启用了 BBR？</span>
+  <a href="#3103-%e5%a6%82%e4%bd%95%e9%aa%8c%e8%af%81%e6%98%af%e5%90%a6%e5%90%af%e7%94%a8%e4%ba%86-bbr" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h5><p>要验证 BBR 是否已启用，请运行以下命令：</p>

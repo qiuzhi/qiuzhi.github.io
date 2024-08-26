@@ -31,20 +31,43 @@ wget --no-check-certificate -qO InstallNET.sh &#39;https://raw.githubusercontent
 
 &gt; 适用版本：11（Bullseye）、12
 
-#### 3.1 查看内核版本
+#### 3.1 修改语言设置成英文
+
+打开以下文件：
+
+```bash
+vi /etc/default/locale
+```
+
+将对应内容修改为：
+
+```txt
+LANG=&#34;en_US.UTF-8&#34;
+LANGUAGE=&#34;en_US:en&#34;
+```
+
+更新：
+
+```bash
+apt update
+```
+
+然后重启reboot机器。
+
+#### 3.2 查看内核版本
 
 ```bash
 uname -r
 ```
 
-#### 3.2 开启SSH登录
+#### 3.3 开启SSH登录
 
 ```bash
 sed -i &#39;s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g&#39; /etc/ssh/sshd_config
 systemctl restart ssh
 ```
 
-#### 3.3 更新系统包
+#### 3.4 更新系统包
 
 ```bash
 apt update -y &amp;&amp; apt upgrade -y
@@ -77,7 +100,7 @@ nameserver 8.8.8.8
 
 {{&lt; /admonition &gt;}}
 
-#### 3.4 更改主机名
+#### 3.5 更改主机名
 
 备份当前配置
 
@@ -106,7 +129,7 @@ hostnamectl set-hostname mydebian
 systemctl restart systemd-hostnamed
 ```
 
-#### 3.5 时区时间
+#### 3.6 时区时间
 
 1. 第三方云主机时区就未必符合本地要求。
 
@@ -159,7 +182,7 @@ systemctl start systemd-timesyncd
 timedatectl
 ```
 
-#### 3.6 安装常用软件
+#### 3.7 安装常用软件
 
 ```bash
 apt install -y sudo
@@ -167,7 +190,7 @@ apt install -y curl
 apt install -y socat
 ```
 
-#### 3.7 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录
+#### 3.8 创建新用户并允许远程SSH远程登录，并禁止root用户远程SSH登录
 
 1. 在 Debian 中添加 sudo 用户
 
@@ -206,7 +229,7 @@ systemctl start ssh.service
 /etc/init.d/ssh restart
 ```
 
-#### 3.8 查看系统端口状态
+#### 3.9 查看系统端口状态
 
 ```bash
 sudo netstat -tulnp | grep &lt;port_number&gt;
@@ -218,9 +241,9 @@ sudo netstat -tulnp | grep &lt;port_number&gt;
 sudo ss -tulw | grep &lt;port_number&gt;
 ```
 
-#### 3.9 BBR
+#### 3.10 BBR
 
-##### 3.9.1 如何检查您的系统是否启用了 BBR？
+##### 3.10.1 如何检查您的系统是否启用了 BBR？
 
 在启用 BBR 之前，检查它是否已在您的系统上启用是必不可少的。为此，请运行以下命令：
 
@@ -236,7 +259,7 @@ net.ipv4.tcp_congestion_control = bbr
 
 如果您看到不同的拥塞控制算法，例如 cubic 或 reno，则 BBR 未启用。
 
-##### 3.9.2 如何在 Debian Linux 中启用 BBR？
+##### 3.10.2 如何在 Debian Linux 中启用 BBR？
 
 要在 Ubuntu Linux 上启用 BBR，请执行以下步骤：
 
@@ -273,7 +296,7 @@ sudo sh -c &#39;echo &#34;net.ipv4.tcp_congestion_control=bbr&#34; &gt;&gt; /etc
 sudo sysctl -p
 ```
 
-##### 3.9.3 如何验证是否启用了 BBR？
+##### 3.10.3 如何验证是否启用了 BBR？
 
 要验证 BBR 是否已启用，请运行以下命令：
 
