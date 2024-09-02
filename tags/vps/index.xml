@@ -626,7 +626,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install systemd-timesyncd</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y systemd-timesyncd</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动<code>timesyncd</code>服务：</p>
 <div class="highlight"><div class="chroma">

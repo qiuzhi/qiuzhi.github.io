@@ -167,7 +167,7 @@ apt purge ntp
 安装`timesyncd`：
 
 ```bash
-apt install systemd-timesyncd
+apt install -y systemd-timesyncd
 ```
 
 启动`timesyncd`服务：
