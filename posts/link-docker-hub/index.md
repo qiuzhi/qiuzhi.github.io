@@ -18,11 +18,7 @@
 ```json
 {
     &#34;registry-mirrors&#34;: [
-        &#34;https://docker.agsvpt.work&#34;,
-        &#34;https://docker.agsv.top&#34;,
-        &#34;http://hub-mirror.c.163.com&#34;,
-        &#34;https://docker.mirrors.ustc.edu.cn&#34;,
-        &#34;https://registry.docker-cn.com&#34;
+        &#34;https://7rzmhvta.mirror.aliyuncs.com&#34;
     ]
 }
 ```

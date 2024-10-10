@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>feedId:66771866345172992+userId:66768738641753088</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 09 Jun 2024 12:20:05 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Hub 连接指南</title><link>https://blog.iqzhi.com/posts/link-docker-hub/</link><pubDate>Sun, 09 Jun 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/link-docker-hub/</guid><description><![CDATA[<p>记录连接Docker Hub受阻后的吃用方法。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 09 Jun 2024 12:20:05 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Hub 连接指南</title><link>https://blog.iqzhi.com/posts/link-docker-hub/</link><pubDate>Sun, 09 Jun 2024 12:20:05 +0800</pubDate><author>枫</author><guid>https://blog.iqzhi.com/posts/link-docker-hub/</guid><description><![CDATA[<p>记录连接Docker Hub受阻后的吃用方法。</p>
 <h2 id="一-简介" class="heading-element"><span>一 简介</span>
   <a href="#%e4%b8%80-%e7%ae%80%e4%bb%8b" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -20,19 +20,11 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;registry-mirrors&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.agsvpt.work&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.agsv.top&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://hub-mirror.c.163.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://registry.docker-cn.com&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://7rzmhvta.mirror.aliyuncs.com&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
 </div>
@@ -3780,46 +3772,35 @@
   <a href="#49-warp" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h4><p>各大一键脚本，三选一即可。</p>
-<p><a href="https://github.com/fscarmen/warp"target="_blank" rel="external nofollow noopener noreferrer">FSCARMEN</a> :</p>
+</h4><p>各大一键脚本，自选一即可。</p>
+<p>FSCARMEN :</p>
 <ul>
-<li>首次运行
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh <span class="o">&amp;&amp;</span> bash menu.sh</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>日常维护 <code>warp</code></li>
+<li>首次运行 wget -N <a href="https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh"target="_blank" rel="external nofollow noopener noreferrer">https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh</a> &amp;&amp; bash menu.sh</li>
+<li>日常维护 warp</li>
 </ul>
-<p><a href="https://github.com/P3TERX/warp.sh"target="_blank" rel="external nofollow noopener noreferrer">P3TERX</a> :</p>
+<p>P3TERX :</p>
 <ul>
-<li>首次运行
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -fsSL git.io/warp.sh<span class="o">)</span> menu</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>日常维护 <code>bash warp.sh</code></li>
+<li>首次运行 bash &lt;(curl -fsSL git.io/warp.sh) menu</li>
+<li>日常维护 bash warp.sh</li>
 </ul>
-<p><a href="https://gitlab.com/ProjectWARP/warp-go/-/tree/master/"target="_blank" rel="external nofollow noopener noreferrer">WARP-GO</a> :</p>
+<p>WARP-GO :</p>
 <ul>
-<li>首次运行
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh <span class="o">&amp;&amp;</span> bash warp-go.sh</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>日常维护 <code>warp-go</code></li>
+<li>首次运行 wget -N <a href="https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh"target="_blank" rel="external nofollow noopener noreferrer">https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh</a> &amp;&amp; bash warp-go.sh</li>
+<li>日常维护 warp-go</li>
 </ul>
+<p>MISAKA :</p>
+<ul>
+<li>首次运行 wget -N <a href="https://gitlab.com/Misaka-blog/warp-script/-/raw/main/warp.sh"target="_blank" rel="external nofollow noopener noreferrer">https://gitlab.com/Misaka-blog/warp-script/-/raw/main/warp.sh</a> &amp;&amp; bash warp.sh</li>
+<li>日常维护 bash warp.sh</li>
+</ul>
+<blockquote>
+<p><strong>开启效果</strong></p>
+<p>无 - IPv4 不支持 | IPv6 支持 | ~1Gbps | 无解锁</p>
+<p>IPv4 Only + IPv6 优先(默认) - IPv4 支持 | IPv6 支持 | 优先 IPv6 (~1Gbps), 否则 IPv4 (~200Mbps) | 无解锁<br>
+IPv4 Only + IPv4 优先 - IPv4 支持 | IPv6 支持 | 优先 IPv4 (~200Mbps), 否则 IPv6 (~1Gbps) | WARP解锁</p>
+<p>双栈 + IPv6 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁 (部分)<br>
+双栈 + IPv4 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁</p>
+</blockquote>
 <h2 id="参考" class="heading-element"><span>参考</span>
   <a href="#%e5%8f%82%e8%80%83" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>

@@ -474,31 +474,33 @@ zerotier-cli join (网络ID)
 
 #### 4.9 Warp
 
-各大一键脚本，三选一即可。
+各大一键脚本，自选一即可。
 
-[FSCARMEN](https://github.com/fscarmen/warp) :
+FSCARMEN :
+ - 首次运行 wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh &amp;&amp; bash menu.sh
+ - 日常维护 warp
 
-- 首次运行 
-  ```bash
-  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/menu.sh &amp;&amp; bash menu.sh
-  ```
-- 日常维护 `warp`
+P3TERX :
+ - 首次运行 bash &lt;(curl -fsSL git.io/warp.sh) menu
+ - 日常维护 bash warp.sh
 
-[P3TERX](https://github.com/P3TERX/warp.sh) :
+WARP-GO :
+ - 首次运行 wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh &amp;&amp; bash warp-go.sh
+ - 日常维护 warp-go
 
-- 首次运行
-  ```bash
-  bash &lt;(curl -fsSL git.io/warp.sh) menu
-  ```
-- 日常维护 `bash warp.sh`
+MISAKA :
+ - 首次运行 wget -N https://gitlab.com/Misaka-blog/warp-script/-/raw/main/warp.sh &amp;&amp; bash warp.sh
+ - 日常维护 bash warp.sh
 
-[WARP-GO](https://gitlab.com/ProjectWARP/warp-go/-/tree/master/) :
-
-- 首次运行
-  ```bash
-  wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh &amp;&amp; bash warp-go.sh
-  ```
-- 日常维护 `warp-go`
+&gt; **开启效果**
+&gt;
+&gt; 无 - IPv4 不支持 | IPv6 支持 | ~1Gbps | 无解锁
+&gt;
+&gt; IPv4 Only &#43; IPv6 优先(默认) - IPv4 支持 | IPv6 支持 | 优先 IPv6 (~1Gbps), 否则 IPv4 (~200Mbps) | 无解锁&lt;br&gt;
+&gt; IPv4 Only &#43; IPv4 优先 - IPv4 支持 | IPv6 支持 | 优先 IPv4 (~200Mbps), 否则 IPv6 (~1Gbps) | WARP解锁
+&gt;
+&gt; 双栈 &#43; IPv6 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁 (部分)&lt;br&gt;
+&gt; 双栈 &#43; IPv4 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁
 
 ## 参考
 
