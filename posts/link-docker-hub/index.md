@@ -18,6 +18,7 @@
 ```json
 {
     &#34;registry-mirrors&#34;: [
+        &#34;https://docker.1ms.run&#34;,
         &#34;https://7rzmhvta.mirror.aliyuncs.com&#34;
     ]
 }
@@ -57,6 +58,8 @@ Environment=&#34;NO_PROXY=your-registry.com,10.10.10.10,*.example.com&#34;
 ```bash
 systemctl daemon-reload
 systemctl restart docker.service
+
+sudo systemctl daemon-reload &amp;&amp; sudo systemctl restart docker
 
 systemctl show --property=Environment docker
 docker info
