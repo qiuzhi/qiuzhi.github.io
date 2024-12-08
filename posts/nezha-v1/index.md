@@ -61,10 +61,15 @@ location / {
 }
 ```
 
-## 二 各省节点备份
+## 三 各省节点备份
 
 - [全国 34 省份 TCPING v4 IP](https://wph.im/259.html)
 - [【存】全国各省份三网 TCP-Ping IPv4 地址](https://www.nodeseek.com/post-68572-1)
+
+## 四 告警规则生成工具
+
+- [Nezha Rules Generator](https://nz.sina.us.kg/)
+- [哪吒监控流量警告规则生成器](https://wiziscool.github.io/Nezha-Traffic-Alarm-Generator/)
 
 ---
 
