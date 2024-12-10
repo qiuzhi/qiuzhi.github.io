@@ -71,6 +71,10 @@ location / {
 - [Nezha Rules Generator](https://nz.sina.us.kg/)
 - [哪吒监控流量警告规则生成器](https://wiziscool.github.io/Nezha-Traffic-Alarm-Generator/)
 
+## 五
+
+- [哪吒监控公开备注json生成器](https://nezhainfojson.pages.dev/)
+
 ---
 
 > 作者: [枫](https://github.com/qiuzhi)  
