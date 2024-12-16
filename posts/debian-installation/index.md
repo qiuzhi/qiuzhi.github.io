@@ -332,6 +332,14 @@ scp -r username@servername:/var/www/remote\_dir/(远程目录) /var/www/local\_d
 scp -r local\_dir username@servername:remote\_dir
 ```
 
+**5、备用**
+
+```bash
+scp -P 10086 -r root@server:~/container/ ~/
+
+scp -P 10086 -r root@server:/opt/nezha/dashboard/ ~/opt/nezha/
+```
+
 ## 挂载
 
 ```bash
