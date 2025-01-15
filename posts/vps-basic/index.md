@@ -329,6 +329,8 @@ curl -6 ip.sb
 
 **原生IP查询**：[iplark](https://iplark.com/)
 
+**在线IP信息查询工具**：[zerosla](https://ip.zerosla.net)
+
 IP质量体检报告：
 
 ```bash
