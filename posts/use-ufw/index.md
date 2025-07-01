@@ -201,9 +201,9 @@ ufw allow from 10.147.x.0/24 to any
 ufw allow from 192.168.x.0/24 to any
 ```
 
-{{&lt; /admonition &gt;}}
-
 &gt; 注意，ufw-docker未解决IPv6入访问题，若有需求，可参考 [Add IPv6 support #92](https://github.com/chaifeng/ufw-docker/pull/92) ，自行调整。
+
+{{&lt; /admonition &gt;}}
 
 ---
 
