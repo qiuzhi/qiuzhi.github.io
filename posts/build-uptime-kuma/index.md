@@ -86,9 +86,47 @@ $ exit
 $ docker restart uptime-kuma
 ```
 
+##### 2.2.3 进入docker内部运行apt-get update报错
+
+原因是由于Debian官方将Debian10(Debian buster)软件源由默认站点deb.debian.org移至存档站点archive.debian.org，基于官方软件源的镜像站同步了这一修改， 导致20250723之前的Debian10镜像在运行apt update命令时会报错： buster Release 404 Not Found 。 
+
+解决方法是：切换至Debian归档仓库（维持Buster）
+
+适用场景：需保留Debian 10环境，不升级系统。
+
+修改镜像源：
+
+```bash
+mv /etc/apt/sources.list /etc/apt/sources.list-bak
+cat &gt;/etc/apt/sources.list
+```
+
+1. 官方归档地址：
+
+```bash
+deb https://archive.debian.org/debian buster main contrib non-free
+deb-src https://archive.debian.org/debian buster main contrib non-free
+deb https://archive.debian.org/debian-security buster/updates main contrib non-free
+deb-src https://archive.debian.org/debian-security buster/updates main contrib non-free
+deb https://archive.debian.org/debian buster-updates main contrib non-free
+deb-src https://archive.debian.org/debian buster-updates main contrib non-free
+```
+
+2. 阿里云镜像软件源：
+
+```bash
+deb https://mirrors.aliyun.com/debian-archive/debian buster main contrib non-free
+deb-src https://mirrors.aliyun.com/debian-archive/debian buster main contrib non-free
+deb https://mirrors.aliyun.com/debian-archive/debian-security buster/updates main contrib non-free
+deb-src https://mirrors.aliyun.com/debian-archive/debian-security buster/updates main contrib non-free
+deb https://mirrors.aliyun.com/debian-archive/debian buster-updates main contrib non-free
+deb-src https://mirrors.aliyun.com/debian-archive/debian buster-updates main contrib non-free
+```
+
 ## 三 参考资料
 
 - [搭建uptime-kuma服务监控面板](https://nies.live/d/174)
+- [Debian 10 执行 sudo apt update 报错的解决办法](https://www.cnblogs.com/rnckty/p/19021679)
 
 
 ---

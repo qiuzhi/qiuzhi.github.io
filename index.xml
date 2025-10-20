@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Tue, 01 Jul 2025 09:16:31 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>哪吒监控V1升级注意事项</title><link>https://blog.iqzhi.com/posts/nezha-v1/</link><pubDate>Sun, 08 Dec 2024 15:25:54 +0800</pubDate><guid>https://blog.iqzhi.com/posts/nezha-v1/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>&lt;a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控&lt;/a>，开发大佬给力，发版频繁，也就伴随着可能的不稳定，生存在风雨飘摇中，也随着这次升级V1较稳定的版本，记录下升级的注意点及常用配置备份，供参考。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Mon, 20 Oct 2025 14:31:18 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>哪吒监控V1升级注意事项</title><link>https://blog.iqzhi.com/posts/nezha-v1/</link><pubDate>Sun, 08 Dec 2024 15:25:54 +0800</pubDate><guid>https://blog.iqzhi.com/posts/nezha-v1/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>&lt;a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控&lt;/a>，开发大佬给力，发版频繁，也就伴随着可能的不稳定，生存在风雨飘摇中，也随着这次升级V1较稳定的版本，记录下升级的注意点及常用配置备份，供参考。&lt;/p>
 &lt;h2 id="一-注意点对比v0与v1" class="heading-element">&lt;span>一 注意点（对比V0与V1）&lt;/span>
  &lt;a href="#%e4%b8%80-%e6%b3%a8%e6%84%8f%e7%82%b9%e5%af%b9%e6%af%94v0%e4%b8%8ev1" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -676,12 +676,70 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">exit&lt;/span> 
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ docker restart uptime-kuma&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
+&lt;/div>&lt;h5 id="223-进入docker内部运行apt-get-update报错" class="heading-element">&lt;span>2.2.3 进入docker内部运行apt-get update报错&lt;/span>
+ &lt;a href="#223-%e8%bf%9b%e5%85%a5docker%e5%86%85%e9%83%a8%e8%bf%90%e8%a1%8capt-get-update%e6%8a%a5%e9%94%99" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h5>&lt;p>原因是由于Debian官方将Debian10(Debian buster)软件源由默认站点deb.debian.org移至存档站点archive.debian.org，基于官方软件源的镜像站同步了这一修改， 导致20250723之前的Debian10镜像在运行apt update命令时会报错： buster Release 404 Not Found 。&lt;/p>
+&lt;p>解决方法是：切换至Debian归档仓库（维持Buster）&lt;/p>
+&lt;p>适用场景：需保留Debian 10环境，不升级系统。&lt;/p>
+&lt;p>修改镜像源：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mv /etc/apt/sources.list /etc/apt/sources.list-bak
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat &amp;gt;/etc/apt/sources.list&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>官方归档地址：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">deb https://archive.debian.org/debian buster main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb-src https://archive.debian.org/debian buster main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb https://archive.debian.org/debian-security buster/updates main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb-src https://archive.debian.org/debian-security buster/updates main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb https://archive.debian.org/debian buster-updates main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb-src https://archive.debian.org/debian buster-updates main contrib non-free&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>阿里云镜像软件源：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">deb https://mirrors.aliyun.com/debian-archive/debian buster main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb-src https://mirrors.aliyun.com/debian-archive/debian buster main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb https://mirrors.aliyun.com/debian-archive/debian-security buster/updates main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb-src https://mirrors.aliyun.com/debian-archive/debian-security buster/updates main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb https://mirrors.aliyun.com/debian-archive/debian buster-updates main contrib non-free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deb-src https://mirrors.aliyun.com/debian-archive/debian buster-updates main contrib non-free&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
 &lt;/div>&lt;h2 id="三-参考资料" class="heading-element">&lt;span>三 参考资料&lt;/span>
  &lt;a href="#%e4%b8%89-%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;ul>
 &lt;li>&lt;a href="https://nies.live/d/174"target="_blank" rel="external nofollow noopener noreferrer">搭建uptime-kuma服务监控面板&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.cnblogs.com/rnckty/p/19021679"target="_blank" rel="external nofollow noopener noreferrer">Debian 10 执行 sudo apt update 报错的解决办法&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>记2024春节</title><link>https://blog.iqzhi.com/posts/2024-spring-festival/</link><pubDate>Sun, 18 Feb 2024 13:47:38 +0800</pubDate><guid>https://blog.iqzhi.com/posts/2024-spring-festival/</guid><category domain="https://blog.iqzhi.com/categories/%E4%BA%BA%E9%97%B4%E5%80%BC%E5%BE%97/">人间值得</category><description>&lt;p>原本不打算回老家过春节，但想着接下来两年春节更不确切会不会回，所以最后还是成行了。本文从回到信宜的第二天就想着要写，为了简单记录下过节的，实际到回广上班的第二天才陆续写完。&lt;/p>
 &lt;p>由于家里亲戚入住请吃席在前，小宝放假在后，而老人家又不想我们特意开车先送回老家，本是计划在广州过年的，又由于后续公司春节假期放早四天（含除夕），有了总共12天的假期，还是计划回老家过年，想着可以探探、热闹热闹，同时老家房子大点，住着当度假休息。&lt;/p>
 &lt;h3 id="年廿七" class="heading-element">&lt;span>年廿七&lt;/span>
