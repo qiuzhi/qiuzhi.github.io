@@ -401,7 +401,7 @@ apt install cifs-utils
 
 ```bash
 sudo systemctl enable systemd-networkd-wait-online.service
-```bash
+```
 
 ## 参考
 
