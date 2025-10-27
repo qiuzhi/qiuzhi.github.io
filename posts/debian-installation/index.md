@@ -374,16 +374,42 @@ mount -t cifs //192.168.9.23/Disk_sataa5 /mnt/zidoo -o username=guest,password=g
 //192.168.9.23/Disk_sataa5 /mnt/zidoo cifs uid=0,gid=0,username=xxx,password=xxx,sec=ntlm 0 2
 //192.168.9.23/Disk_sataa5 /mnt/zidoo cifs defaults 0 2
 
+# 手动挂载
+mount -a
+
 # 若报错可尝试先安装cifs工具包
 apt install cifs-utils
 ```
 
-参考
+#### 自动挂载
+
+即使配置了 fstab ,但 Debian 还是会出现挂载不成功的问题，原因应该是网络未准备好。有以下两方法可以尝试下：
+
+1. 命令加上 x-systemd.requires=network-online.target，但偶乐会失败。
+
+```bash
+//192.168.1.17/video /mnt/nasvideo cifs vers=2.0,defaults,credentials=/etc/onlyou/creds,x-systemd.requires=network-online.target 0 0
+```
+
+2. 命令加上 _netdev，待观察验证。
+
+```bash
+//192.168.1.17/video /mnt/nasvideo cifs credentials=/etc/onlyou/creds,iocharset=utf8,vers=2.0,_netdev,auto,nofail,dir_mode=0777,file_mode=0777 0 0
+```
+
+还可以启用 systemd-networkd-wait-online.service 服务，以确保网络连接稳定后再进行挂载：
+
+```bash
+sudo systemctl enable systemd-networkd-wait-online.service
+```bash
+
+## 参考
 
 1. [Debian 11 “bullseye” 安装笔记](https://zhuanlan.zhihu.com/p/402960046?utm_id=0)
 2. [Linux 全局安装配置 zsh &#43; oh-my-zsh](https://sysin.org/blog/linux-zsh-all/)
 3. [非桌面版Debian 11自动配置获取ipv6地址教程](https://www.mumupc.com/archives/20226.html)
 4. [在git中出现中文乱码的解决方案](https://blog.csdn.net/tyro_java/article/details/53439537)
+5. [如何在Linux系统中使用CIFS协议进行文件共享和挂载？](https://shuyeidc.com/wp/44864.html)
 
 
 ---
