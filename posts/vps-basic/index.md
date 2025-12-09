@@ -380,6 +380,17 @@ wget -qO- get.docker.com | bash
 docker -v
 ```
 
+国内机安装
+
+```bash
+#https://linuxmirrors.cn/other/
+bash &lt;(curl -sSL https://linuxmirrors.cn/docker.sh)
+#使用阿里云镜像安装
+curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+#使用 Azure 中国镜像安装
+curl -fsSL https://get.docker.com | bash -s docker --mirror AzureChinaCloud
+```
+
 Docker-compose 安装
 
 ```bash
