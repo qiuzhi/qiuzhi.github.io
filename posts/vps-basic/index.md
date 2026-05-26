@@ -310,6 +310,33 @@ sysctl net.ipv4.tcp_congestion_control
 net.ipv4.tcp_congestion_control = bbr
 ```
 
+#### 3.11 swap分区
+
+两种方式：`file` 与 `partition`
+
+#### 3.11.1 swap file（交换文件）
+
+```bash
+sudo bash -c &#39;
+set -e
+
+swapoff /swapfile 2&gt;/dev/null || true
+rm -f /swapfile
+
+fallocate -l 4G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=4096
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+
+grep -q &#34;^/swapfile &#34; /etc/fstab || echo &#34;/swapfile none swap sw 0 0&#34; &gt;&gt; /etc/fstab
+
+sysctl vm.swappiness=70
+echo &#34;vm.swappiness=70&#34; &gt; /etc/sysctl.d/99-swap.conf
+
+free -h
+&#39;
+```
+
 ### 4 系统通用
 
 #### 4.1 IP
@@ -520,6 +547,21 @@ MISAKA :
 &gt;
 &gt; 双栈 &#43; IPv6 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁 (部分)&lt;br&gt;
 &gt; 双栈 &#43; IPv4 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁
+
+#### 4.10 打包迁移
+
+只打包 `~/container` 目录下 `hermes` 文件夹
+
+```bash
+tar -C ~/container -zcvf hermes-data-$(date &#43;%F).tar.gz hermes
+```
+
+解压到当前目录 `hermes` 文件夹
+
+```bash
+tar -zxvf hermes-deploy-YYYY-MM-DD.tar.gz
+```
+
 
 ## 参考
 
