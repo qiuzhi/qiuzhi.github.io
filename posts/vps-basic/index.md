@@ -422,6 +422,7 @@ Docker-compose 安装
 
 ```bash
 curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64 &gt; /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-aarch64 &gt; /usr/local/bin/docker-compose
 sudo chmod &#43;x /usr/local/bin/docker-compose
 docker-compose --version
 ```
