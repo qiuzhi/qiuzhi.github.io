@@ -195,8 +195,10 @@ ufw-docker delete allow nginx-proxy-manager
 
 #放通docker容器内部
 ufw allow from 172.16.0.0/12 to any
-#放通zerotier
+#放通ZeroTier
 ufw allow from 10.147.x.0/24 to any
+#放通EasyTier
+ufw allow from 10.203.x.0/24 to any
 #放通本地
 ufw allow from 192.168.x.0/24 to any
 ```
