@@ -1,4 +1,820 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Tue, 12 May 2026 10:11:58 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>AI Agent 随记</title><link>https://blog.iqzhi.com/posts/use-ai-agent/</link><pubDate>Tue, 12 May 2026 10:11:58 +0800</pubDate><guid>https://blog.iqzhi.com/posts/use-ai-agent/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>试用了近来很火的龙虾，最终选择了马。&lt;/p></description></item><item><title>哪吒监控V1升级注意事项</title><link>https://blog.iqzhi.com/posts/nezha-v1/</link><pubDate>Sun, 08 Dec 2024 15:25:54 +0800</pubDate><guid>https://blog.iqzhi.com/posts/nezha-v1/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>&lt;a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控&lt;/a>，开发大佬给力，发版频繁，也就伴随着可能的不稳定，生存在风雨飘摇中，也随着这次升级V1较稳定的版本，记录下升级的注意点及常用配置备份，供参考。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Jul 2026 15:21:12 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>从 ZeroTier 到 EasyTier 的异地组网实践</title><link>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</link><pubDate>Mon, 13 Jul 2026 15:21:12 +0800</pubDate><guid>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>我原本已经在用 ZeroTier，而且整体稳定。这次折腾并不是因为它突然不能用了，而是想给家里的 NAS、服务器和移动设备多准备一条可控的异地访问路径，顺便弄清楚 Tailscale、ZeroTier、EasyTier 到底差在哪里。&lt;/p>
+&lt;p>最后没有做激进迁移：ZeroTier 继续保留，EasyTier 用国内 VPS 搭了一套私有中继，作为备用链路和后续扩展的底座。&lt;/p>
+&lt;h2 id="一-为什么又折腾一套组网" class="heading-element">&lt;span>一 为什么又折腾一套组网&lt;/span>
+ &lt;a href="#%e4%b8%80-%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%88%e6%8a%98%e8%85%be%e4%b8%80%e5%a5%97%e7%bb%84%e7%bd%91" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>我的需求不复杂：人在外面时访问家里的 NAS、Kavita、SSH 和其他 Web 服务，最好还能让 OpenWrt 作为家庭局域网入口，把没有安装客户端的设备一并带进来。&lt;/p>
+&lt;p>这类需求本质上是三层网络访问，不依赖局域网广播、ARP 或同网段发现，所以没有必须保留二层虚拟以太网的刚需。真正需要解决的是三件事：&lt;/p>
+&lt;ol>
+&lt;li>两端能否成功 P2P 直连；&lt;/li>
+&lt;li>打洞失败后有没有稳定的 Relay；&lt;/li>
+&lt;li>中继路径、密钥和带宽是否掌握在自己手里。&lt;/li>
+&lt;/ol>
+&lt;p>我最初的问题是“哪一个更好”，后来发现这个问法太宽。只要能直连，三者的数据都不会长期经过厂商或自建中继，实际速度主要取决于两端网络。差异真正出现的地方，是打洞失败之后。&lt;/p>
+&lt;h2 id="二-tailscalezerotier-与-easytier-怎么选" class="heading-element">&lt;span>二 Tailscale、ZeroTier 与 EasyTier 怎么选&lt;/span>
+ &lt;a href="#%e4%ba%8c-tailscalezerotier-%e4%b8%8e-easytier-%e6%80%8e%e4%b9%88%e9%80%89" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-tailscale" class="heading-element">&lt;span>1 Tailscale&lt;/span>
+ &lt;a href="#1-tailscale" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Tailscale 的优势是省心。它基于 WireGuard，客户端成熟，账号登录、设备管理、ACL 和 MagicDNS 都做得很完整。两台设备可以直连时，体验往往是三者里最顺滑的。&lt;/p>
+&lt;p>它的问题也很明确：如果直连失败，流量会转到 DERP。DERP 解决的是可达性，不保证路线一定最短。自建 DERP 可以增强控制力，但意味着证书、域名、升级和监控都要自己维护。&lt;/p>
+&lt;p>如果从零开始，只想快速连几台设备，我仍然会优先推荐 Tailscale。&lt;/p>
+&lt;h3 id="2-zerotier" class="heading-element">&lt;span>2 ZeroTier&lt;/span>
+ &lt;a href="#2-zerotier" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>ZeroTier 是我原本就在用的方案。它提供类似虚拟交换机的网络，节点通过 UDP 联系根节点、控制器和其他 Peer，完成发现、授权、打洞和数据传输。正常情况下业务流量也是端到端直连。&lt;/p>
+&lt;p>ZeroTier 的 Moon 经常被误解成“自建中继”。实际上 Moon 更接近自定义根节点，主要帮助节点发现和路径建立，不等同于一个可控的通用数据面 Relay。打洞失败时，是否能获得理想的中继路径，不是部署一个 Moon 就能完全解决的。&lt;/p>
+&lt;p>不过，已经稳定运行的网络没有必要为了追新而迁移。能稳定访问，比架构图看起来更漂亮重要。&lt;/p>
+&lt;h3 id="3-easytier" class="heading-element">&lt;span>3 EasyTier&lt;/span>
+ &lt;a href="#3-easytier" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>EasyTier 最吸引我的地方，是它能比较直接地自建共享节点，并在 P2P 失败时承担真实业务流量中继。TCP、UDP、WS、WSS 等传输也给受限网络留下了更多选择。&lt;/p>
+&lt;p>代价是自己负责部署、安全和升级。它不像 Tailscale 那样开箱即用，但路径更可控，特别适合手里已经有国内 VPS、愿意自己维护 Docker 服务的人。&lt;/p>
+&lt;p>我的最终选择是：ZeroTier 不动，EasyTier 双跑。先验证一段时间，再决定它是长期备用还是逐步接管更多设备。&lt;/p>
+&lt;h2 id="三-搭建国内-easytier-私有中继" class="heading-element">&lt;span>三 搭建国内 EasyTier 私有中继&lt;/span>
+ &lt;a href="#%e4%b8%89-%e6%90%ad%e5%bb%ba%e5%9b%bd%e5%86%85-easytier-%e7%a7%81%e6%9c%89%e4%b8%ad%e7%bb%a7" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-网络规划" class="heading-element">&lt;span>1 网络规划&lt;/span>
+ &lt;a href="#1-%e7%bd%91%e7%bb%9c%e8%a7%84%e5%88%92" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>我给 EasyTier 规划了一个不容易和家庭 LAN、公司网络、Docker 网段冲突的地址段：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">EasyTier 虚拟网段：10.203.77.0/24
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">VPS 虚拟地址： 10.203.77.1/24
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">OpenWrt： 10.203.77.10/24&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>VPS 有公网 IPv4 即可，IPv6 不是前置条件。没有 IPv6 不需要特意加入 &lt;code>disable_ipv6&lt;/code>；保留默认行为，未来增加双栈路径时更省事。&lt;/p>
+&lt;p>监听端口没有使用默认值，而是改成了自定义高位端口 &lt;code>28473&lt;/code>，同时开放 TCP 和 UDP：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">28473/TCP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">28473/UDP&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>改端口只能减少默认端口扫描和误碰撞，不是协议伪装，也不能保证绕过 DPI。&lt;/p>
+&lt;h3 id="2-为什么必须使用私有模式" class="heading-element">&lt;span>2 为什么必须使用私有模式&lt;/span>
+ &lt;a href="#2-%e4%b8%ba%e4%bb%80%e4%b9%88%e5%bf%85%e9%a1%bb%e4%bd%bf%e7%94%a8%e7%a7%81%e6%9c%89%e6%a8%a1%e5%bc%8f" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>EasyTier 官方文档说明，不带参数启动的节点可以作为公共共享节点，默认节点也可能为其他虚拟网络提供转发。自己的 VPS 显然不该变成陌生人的免费中继，所以至少要配置：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">非显眼的网络名
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">足够长的随机密钥
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">private_mode = true&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>RPC 管理接口只绑定本机：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">127.0.0.1:15888&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>它只服务于本机的 &lt;code>easytier-cli&lt;/code> 和管理操作，与 P2P、Relay 及业务流量无关，不应该暴露到公网。&lt;/p>
+&lt;p>&lt;code>relay_network_whitelist = &amp;quot;&amp;quot;&lt;/code> 与 &lt;code>relay_all_peer_rpc = true&lt;/code> 主要用于限制其他虚拟网络的数据转发、只保留发现和建链协助。私有模式已经把节点收敛到同名、同密钥网络，我的场景不需要再堆这组参数。&lt;/p>
+&lt;h3 id="3-docker-与配置文件" class="heading-element">&lt;span>3 Docker 与配置文件&lt;/span>
+ &lt;a href="#3-docker-%e4%b8%8e%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>最初可以直接把参数写进 Compose 的 &lt;code>command&lt;/code>，但参数一多，可读性很快下降。后来改成挂载 TOML 配置，让 Compose 只负责容器生命周期：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">easytier&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">easytier/easytier:v2.6.4&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">container_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">easytier&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hostname&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gz-vps&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">unless-stopped&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">network_mode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">host&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">cap_add&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">NET_ADMIN&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">NET_RAW&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">devices&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/dev/net/tun:/dev/net/tun&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/etc/machine-id:/etc/machine-id:ro&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">./conf/easytier.toml:/config/easytier.toml:ro&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- -&lt;span class="l">c&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/config/easytier.toml&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>配置文件只读挂载，密钥使用占位符表示：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">instance_name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;home&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">hostname&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;gz-vps&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">ipv4&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;10.203.77.1/24&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dhcp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">listeners&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;tcp://0.0.0.0:28473&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;udp://0.0.0.0:28473&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">rpc_portal&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;127.0.0.1:15888&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">network_identity&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">network_name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;feng-private-net&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">network_secret&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;替换为足够长的随机密钥&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">[&lt;/span>&lt;span class="nx">flags&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">private_mode&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>EasyTier 官方支持通过多个 &lt;code>-c&lt;/code> 加载多份配置，在同一进程中启动多个虚拟网络。如果更喜欢纯命令行，也可以运行多个容器或多个进程，每个私网使用独立的网络名、密钥、监听端口、RPC 端口和虚拟网段。&lt;/p>
+&lt;p>&lt;code>instance_name&lt;/code> 只是用来区分同一台机器上的多个 EasyTier 实例，不需要和其他节点一致，也不强制与配置文件名一致。不过把 &lt;code>home.toml&lt;/code> 对应到 &lt;code>instance_name = &amp;quot;home&amp;quot;&lt;/code>，以后维护会轻松很多。&lt;/p>
+&lt;h2 id="四-openwrt-和安卓接入" class="heading-element">&lt;span>四 OpenWrt 和安卓接入&lt;/span>
+ &lt;a href="#%e5%9b%9b-openwrt-%e5%92%8c%e5%ae%89%e5%8d%93%e6%8e%a5%e5%85%a5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-openwrt-作为家庭入口" class="heading-element">&lt;span>1 OpenWrt 作为家庭入口&lt;/span>
+ &lt;a href="#1-openwrt-%e4%bd%9c%e4%b8%ba%e5%ae%b6%e5%ba%ad%e5%85%a5%e5%8f%a3" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>OpenWrt 可以通过 &lt;code>luci-app-easytier&lt;/code> 加入虚拟网络。最小配置只需要填写：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">虚拟 IP：10.203.77.10/24
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">网络名：feng-private-net
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">网络密钥：与 VPS 完全一致
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Peer：tcp://VPS公网IP:28473
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Peer：udp://VPS公网IP:28473
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">私有模式：开启&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>先只验证 OpenWrt 自己能否访问：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ping 10.203.77.1&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>确认链路正常后，再发布家庭 LAN 网段，例如 &lt;code>192.168.50.0/24&lt;/code>。这样远端设备才能通过 OpenWrt 访问没有安装 EasyTier 的 NAS、电视或其他主机。基本链路和子网代理分两步做，比一次改完所有路由、防火墙更容易排错。&lt;/p>
+&lt;h3 id="2-安卓客户端" class="heading-element">&lt;span>2 安卓客户端&lt;/span>
+ &lt;a href="#2-%e5%ae%89%e5%8d%93%e5%ae%a2%e6%88%b7%e7%ab%af" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>Android 客户端可以从 EasyTier 官方 GitHub Releases 下载。大多数近年的手机选择 ARM64 APK。安装后需要允许应用创建 VPN 连接，这是建立系统虚拟网卡所需的正常权限。&lt;/p>
+&lt;p>移动网络的 NAT 和运营商策略变化更大，安卓端既适合验证 UDP P2P，也适合观察打洞失败后是否切换到 Relay。&lt;/p>
+&lt;h2 id="五-tcpudpws-与-wss" class="heading-element">&lt;span>五 TCP、UDP、WS 与 WSS&lt;/span>
+ &lt;a href="#%e4%ba%94-tcpudpws-%e4%b8%8e-wss" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-tcp-与-udp" class="heading-element">&lt;span>1 TCP 与 UDP&lt;/span>
+ &lt;a href="#1-tcp-%e4%b8%8e-udp" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>UDP 是打洞和低延迟传输的主力。它没有 TCP 的队头阻塞，网络状况正常时更适合远程桌面、视频和持续传输。&lt;/p>
+&lt;p>TCP 主要负责 UDP 受限时兜底。缺点是虚拟网络里的 TCP 再套一层 TCP，外层丢包重传时可能放大卡顿。&lt;/p>
+&lt;p>我最后保留 TCP 与 UDP 同时监听，而不是押注单一协议。&lt;/p>
+&lt;h3 id="2-ws-与-wss" class="heading-element">&lt;span>2 WS 与 WSS&lt;/span>
+ &lt;a href="#2-ws-%e4%b8%8e-wss" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>WS 是 WebSocket over TCP，WSS 则在外面再套一层 TLS：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">WS： EasyTier → WebSocket → TCP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WSS：EasyTier → WebSocket → TLS → TCP&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>EasyTier 自身默认已有加密，所以 WS 并不等于业务内容明文传输；WSS 的价值更多是兼容 HTTPS、证书和反向代理。在只允许 HTTPS/WebSocket 的公司网或校园网里，WSS 可能比原生 TCP、UDP 更容易建立连接。&lt;/p>
+&lt;p>但 WSS 不会提升 P2P 打洞能力，也不保证无法被识别。它更适合作为严格网络下的备用入口，而不是替代 UDP。&lt;/p>
+&lt;h3 id="3-多协议不是固定排队" class="heading-element">&lt;span>3 多协议不是固定排队&lt;/span>
+ &lt;a href="#3-%e5%a4%9a%e5%8d%8f%e8%ae%ae%e4%b8%8d%e6%98%af%e5%9b%ba%e5%ae%9a%e6%8e%92%e9%98%9f" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>同时配置多个 Listener，只代表服务器同时开放多个入口。客户端配置多个 Peer 后，也不能简单理解成“先 UDP，失败后 TCP，最后 WSS”。EasyTier 会建立和维护可用路径，并根据拓扑、路由 cost 和延迟选择实际链路。&lt;/p>
+&lt;p>典型过程可能是先通过 Relay 通信，路由 cost 为 &lt;code>2&lt;/code>；P2P 建立后切换到直连，cost 变为 &lt;code>1&lt;/code>。服务器开放 WSS，不代表客户端会自动猜到这个入口，客户端仍需配置对应的 &lt;code>wss://&lt;/code> Peer。&lt;/p>
+&lt;h2 id="六-打洞失败后-relay-走哪里" class="heading-element">&lt;span>六 打洞失败后 Relay 走哪里&lt;/span>
+ &lt;a href="#%e5%85%ad-%e6%89%93%e6%b4%9e%e5%a4%b1%e8%b4%a5%e5%90%8e-relay-%e8%b5%b0%e5%93%aa%e9%87%8c" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>EasyTier 没有另开一组类似 TURN 的中继端口。P2P 失败后，业务流量直接复用节点与 VPS 已经建立的连接。&lt;/p>
+&lt;p>例如两端可以分别通过不同传输接入：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">安卓 ──UDP:28473──&amp;gt; VPS Relay ──TCP:28473──&amp;gt; OpenWrt&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>VPS 只需开放配置中的监听端口；RPC 的 &lt;code>15888&lt;/code> 不参与中继。P2P 打洞阶段可能出现由 NAT 动态分配的公网端口，但这不意味着 VPS 防火墙需要开放一大片随机入站端口。&lt;/p>
+&lt;p>是否真的走中继，不能靠感觉判断。应查看：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> easytier easytier-cli peer
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> easytier easytier-cli route&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>直连成功时，VPS 基本不承载两端业务流量；只有 Relay 生效时，VPS 带宽和线路才成为瓶颈。&lt;/p>
+&lt;h2 id="七-多个私网怎么处理" class="heading-element">&lt;span>七 多个私网怎么处理&lt;/span>
+ &lt;a href="#%e4%b8%83-%e5%a4%9a%e4%b8%aa%e7%a7%81%e7%bd%91%e6%80%8e%e4%b9%88%e5%a4%84%e7%90%86" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>一台 VPS 可以服务多个独立私网，但不要用一套网络名和密钥混在一起。每个私网应有独立的：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>instance_name&lt;/code>；&lt;/li>
+&lt;li>&lt;code>network_name&lt;/code> 与 &lt;code>network_secret&lt;/code>；&lt;/li>
+&lt;li>TCP/UDP 监听端口；&lt;/li>
+&lt;li>RPC 端口；&lt;/li>
+&lt;li>虚拟网段。&lt;/li>
+&lt;/ul>
+&lt;p>配置文件方式可以重复传入 &lt;code>-c&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">easytier-core &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -c /config/home.toml &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> -c /config/work.toml&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>命令行方式则更适合一网一容器。两种方法都能工作，区别只是运维方式。配置文件更适合长期维护；命令参数更直观，但密钥会出现在 Compose 和 &lt;code>docker inspect&lt;/code> 中。&lt;/p>
+&lt;p>还要注意，VPS 同时加入多个私网后，监听在 &lt;code>0.0.0.0&lt;/code> 的业务服务可能被多个网络访问。真正需要隔离时，服务应绑定到指定虚拟 IP，或在主机防火墙中按接口和源网段限制。&lt;/p>
+&lt;h2 id="八-国内和跨境路径的判断" class="heading-element">&lt;span>八 国内和跨境路径的判断&lt;/span>
+ &lt;a href="#%e5%85%ab-%e5%9b%bd%e5%86%85%e5%92%8c%e8%b7%a8%e5%a2%83%e8%b7%af%e5%be%84%e7%9a%84%e5%88%a4%e6%96%ad" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>国内设备连接国内 VPS，通常不经过国际出口意义上的 GFW。使用国内 EasyTier 中继的价值不是“协议隐身”，而是中继位置和带宽可控。&lt;/p>
+&lt;p>连接国外 VPS 时，无论 Tailscale、ZeroTier 还是 EasyTier，跨境链路都不会凭空消失。WSS 相比原生 UDP/TCP 更像普通 TLS 长连接，但目标 IP、连接时长、流量大小和行为特征仍然可见。换端口、套 WSS 都不能当作抗识别保证。&lt;/p>
+&lt;p>如果从零搭建少量国外节点，我会选 Tailscale，省心优先；但在已经部署 EasyTier 国内中继的前提下，直接让国外 VPS 加入现有 EasyTier 私网更合理，同时保留 ZeroTier 作为备用。真正决定体验的，通常还是 VPS 地区、运营商路由、丢包和晚高峰拥塞。&lt;/p>
+&lt;h2 id="九-最后的选择" class="heading-element">&lt;span>九 最后的选择&lt;/span>
+ &lt;a href="#%e4%b9%9d-%e6%9c%80%e5%90%8e%e7%9a%84%e9%80%89%e6%8b%a9" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>这次折腾最后没有得出“某一个软件全面碾压另外两个”的结论：&lt;/p>
+&lt;ul>
+&lt;li>Tailscale 赢在产品完成度和省心；&lt;/li>
+&lt;li>ZeroTier 已经稳定时，没有迁移的必要；&lt;/li>
+&lt;li>EasyTier 适合愿意自建中继、想控制路径的人。&lt;/li>
+&lt;/ul>
+&lt;p>我的落地方案是 ZeroTier 保留，EasyTier 以国内 VPS 私有中继的形式并行运行。TCP 与 UDP 作为主入口，WSS 只在确实遇到严格网络时再加；RPC 只监听本机，网络使用强密钥和私有模式；先验证 P2P 与 Relay，再逐步接入 OpenWrt、安卓和家庭子网。&lt;/p>
+&lt;p>折腾组网最容易犯的错，是还没测清实际路径，就开始堆端口、协议和参数。更稳的顺序始终是：先建立最小可用链路，再看 &lt;code>peer&lt;/code> 和 &lt;code>route&lt;/code>，最后只针对真实失败点调整。&lt;/p>
+&lt;h2 id="十-参考" class="heading-element">&lt;span>十 参考&lt;/span>
+ &lt;a href="#%e5%8d%81-%e5%8f%82%e8%80%83" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a href="https://tailscale.com/kb/1257/connection-types"target="_blank" rel="external nofollow noopener noreferrer">Tailscale 文档：Connection types&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://tailscale.com/kb/1118/custom-derp-servers"target="_blank" rel="external nofollow noopener noreferrer">Tailscale 文档：Custom DERP servers&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.zerotier.com/protocol"target="_blank" rel="external nofollow noopener noreferrer">ZeroTier 文档：The Protocol&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.zerotier.com/corporate-firewalls"target="_blank" rel="external nofollow noopener noreferrer">ZeroTier 文档：Corporate Firewalls&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://easytier.cn/guide/network/host-public-server.html"target="_blank" rel="external nofollow noopener noreferrer">EasyTier 文档：搭建共享节点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://easytier.cn/guide/network/config-file.html"target="_blank" rel="external nofollow noopener noreferrer">EasyTier 文档：配置文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://easytier.cn/guide/network/configurations.html"target="_blank" rel="external nofollow noopener noreferrer">EasyTier 文档：完整配置项&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://easytier.cn/guide/network/p2p-optimize.html"target="_blank" rel="external nofollow noopener noreferrer">EasyTier 文档：P2P 优化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/EasyTier/EasyTier"target="_blank" rel="external nofollow noopener noreferrer">EasyTier GitHub&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://gfw.report/publications/usenixsecurity23/zh"target="_blank" rel="external nofollow noopener noreferrer">GFW Report：How the Great Firewall of China Detects and Blocks Fully Encrypted Traffic&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>IP 送中排查指南</title><link>https://blog.iqzhi.com/posts/ip-sent-to-china-reorganized/</link><pubDate>Fri, 29 May 2026 18:06:45 +0800</pubDate><guid>https://blog.iqzhi.com/posts/ip-sent-to-china-reorganized/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>「IP 送中」常被当成一个笼统故障，但真正排查时要拆开看：地理位置判断、线路路径、国内连通性和风控画像，分别对应不同的检测方法和处理策略。&lt;/p>
+&lt;h2 id="一-背景" class="heading-element">&lt;span>一 背景&lt;/span>
+ &lt;a href="#%e4%b8%80-%e8%83%8c%e6%99%af" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>「IP 送中」表面上是在说一个 IP 被识别成中国大陆，实际排障时不能这么粗糙地处理。它可能是 GeoIP 判断问题，也可能是线路绕路、国内连通性异常，或者 IP 本身风控身份太差。&lt;/p>
+&lt;p>更合理的拆法是把它分成四类：&lt;/p>
+&lt;ol>
+&lt;li>GeoIP 被判成中国大陆；&lt;/li>
+&lt;li>路由绕进中国大陆；&lt;/li>
+&lt;li>国内访问已经被墙或半墙；&lt;/li>
+&lt;li>IP 风控身份太脏。&lt;/li>
+&lt;/ol>
+&lt;p>先分清是哪一类，再决定是检测、换 IP、改线路，还是长期养护。&lt;/p>
+&lt;h2 id="二-先定义什么叫-ip-送中" class="heading-element">&lt;span>二 先定义：什么叫 IP 送中&lt;/span>
+ &lt;a href="#%e4%ba%8c-%e5%85%88%e5%ae%9a%e4%b9%89%e4%bb%80%e4%b9%88%e5%8f%ab-ip-%e9%80%81%e4%b8%ad" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>狭义的 IP 送中，通常指境外 VPS 或代理出口被某些服务识别成中国大陆 IP。这里最常见的是 Google 侧判断异常，比如搜索地区、YouTube Premium、Google Play、Gemini、Google AI Studio 等服务表现不对。&lt;/p>
+&lt;p>广义上，大家也会把「路由绕中」「IP 被墙」「风控脏 IP」一起叫送中。这样聊天方便，但排障时会误导。&lt;/p>
+&lt;p>比如：&lt;/p>
+&lt;ul>
+&lt;li>GeoIP 是 CN，问题在地理位置库或服务商自己的地区判断；&lt;/li>
+&lt;li>路由经过大陆运营商，问题在线路路径；&lt;/li>
+&lt;li>国内 TCP 端口大面积不通，问题可能是被墙；&lt;/li>
+&lt;li>Scamalytics、IPQS、Spur 给高风险，问题是 IP 身份脏。&lt;/li>
+&lt;/ul>
+&lt;p>这四类问题的修法不一样。把它们混成一句「送中了」，后面就容易乱开药。&lt;/p>
+&lt;h2 id="三-四类常见问题" class="heading-element">&lt;span>三 四类常见问题&lt;/span>
+ &lt;a href="#%e4%b8%89-%e5%9b%9b%e7%b1%bb%e5%b8%b8%e8%a7%81%e9%97%ae%e9%a2%98" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-geoip-送中" class="heading-element">&lt;span>1 GeoIP 送中&lt;/span>
+ &lt;a href="#1-geoip-%e9%80%81%e4%b8%ad" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>GeoIP 送中是最接近原意的一类：IP 地理位置库或目标服务自己的数据库，把你的境外 IP 判成了中国大陆。&lt;/p>
+&lt;p>常见表现：&lt;/p>
+&lt;ul>
+&lt;li>Google 搜索底部地区异常；&lt;/li>
+&lt;li>YouTube Premium 提示所在国家或地区不支持；&lt;/li>
+&lt;li>Google Play 地区错乱；&lt;/li>
+&lt;li>Gemini 或 Google AI Studio 提示地区不可用；&lt;/li>
+&lt;li>一些订阅、支付、流媒体服务直接进入中国大陆规则。&lt;/li>
+&lt;/ul>
+&lt;p>先用几个接口做初筛：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -s https://ipinfo.io/json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -s https://api.ip.sb/geoip
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -s https://www.cloudflare.com/cdn-cgi/trace &lt;span class="p">|&lt;/span> grep -E &lt;span class="s1">&amp;#39;ip=|loc=|colo=&amp;#39;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>重点看：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">country
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">country_code
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">loc&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Cloudflare trace 结果类似：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">ip=1.2.3.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">loc=US
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">colo=LAX&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>判断可以粗略这么看：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">loc=CN 或 country=CN
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">=&amp;gt; 高度疑似 GeoIP 送中
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">多个数据库结果不一致
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">=&amp;gt; 灰色状态，后续要测目标服务
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Cloudflare 正常，但 Google 异常
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">=&amp;gt; 不奇怪，说明两边用的不是同一套判断&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里有个坑：不要把 Cloudflare 的 &lt;code>loc&lt;/code> 当成所有服务的最终答案。Cloudflare 认为是 US，不代表 Google 也认为是 US。实际要用什么服务，就要测什么服务。&lt;/p>
+&lt;h3 id="2-路由送中" class="heading-element">&lt;span>2 路由送中&lt;/span>
+ &lt;a href="#2-%e8%b7%af%e7%94%b1%e9%80%81%e4%b8%ad" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>路由送中不是 IP 地理位置变了，而是网络路径不对。&lt;/p>
+&lt;p>比如你买的是日本、美国、新加坡 VPS，但去 Cloudflare、Google 或其他海外目标时，中间跳进了中国大陆运营商网络。这种情况下，GeoIP 可能还是国外，但延迟、丢包、可用性会明显变差。&lt;/p>
+&lt;p>用 &lt;code>mtr&lt;/code> 看路径：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mtr -4ezbwrc &lt;span class="m">50&lt;/span> 1.1.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mtr -4ezbwrc &lt;span class="m">50&lt;/span> 8.8.8.8&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>没有 &lt;code>mtr&lt;/code> 时用：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">traceroute -4n 1.1.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">traceroute -4n 8.8.8.8&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>重点看中间有没有这些运营商或 AS：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">China Telecom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">China Unicom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">China Mobile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">AS4134
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">AS4837
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">AS4809
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">AS9808
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">AS58453&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果一台境外 VPS 访问海外目标，却绕进这些路径，就可以按路由异常处理。&lt;/p>
+&lt;p>这类问题通常不是靠「养 IP」解决，而是换线路、换机房、换上游，或者直接换服务商。&lt;/p>
+&lt;h3 id="3-被墙或半墙" class="heading-element">&lt;span>3 被墙或半墙&lt;/span>
+ &lt;a href="#3-%e8%a2%ab%e5%a2%99%e6%88%96%e5%8d%8a%e5%a2%99" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>被墙和送中是两回事。&lt;/p>
+&lt;p>送中是国外服务把你当中国大陆 IP；被墙是中国大陆访问你这个 IP 不正常。两者可能同时发生，也可能完全无关。&lt;/p>
+&lt;p>检测国内可达性时，不要只看 ping。很多 VPS 本来就禁 ICMP，ping 不通不代表被墙。更应该测 TCP。&lt;/p>
+&lt;p>可以用这些工具：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.itdog.cn/ping/"target="_blank" rel="external nofollow noopener noreferrer">ITDOG Ping&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.itdog.cn/tcping/"target="_blank" rel="external nofollow noopener noreferrer">ITDOG TCPing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ping.pe/"target="_blank" rel="external nofollow noopener noreferrer">ping.pe&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>建议测：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">IP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">IP:22
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">IP:443&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>判断方式：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">国内 ping 大面积不通
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">=&amp;gt; 只能作为参考，不能直接判死
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">国内 TCP 22/443 大面积不通，海外正常
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">=&amp;gt; 更像被墙或半墙
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">只有部分运营商异常
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">=&amp;gt; 可能是局部线路问题，也可能是封锁不完全&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果确认是被墙，IP-Sentinel 这类工具帮不上太多。它主要处理的是地理定位偏移和风控养护，不是 GFW 解封。&lt;/p>
+&lt;h3 id="4-风控脏-ip" class="heading-element">&lt;span>4 风控脏 IP&lt;/span>
+ &lt;a href="#4-%e9%a3%8e%e6%8e%a7%e8%84%8f-ip" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>有些 IP 不送中，也没被墙，但还是难用。&lt;/p>
+&lt;p>典型表现是：&lt;/p>
+&lt;ul>
+&lt;li>注册账号要求额外验证；&lt;/li>
+&lt;li>登录频繁触发安全检查；&lt;/li>
+&lt;li>支付失败；&lt;/li>
+&lt;li>AI、流媒体、社交平台提示异常流量；&lt;/li>
+&lt;li>数据中心、代理、VPN 标签很重。&lt;/li>
+&lt;/ul>
+&lt;p>这时要查风控画像，而不是只查 GeoIP。&lt;/p>
+&lt;p>常用工具：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://scamalytics.com/"target="_blank" rel="external nofollow noopener noreferrer">Scamalytics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.ipqualityscore.com/free-ip-lookup-proxy-vpn-test"target="_blank" rel="external nofollow noopener noreferrer">IPQualityScore&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://spur.us/context/"target="_blank" rel="external nofollow noopener noreferrer">Spur&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://browserleaks.com/ip"target="_blank" rel="external nofollow noopener noreferrer">BrowserLeaks IP&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>重点看：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vpn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hosting
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">risk score
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">recent abuse
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">datacenter abuse&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果结果里出现：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">High Risk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">VPN/Proxy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Recently Abused
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Datacenter Abuse&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这个 IP 就算没被判成 CN，也不适合拿来做长期账号、支付、注册或关键服务入口。&lt;/p>
+&lt;p>这类问题最烦的是「邻居污染」。便宜 VPS、热门商家、共享出口，经常不是你一个人在用。你自己很干净，但同段其他人乱用，结果整个段被服务商打标签。&lt;/p>
+&lt;h2 id="四-推荐检测顺序" class="heading-element">&lt;span>四 推荐检测顺序&lt;/span>
+ &lt;a href="#%e5%9b%9b-%e6%8e%a8%e8%8d%90%e6%a3%80%e6%b5%8b%e9%a1%ba%e5%ba%8f" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>实际排障时，不建议一上来就跑一堆脚本。按下面这个顺序更清楚。&lt;/p>
+&lt;h3 id="1-先确认出口身份" class="heading-element">&lt;span>1 先确认出口身份&lt;/span>
+ &lt;a href="#1-%e5%85%88%e7%a1%ae%e8%ae%a4%e5%87%ba%e5%8f%a3%e8%ba%ab%e4%bb%bd" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -s https://www.cloudflare.com/cdn-cgi/trace &lt;span class="p">|&lt;/span> grep -E &lt;span class="s1">&amp;#39;ip=|loc=|colo=&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -s https://ipinfo.io/json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -s https://api.ip.sb/geoip&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>目标：判断是否明显 GeoIP 异常。&lt;/p>
+&lt;h3 id="2-再确认线路路径" class="heading-element">&lt;span>2 再确认线路路径&lt;/span>
+ &lt;a href="#2-%e5%86%8d%e7%a1%ae%e8%ae%a4%e7%ba%bf%e8%b7%af%e8%b7%af%e5%be%84" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mtr -4ezbwrc &lt;span class="m">30&lt;/span> 1.1.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mtr -4ezbwrc &lt;span class="m">30&lt;/span> 8.8.8.8&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>目标：判断是不是路由绕中国大陆。&lt;/p>
+&lt;h3 id="3-然后确认国内连通性" class="heading-element">&lt;span>3 然后确认国内连通性&lt;/span>
+ &lt;a href="#3-%e7%84%b6%e5%90%8e%e7%a1%ae%e8%ae%a4%e5%9b%bd%e5%86%85%e8%bf%9e%e9%80%9a%e6%80%a7" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>用 ITDOG 或 ping.pe 测：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">IP:22
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">IP:443&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>目标：判断是不是被墙或半墙。&lt;/p>
+&lt;h3 id="4-最后确认目标服务" class="heading-element">&lt;span>4 最后确认目标服务&lt;/span>
+ &lt;a href="#4-%e6%9c%80%e5%90%8e%e7%a1%ae%e8%ae%a4%e7%9b%ae%e6%a0%87%e6%9c%8d%e5%8a%a1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>如果你关心的是 Gemini，就测 Gemini。关心 YouTube Premium，就测 YouTube Premium。关心 Google Play，就测 Google Play。&lt;/p>
+&lt;p>通用 GeoIP 正常，不代表目标服务正常。这个结论看起来废话，但很多误判就出在这里。&lt;/p>
+&lt;h2 id="五-ip-sentinel-的定位" class="heading-element">&lt;span>五 IP-Sentinel 的定位&lt;/span>
+ &lt;a href="#%e4%ba%94-ip-sentinel-%e7%9a%84%e5%ae%9a%e4%bd%8d" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-应该放在哪个位置" class="heading-element">&lt;span>1 应该放在哪个位置&lt;/span>
+ &lt;a href="#1-%e5%ba%94%e8%af%a5%e6%94%be%e5%9c%a8%e5%93%aa%e4%b8%aa%e4%bd%8d%e7%bd%ae" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>IP-Sentinel 是一个工具，但它不是普通检测脚本。&lt;/p>
+&lt;p>按照项目说明，IP-Sentinel 是一个分布式 VPS IP 养护系统，目标是处理 IP 定位偏移和风险分过高。它通过地理位置信号锚定、本地化访问行为、Telegram 管理面板和 Master-Agent 架构，长期维护一批 VPS 的 IP 状态。&lt;/p>
+&lt;p>它大概解决的是这个问题：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">我有多台 VPS，希望长期监控和维护它们在 Google 等服务眼里的地区身份。&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>它不是这个问题的最佳解：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">我临时买了一台小鸡，想知道它是不是送中。&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>临时检测，用前面的 GeoIP、路由、国内 TCP、风控分就够了。&lt;/p>
+&lt;h3 id="2-技术定位" class="heading-element">&lt;span>2 技术定位&lt;/span>
+ &lt;a href="#2-%e6%8a%80%e6%9c%af%e5%ae%9a%e4%bd%8d" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>从项目结构看，IP-Sentinel 已经从单机脚本变成了 Master-Agent 架构：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">master/ 控制中心，负责 Telegram 监听、Webhook 调度、SQLite 状态记录
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">core/ Agent 执行端，负责检测、锚定和任务执行
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">scripts/ 指纹、UA 等生成逻辑
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">data/ 地区规则、关键词、LBS 锚点、UA 数据
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">telemetry/ Cloudflare Workers 计数网关&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>它更像「节点资产养护系统」，不是「一键检测工具」。&lt;/p>
+&lt;p>适合：&lt;/p>
+&lt;ul>
+&lt;li>有多台 VPS；&lt;/li>
+&lt;li>长期使用 Google、YouTube、Gemini 等地区敏感服务；&lt;/li>
+&lt;li>希望统一监控 IP 趋势；&lt;/li>
+&lt;li>能接受 Telegram Bot、Agent、后台任务的维护成本。&lt;/li>
+&lt;/ul>
+&lt;p>不适合：&lt;/p>
+&lt;ul>
+&lt;li>只测一台 VPS；&lt;/li>
+&lt;li>IP 已经被墙；&lt;/li>
+&lt;li>想马上把送中的 IP 拉回来；&lt;/li>
+&lt;li>不想维护额外服务。&lt;/li>
+&lt;/ul>
+&lt;p>我的态度还是保守：可以研究，但别当神药。&lt;/p>
+&lt;p>Google 的地区和风控判断不只看访问行为，还可能结合账号历史、设备定位、浏览器权限、IP 段邻居行为和数据库更新。模拟本地化流量也许有帮助，但不能保证稳定纠偏。&lt;/p>
+&lt;h2 id="六-处理策略" class="heading-element">&lt;span>六 处理策略&lt;/span>
+ &lt;a href="#%e5%85%ad-%e5%a4%84%e7%90%86%e7%ad%96%e7%95%a5" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>分清类型后，处理就简单多了。&lt;/p>
+&lt;h3 id="1-geoip-送中-1" class="heading-element">&lt;span>1 GeoIP 送中&lt;/span>
+ &lt;a href="#1-geoip-%e9%80%81%e4%b8%ad-1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>优先级：&lt;/p>
+&lt;ol>
+&lt;li>换干净 IP；&lt;/li>
+&lt;li>换更少人滥用的服务商；&lt;/li>
+&lt;li>如果是自有 IP 段，再考虑 GeoFeed、数据库修正；&lt;/li>
+&lt;li>长期多节点场景，再考虑 IP-Sentinel。&lt;/li>
+&lt;/ol>
+&lt;h3 id="2-路由送中-1" class="heading-element">&lt;span>2 路由送中&lt;/span>
+ &lt;a href="#2-%e8%b7%af%e7%94%b1%e9%80%81%e4%b8%ad-1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>优先级：&lt;/p>
+&lt;ol>
+&lt;li>换线路；&lt;/li>
+&lt;li>换机房；&lt;/li>
+&lt;li>换服务商；&lt;/li>
+&lt;li>避免把路由问题当成 GeoIP 问题处理。&lt;/li>
+&lt;/ol>
+&lt;h3 id="3-被墙或半墙-1" class="heading-element">&lt;span>3 被墙或半墙&lt;/span>
+ &lt;a href="#3-%e8%a2%ab%e5%a2%99%e6%88%96%e5%8d%8a%e5%a2%99-1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>优先级：&lt;/p>
+&lt;ol>
+&lt;li>先确认 TCP 可达性；&lt;/li>
+&lt;li>尝试换端口或入口；&lt;/li>
+&lt;li>严重时换 IP；&lt;/li>
+&lt;li>不要指望 IP 养护工具解封。&lt;/li>
+&lt;/ol>
+&lt;h3 id="4-风控脏-ip-1" class="heading-element">&lt;span>4 风控脏 IP&lt;/span>
+ &lt;a href="#4-%e9%a3%8e%e6%8e%a7%e8%84%8f-ip-1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>优先级：&lt;/p>
+&lt;ol>
+&lt;li>不拿它做重要账号；&lt;/li>
+&lt;li>避免注册、支付、长期登录；&lt;/li>
+&lt;li>换低滥用 IP 段；&lt;/li>
+&lt;li>多节点长期使用时再考虑养护。&lt;/li>
+&lt;/ol>
+&lt;h2 id="七-小结" class="heading-element">&lt;span>七 小结&lt;/span>
+ &lt;a href="#%e4%b8%83-%e5%b0%8f%e7%bb%93" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>「IP 送中」不是一个足够精确的故障描述。真正排查时，应该先问：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">是 GeoIP 被判 CN？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">是路由绕中国大陆？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">是国内访问被墙？
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">还是 IP 风控身份太脏？&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>我的建议是：单台 VPS 先按四层检测排除问题，坏了就换，别恋战。多节点长期使用，才值得考虑 IP-Sentinel 这类养护系统。&lt;/p>
+&lt;p>便宜小鸡可以随便换，账号和时间不该陪它耗着。&lt;/p>
+&lt;h2 id="八-参考" class="heading-element">&lt;span>八 参考&lt;/span>
+ &lt;a href="#%e5%85%ab-%e5%8f%82%e8%80%83" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a href="https://github.com/hotyue/IP-Sentinel"target="_blank" rel="external nofollow noopener noreferrer">IP-Sentinel GitHub 项目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.cloudflare.com/cdn-cgi/trace"target="_blank" rel="external nofollow noopener noreferrer">Cloudflare trace&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ipinfo.io/"target="_blank" rel="external nofollow noopener noreferrer">ipinfo.io&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://api.ip.sb/geoip"target="_blank" rel="external nofollow noopener noreferrer">ip.sb GeoIP&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.itdog.cn/ping/"target="_blank" rel="external nofollow noopener noreferrer">ITDOG Ping&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.itdog.cn/tcping/"target="_blank" rel="external nofollow noopener noreferrer">ITDOG TCPing&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ping.pe/"target="_blank" rel="external nofollow noopener noreferrer">ping.pe&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://scamalytics.com/"target="_blank" rel="external nofollow noopener noreferrer">Scamalytics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.ipqualityscore.com/free-ip-lookup-proxy-vpn-test"target="_blank" rel="external nofollow noopener noreferrer">IPQualityScore&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://spur.us/context/"target="_blank" rel="external nofollow noopener noreferrer">Spur&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://browserleaks.com/ip"target="_blank" rel="external nofollow noopener noreferrer">BrowserLeaks IP&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>AI Agent 随记</title><link>https://blog.iqzhi.com/posts/use-ai-agent/</link><pubDate>Tue, 12 May 2026 10:11:58 +0800</pubDate><guid>https://blog.iqzhi.com/posts/use-ai-agent/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>试用了近来很火的龙虾，最终选择了马。&lt;/p></description></item><item><title>哪吒监控V1升级注意事项</title><link>https://blog.iqzhi.com/posts/nezha-v1/</link><pubDate>Sun, 08 Dec 2024 15:25:54 +0800</pubDate><guid>https://blog.iqzhi.com/posts/nezha-v1/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>&lt;a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控&lt;/a>，开发大佬给力，发版频繁，也就伴随着可能的不稳定，生存在风雨飘摇中，也随着这次升级V1较稳定的版本，记录下升级的注意点及常用配置备份，供参考。&lt;/p>
 &lt;h2 id="一-注意点对比v0与v1" class="heading-element">&lt;span>一 注意点（对比V0与V1）&lt;/span>
  &lt;a href="#%e4%b8%80-%e6%b3%a8%e6%84%8f%e7%82%b9%e5%af%b9%e6%af%94v0%e4%b8%8ev1" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -1235,537 +2051,4 @@
 &lt;/ol>
 &lt;p>计划趁国外黑五，再上一台服务器玩，关注CC、RN中。&lt;/p>
 &lt;p>其中我又得到了什么乐趣呢？我总是在反问，或许是想着便宜，不剁手对不起知道这样的资讯。&lt;/p>
-&lt;p>机器有了，能折腾的空间也更多了，可以部署一些程序玩下，其实外边的成品服务还是很贵的，很多都能找到开源自建方案，更有成就感。&lt;/p></description></item><item><title>宝塔面板安装Tiny Tiny RSS</title><link>https://blog.iqzhi.com/posts/bt-install-tt-rss/</link><pubDate>Fri, 27 Oct 2023 15:28:18 +0800</pubDate><guid>https://blog.iqzhi.com/posts/bt-install-tt-rss/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>物尽其用，刚好雨云免费的宝塔面板可以绑定两个域名，一个用作博客备站，另一个刚好可以玩下Tiny Tiny RSS。&lt;/p>
-&lt;p>官网最新教程已然推荐使用docker进行安装了，但雨云的虚拟主机无法安装docker，只能使用源码安装，好在基础环境宝塔面板还是简化了些操作，但是由于多年更新，此种安装方式官方wiki也不再更新，导致还是碰上了很多坑，一路坑一路填，居然成功了。&lt;/p>
-&lt;h2 id="宝塔面板新建站点" class="heading-element">&lt;span>宝塔面板新建站点&lt;/span>
- &lt;a href="#%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf%e6%96%b0%e5%bb%ba%e7%ab%99%e7%82%b9" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;ol>
-&lt;li>
-&lt;p>面站 -&amp;gt; PHP项目 -&amp;gt; 添加站点，确定文件目录，选用PHP7.4版本&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>软件商店 -&amp;gt; PHP-7.4 -&amp;gt; 安装扩展&lt;code>fileinfo&lt;/code>&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="tiny-tiny-rss" class="heading-element">&lt;span>Tiny Tiny RSS&lt;/span>
- &lt;a href="#tiny-tiny-rss" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>&lt;a href="https://tt-rss.org/wiki.php"target="_blank" rel="external nofollow noopener noreferrer">wiki&lt;/a>&lt;/p>
-&lt;ol>
-&lt;li>按&lt;a href="https://tt-rss.org/wiki/InstallationNotesHost"target="_blank" rel="external nofollow noopener noreferrer">教程&lt;/a>，先下载源码。&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://git.tt-rss.org/fox/tt-rss.git tt-rss&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="2">
-&lt;li>配置&lt;code>config.php&lt;/code>&lt;/li>
-&lt;/ol>
-&lt;p>网上某些教程说可以访问&lt;code>/install&lt;/code>路径进行数据库配置安装，但访问后报了404，那些教程已然落后了。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp config.php-dist config.php
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 追加&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">putenv&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;TTRSS_DB_TYPE=mysql&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">putenv&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;TTRSS_DB_PORT=3306&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">putenv&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;TTRSS_DB_HOST=dbhost&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">putenv&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;TTRSS_DB_NAME=dbname&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">putenv&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;TTRSS_DB_USER=dbuser&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">putenv&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;TTRSS_DB_PASS=dbpassword&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">putenv&lt;span class="o">(&lt;/span>&lt;span class="s1">&amp;#39;TTRSS_SELF_URL_PATH=https://example.com/tt-rss&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="p">;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="3">
-&lt;li>安装数据库&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">php ./update.php --update-schema&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="4">
-&lt;li>理论上，做完这些，你就可以在相应网址看到Tiny Tiny RSS首页了。&lt;/li>
-&lt;/ol>
-&lt;p>but，WTF！！！&lt;/p>
-&lt;p>我遇到了下列一系列的坑。&lt;/p>
-&lt;h2 id="踩坑过程" class="heading-element">&lt;span>踩坑过程&lt;/span>
- &lt;a href="#%e8%b8%a9%e5%9d%91%e8%bf%87%e7%a8%8b" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;h3 id="坑一php多版本共存" class="heading-element">&lt;span>坑一：PHP多版本共存&lt;/span>
- &lt;a href="#%e5%9d%91%e4%b8%80php%e5%a4%9a%e7%89%88%e6%9c%ac%e5%85%b1%e5%ad%98" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;div class="details admonition question open">
- &lt;div class="details-summary admonition-title">&lt;i class="icon fa-fw fa-regular fa-circle-question" aria-hidden="true">&lt;/i>宝塔面板有两个版本的PHP，默认是更高的8以上版本，可能不支持！&lt;i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true">&lt;/i>&lt;/div>
- &lt;div class="details-content">
- &lt;div class="admonition-content">&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl">PHP Fatal error: Uncaught Error: Call to undefined function putenv() in /www/wwwroot/rss.izhi.tk/config.php:3
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Stack trace:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#0 /www/wwwroot/rss.izhi.tk/include/functions.php(29): require_once()
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#1 /www/wwwroot/rss.izhi.tk/update.php(11): require_once(&amp;#39;...&amp;#39;)
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">#2 {main}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> thrown in /www/wwwroot/rss.izhi.tk/config.php on line 3&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>指定php命令版本&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/www/server/php/74/bin/php ./update.php --update-schema&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/div>
- &lt;/div>
-&lt;/div>
-&lt;h3 id="坑二函数-putenv-过期" class="heading-element">&lt;span>坑二：函数 &lt;code>putenv&lt;/code> 过期&lt;/span>
- &lt;a href="#%e5%9d%91%e4%ba%8c%e5%87%bd%e6%95%b0-putenv-%e8%bf%87%e6%9c%9f" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;div class="details admonition question open">
- &lt;div class="details-summary admonition-title">&lt;i class="icon fa-fw fa-regular fa-circle-question" aria-hidden="true">&lt;/i>Exception while creating PDO object:could not find driver&lt;i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true">&lt;/i>&lt;/div>
- &lt;div class="details-content">
- &lt;div class="admonition-content">&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl">PHP Warning: putenv() has been disabled for security reasons in /www/wwwroot/xxx.tk/config.php on line 3&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>从日志可以看出，配置方式过时了，未生效，tt-rss使用了默认的PostgreSQL数据库，由于PHP未安装pgsql扩展而报未找到驱动错误。&lt;/p>
-&lt;p>两种处理方式，我使用1可以解决，第2种后边在网上找到，未验证：&lt;/p>
-&lt;ol>
-&lt;li>直接在&lt;code>classes/Confing.php&lt;/code>中配置默认值&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="k">private&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="no">_DEFAULTS&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">DB_TYPE&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;pgsql&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">DB_HOST&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;db&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">DB_USER&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">DB_NAME&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">DB_PASS&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">DB_PORT&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;5432&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">MYSQL_CHARSET&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;UTF8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">SELF_URL_PATH&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;https://example.com/tt-rss&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">SINGLE_USER_MODE&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_BOOL&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">SIMPLE_UPDATE_MODE&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_BOOL&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">PHP_EXECUTABLE&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;/usr/bin/php&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">LOCK_DIRECTORY&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;lock&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Config&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="na">T_STRING&lt;/span> &lt;span class="p">],&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="2">
-&lt;li>去掉禁用函数&lt;code>putenv()&lt;/code> ,改用&lt;code>define()&lt;/code>定义,详见&lt;a href="https://community.tt-rss.org/t/error-pdo-object-sqlstate-08006-7-could-not-connect-to-server/4369"target="_blank" rel="external nofollow noopener noreferrer">Error: PDO object:SQLSTATE[08006] [7] could not connect to server&lt;/a>&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// *******************************************
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// *** Database configuration (important!) ***
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// *******************************************
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;DB_TYPE&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;pgsql&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// or mysql
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;DB_HOST&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;localhost&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;DB_USER&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;fox&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;DB_NAME&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;fox&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;DB_PASS&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;XXXXXX&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;DB_PORT&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// usually 5432 for PostgreSQL, 3306 for MySQL
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;MYSQL_CHARSET&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;UTF8&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// Connection charset for MySQL. If you have a legacy database and/or experience
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// garbage unicode characters with this option, try setting it to a blank string.
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// ***********************************
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// *** Basic settings (important!) ***
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// ***********************************
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;SELF_URL_PATH&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;https://example.org/tt-rss/&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// This should be set to a fully qualified URL used to access
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// your tt-rss instance over the net.
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// The value should be a constant string literal. Please don&amp;#39;t use
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// PHP server variables here - you might introduce security
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// issues on your install and cause hard to debug problems.
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// If your tt-rss instance is behind a reverse proxy, use the external URL.
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;SINGLE_USER_MODE&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">false&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// Operate in single user mode, disables all functionality related to
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// multiple users and authentication. Enabling this assumes you have
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// your tt-rss directory protected by other means (e.g. http auth).
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="nx">define&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;SIMPLE_UPDATE_MODE&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">false&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="c1">// Enables fallback update mode where tt-rss tries to update feeds in
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// background while tt-rss is open in your browser.
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// If you don&amp;#39;t have a lot of feeds and don&amp;#39;t want to or can&amp;#39;t run
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// background processes while not running tt-rss, this method is generally
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// viable to keep your feeds up to date.
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// Still, there are more robust (and recommended) updating methods
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>	&lt;span class="c1">// available, you can read about them here: http://tt-rss.org/wiki/UpdatingFeeds
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">	&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">blah&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">etc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">blah&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/div>
- &lt;/div>
-&lt;/div>
-&lt;h3 id="坑三非root用户运行" class="heading-element">&lt;span>坑三：非root用户运行&lt;/span>
- &lt;a href="#%e5%9d%91%e4%b8%89%e9%9d%9eroot%e7%94%a8%e6%88%b7%e8%bf%90%e8%a1%8c" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;div class="details admonition question open">
- &lt;div class="details-summary admonition-title">&lt;i class="icon fa-fw fa-regular fa-circle-question" aria-hidden="true">&lt;/i>&lt;ul>
-&lt;li>Please don&amp;rsquo;t run this script as root.&lt;/li>
-&lt;/ul>
-&lt;i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true">&lt;/i>&lt;/div>
- &lt;div class="details-content">
- &lt;div class="admonition-content">&lt;p>不能使用root运行，通过&lt;code>su&lt;/code>切换指定&lt;code>www&lt;/code>用户运行。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo -u www /www/server/php/74/bin/php ./update.php --update-schema&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>以下&lt;a href="https://community.tt-rss.org/t/cannot-run-update-php-by-any-means/2516/2"target="_blank" rel="external nofollow noopener noreferrer">备用&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo -u www-data php ./update.php --daemon&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/div>
- &lt;/div>
-&lt;/div></description></item><item><title>使用github的webhook自动触发宝塔部署的hugo博客更新</title><link>https://blog.iqzhi.com/posts/github-webhook-bt-hugo/</link><pubDate>Tue, 24 Oct 2023 16:21:21 +0800</pubDate><guid>https://blog.iqzhi.com/posts/github-webhook-bt-hugo/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>博客部署到vercel上，有时终究是会遇到网络抽风，听说雨云线路还不错，也有免费用度，于是搞了台雨云的香港宝塔面板，研究如何可以达到像vercel上的自动部署效果。&lt;/p>
-&lt;h2 id="解决方案" class="heading-element">&lt;span>解决方案&lt;/span>
- &lt;a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>本地提交 hugo 源码到 Github，自动触发构建并同步到宝塔指定的网站目录。&lt;/p>
-&lt;h3 id="github自动构建" class="heading-element">&lt;span>Github自动构建&lt;/span>
- &lt;a href="#github%e8%87%aa%e5%8a%a8%e6%9e%84%e5%bb%ba" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>在 Github 的 Hugo 源码仓库根目录，新建&amp;quot;.github/workflows/xxx.yml 文件，复制以下代码。作用：借助 Github Action 实现自动构建，并同步到另外一个仓库。其中 &lt;code>PERSONAL_TOKEN&lt;/code> 为另外仓库的访问密钥；&lt;code>external_repository&lt;/code> 为另外仓库地址。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Githubblog&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">workflow_dispatch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">push&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">main&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">deploy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-latest&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v3&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">submodules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">fetch-depth&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Hugo&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-hugo@v2&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hugo-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;latest&amp;#39;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">extended&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Build&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hugo --minify&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-gh-pages@v3&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">personal_token&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.PERSONAL_TOKEN }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">external_repository&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">koobai/koobai.github.io&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">publish_dir&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./public&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="宝塔面板终端生成-git-公钥" class="heading-element">&lt;span>宝塔面板终端生成 git 公钥&lt;/span>
- &lt;a href="#%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf%e7%bb%88%e7%ab%af%e7%94%9f%e6%88%90-git-%e5%85%ac%e9%92%a5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Git全局配置和单个仓库的用户名邮箱配置&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.name &lt;span class="s2">&amp;#34;username&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.email &lt;span class="s2">&amp;#34;your@email.com&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 生成git公钥用于自动拉取&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh-keygen -t rsa -C &lt;span class="s2">&amp;#34;你的@email.com&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看git公钥&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat ~/.ssh/id_rsa.pub&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="添加公钥到到-github" class="heading-element">&lt;span>添加公钥到到 Github&lt;/span>
- &lt;a href="#%e6%b7%bb%e5%8a%a0%e5%85%ac%e9%92%a5%e5%88%b0%e5%88%b0-github" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>头像–Settings–SSH and GPG keys–New SSH key&lt;/p>
-&lt;h3 id="宝塔面板安装-webhook-触发同步" class="heading-element">&lt;span>宝塔面板安装 WebHook 触发同步&lt;/span>
- &lt;a href="#%e5%ae%9d%e5%a1%94%e9%9d%a2%e6%9d%bf%e5%ae%89%e8%a3%85-webhook-%e8%a7%a6%e5%8f%91%e5%90%8c%e6%ad%a5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>打开宝塔面板商店，安装 WebHook 插件–添加执行脚本 (复制以下代码)。其中&amp;quot;gitHttp 为需同步的 github 仓库地址&amp;quot;，“gh-pages&amp;quot;为仓库分支名称。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;span class="lnt">44
-&lt;/span>&lt;span class="lnt">45
-&lt;/span>&lt;span class="lnt">46
-&lt;/span>&lt;span class="lnt">47
-&lt;/span>&lt;span class="lnt">48
-&lt;/span>&lt;span class="lnt">49
-&lt;/span>&lt;span class="lnt">50
-&lt;/span>&lt;span class="lnt">51
-&lt;/span>&lt;span class="lnt">52
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#输出当前时间&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">date --date&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;0 days ago&amp;#39;&lt;/span> &lt;span class="s2">&amp;#34;+%Y-%m-%d %H:%M:%S&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Start&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#git分支名称&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">branch&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;gh-pages&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#git项目路径&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">gitPath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/www/wwwroot/&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#git 仓库地址&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">gitHttp&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;git@github.com:yourname/yourname.github.io.git&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Web站点路径：&lt;/span>&lt;span class="nv">$gitPath&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#判断项目路径是否存在&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> -d &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$gitPath&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">cd&lt;/span> &lt;span class="nv">$gitPath&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#判断是否存在git目录&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> ! -d &lt;span class="s2">&amp;#34;.git&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;在该目录下克隆 git&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo git clone &lt;span class="nv">$gitHttp&lt;/span> gittemp
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo mv gittemp/.git .
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo rm -rf gittemp
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">fi&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;拉取最新的项目文件&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#sudo git reset --hard origin/$branch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git remote add origin &lt;span class="nv">$gitHttp&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> git branch --set-upstream-to&lt;span class="o">=&lt;/span>origin/&lt;span class="nv">$branch&lt;/span> &lt;span class="nv">$branch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo git reset --hard origin/&lt;span class="nv">$branch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo git pull &lt;span class="nv">$gitHttp&lt;/span> 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;设置目录权限&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo chown -R www:www &lt;span class="nv">$gitPath&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;End&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">exit&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;该项目路径不存在&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;新建项目目录&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> mkdir &lt;span class="nv">$gitPath&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">cd&lt;/span> &lt;span class="nv">$gitPath&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#判断是否存在git目录&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> ! -d &lt;span class="s2">&amp;#34;.git&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;在该目录下克隆 git&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo git clone &lt;span class="nv">$gitHttp&lt;/span> gittemp
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo mv gittemp/.git .
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo rm -rf gittemp
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">fi&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;拉取最新的项目文件&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#sudo git reset --hard origin/$branch&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo git pull gitHttp 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;设置目录权限&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> sudo chown -R www:www &lt;span class="nv">$gitPath&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;End&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">exit&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="github-网页仓库配置-webhook" class="heading-element">&lt;span>Github 网页仓库配置 WebHook&lt;/span>
- &lt;a href="#github-%e7%bd%91%e9%a1%b5%e4%bb%93%e5%ba%93%e9%85%8d%e7%bd%ae-webhook" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;p>查看 WebHook 插件密钥，复制密钥地址。添加到 Github 需同步的仓库–Settings–Webhooks–Add webhook。其中 Content type 选择 application/json。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">格式如：https://面板地址:面板端口/hook?access_key=密钥&amp;amp;param=需同步到的目录名称&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>至此，步骤全部完成。当本地提交新文件到 Github hugo 源码 main 分支，就会自动触发（hugo 生成静态文件——同步到另一个仓库——同步到宝塔网站指定目录）。如果域名指定境外访问路径是 vercel 或 cloudflare 服务，当 hugo 源码更新的时候也会自动触发构建更新。&lt;/p>
-&lt;h2 id="参考" class="heading-element">&lt;span>参考&lt;/span>
- &lt;a href="#%e5%8f%82%e8%80%83" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>&lt;a href="https://koobai.com/hugo_action_webhooks/"target="_blank" rel="external nofollow noopener noreferrer">Github 自动构建 Hugo, 并通过 Webhook 同步到宝塔指定目录&lt;/a>
-&lt;a href="https://github.com/peaceiris/actions-gh-pages"target="_blank" rel="external nofollow noopener noreferrer">GitHub Pages Action&lt;/a>&lt;/p></description></item></channel></rss>
+&lt;p>机器有了，能折腾的空间也更多了，可以部署一些程序玩下，其实外边的成品服务还是很贵的，很多都能找到开源自建方案，更有成就感。&lt;/p></description></item></channel></rss>
