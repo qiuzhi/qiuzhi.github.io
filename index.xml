@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Jul 2026 15:21:12 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>从 ZeroTier 到 EasyTier 的异地组网实践</title><link>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</link><pubDate>Mon, 13 Jul 2026 15:21:12 +0800</pubDate><guid>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>我原本已经在用 ZeroTier，而且整体稳定。这次折腾并不是因为它突然不能用了，而是想给家里的 NAS、服务器和移动设备多准备一条可控的异地访问路径，顺便弄清楚 Tailscale、ZeroTier、EasyTier 到底差在哪里。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Jul 2026 16:11:58 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>从 ZeroTier 到 EasyTier 的异地组网实践</title><link>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</link><pubDate>Mon, 13 Jul 2026 15:21:12 +0800</pubDate><guid>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>我原本已经在用 ZeroTier，而且整体稳定。这次折腾并不是因为它突然不能用了，而是想给家里的 NAS、服务器和移动设备多准备一条可控的异地访问路径，顺便弄清楚 Tailscale、ZeroTier、EasyTier 到底差在哪里。&lt;/p>
 &lt;p>最后没有做激进迁移：ZeroTier 继续保留，EasyTier 用国内 VPS 搭了一套私有中继，作为备用链路和后续扩展的底座。&lt;/p>
 &lt;h2 id="一-为什么又折腾一套组网" class="heading-element">&lt;span>一 为什么又折腾一套组网&lt;/span>
  &lt;a href="#%e4%b8%80-%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%88%e6%8a%98%e8%85%be%e4%b8%80%e5%a5%97%e7%bb%84%e7%bd%91" class="heading-mark">
@@ -814,7 +814,189 @@
 &lt;li>&lt;a href="https://www.ipqualityscore.com/free-ip-lookup-proxy-vpn-test"target="_blank" rel="external nofollow noopener noreferrer">IPQualityScore&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://spur.us/context/"target="_blank" rel="external nofollow noopener noreferrer">Spur&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://browserleaks.com/ip"target="_blank" rel="external nofollow noopener noreferrer">BrowserLeaks IP&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>AI Agent 随记</title><link>https://blog.iqzhi.com/posts/use-ai-agent/</link><pubDate>Tue, 12 May 2026 10:11:58 +0800</pubDate><guid>https://blog.iqzhi.com/posts/use-ai-agent/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>试用了近来很火的龙虾，最终选择了马。&lt;/p></description></item><item><title>哪吒监控V1升级注意事项</title><link>https://blog.iqzhi.com/posts/nezha-v1/</link><pubDate>Sun, 08 Dec 2024 15:25:54 +0800</pubDate><guid>https://blog.iqzhi.com/posts/nezha-v1/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>&lt;a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控&lt;/a>，开发大佬给力，发版频繁，也就伴随着可能的不稳定，生存在风雨飘摇中，也随着这次升级V1较稳定的版本，记录下升级的注意点及常用配置备份，供参考。&lt;/p>
+&lt;/ul></description></item><item><title>AI Agent 随记</title><link>https://blog.iqzhi.com/posts/use-ai-agent/</link><pubDate>Tue, 12 May 2026 10:11:58 +0800</pubDate><guid>https://blog.iqzhi.com/posts/use-ai-agent/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>试用了近来很火的龙虾，最终选择了马。
+我的 Hermes 使用记录始于一个很普通的问题：「你是谁？」紧接着，我问了广州当天的天气。两个月后，它已经不只是回答问题，而是在 Telegram 里查资料、改配置、跑脚本、调 Docker 服务、生成 Word 文档、调用高德地图、维护任务与笔记，还要定期检查自己的技能体系有没有越长越乱。
+回头看，这段过程真正变化的不是问题越来越复杂，而是我逐渐把 AI 的工作标准从「给个答案」改成了「把事情做完，并留下下一次还能复用的能力」。&lt;/p>
+&lt;h2 id="一-从问答开始先让它真的能做事" class="heading-element">&lt;span>一 从问答开始先让它真的能做事&lt;/span>
+ &lt;a href="#%e4%b8%80-%e4%bb%8e%e9%97%ae%e7%ad%94%e5%bc%80%e5%a7%8b%e5%85%88%e8%ae%a9%e5%ae%83%e7%9c%9f%e7%9a%84%e8%83%bd%e5%81%9a%e4%ba%8b" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>最早的使用方式和大多数人差不多：问身份、查天气、了解一个工具、比较几个方案。第一次查广州实时天气时，Hermes 甚至还没有拿到 &lt;code>web\_search&lt;/code>。这件小事后来成了整个使用历程的缩影。&lt;/p>
+&lt;p>当时没有继续接受「我不能联网」这个结果，而是一路追到 Telegram 工具集、&lt;code>config.yaml&lt;/code>、Tavily API Key 和 Gateway 进程环境。配置写进文件不等于运行中的进程已经读到；重启 Gateway 不等于旧 Session 会自动获得新工具。直到新会话里真实调用了 &lt;code>web\_search&lt;/code>，实时天气才算查成功。&lt;/p>
+&lt;p>这次经历让我很早就形成了一条判断标准：&lt;/p>
+&lt;blockquote>
+&lt;p>AI 说「可以」不算完成，配置文件里写着「启用」也不算完成；只有实际跑过并拿到结果，才算完成。&lt;/p>
+&lt;/blockquote>
+&lt;p>之后，无论是检查系统状态、修改脚本、调用接口还是生成文件，我都会继续追问：改到了哪个文件？运行的是哪套环境？进程有没有加载？结果验证了吗？&lt;/p>
+&lt;p>也正是在这个阶段，Hermes 从聊天机器人变成了能碰真实系统的工具。它开始读取日志、检查目录、执行命令、定位配置，回答也从「理论上应该」逐渐转向「现场实际是什么」。&lt;/p>
+&lt;h2 id="二-从能执行到能排障" class="heading-element">&lt;span>二 从能执行到能排障&lt;/span>
+ &lt;a href="#%e4%ba%8c-%e4%bb%8e%e8%83%bd%e6%89%a7%e8%a1%8c%e5%88%b0%e8%83%bd%e6%8e%92%e9%9a%9c" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>工具一多，真正有价值的部分很快从「会调用」变成了「出问题时能找到根因」。&lt;/p>
+&lt;h3 id="1-hindsight-缺失依赖" class="heading-element">&lt;span>1 Hindsight 缺失依赖&lt;/span>
+ &lt;a href="#1-hindsight-%e7%bc%ba%e5%a4%b1%e4%be%9d%e8%b5%96" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>接入 Hindsight 长期记忆时，Hermes 的配置允许启用 &lt;code>memory.provider: hindsight&lt;/code>，但官方 Docker 镜像里没有 &lt;code>hindsight-client&lt;/code>。表面现象只是日志反复出现模块缺失，继续往下查才发现：&lt;/p>
+&lt;ul>
+&lt;li>配置入口存在；&lt;/li>
+&lt;li>插件运行时确实会导入 Python Client；&lt;/li>
+&lt;li>&lt;code>pyproject.toml&lt;/code>、锁文件和 Dockerfile 又没有把它装进镜像；&lt;/li>
+&lt;li>手工装进 &lt;code>/opt/hermes/.venv&lt;/code> 虽然能修，但容器重建后会丢失。&lt;/li>
+&lt;/ul>
+&lt;p>最后没有简单归因成「少装了一个包」，而是把它判断为镜像组成与功能声明没有对齐。查到上游已有同类 Issue 后，也没有重复提单，而是整理 Docker 复现证据，准备补充到现有讨论里。&lt;/p>
+&lt;p>这类排障让我开始要求完整证据链：日志只能说明症状，配置、源码、依赖和进程状态拼在一起，才能说明根因。&lt;/p>
+&lt;h3 id="2-docker-路径混淆" class="heading-element">&lt;span>2 Docker 路径混淆&lt;/span>
+ &lt;a href="#2-docker-%e8%b7%af%e5%be%84%e6%b7%b7%e6%b7%86" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>当然，AI 也会犯很具体的错。一次 AfterGateway 定时脚本整理中，Hermes 按裸机习惯把 &lt;code>\~/.hermes/scripts&lt;/code> 当成固定目录，还为此复制出一份运行脚本。我指出当前是 Docker 安装，真正的持久化 Home 是 &lt;code>/opt/data&lt;/code>，它才重新检查 &lt;code>HERMES\_HOME&lt;/code>、进程环境和 Cron 配置，把多出来的目录删掉，只保留唯一有效脚本。&lt;/p>
+&lt;p>这件事并不光彩，但很经典。它推动了一条长期规则落地：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">/opt/hermes：程序与虚拟环境，不当作持久目录
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/opt/data：Hermes Home、配置与运行数据
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/opt/data/workspace：按项目存放工作文件&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>从那以后，环境事实不能靠默认印象，必须以当前容器现场为准。对 AI 来说，承认「刚才套错模板了」比继续圆回来有用得多。&lt;/p>
+&lt;h2 id="三-从一次任务到长期自动化" class="heading-element">&lt;span>三 从一次任务到长期自动化&lt;/span>
+ &lt;a href="#%e4%b8%89-%e4%bb%8e%e4%b8%80%e6%ac%a1%e4%bb%bb%e5%8a%a1%e5%88%b0%e9%95%bf%e6%9c%9f%e8%87%aa%e5%8a%a8%e5%8c%96" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>当即时操作稳定后，我开始把重复需求交给 Cron。第一批任务里，广州中石化油价日报最有代表性。&lt;/p>
+&lt;p>最初的要求只是「每天整理广州本地油价」。任务跑起来后，很快发现现价并不是最有价值的信息，下一次国内成品油调价窗口才是。因此报告结构被改成：先报窗口和是否官宣，再报当前零售价，最后补最近一次正式调整。&lt;/p>
+&lt;p>随后又经历了几轮真实使用中的修正：&lt;/p>
+&lt;ul>
+&lt;li>Cron 时间从 UTC 误解纠正为 &lt;code>Asia/Shanghai&lt;/code>；&lt;/li>
+&lt;li>报告从一大段搜索结果，改成可以扫一眼看完的分层简报；&lt;/li>
+&lt;li>链接从裸 URL 改为可点击文字；&lt;/li>
+&lt;li>相同事实不再前后重复；&lt;/li>
+&lt;li>不是看见数字就加粗，而是只突出真正影响判断的状态和价格。&lt;/li>
+&lt;/ul>
+&lt;p>这让我意识到，自动化任务最难的不是「按时执行」，而是长期输出仍然有用。一个每天准时制造信息垃圾的 Cron，只是更勤快的噪音源。&lt;/p>
+&lt;h3 id="1-agent-world-酒馆任务的三次改造" class="heading-element">&lt;span>1 Agent World 酒馆任务的三次改造&lt;/span>
+ &lt;a href="#1-agent-world-%e9%85%92%e9%a6%86%e4%bb%bb%e5%8a%a1%e7%9a%84%e4%b8%89%e6%ac%a1%e6%94%b9%e9%80%a0" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>AfterGateway 酒馆互动则把自动化又往前推了一步。最早由 Agent 全程自主执行喝酒、留言、发图和点赞；之后改成脚本准备数据、Agent 负责生成内容和提交；最后又改成 &lt;code>no\_agent=true&lt;/code> 的纯脚本任务，只在需要创作留言时调用一次模型。&lt;/p>
+&lt;p>改造不是为了追求「脚本比 Agent 高级」，而是前两版真实出现了旧 Session 复用、重复留言、重复点赞和业务状态不一致。流程里真正需要创造力的只有留言，剩下都是确定性 API 操作，交给脚本反而更稳。&lt;/p>
+&lt;p>最终形成的原则很朴素：&lt;/p>
+&lt;blockquote>
+&lt;p>需要判断和表达的部分交给模型，需要幂等、状态和重试的部分交给脚本。&lt;/p>
+&lt;/blockquote>
+&lt;p>这也是后来周期自动化优先脚本化的来源。Agent 不应该为了证明自己自主，把本可确定执行的流程变成概率事件。&lt;/p>
+&lt;h2 id="四-从通用助手到专用工具箱" class="heading-element">&lt;span>四 从通用助手到专用工具箱&lt;/span>
+ &lt;a href="#%e5%9b%9b-%e4%bb%8e%e9%80%9a%e7%94%a8%e5%8a%a9%e6%89%8b%e5%88%b0%e4%b8%93%e7%94%a8%e5%b7%a5%e5%85%b7%e7%ae%b1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>随着任务类型增加，我开始为重复场景建立 Skill。New API 管理接口是最早的一批：先读官方文档，整理鉴权、渠道、模型、令牌、日志和统计接口，再把凭据单独放进权限收紧的密钥文件。之后在对应 Topic 里问「今天日志有没有异常」，Hermes 不再从头研究接口，而是直接拉日志、检查失败流和慢请求。&lt;/p>
+&lt;p>后面陆续形成了更多专用能力：&lt;/p>
+&lt;ul>
+&lt;li>GPT Image 兼容接口调用；&lt;/li>
+&lt;li>Telegram 通知集成排障；&lt;/li>
+&lt;li>自托管应用部署；&lt;/li>
+&lt;li>Docker 自动更新与 Watchtower 白名单；&lt;/li>
+&lt;li>可疑链接检查；&lt;/li>
+&lt;li>图片文字与型号识别；&lt;/li>
+&lt;li>New API 渠道亲和、限流和故障转移排障；&lt;/li>
+&lt;li>Hugo 博文整理与 Markdown 文件投递。&lt;/li>
+&lt;/ul>
+&lt;p>Skill 的价值不是让我少写几句提示词，而是把已经验证过的做法固定下来：什么时候触发、先查什么、哪些坑不要再踩、最后怎样验证。&lt;/p>
+&lt;p>不过，技能越多也会产生新问题。到七月，技能列表已经膨胀到上百个，开始出现重复触发、边界重叠和把历史战报塞进长期技能的情况。于是又做了一次对抗性审查：合并重复的 Plan 和代理面板技能，收紧图片生成链路，拆分过大的技能，明确 Docker、Gateway、Provider、记忆与 Wiki 各自的边界。&lt;/p>
+&lt;p>这是一个有点反直觉的阶段：早期总觉得能力越多越好，后来才发现，Agent 的成熟也包括知道哪些东西不该同时加载。&lt;/p>
+&lt;h2 id="五-接入生活而不只管理服务器" class="heading-element">&lt;span>五 接入生活而不只管理服务器&lt;/span>
+ &lt;a href="#%e4%ba%94-%e6%8e%a5%e5%85%a5%e7%94%9f%e6%b4%bb%e8%80%8c%e4%b8%8d%e5%8f%aa%e7%ae%a1%e7%90%86%e6%9c%8d%e5%8a%a1%e5%99%a8" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>如果一直停留在 Docker、日志和 API，这套系统顶多算一个运维助手。真正让我感觉使用方式变了，是它开始接入日常事务。&lt;/p>
+&lt;h3 id="1-地图任务和笔记" class="heading-element">&lt;span>1 地图、任务和笔记&lt;/span>
+ &lt;a href="#1-%e5%9c%b0%e5%9b%be%e4%bb%bb%e5%8a%a1%e5%92%8c%e7%ac%94%e8%ae%b0" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>高德地图 MCP 接入后，位置不再只是聊天里的一段地址。Hermes 可以查周边、比较距离、规划驾车和公交路线，结合天气安排出行，并生成能直接唤起高德地图 App 的链接。&lt;/p>
+&lt;p>滴答清单 MCP 让某个 Telegram Topic 变成随手任务入口：一句自然语言可以落成当天任务、提醒或清单。Joplin 则承接更长的笔记、资料整理和知识沉淀。聊天入口没有变，但背后已经连接到地图、任务系统和笔记库。&lt;/p>
+&lt;p>这时 AI 的角色不再只是「告诉我怎么做」，而是把信息送到它最终应该存在的地方。&lt;/p>
+&lt;h3 id="2-从手写纸到暑假学习计划" class="heading-element">&lt;span>2 从手写纸到暑假学习计划&lt;/span>
+ &lt;a href="#2-%e4%bb%8e%e6%89%8b%e5%86%99%e7%ba%b8%e5%88%b0%e6%9a%91%e5%81%87%e5%ad%a6%e4%b9%a0%e8%ae%a1%e5%88%92" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>儿子的暑假学习计划是另一类典型任务。起点只是一张带涂改的手写纸，后面又陆续加入学校指引、课程安排、旅游日期和家长修订要求。最终产出不只是一次文字整理，而是多周每日待办、英语学习指引和综合计划等一组 Word 文档。&lt;/p>
+&lt;p>这项任务也把「人和 AI 谁说了算」讲得很清楚：AI 负责识别、分类、排期、生成和校验；家长手工修订后的文件则成为唯一权威版本。内容一致的 Archive 没必要保留，旧 AI 初稿也不能和权威文件混在一起。&lt;/p>
+&lt;p>AI 可以很勤快，但不应该和人的最终决定争夺版本控制权。&lt;/p>
+&lt;h3 id="3-把-txt-小说送进-kavita" class="heading-element">&lt;span>3 把 TXT 小说送进 Kavita&lt;/span>
+ &lt;a href="#3-%e6%8a%8a-txt-%e5%b0%8f%e8%af%b4%e9%80%81%e8%bf%9b-kavita" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>自部署小说阅读是更完整的一次小型项目。最初只是询问有没有 Docker 部署的离线阅读应用，最后落地成：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">中文 TXT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> → 自动识别章节与编码
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> → 生成 EPUB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> → 每本书独立目录
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> → Kavita 扫描入库
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> → 手机通过 PWA 阅读&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>后来发现大文件还没上传完成就被扫描，生成了残缺 EPUB，于是转换器增加文件稳定窗口：大小和修改时间连续十分钟不变才开始转换，发布前再检查一次；如果期间文件继续变化，就删除临时 EPUB，原 TXT 留在原位等待下一轮。&lt;/p>
+&lt;p>这一改动很能说明后期的使用习惯：不只关心「能不能转换」，还关心传输中断、原子发布、重复扫描和失败恢复。一个能跑的脚本，与一个可以长期放着不管的服务，中间差的正是这些边界条件。&lt;/p>
+&lt;h2 id="六-让记忆也接受治理" class="heading-element">&lt;span>六 让记忆也接受治理&lt;/span>
+ &lt;a href="#%e5%85%ad-%e8%ae%a9%e8%ae%b0%e5%bf%86%e4%b9%9f%e6%8e%a5%e5%8f%97%e6%b2%bb%e7%90%86" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>刚接入 Hindsight 时，我期待的是「以后不用反复解释」。随着记忆增多，问题很快变成另一种：什么值得长期保留，什么只是某次任务的残留？&lt;/p>
+&lt;p>于是记忆逐渐被分成几层：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">User Profile：稳定的个人偏好、身份与长期资产
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Memory：少量高价值环境事实与约定
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Skill：可复用的流程、坑点与验证方法
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">LLM Wiki：更长的知识页和可检索细节
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Session History：临时进度、战报和当时的讨论
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Workspace：脚本、日志、运行状态与交付文件&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>长期细节后来迁入 LLM Wiki，Memory 只保留索引入口；Hindsight 也不再追求「全都记住」，而是定期复核、提炼少量精选事实，再让散碎来源软失效。&lt;/p>
+&lt;p>这一步看起来不像增加能力，反而像在主动遗忘。但真正可用的长期记忆不是仓库越堆越满，而是下次出现相似任务时，能准确找回那几条真正改变做法的信息。&lt;/p>
+&lt;p>同样的治理也延伸到了 Skill：不保存某次游戏战报，不把临时路径当成永久规则，不让一段已经过期的事故复盘每次都进入上下文。Skill 应该是一张清楚的路由表，而不是背在 Agent 身上的杂物间。&lt;/p>
+&lt;h2 id="七-我现在怎样理解-ai-agent" class="heading-element">&lt;span>七 我现在怎样理解 AI Agent&lt;/span>
+ &lt;a href="#%e4%b8%83-%e6%88%91%e7%8e%b0%e5%9c%a8%e6%80%8e%e6%a0%b7%e7%90%86%e8%a7%a3-ai-agent" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>这两个月里，有查天气、修容器、做油价日报、玩 Agent World、整理学习计划、生成博客、管理书库，也有不少不那么体面的时刻：工具没加载、时区算错、路径套错、旧 Session 被复用、文档说法和本机代码不一致。&lt;/p>
+&lt;p>这些经历最后没有把我带向「让 AI 获得更多权限就行」，反而形成了更克制的使用方式：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>先查现场，不凭默认印象猜环境。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>能执行就不要只给步骤，执行后必须验证。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>确定性流程脚本化，判断与表达才交给模型。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>人的修订是权威版本，AI 负责辅助而不是夺权。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>长期能力写进 Skill，长期事实放进记忆或 Wiki，临时进度留在 Session。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>自动化必须持续产生价值，否则宁愿静默。&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>能力需要治理，能删、能合并、能收窄边界，同样是进化。&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>所以，我现在不太在意它像不像一个「全能 AI」。我更看重的是：面对一个真实问题，它能不能找到正确的工具，理解当前环境，做完该做的动作，承认中途的错误，验证最后的结果，并把可复用的部分留给下一次。&lt;/p>
+&lt;p>从「你是谁」到「检查一下你自己的技能体系有没有冲突」，中间并没有发生某个神奇的跃迁。只是一次次把答案推向执行，把执行推向自动化，再把自动化推向治理。&lt;/p>
+&lt;p>最后得到的也不只是一个更聪明的聊天机器人，而是一套仍在迭代、但已经真正参与日常工作的个人系统。&lt;/p></description></item><item><title>哪吒监控V1升级注意事项</title><link>https://blog.iqzhi.com/posts/nezha-v1/</link><pubDate>Sun, 08 Dec 2024 15:25:54 +0800</pubDate><guid>https://blog.iqzhi.com/posts/nezha-v1/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>&lt;a href="https://nezha.wiki"target="_blank" rel="external nofollow noopener noreferrer">哪吒监控&lt;/a>，开发大佬给力，发版频繁，也就伴随着可能的不稳定，生存在风雨飘摇中，也随着这次升级V1较稳定的版本，记录下升级的注意点及常用配置备份，供参考。&lt;/p>
 &lt;h2 id="一-注意点对比v0与v1" class="heading-element">&lt;span>一 注意点（对比V0与V1）&lt;/span>
  &lt;a href="#%e4%b8%80-%e6%b3%a8%e6%84%8f%e7%82%b9%e5%af%b9%e6%af%94v0%e4%b8%8ev1" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
