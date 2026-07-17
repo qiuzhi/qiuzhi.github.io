@@ -1,4 +1,414 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Jul 2026 16:11:58 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>从 ZeroTier 到 EasyTier 的异地组网实践</title><link>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</link><pubDate>Mon, 13 Jul 2026 15:21:12 +0800</pubDate><guid>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>我原本已经在用 ZeroTier，而且整体稳定。这次折腾并不是因为它突然不能用了，而是想给家里的 NAS、服务器和移动设备多准备一条可控的异地访问路径，顺便弄清楚 Tailscale、ZeroTier、EasyTier 到底差在哪里。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Jul 2026 15:56:15 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Firecrawl 多账号聚合折腾记</title><link>https://blog.iqzhi.com/posts/firecrawl-key-pool-fcam/</link><pubDate>Fri, 17 Jul 2026 15:56:15 +0800</pubDate><guid>https://blog.iqzhi.com/posts/firecrawl-key-pool-fcam/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>Hermes 的 &lt;code>web_extract&lt;/code> 可以用 Firecrawl 抽取网页正文，但一个 Key 的额度和并发终究有限。我手里有几个自己使用的 Firecrawl 账号，与其把 Key 分散塞进不同应用，不如在前面加一层统一入口。&lt;/p>
+&lt;p>这次最后没有自建完整的 Firecrawl，也没有直接使用最轻量的 Key Rotator，而是部署了 FCAM：单容器、SQLite、内存状态，集中管理 Key，再给 Hermes 发一个 Client Token。中间还顺手找出了一个额度汇总的计算 Bug。&lt;/p>
+&lt;h2 id="一-先弄清楚我要自建什么" class="heading-element">&lt;span>一 先弄清楚我要自建什么&lt;/span>
+ &lt;a href="#%e4%b8%80-%e5%85%88%e5%bc%84%e6%b8%85%e6%a5%9a%e6%88%91%e8%a6%81%e8%87%aa%e5%bb%ba%e4%bb%80%e4%b9%88" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>刚开始搜索“Firecrawl 自建”时，很容易把三件事混在一起：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>自建 Firecrawl 服务&lt;/strong>：在自己的服务器上运行抓取 API、Worker、Playwright、Redis 等组件，不再消耗 Firecrawl Cloud Credits；&lt;/li>
+&lt;li>&lt;strong>Firecrawl Cloud Key 网关&lt;/strong>：自己不抓网页，只管理多个 Cloud API Key，再把请求转发到 &lt;code>api.firecrawl.dev&lt;/code>；&lt;/li>
+&lt;li>&lt;strong>Firecrawl 兼容服务&lt;/strong>：第三方提供与 Firecrawl 相似的接口，但后端不是官方 Cloud，也不是官方账号池。&lt;/li>
+&lt;/ol>
+&lt;p>我的目标属于第二种。我只是想给 Hermes 的网页提取准备一个稳定入口，没有打算自己维护浏览器池和反爬代理。&lt;/p>
+&lt;p>官方 Firecrawl 确实支持自建，但当前完整栈并不算轻。除了 API 和 Worker，还涉及 Playwright、Redis、RabbitMQ、PostgreSQL 等组件。更重要的是，自建版没有 Cloud 的 Fire-engine 和托管反封锁能力。普通网页没有问题，碰到复杂风控站点，还得继续准备代理和浏览器环境。&lt;/p>
+&lt;p>为了一个个人用的网页提取入口，把整套抓取基础设施搬回来，投入和收益不太匹配，所以很快排除了完整自建。&lt;/p>
+&lt;h2 id="二-在-rotator-和-fcam-之间做选择" class="heading-element">&lt;span>二 在 Rotator 和 FCAM 之间做选择&lt;/span>
+ &lt;a href="#%e4%ba%8c-%e5%9c%a8-rotator-%e5%92%8c-fcam-%e4%b9%8b%e9%97%b4%e5%81%9a%e9%80%89%e6%8b%a9" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>找到的两个项目比较有代表性：&lt;/p>
+&lt;h3 id="1-firecrawl-rotator" class="heading-element">&lt;span>1 firecrawl-rotator&lt;/span>
+ &lt;a href="#1-firecrawl-rotator" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>&lt;code>xyonium/firecrawl-rotator&lt;/code> 是一个很小的 Go 反向代理，只依赖标准库，最终镜像也很轻。它会读取每把 Key 的剩余额度，优先选择额度更多的 Key，并对 &lt;code>402&lt;/code>、&lt;code>429&lt;/code>、&lt;code>401&lt;/code> 等情况做切换。&lt;/p>
+&lt;p>从纯转发能力看，它其实更符合“Key 池”的直觉：&lt;/p>
+&lt;ul>
+&lt;li>按剩余 Credits 选 Key；&lt;/li>
+&lt;li>额度不足时停用并等待对应账号的账期重置；&lt;/li>
+&lt;li>网络错误和部分 5xx 先重试；&lt;/li>
+&lt;li>部署简单，资源占用低。&lt;/li>
+&lt;/ul>
+&lt;p>但它更像一段专用基础设施，而不是完整的管理系统。入口鉴权、管理界面、审计日志和 Client 隔离都比较弱，&lt;code>/status&lt;/code> 之类的状态接口也不能随便暴露公网。项目在我检查时刚出现一周左右，提交很集中，但还不足以证明长期维护稳定。&lt;/p>
+&lt;h3 id="2-firecrawl-api-manager" class="heading-element">&lt;span>2 Firecrawl API Manager&lt;/span>
+ &lt;a href="#2-firecrawl-api-manager" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>FCAM 的仓库名是 &lt;code>firecrawl-manger&lt;/code>，少了一个 &lt;code>a&lt;/code>，但项目本身做得比名字完整。它提供：&lt;/p>
+&lt;ul>
+&lt;li>WebUI 管理 Key 和 Client；&lt;/li>
+&lt;li>Client Token 鉴权；&lt;/li>
+&lt;li>Key 加密存储；&lt;/li>
+&lt;li>每日配额、RPM 和并发控制；&lt;/li>
+&lt;li>请求日志与审计；&lt;/li>
+&lt;li>Firecrawl v1、v2 兼容入口；&lt;/li>
+&lt;li>异步任务与创建任务所用 Key 的绑定。&lt;/li>
+&lt;/ul>
+&lt;p>它的缺点也很明确。当前 Key 选择只是普通轮询，不会优先选择剩余额度更多的账号；转发代码没有单独处理 &lt;code>402 Payment Required&lt;/code>；每个 Key 也不能配置独立出站代理。README 里的“智能负载均衡”说得比较满，源码里的实现要朴素得多。&lt;/p>
+&lt;p>最后我还是选了 FCAM。原因不是它的转发策略更聪明，而是我的实际请求只有 Hermes 的 &lt;code>POST /v2/scrape&lt;/code>，异步任务亲和性暂时用不上，反而是 Client Token、WebUI 和请求日志更有价值。&lt;/p>
+&lt;h2 id="三-单容器部署-fcam" class="heading-element">&lt;span>三 单容器部署 FCAM&lt;/span>
+ &lt;a href="#%e4%b8%89-%e5%8d%95%e5%ae%b9%e5%99%a8%e9%83%a8%e7%bd%b2-fcam" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>FCAM 官方 Compose 给了 PostgreSQL 和 Redis 的生产模板，第一眼看起来又是一套不小的服务。继续检查配置后发现，个人单实例根本不需要这些组件：&lt;/p>
+&lt;ul>
+&lt;li>SQLite 保存 Client、Key、日志、配额和额度快照；&lt;/li>
+&lt;li>&lt;code>state.mode=memory&lt;/code> 保存限流、并发和冷却状态；&lt;/li>
+&lt;li>PostgreSQL 和 Redis 主要服务于多实例与高可用。&lt;/li>
+&lt;/ul>
+&lt;p>我的部署机是 AMD64，所以直接使用发布的镜像，并固定到检查过的提交标签，不跟随 &lt;code>latest&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">fcam&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">guangshanshui/firecrawl-manager:sha-89d5d65&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">container_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">firecrawl-manager&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">unless-stopped&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;${FCAM_BIND_ADDR:-127.0.0.1}:8000:8000&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">FCAM_ADMIN_TOKEN&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;${FCAM_ADMIN_TOKEN}&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">FCAM_MASTER_KEY&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;${FCAM_MASTER_KEY}&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">FCAM_DATABASE__PATH&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;/app/data/api_manager.db&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">FCAM_STATE__MODE&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;memory&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">FCAM_SERVER__ENABLE_DOCS&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;false&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;./data:/app/data&amp;#34;&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>配套的 &lt;code>.env&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-env" data-lang="env">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">FCAM_BIND_ADDR&lt;/span>&lt;span class="o">=&lt;/span>127.0.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">FCAM_ADMIN_TOKEN&lt;/span>&lt;span class="o">=&lt;/span>替换为随机管理员Token
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">FCAM_MASTER_KEY&lt;/span>&lt;span class="o">=&lt;/span>替换为至少32字节且长期固定的密钥&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>两个随机值可以这样生成：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">openssl rand -hex &lt;span class="m">32&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>FCAM_MASTER_KEY&lt;/code> 用于加密数据库里的 Firecrawl Key，部署后必须保持稳定。随便换掉它，旧 Key 就无法解密。&lt;/p>
+&lt;p>如果 Hermes 和 FCAM 不在同一台机器，可以把端口绑定到 EasyTier 等私网地址，再让 Hermes 通过私网访问。管理界面、Admin Token 和状态接口都没有直接暴露到公网。&lt;/p>
+&lt;p>SQLite 数据目录还要注意权限。容器使用非 root 用户运行，宿主机目录没有写权限时会出现 &lt;code>sqlite3.OperationalError: unable to open database file&lt;/code>。可以创建目录后调整属主：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chown -R 10001:10001 data&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>启动并检查：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker compose up -d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker compose logs -f firecrawl-manager
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl http://127.0.0.1:8000/healthz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl http://127.0.0.1:8000/readyz&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>两个健康接口都返回 &lt;code>200&lt;/code> 后，再打开：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">http://FCAM地址:8000/ui2/&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="四-配置-client-和-firecrawl-key" class="heading-element">&lt;span>四 配置 Client 和 Firecrawl Key&lt;/span>
+ &lt;a href="#%e5%9b%9b-%e9%85%8d%e7%bd%ae-client-%e5%92%8c-firecrawl-key" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>FCAM 里的 Client 不是一个 Firecrawl 账号，而是调用 FCAM 的下游应用。Key 会按 Client 分组，一个 Client Token 只能使用分配给它的 Key。&lt;/p>
+&lt;p>我只给 Hermes 创建一个 Client：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Name：hermes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Daily Quota：留空
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Rate Limit / Min：30
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Max Concurrent：6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Active：开启&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里按三个相互独立的 Free Team 估算。Firecrawl 当前 Free 计划的 &lt;code>/scrape&lt;/code> 限制是每分钟 10 次、并发 2，因此外层 Client 上限取 &lt;code>3 × 10 RPM&lt;/code> 和 &lt;code>3 × 2 并发&lt;/code>。&lt;/p>
+&lt;p>Client 的 &lt;code>Daily Quota&lt;/code> 留空代表不额外设置日上限，填 &lt;code>0&lt;/code> 则是每天零请求，不是无限制。&lt;/p>
+&lt;p>每个 Firecrawl Key 都绑定到这个 &lt;code>hermes&lt;/code> Client：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Client：hermes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Provider：firecrawl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Plan Type：free
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Max Concurrent：2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Rate Limit / Min：10
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Active：开启&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Key 的 &lt;code>Daily Quota&lt;/code> 是 FCAM 统计的成功请求次数，不等于 Firecrawl Credits。我给它设置了一个宽松上限，主要是避免保留默认的每天 5 次。真正的套餐额度仍由 Firecrawl 上游控制。&lt;/p>
+&lt;p>还有一个容易误解的点：Firecrawl 的限流和 Credits 按 Team 计算。同一个 Team 里创建多把 API Key，并不会让额度和吞吐量翻倍。&lt;/p>
+&lt;p>全部 Key 分配完成后，FCAM 生成一个 Client Token。Hermes 只需要保存这个 Token，不需要知道后面的 Firecrawl Key。&lt;/p>
+&lt;h2 id="五-接入-hermes" class="heading-element">&lt;span>五 接入 Hermes&lt;/span>
+ &lt;a href="#%e4%ba%94-%e6%8e%a5%e5%85%a5-hermes" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>Hermes 支持把搜索和网页提取拆给不同提供商。我保留 Tavily 负责搜索，只把提取交给 Firecrawl：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">web&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">search_backend&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">tavily&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">extract_backend&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">firecrawl&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在 Hermes 的 &lt;code>.env&lt;/code> 里加入两项：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-env" data-lang="env">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">FIRECRAWL_API_URL&lt;/span>&lt;span class="o">=&lt;/span>http://FCAM私网地址:8000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">FIRECRAWL_API_KEY&lt;/span>&lt;span class="o">=&lt;/span>FCAM生成的Client-Token&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>FIRECRAWL_API_URL&lt;/code> 只写根地址，不要手工追加 &lt;code>/v2&lt;/code>。Hermes 使用 Firecrawl SDK，调用 &lt;code>web_extract&lt;/code> 时会自动请求：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">POST /v2/scrape&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里的 &lt;code>FIRECRAWL_API_KEY&lt;/code> 也不是 Firecrawl 原始 Key，而是 FCAM 的 Client Token。保存后重启 Hermes Gateway，链路就变成：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Hermes web_extract
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ↓
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">FCAM Client Token 鉴权
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ↓
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">FCAM 轮询选择 Firecrawl Key
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ↓
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">api.firecrawl.dev/v2/scrape&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="六-验证时多花了一个-credit" class="heading-element">&lt;span>六 验证时多花了一个 Credit&lt;/span>
+ &lt;a href="#%e5%85%ad-%e9%aa%8c%e8%af%81%e6%97%b6%e5%a4%9a%e8%8a%b1%e4%ba%86%e4%b8%80%e4%b8%aa-credit" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>第一次从 Hermes 请求 FCAM 时遇到了：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">No route to host&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>FCAM 的健康状态正常，TCP 端口稍后又能连上，最后确认是私网路由在服务重启后短暂没有收敛，并不是 Client Token 或 Firecrawl Key 配错。&lt;/p>
+&lt;p>为了分层排查，当时做了两次成功的 Scrape：&lt;/p>
+&lt;ol>
+&lt;li>直接请求 FCAM 的 &lt;code>/v2/scrape&lt;/code>，确认 Client Token、Key 池和上游正常；&lt;/li>
+&lt;li>再调用 Hermes 的 &lt;code>web_extract&lt;/code>，确认实际工具链路正常。&lt;/li>
+&lt;/ol>
+&lt;p>两次都抓取 &lt;code>https://example.com&lt;/code>，最终返回标题 &lt;code>Example Domain&lt;/code> 和对应 Markdown。这也意味着验证实际消耗了两个 Credits。&lt;/p>
+&lt;p>单纯确认接入是否成功，一次真实的 &lt;code>web_extract&lt;/code> 已经足够。直接探测加工具调用适合定位“FCAM 不通”还是“Hermes 配置不对”，没必要每次都跑两层。&lt;/p>
+&lt;h2 id="七-额度汇总出现负数" class="heading-element">&lt;span>七 额度汇总出现负数&lt;/span>
+ &lt;a href="#%e4%b8%83-%e9%a2%9d%e5%ba%a6%e6%b1%87%e6%80%bb%e5%87%ba%e7%8e%b0%e8%b4%9f%e6%95%b0" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>服务跑通后，FCAM 的 Client 面板出现了一个很奇怪的数字：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">剩余 3,070 / 3,000
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">已用 -2.33%&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>刚开始以为是 Key 参数填错，顺着代码查下去，发现是项目自己的统计口径有问题。&lt;/p>
+&lt;p>Firecrawl 的额度接口会分别返回：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;remainingCredits&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;planCredits&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>planCredits&lt;/code> 是套餐基础额度，&lt;code>remainingCredits&lt;/code> 还可能包含赠送或额外 Credits。三个账号的初始可用余额正好可能是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">3 × 1024 = 3072&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>前面两次验证各消耗一个 Credit，于是剩下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">3072 - 2 = 3070&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这个数字与面板完全吻合。真实余额没有错，错的是 FCAM 把三个账号的套餐额度 &lt;code>3000&lt;/code> 当成完整总额度，然后计算：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">usage&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">plan_credits&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">remaining_credits&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">plan_credits&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">100&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>代入数值就是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">(3000 - 3070) ÷ 3000 × 100 = -2.33%&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>代码里，单个 Key 的显示会读取第一条成功额度快照，并把百分比限制在 &lt;code>0～100%&lt;/code>；Client 汇总却优先使用 &lt;code>planCredits&lt;/code>，也没有处理负数。同一个项目里，两套显示逻辑并不一致，现有测试又只覆盖了“剩余额度小于套餐额度”的正常场景。&lt;/p>
+&lt;p>这属于统计 Bug，主要影响面板显示和额度刷新频率，不影响 Client 鉴权、Scrape 请求和 Key 轮询。更合理的修法是把套餐额度和额外额度分开显示；至少也应该从套餐额度、第一条成功快照和当前余额中取最大值作为有效总额，并对百分比做边界限制。&lt;/p>
+&lt;p>按当前数据，合理的显示应该接近：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">剩余 3,070 / 初始可用 3,072
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">已用 0.07%&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="八-当前方案的边界" class="heading-element">&lt;span>八 当前方案的边界&lt;/span>
+ &lt;a href="#%e5%85%ab-%e5%bd%93%e5%89%8d%e6%96%b9%e6%a1%88%e7%9a%84%e8%be%b9%e7%95%8c" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>FCAM 已经满足我现在的使用需求，但它不是把多个 Key 塞进去就万事大吉。&lt;/p>
+&lt;h3 id="1-它不是按额度调度" class="heading-element">&lt;span>1 它不是按额度调度&lt;/span>
+ &lt;a href="#1-%e5%ae%83%e4%b8%8d%e6%98%af%e6%8c%89%e9%a2%9d%e5%ba%a6%e8%b0%83%e5%ba%a6" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>当前 Key Pool 是普通轮询。额度监控用于展示和定时刷新，不会优先选择剩余 Credits 最多的 Key。想要真正的额度感知调度，&lt;code>firecrawl-rotator&lt;/code> 反而更直接。&lt;/p>
+&lt;h3 id="2-没有每个-key-独立代理" class="heading-element">&lt;span>2 没有每个 Key 独立代理&lt;/span>
+ &lt;a href="#2-%e6%b2%a1%e6%9c%89%e6%af%8f%e4%b8%aa-key-%e7%8b%ac%e7%ab%8b%e4%bb%a3%e7%90%86" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>FCAM 的数据库、管理 API 和 WebUI 都没有 &lt;code>proxy_url&lt;/code> 字段。可以通过 &lt;code>HTTP_PROXY&lt;/code>、&lt;code>HTTPS_PROXY&lt;/code> 给整个容器设置全局代理，但所有 Key 会共用同一个出口。&lt;/p>
+&lt;p>而且这个代理只改变：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">FCAM → Firecrawl Cloud&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>目标网站看到的仍然是 Firecrawl Cloud 的抓取出口，不是 FCAM 所在服务器或它配置的代理。&lt;/p>
+&lt;h3 id="3-额度耗尽需要继续观察" class="heading-element">&lt;span>3 额度耗尽需要继续观察&lt;/span>
+ &lt;a href="#3-%e9%a2%9d%e5%ba%a6%e8%80%97%e5%b0%bd%e9%9c%80%e8%a6%81%e7%bb%a7%e7%bb%ad%e8%a7%82%e5%af%9f" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>当前转发代码会处理 &lt;code>429&lt;/code>、&lt;code>401&lt;/code>、&lt;code>403&lt;/code> 和部分 5xx，但没有明确的 &lt;code>402&lt;/code> 自动切换分支。免费账号真正耗尽时，是否能按预期切到下一把 Key，还需要用实际响应验证。&lt;/p>
+&lt;h3 id="4-项目还不算成熟基础设施" class="heading-element">&lt;span>4 项目还不算成熟基础设施&lt;/span>
+ &lt;a href="#4-%e9%a1%b9%e7%9b%ae%e8%bf%98%e4%b8%8d%e7%ae%97%e6%88%90%e7%86%9f%e5%9f%ba%e7%a1%80%e8%ae%be%e6%96%bd" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>FCAM 的管理能力不错，但最后一次提交距离我部署时已有几个月。镜像应固定版本，不适合无脑跟随 &lt;code>latest&lt;/code>。WebUI 的额度负数也说明 README 里的功能描述不能替代源码检查和真实验证。&lt;/p>
+&lt;p>另外，聚合自己持有或明确授权的 Key，与批量注册免费账号绕过平台额度是两回事。后者容易触发风控，也不是一个适合长期维护的方案。&lt;/p>
+&lt;h2 id="九-最后的落地方案" class="heading-element">&lt;span>九 最后的落地方案&lt;/span>
+ &lt;a href="#%e4%b9%9d-%e6%9c%80%e5%90%8e%e7%9a%84%e8%90%bd%e5%9c%b0%e6%96%b9%e6%a1%88" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>这次没有追求最完整的架构，最后留下的是一套很小的链路：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Tavily：负责 web_search
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Firecrawl：负责网页抓取
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">FCAM：管理 Firecrawl Key 和 Client Token
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Hermes：统一调用 web_extract
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EasyTier：提供 Hermes 到 FCAM 的私网连接
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">SQLite：保存 FCAM 配置、日志和额度快照&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>FCAM 单容器运行，不加 PostgreSQL 和 Redis；Hermes 只保存 FCAM Client Token；管理端和数据入口走私网；搜索继续交给 Tavily，避免把 Firecrawl Credits 花在不必要的搜索上。&lt;/p>
+&lt;p>这套方案不完美：轮询不看余额、没有 per-key 代理、额度统计还有 Bug。但对我现在的 &lt;code>POST /v2/scrape&lt;/code> 场景已经够用。比起再搭一套完整 Firecrawl，维护一个单容器网关更符合实际需求。&lt;/p>
+&lt;h2 id="十-参考" class="heading-element">&lt;span>十 参考&lt;/span>
+ &lt;a href="#%e5%8d%81-%e5%8f%82%e8%80%83" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a href="https://github.com/ZeroPointSix/firecrawl-manger"target="_blank" rel="external nofollow noopener noreferrer">Firecrawl API Manager&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/xyonium/firecrawl-rotator"target="_blank" rel="external nofollow noopener noreferrer">firecrawl-rotator&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.firecrawl.dev/rate-limits"target="_blank" rel="external nofollow noopener noreferrer">Firecrawl 文档：Rate Limits&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.firecrawl.dev/contributing/self-host"target="_blank" rel="external nofollow noopener noreferrer">Firecrawl 文档：Self-hosting&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://hermes-agent.nousresearch.com/docs/user-guide/features/web-search"target="_blank" rel="external nofollow noopener noreferrer">Hermes Agent 文档：Web Search &amp;amp; Extract&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://hub.docker.com/r/guangshanshui/firecrawl-manager"target="_blank" rel="external nofollow noopener noreferrer">FCAM Docker Hub&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>从 ZeroTier 到 EasyTier 的异地组网实践</title><link>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</link><pubDate>Mon, 13 Jul 2026 15:21:12 +0800</pubDate><guid>https://blog.iqzhi.com/posts/zerotier-to-easytier-private-networking/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>我原本已经在用 ZeroTier，而且整体稳定。这次折腾并不是因为它突然不能用了，而是想给家里的 NAS、服务器和移动设备多准备一条可控的异地访问路径，顺便弄清楚 Tailscale、ZeroTier、EasyTier 到底差在哪里。&lt;/p>
 &lt;p>最后没有做激进迁移：ZeroTier 继续保留，EasyTier 用国内 VPS 搭了一套私有中继，作为备用链路和后续扩展的底座。&lt;/p>
 &lt;h2 id="一-为什么又折腾一套组网" class="heading-element">&lt;span>一 为什么又折腾一套组网&lt;/span>
  &lt;a href="#%e4%b8%80-%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%88%e6%8a%98%e8%85%be%e4%b8%80%e5%a5%97%e7%bb%84%e7%bd%91" class="heading-mark">
@@ -2220,17 +2630,4 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -og P3TERX -p &lt;span class="m">2222&lt;/span> -d&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>20231111思</title><link>https://blog.iqzhi.com/posts/20231111-thoughts/</link><pubDate>Sat, 11 Nov 2023 23:47:38 +0800</pubDate><guid>https://blog.iqzhi.com/posts/20231111-thoughts/</guid><category domain="https://blog.iqzhi.com/categories/%E8%83%A1%E6%80%9D%E4%B9%B1%E6%83%B3/">胡思乱想</category><description>&lt;p>一年一度的双11来了，你又在买什么？&lt;/p>
-&lt;p>不知道从什么时候开始，一年里有几个购物节，总得败手。比如“618”、“双十一”，国人似乎形成了思维惯性，总是觉得这天的货品是最便宜的。对比国外的“黑五”，让人购物的那股子兴奋劲无法掩饰，难以自拔。&lt;/p>
-&lt;p>殊不知，这些日子也是商家最高兴的日子，疯狂“割韭菜”，而平台，更是“盘满钵满”。终究，相对平常，降价力度还是“可圈可点”的。&lt;/p>
-&lt;p>应景之下，我也买了不少：&lt;/p>
-&lt;ol>
-&lt;li>&lt;a href="https://miaomiao.moe/"target="_blank" rel="external nofollow noopener noreferrer">喵云&lt;/a> HKT-Nat 1C 512M 10GSSD 共享300Mbps 2T流量 共享IPv4 10转发 五折 月付¥6.45&lt;/li>
-&lt;li>&lt;a href="https://dogyun.com/"target="_blank" rel="external nofollow noopener noreferrer">狗云&lt;/a> HK-MG-A 1C 1G 20G 500Mbps 1T流量 1IPv4 2IPv6 七折 年付¥70 58收&lt;/li>
-&lt;li>科学1 小杯 188G流量 年¥34.80&lt;/li>
-&lt;li>科学2 一次性（小） 150G流量 每年重置 早鸟计划 ¥14.90&lt;/li>
-&lt;li>&lt;a href="https://www.euserv.com/en/"target="_blank" rel="external nofollow noopener noreferrer">EUserv&lt;/a> VS2-free v2.1 1C 1G 10GHDD 1Gbps 1T流量 1IPv6 TG找人代付 ¥16.50&lt;/li>
-&lt;/ol>
-&lt;p>计划趁国外黑五，再上一台服务器玩，关注CC、RN中。&lt;/p>
-&lt;p>其中我又得到了什么乐趣呢？我总是在反问，或许是想着便宜，不剁手对不起知道这样的资讯。&lt;/p>
-&lt;p>机器有了，能折腾的空间也更多了，可以部署一些程序玩下，其实外边的成品服务还是很贵的，很多都能找到开源自建方案，更有成就感。&lt;/p></description></item></channel></rss>
+&lt;/div></description></item></channel></rss>
