@@ -1,4 +1,281 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Jul 2026 15:56:15 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Firecrawl 多账号聚合折腾记</title><link>https://blog.iqzhi.com/posts/firecrawl-key-pool-fcam/</link><pubDate>Fri, 17 Jul 2026 15:56:15 +0800</pubDate><guid>https://blog.iqzhi.com/posts/firecrawl-key-pool-fcam/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>Hermes 的 &lt;code>web_extract&lt;/code> 可以用 Firecrawl 抽取网页正文，但一个 Key 的额度和并发终究有限。我手里有几个自己使用的 Firecrawl 账号，与其把 Key 分散塞进不同应用，不如在前面加一层统一入口。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Wed, 22 Jul 2026 07:23:36 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>第一次玩暗黑4：国服S14召唤死灵从零到70级</title><link>https://blog.iqzhi.com/posts/diablo-4-season-14-minion-necromancer-beginner-guide/</link><pubDate>Wed, 22 Jul 2026 07:23:36 +0800</pubDate><guid>https://blog.iqzhi.com/posts/diablo-4-season-14-minion-necromancer-beginner-guide/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>第一次认真玩《暗黑破坏神 IV》，我选了国服第14赛季的召唤死灵。理由很现实：骷髅替我扛怪，宠物负责捡材料，我只要在后面上诅咒、炸尸体，怎么看都像一份适合新人的工作。&lt;/p>
+&lt;p>真正玩起来才发现，难点并不全在打怪。赛季与永恒怎么选、剧情要不要跳、地狱狂潮为什么没有宝箱、骷髅能不能集火、精魂为什么自动归零，以及70级后突然出现的巅峰盘，任何一个系统都足以让新人停下来查半天。&lt;/p>
+&lt;p>这篇文章记录的是我从建号到70级真正遇到的问题。版本以2026年7月的国服第14赛季、3.1版本为准；旧赛季攻略里的等级上限、技能树和巅峰路线，不能直接照搬。&lt;/p>
+&lt;h2 id="一-建号时先把角色类型选对" class="heading-element">&lt;span>一 建号时先把角色类型选对&lt;/span>
+ &lt;a href="#%e4%b8%80-%e5%bb%ba%e5%8f%b7%e6%97%b6%e5%85%88%e6%8a%8a%e8%a7%92%e8%89%b2%e7%b1%bb%e5%9e%8b%e9%80%89%e5%af%b9" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-赛季角色与永恒角色" class="heading-element">&lt;span>1 赛季角色与永恒角色&lt;/span>
+ &lt;a href="#1-%e8%b5%9b%e5%ad%a3%e8%a7%92%e8%89%b2%e4%b8%8e%e6%b0%b8%e6%81%92%e8%a7%92%e8%89%b2" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>第一次进入游戏，最容易低估的选择不是职业，而是角色所在国度。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>赛季角色&lt;/strong>可以参加当前赛季活动、赛季级别和藏骨匣，赛季结束后会转入永恒国度；&lt;/li>
+&lt;li>&lt;strong>永恒角色&lt;/strong>会永久保留，但不能推进当前赛季专属奖励；&lt;/li>
+&lt;li>赛季与永恒角色不能在同一队伍里游玩；&lt;/li>
+&lt;li>普通角色与专家模式角色同样不能组队；&lt;/li>
+&lt;li>独狼角色不能组队和交易。&lt;/li>
+&lt;/ul>
+&lt;p>想体验当季内容，直接创建普通赛季角色即可。新手不要碰专家模式：专家难度只是更难，死亡可以复活；创建角色时选择的专家模式才是永久死亡。这两个中文名称挨得太近，实际惩罚完全不是一回事。&lt;/p>
+&lt;p>我的选择是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">职业：死灵法师
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">国度：赛季国度
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">角色模式：普通
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">专家模式：关闭
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">独狼模式：关闭&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="2-剧情要不要跳" class="heading-element">&lt;span>2 剧情要不要跳&lt;/span>
+ &lt;a href="#2-%e5%89%a7%e6%83%85%e8%a6%81%e4%b8%8d%e8%a6%81%e8%b7%b3" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>当前国服客户端在符合条件时，会提供「改为已通关剧情」或相近选项。选择后，当前角色直接进入终局状态，地狱狂潮、低语等活动随之开放；代价是这个角色不再继续原本的主线，也不会补发跳过部分的任务经验和奖励。&lt;/p>
+&lt;p>第一次玩、想看完整故事，可以老实推进主线。只想参加赛季、尽快升级，则可以使用客户端明确提供的已通关选项。这里不要照旧攻略死记“必须先打完整个主线”，以自己角色选择界面的实际选项为准。&lt;/p>
+&lt;p>改为已通关也不会自动把全图所有传送点全部点亮。大城镇和关键终局位置会开放，很多野外传送点、要塞和区域节点仍要亲自跑过去激活。&lt;/p>
+&lt;h2 id="二-1到70级地狱狂潮是主力但不是唯一答案" class="heading-element">&lt;span>二 1到70级，地狱狂潮是主力但不是唯一答案&lt;/span>
+ &lt;a href="#%e4%ba%8c-1%e5%88%b070%e7%ba%a7%e5%9c%b0%e7%8b%b1%e7%8b%82%e6%bd%ae%e6%98%af%e4%b8%bb%e5%8a%9b%e4%bd%86%e4%b8%8d%e6%98%af%e5%94%af%e4%b8%80%e7%ad%94%e6%a1%88" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-地狱狂潮怎么识别" class="heading-element">&lt;span>1 地狱狂潮怎么识别&lt;/span>
+ &lt;a href="#1-%e5%9c%b0%e7%8b%b1%e7%8b%82%e6%bd%ae%e6%80%8e%e4%b9%88%e8%af%86%e5%88%ab" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>地狱狂潮没有入口或传送门。活动开始后，世界地图会出现一大片红色覆盖区域；进入其中，右上角会显示倒计时、威胁值和异常灰烬数量。&lt;/p>
+&lt;p>如果只有橙色活动圈，却没有灰烬计数，那通常只是普通公共事件或低语任务，不是地狱狂潮。&lt;/p>
+&lt;p>一轮狂潮通常持续约55分钟，中间有短暂间隔。没必要每次打满整轮，我后来最常用的节奏是进去刷20到30分钟，开完能开的箱子就离开。&lt;/p>
+&lt;h3 id="2-灰烬宠物和宝箱" class="heading-element">&lt;span>2 灰烬、宠物和宝箱&lt;/span>
+ &lt;a href="#2-%e7%81%b0%e7%83%ac%e5%ae%a0%e7%89%a9%e5%92%8c%e5%ae%9d%e7%ae%b1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>狂潮里的怪物会掉落异常灰烬。召唤物击杀的敌人，经验、掉落和活动进度都算在角色身上；装备好的宠物也会自动拾取附近的灰烬、金币和材料，所以召唤死灵刷狂潮确实省事。&lt;/p>
+&lt;p>真正麻烦的是宝箱。它们不会总在大地图上一开始就完整显示，很多要骑马靠近后，才会出现在小地图上。基础箱子常见费用为75灰烬，具体以游戏里的箱子提示为准。&lt;/p>
+&lt;p>实用的找法是：&lt;/p>
+&lt;ol>
+&lt;li>先攒够至少75灰烬；&lt;/li>
+&lt;li>骑马沿红区主路、岔路和废墟边缘移动；&lt;/li>
+&lt;li>盯小地图而不是缩到最远的世界地图；&lt;/li>
+&lt;li>靠近宝箱图标后再过去互动；&lt;/li>
+&lt;li>狂潮快结束时不要继续囤灰烬，能开什么就开什么。&lt;/li>
+&lt;/ol>
+&lt;p>当前版本也有人遇到宝箱不显示或临近时消失的问题。跑了一大圈仍然一个都没有，可以传送回附近城镇，再从另一个传送点进入红区，刷新当前地图实例。&lt;/p>
+&lt;h3 id="3-低语之树顺手一起做" class="heading-element">&lt;span>3 低语之树顺手一起做&lt;/span>
+ &lt;a href="#3-%e4%bd%8e%e8%af%ad%e4%b9%8b%e6%a0%91%e9%a1%ba%e6%89%8b%e4%b8%80%e8%b5%b7%e5%81%9a" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>低语任务可以和地狱狂潮叠加。地图上带低语标记的活动会奖励阴森恩惠，累计10点后，前往哈维泽右上方、蜿蜒泥沼中的低语之树领取宝匣。&lt;/p>
+&lt;p>升级阶段没必要只盯一种活动。更高效的做法是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">地狱狂潮刷怪
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 顺手完成红区内的低语目标
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 攒满10点回低语之树领奖
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 再去下一轮活动&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>单纯比较升级速度，狂潮通常比跑主线快，因为怪物密度高、对话和赶路少。但第一只角色是否跳剧情，仍取决于自己要不要看故事，而不是经验效率。&lt;/p>
+&lt;h2 id="三-召唤死灵的六技能终于要分清" class="heading-element">&lt;span>三 召唤死灵的六技能终于要分清&lt;/span>
+ &lt;a href="#%e4%b8%89-%e5%8f%ac%e5%94%a4%e6%ad%bb%e7%81%b5%e7%9a%84%e5%85%ad%e6%8a%80%e8%83%bd%e7%bb%88%e4%ba%8e%e8%a6%81%e5%88%86%e6%b8%85" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-45到70级的技能栏" class="heading-element">&lt;span>1 45到70级的技能栏&lt;/span>
+ &lt;a href="#1-45%e5%88%b070%e7%ba%a7%e7%9a%84%e6%8a%80%e8%83%bd%e6%a0%8f" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>当前3.0技能树已经把骷髅战士、骷髅法师和傀儡拆成独立技能。召唤流会直接占掉三个技能槽，最终升级配置是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">骷髅战士
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">骷髅法师
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">傀儡
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">衰老
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">邪爆
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">亡者大军&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>前期使用的分解、收割或挥斩只是过渡技能。解锁亡者大军后，先移除基础技能；获得邪爆后，再移除剩下的过渡攻击。技能栏只有六格，不是继续把第七个技能往里塞。&lt;/p>
+&lt;p>技能点不够时，优先级可以这样安排：&lt;/p>
+&lt;ol>
+&lt;li>衰老先点1级，提供诅咒即可；&lt;/li>
+&lt;li>亡者大军先解锁必要强化；&lt;/li>
+&lt;li>优先提高骷髅法师；&lt;/li>
+&lt;li>继续补骷髅战士和傀儡；&lt;/li>
+&lt;li>邪爆保持可用，再随剩余点数逐步提高。&lt;/li>
+&lt;/ol>
+&lt;p>70级不等于所有技能自动点满。完整技能树还包含连接、强化和变体节点，额外技能点来自赛季级别与相应进度奖励。若点数明显不够，先重置技能树，检查分解、挥斩等过渡技能是否仍占着点数。&lt;/p>
+&lt;h3 id="2-亡者之书决定召唤物类型" class="heading-element">&lt;span>2 亡者之书决定召唤物类型&lt;/span>
+ &lt;a href="#2-%e4%ba%a1%e8%80%85%e4%b9%8b%e4%b9%a6%e5%86%b3%e5%ae%9a%e5%8f%ac%e5%94%a4%e7%89%a9%e7%b1%bb%e5%9e%8b" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>技能树决定召唤技能本身的等级，亡者之书决定召唤出来的具体兵种和特殊效果。升级阶段我采用的是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">骷髅战士：散兵，增加数量
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">骷髅法师：冰霜法师，选择分裂攻击
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">傀儡：白骨傀儡，主动技能制造尸体&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>白骨傀儡先制造尸体，随后连续邪爆，清理怪群很顺。普通小怪交给召唤物自由攻击；精英和首领则把鼠标悬停在目标身上，按骷髅战士技能键，战士会跳过去集火。骷髅法师主要自动选目标，不要把它当成同样的集火命令。&lt;/p>
+&lt;h3 id="3-别把升级配置当成终局毕业配置" class="heading-element">&lt;span>3 别把升级配置当成终局毕业配置&lt;/span>
+ &lt;a href="#3-%e5%88%ab%e6%8a%8a%e5%8d%87%e7%ba%a7%e9%85%8d%e7%bd%ae%e5%bd%93%e6%88%90%e7%bb%88%e5%b1%80%e6%af%95%e4%b8%9a%e9%85%8d%e7%bd%ae" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>到达70级后，Mobalytics当前终局召唤方案会调整技能和亡者之书，例如使用枯萎（Blight）替代升级阶段的邪爆，并把召唤物改成收割者战士、暗影法师和钢铁傀儡。&lt;/p>
+&lt;p>这不是说一到70级就必须立刻洗掉原来的配置。终局方案依赖对应威能、装备和雕文，刚满级时继续使用熟悉的召唤加邪爆完全没问题。先把装备和威能凑起来，再切终局流派，比裸着照抄毕业技能树靠谱。&lt;/p>
+&lt;h2 id="四-键位改好后召唤流才真正省手" class="heading-element">&lt;span>四 键位改好后，召唤流才真正省手&lt;/span>
+ &lt;a href="#%e5%9b%9b-%e9%94%ae%e4%bd%8d%e6%94%b9%e5%a5%bd%e5%90%8e%e5%8f%ac%e5%94%a4%e6%b5%81%e6%89%8d%e7%9c%9f%e6%ad%a3%e7%9c%81%e6%89%8b" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-左键最好只负责移动" class="heading-element">&lt;span>1 左键最好只负责移动&lt;/span>
+ &lt;a href="#1-%e5%b7%a6%e9%94%ae%e6%9c%80%e5%a5%bd%e5%8f%aa%e8%b4%9f%e8%b4%a3%e7%a7%bb%e5%8a%a8" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>默认把移动、互动和第一个技能槽合在左键上，怪物和尸体一多，很容易出现想走位却站在原地放技能的情况。社区里常见的解决办法，是取消「合并移动／互动／基础技能栏」，让左键只负责移动与互动，再把原左键技能槽改到鼠标侧键。&lt;/p>
+&lt;p>我最终采用的键位是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">左键：移动／互动
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">右键：邪爆
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">鼠标侧键4：骷髅战士
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1：骷髅法师
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2：傀儡
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3：衰老
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4：亡者大军
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Q：生命药水&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>没有鼠标侧键时，可以把骷髅战士改到数字键5。不要占用Q，它默认是喝药键。&lt;/p>
+&lt;h3 id="2-实战循环并不复杂" class="heading-element">&lt;span>2 实战循环并不复杂&lt;/span>
+ &lt;a href="#2-%e5%ae%9e%e6%88%98%e5%be%aa%e7%8e%af%e5%b9%b6%e4%b8%8d%e5%a4%8d%e6%9d%82" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>普通小怪：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">移动靠近
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 召唤物自动攻击
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 有尸体后按住右键连续邪爆&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>精英怪群：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">3施放衰老
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 鼠标指向精英，按侧键4让战士集火
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 2释放傀儡主动技能制造尸体
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">→ 按住右键邪爆&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>首领或高压场面再补上亡者大军。召唤流真正频繁使用的通常只有移动和邪爆，其他主动技能更像精英与首领阶段的工具。&lt;/p>
+&lt;h2 id="五-几个看起来像bug其实有原因的问题" class="heading-element">&lt;span>五 几个看起来像Bug、其实有原因的问题&lt;/span>
+ &lt;a href="#%e4%ba%94-%e5%87%a0%e4%b8%aa%e7%9c%8b%e8%b5%b7%e6%9d%a5%e5%83%8fbug%e5%85%b6%e5%ae%9e%e6%9c%89%e5%8e%9f%e5%9b%a0%e7%9a%84%e9%97%ae%e9%a2%98" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;h3 id="1-精魂刚恢复就自动归零" class="heading-element">&lt;span>1 精魂刚恢复就自动归零&lt;/span>
+ &lt;a href="#1-%e7%b2%be%e9%ad%82%e5%88%9a%e6%81%a2%e5%a4%8d%e5%b0%b1%e8%87%aa%e5%8a%a8%e5%bd%92%e9%9b%b6" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>我曾遇到精魂刚恢复一点就立刻被扣掉，即使站着不放技能也一样。最终最可疑的并不是键位，而是传奇装备上的「群体盛宴之威能」。&lt;/p>
+&lt;p>这个威能会提高召唤物伤害，但每个激活的仆从都会持续消耗精魂。召唤流同时带着一群战士、法师和傀儡，扣款速度很容易超过自然回复，看起来就像资源条坏了。&lt;/p>
+&lt;p>低等级阶段如果无法稳定维持精魂，直接换掉这件装备，或在秘术师处覆盖为其他威能。站在城里不操作，观察精魂是否恢复正常，是最简单的验证方法。&lt;/p>
+&lt;p>如果装备上没有群体盛宴，再检查骷髅法师是否误绑定到移动键，或鼠标侧键是否卡住。当前版本召唤骷髅法师会消耗精魂，但法师普通攻击本身不会持续扣资源。&lt;/p>
+&lt;h3 id="2-地图已通关但传送点没有全开" class="heading-element">&lt;span>2 地图已通关但传送点没有全开&lt;/span>
+ &lt;a href="#2-%e5%9c%b0%e5%9b%be%e5%b7%b2%e9%80%9a%e5%85%b3%e4%bd%86%e4%bc%a0%e9%80%81%e7%82%b9%e6%b2%a1%e6%9c%89%e5%85%a8%e5%bc%80" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>剧情状态与地图探索是两套进度。改为已通关可以开放关键终局活动，但不会替角色踩遍所有野外传送点。路过未激活的节点时仍要亲自互动；部分传送点还依赖要塞或区域事件完成。&lt;/p>
+&lt;h3 id="3-巅峰盘只有属性没有骷髅节点" class="heading-element">&lt;span>3 巅峰盘只有属性，没有骷髅节点&lt;/span>
+ &lt;a href="#3-%e5%b7%85%e5%b3%b0%e7%9b%98%e5%8f%aa%e6%9c%89%e5%b1%9e%e6%80%a7%e6%b2%a1%e6%9c%89%e9%aa%b7%e9%ab%85%e8%8a%82%e7%82%b9" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>70级后，普通等级停止，经验继续转化为巅峰进度。巅峰盘的起始区域大量是智力、意志力、敏捷和力量，并不会每格都写着死灵法师或召唤物伤害。&lt;/p>
+&lt;p>刚打开巅峰盘时，正确思路是沿较短路线走向雕文插槽和稀有节点，而不是在起点附近硬找“骷髅伤害”。召唤加成更多来自后续稀有节点、雕文以及连接的下一块巅峰盘。巅峰路线与终局构筑强绑定，应当直接参考当前S14终局攻略，不要照抄旧赛季盘名。&lt;/p>
+&lt;h2 id="六-轻薄本也能玩但更适合串流" class="heading-element">&lt;span>六 轻薄本也能玩，但更适合串流&lt;/span>
+ &lt;a href="#%e5%85%ad-%e8%bd%bb%e8%96%84%e6%9c%ac%e4%b9%9f%e8%83%bd%e7%8e%a9%e4%bd%86%e6%9b%b4%e9%80%82%e5%90%88%e4%b8%b2%e6%b5%81" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>我还考虑过在ThinkPad X1 Carbon 7代上安装Windows直接玩。它的8代低压处理器勉强够，但Intel UHD 620核显明显低于《暗黑4》的最低独显要求。公开测试里，720P最低画质也只有约20帧上下；进入地狱狂潮后怪物和特效一多，体验只会更差。&lt;/p>
+&lt;p>更现实的方案是让游戏电脑运行《暗黑4》，X1 Carbon通过Sunshine与Moonlight接收画面：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">游戏电脑：Sunshine服务端
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">X1 Carbon：Moonlight客户端&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>两者均为免费开源项目。局域网内，游戏电脑最好接网线，X1 Carbon使用5GHz Wi-Fi即可。这样轻薄本只负责视频解码，不需要UHD 620真正渲染游戏。&lt;/p>
+&lt;p>《暗黑4》本身也支持全程手柄操作。Switch Pro手柄通过蓝牙连接X1 Carbon后，Moonlight与Sunshine通常会把它映射成游戏电脑上的虚拟Xbox手柄，不必一开始就安装BetterJoy。直接连接并测试；只有本机运行游戏且战网客户端无法识别时，才考虑Steam Input或BetterJoy，并避免多个映射工具同时运行造成双重输入。&lt;/p>
+&lt;h2 id="七-70级不是结束而是终于进入正题" class="heading-element">&lt;span>七 70级不是结束，而是终于进入正题&lt;/span>
+ &lt;a href="#%e4%b8%83-70%e7%ba%a7%e4%b8%8d%e6%98%af%e7%bb%93%e6%9d%9f%e8%80%8c%e6%98%af%e7%bb%88%e4%ba%8e%e8%bf%9b%e5%85%a5%e6%ad%a3%e9%a2%98" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>从创建角色到70级，召唤死灵的升级过程比想象中轻松：骷髅确实能替玩家承担大量战斗压力，地狱狂潮和低语也能稳定提供经验与装备。真正容易踩坑的是不断变化的系统说明，以及搜索结果里混在一起的旧版本攻略。&lt;/p>
+&lt;p>我最后留下的判断标准只有三条：&lt;/p>
+&lt;ol>
+&lt;li>看攻略先确认是不是S14、3.1和70级上限；&lt;/li>
+&lt;li>技能栏、技能树、亡者之书和巅峰盘是四套不同系统，不要混着理解；&lt;/li>
+&lt;li>刚到70级先把装备、威能和雕文逐步补齐，不要急着一次性照抄毕业构筑。&lt;/li>
+&lt;/ol>
+&lt;p>70级之前是在学会怎么带着一群骷髅工作，70级之后才开始研究怎么把这群员工变成真正的流水线。庇护之地的管理学，到这里才刚开课。&lt;/p>
+&lt;h2 id="参考" class="heading-element">&lt;span>参考&lt;/span>
+ &lt;a href="#%e5%8f%82%e8%80%83" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;ol>
+&lt;li>&lt;a href="https://d4.blizzard.cn/news/24268702/index.html"target="_blank" rel="external nofollow noopener noreferrer">《暗黑破坏神 IV》国服：苏醒赛季现已开放&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://d4.blizzard.cn/news/24267729/index.html"target="_blank" rel="external nofollow noopener noreferrer">《暗黑破坏神 IV》3.0更新与“憎恨之王”内容概览&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://mobalytics.gg/diablo-4/builds/minion-necromancer-leveling-build-guide"target="_blank" rel="external nofollow noopener noreferrer">Mobalytics：S14召唤死灵升级攻略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://mobalytics.gg/diablo-4/builds/minion-necromancer-endgame-build-guide"target="_blank" rel="external nofollow noopener noreferrer">Mobalytics：S14召唤死灵终局攻略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://maxroll.gg/d4/build-guides/minion-necromancer-leveling-guide"target="_blank" rel="external nofollow noopener noreferrer">Maxroll：S14召唤死灵升级攻略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://helltides.com"target="_blank" rel="external nofollow noopener noreferrer">Helltides：地狱狂潮与宝箱实时地图&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://eu.battle.net/support/en/article/251518"target="_blank" rel="external nofollow noopener noreferrer">Blizzard Support：《暗黑破坏神 IV》Windows系统需求&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/LizardByte/Sunshine"target="_blank" rel="external nofollow noopener noreferrer">Sunshine官方项目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://moonlight-stream.org"target="_blank" rel="external nofollow noopener noreferrer">Moonlight官方项目&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>Firecrawl 多账号聚合折腾记</title><link>https://blog.iqzhi.com/posts/firecrawl-key-pool-fcam/</link><pubDate>Fri, 17 Jul 2026 15:56:15 +0800</pubDate><guid>https://blog.iqzhi.com/posts/firecrawl-key-pool-fcam/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>Hermes 的 &lt;code>web_extract&lt;/code> 可以用 Firecrawl 抽取网页正文，但一个 Key 的额度和并发终究有限。我手里有几个自己使用的 Firecrawl 账号，与其把 Key 分散塞进不同应用，不如在前面加一层统一入口。&lt;/p>
 &lt;p>这次最后没有自建完整的 Firecrawl，也没有直接使用最轻量的 Key Rotator，而是部署了 FCAM：单容器、SQLite、内存状态，集中管理 Key，再给 Hermes 发一个 Client Token。中间还顺手找出了一个额度汇总的计算 Bug。&lt;/p>
 &lt;h2 id="一-先弄清楚我要自建什么" class="heading-element">&lt;span>一 先弄清楚我要自建什么&lt;/span>
  &lt;a href="#%e4%b8%80-%e5%85%88%e5%bc%84%e6%b8%85%e6%a5%9a%e6%88%91%e8%a6%81%e8%87%aa%e5%bb%ba%e4%bb%80%e4%b9%88" class="heading-mark">
@@ -2396,238 +2673,4 @@
  &lt;/a>
 &lt;/h2>&lt;ul>
 &lt;li>&lt;a href="https://www.jianshu.com/p/4c7acf819046"target="_blank" rel="external nofollow noopener noreferrer">LV扩容(lvextend)&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Linux设置密钥登陆</title><link>https://blog.iqzhi.com/posts/linux-key-login/</link><pubDate>Tue, 12 Dec 2023 12:20:05 +0800</pubDate><guid>https://blog.iqzhi.com/posts/linux-key-login/</guid><category domain="https://blog.iqzhi.com/categories/%E7%8E%A9%E4%B9%90%E9%9A%8F%E5%BF%83/">玩乐随心</category><description>&lt;p>网上看了几篇对于Linux使用密钥登录的好文章，这里合并做个备用，如有系统安全类需求，这是一个很好的参考思路。&lt;/p>
-&lt;h2 id="方案一传统做法" class="heading-element">&lt;span>方案一：传统做法&lt;/span>
- &lt;a href="#%e6%96%b9%e6%a1%88%e4%b8%80%e4%bc%a0%e7%bb%9f%e5%81%9a%e6%b3%95" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>转载：&lt;a href="https://zset.cc/archives/25/"target="_blank" rel="external nofollow noopener noreferrer">【有序集合】Linux设置密钥登陆&lt;/a>&lt;/p>
-&lt;p>首先在家目录下创建 &lt;code>authorized_keys&lt;/code> 用于存放公钥，如果已有该文件可跳过&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir .ssh
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch .ssh/authorized_keys&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>在 &lt;code>authorized_keys&lt;/code> 文件中添加公钥，并修改文件权限&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> .ssh/authorized_keys
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">700&lt;/span> .ssh&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>编辑 &lt;code>/etc/ssh/sshd_config&lt;/code> 文件，进行如下设置：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">RSAAuthentication yes
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PubkeyAuthentication yes&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>另外，请留意 root 用户能否通过 SSH 登录：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">PermitRootLogin yes&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>当你完成全部设置，并以密钥方式登录成功后，再禁用密码登录：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">PasswordAuthentication no&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>最后，重启 SSH 服务：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">service sshd restart&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="方案二一键配置脚本" class="heading-element">&lt;span>方案二：一键配置脚本&lt;/span>
- &lt;a href="#%e6%96%b9%e6%a1%88%e4%ba%8c%e4%b8%80%e9%94%ae%e9%85%8d%e7%bd%ae%e8%84%9a%e6%9c%ac" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h2>&lt;p>转载：&lt;a href="https://p3terx.com/archives/ssh-key-installer.html"target="_blank" rel="external nofollow noopener noreferrer">【P3TERX ZONE】SSH 密钥一键配置脚本 使用教程&lt;/a>&lt;/p>
-&lt;p>对于新入手或重装后的 VPS 配置密钥登录需要创建 &lt;code>~/.ssh&lt;/code> 目录、把公钥写入到 &lt;code>~/.ssh/authorized_keys&lt;/code>、设置权限、禁用密码登录等操作，虽然都是很简单的基础操作，但过程麻烦且枯燥：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p ~/.ssh
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl -fsSL https://github.com/P3TERX.keys &amp;gt;&amp;gt; ~/.ssh/authorized_keys
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">700&lt;/span> ~/.ssh
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">600&lt;/span> ~/.ssh/authorized_keys
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo sed -i &lt;span class="s2">&amp;#34;s@.*\(PasswordAuthentication \).*@\1no@&amp;#34;&lt;/span> /etc/ssh/sshd_config
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo service sshd restart&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>SSH 密钥一键配置脚本是一套用于简化 SSH 密钥配置过程的解决方案。使用它以上操作只需要一行命令：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -g P3TERX -d&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="语法及选项说明" class="heading-element">&lt;span>语法及选项说明&lt;/span>
- &lt;a href="#%e8%af%ad%e6%b3%95%e5%8f%8a%e9%80%89%e9%a1%b9%e8%af%b4%e6%98%8e" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>选项...&lt;span class="o">]&lt;/span> &amp;lt;参数&amp;gt;&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ul>
-&lt;li>-o - 覆盖模式，必须写在最前面才会生效&lt;/li>
-&lt;li>-g - 从 GitHub 获取公钥，参数为 GitHub 用户名&lt;/li>
-&lt;li>-u - 从 URL 获取公钥，参数为 URL&lt;/li>
-&lt;li>-f - 从本地文件获取公钥，参数为本地文件路径&lt;/li>
-&lt;li>-p - 修改 SSH 端口，参数为端口号&lt;/li>
-&lt;li>-d - 禁用密码登录&lt;/li>
-&lt;/ul>
-&lt;h3 id="使用方法" class="heading-element">&lt;span>使用方法&lt;/span>
- &lt;a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h3>&lt;h4 id="生成-ssh-密钥对" class="heading-element">&lt;span>生成 SSH 密钥对&lt;/span>
- &lt;a href="#%e7%94%9f%e6%88%90-ssh-%e5%af%86%e9%92%a5%e5%af%b9" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h4>&lt;p>如果没有密钥需要先生成，执行以下命令后一路回车即可。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t ecdsa -b &lt;span class="m">521&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;blockquote>
-&lt;blockquote>
-&lt;p>TIPS： 此方法适用于 Win­dows 10 (1803后)的 Pow­er­Shell 或 WSL，Linux 发行版和 ma­cOS 自带的终端，但不仅限于这些环境。
-科普： 521 位的 ECDSA 密钥比起 RSA 密钥更安全且验证速度更快。&lt;/p>
-&lt;/blockquote>
-&lt;/blockquote>
-&lt;p>操作完后会在 &lt;code>~/.ssh&lt;/code> 目录中生两个密钥文件，&lt;code>id_ecdsa&lt;/code> 为私钥，&lt;code>id_ecdsa.pub&lt;/code> 为公钥。公钥就是我们需要安装在远程主机上的。&lt;/p>
-&lt;blockquote>
-&lt;blockquote>
-&lt;p>科普：~符号代表用户主目录，俗称家目录。其路径与当前登陆的用户有关，在 Linux 中普通用户家目录的路径是/home/用户名，而 root 用户是/root。Win­dows 10 中路径是C:\Users\用户名。在 ma­cOS 中路径是/Users/用户名。&lt;/p>
-&lt;/blockquote>
-&lt;/blockquote>
-&lt;h4 id="安装公钥" class="heading-element">&lt;span>安装公钥&lt;/span>
- &lt;a href="#%e5%ae%89%e8%a3%85%e5%85%ac%e9%92%a5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h4>&lt;h5 id="从-github-获取公钥" class="heading-element">&lt;span>从 GitHub 获取公钥&lt;/span>
- &lt;a href="#%e4%bb%8e-github-%e8%8e%b7%e5%8f%96%e5%85%ac%e9%92%a5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h5>&lt;p>在 GitHub 密钥管理页面 添加公钥，比如我的用户名是 P3TERX，那么在主机上输入以下命令即可：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -g P3TERX&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h5 id="从-url-获取公钥" class="heading-element">&lt;span>从 URL 获取公钥&lt;/span>
- &lt;a href="#%e4%bb%8e-url-%e8%8e%b7%e5%8f%96%e5%85%ac%e9%92%a5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h5>&lt;p>把公钥上传到网盘，通过网盘链接获取公钥：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -u https://p3terx.com/key.pub&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h5 id="从本地文件获取公钥" class="heading-element">&lt;span>从本地文件获取公钥&lt;/span>
- &lt;a href="#%e4%bb%8e%e6%9c%ac%e5%9c%b0%e6%96%87%e4%bb%b6%e8%8e%b7%e5%8f%96%e5%85%ac%e9%92%a5" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h5>&lt;p>通过 FTP 的方式把公钥传到 VPS 上，然后指定公钥路径：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -f ~/key.pub&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h4 id="覆盖模式" class="heading-element">&lt;span>覆盖模式&lt;/span>
- &lt;a href="#%e8%a6%86%e7%9b%96%e6%a8%a1%e5%bc%8f" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h4>&lt;p>使用覆盖模式（-o）将覆盖 /.ssh/authorized_keys 文件，之前的密钥会被完全替换掉，选项必须写在最前面才会生效，比如：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -o -g P3TERX&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>或者&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -og P3TERX&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h4 id="禁用密码登录" class="heading-element">&lt;span>禁用密码登录&lt;/span>
- &lt;a href="#%e7%a6%81%e7%94%a8%e5%af%86%e7%a0%81%e7%99%bb%e5%bd%95" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h4>&lt;p>在确定使用密钥能正常登录后禁用密码登录：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -d&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h4 id="修改-ssh-端口" class="heading-element">&lt;span>修改 SSH 端口&lt;/span>
- &lt;a href="#%e4%bf%ae%e6%94%b9-ssh-%e7%ab%af%e5%8f%a3" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h4>&lt;p>把 SSH 端口修改为 2222：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -p &lt;span class="m">2222&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h4 id="一键操作" class="heading-element">&lt;span>一键操作&lt;/span>
- &lt;a href="#%e4%b8%80%e9%94%ae%e6%93%8d%e4%bd%9c" class="heading-mark">
- &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
- &lt;/a>
-&lt;/h4>&lt;p>安装密钥、修改端口、禁用密码登录一键操作：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL git.io/key.sh&lt;span class="o">)&lt;/span> -og P3TERX -p &lt;span class="m">2222&lt;/span> -d&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></description></item></channel></rss>
+&lt;/ul></description></item></channel></rss>
