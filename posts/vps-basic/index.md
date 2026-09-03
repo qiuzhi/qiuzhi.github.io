@@ -364,15 +364,14 @@ IP质量体检报告：
 bash &lt;(curl -Ls IP.Check.Place)
 ```
 
-#### 4.3 融合怪脚本
+#### 4.3 测试脚本
 
-这个脚本非常不错，虽然是个融合脚本但是有很多别的脚本测不了的东西，有网络信息，IP信息，解锁信息，常用端口开放信息，硬件信息等。关于IP质量问题除了这个以外，IP信息还可以去这里查询，结果非常详细：https://ipinfo.io/
+本项目本质上是测试工具集合的前置加载器和结果后处理项目。把服务器测试工作的流程给规范化自动化了。 让测试仅仅是测试，不要留下一堆痕迹；让测试可以更舒服省心，自动排版截图。
 
-github项目地址：https://github.com/spiritLHLS/ecs
+github项目地址：https://github.com/LloydAsp/NodeQuality
 
 ```bash
-bash &lt;(wget -qO- --no-check-certificate https://github.com/spiritLHLS/ecs/raw/main/ecs.sh)
-bash &lt;(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh)
+bash &lt;(curl -sL https://run.NodeQuality.com)
 ```
 
 #### 4.4 添加 SWAP
