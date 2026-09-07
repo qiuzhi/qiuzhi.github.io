@@ -502,7 +502,21 @@ docker inspect --format=&#39;{{.Name}} - {{range .NetworkSettings.Networks}}{{.I
 docker exec -it &lt;container id&gt; /bin/bash
 ```
 
-#### 4.8 ZeroTier
+#### 4.9 ZeroTier
+
+```bash
+curl -fsSL https://tailscale.com/install.sh | sh
+```
+
+运行命令，通过网页授权加入异地虚拟网络
+
+```bash
+sudo tailscale up --hostname=vps-name --advertise-tags=managed-vps --accept-dns=false --ssh
+```
+
+终端会给出一个网页链接，拷贝到浏览器授权后，回到终端如果看见`Success.`字样就说明成功加入异地虚拟局域网了。
+
+#### 4.9 ZeroTier
 
 安装
 
@@ -518,7 +532,7 @@ zerotier-cli join (网络ID)
 
 如果看见`200 join OK`字样就说明成功加入异地虚拟局域网了。
 
-#### 4.9 Warp
+#### 4.10 Warp
 
 各大一键脚本，自选一即可。
 
@@ -548,7 +562,7 @@ MISAKA :
 &gt; 双栈 &#43; IPv6 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁 (部分)&lt;br&gt;
 &gt; 双栈 &#43; IPv4 优先(默认) - IPv4 支持 | IPv6 支持 | ~200Mbps | WARP解锁
 
-#### 4.10 打包迁移
+#### 4.11 打包迁移
 
 只打包 `~/container` 目录下 `hermes` 文件夹
 
