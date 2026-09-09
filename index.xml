@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Sun, 06 Sep 2026 21:41:24 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>从“能连上”到“能管理”：我折腾 Tailscale 的完整过程</title><link>https://blog.iqzhi.com/posts/tailscale-from-tinkering-to-practical-deployment/</link><pubDate>Sun, 06 Sep 2026 21:41:24 +0800</pubDate><guid>https://blog.iqzhi.com/posts/tailscale-from-tinkering-to-practical-deployment/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>一开始，我只是想解决一个很具体的问题：让 Hermes 能够通过 SSH 管理宿主机和其他 VPS，同时尽量不把我的个人 SSH 私钥交给容器里的模型。&lt;/p>
-&lt;p>结果，这个问题一路牵出了 Tailscale、Docker 网络、Tailscale SSH、子网路由、IP Pool、ZeroTier 和 EasyTier。最后真正有价值的结论不是“某个参数怎么写”，而是把几个经常被混在一起的问题拆开：网络能不能到达、谁在发起连接、SSH 如何认证，以及家庭局域网如何被安全地转发出去。&lt;/p>
-&lt;h2 id="一-起点hermes-到底怎么连接宿主机" class="heading-element">&lt;span>一 起点：Hermes 到底怎么连接宿主机&lt;/span>
- &lt;a href="#%e4%b8%80-%e8%b5%b7%e7%82%b9hermes-%e5%88%b0%e5%ba%95%e6%80%8e%e4%b9%88%e8%bf%9e%e6%8e%a5%e5%ae%bf%e4%b8%bb%e6%9c%ba" class="heading-mark">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>秋至、枫以落</title><link>https://blog.iqzhi.com/</link><description>如果时间可以静止，我希望就停在此刻。</description><generator>Hugo 0.136.2 &amp; FixIt v0.3.17-30a67c4b</generator><language>zh-CN</language><lastBuildDate>Mon, 07 Sep 2026 09:00:00 +0800</lastBuildDate><atom:link href="https://blog.iqzhi.com/index.xml" rel="self" type="application/rss+xml"/><item><title>从"能连上"到"能管理"：我折腾 Tailscale 的完整过程</title><link>https://blog.iqzhi.com/posts/tailscale-from-tinkering-to-practical-deployment/</link><pubDate>Sun, 06 Sep 2026 21:41:24 +0800</pubDate><guid>https://blog.iqzhi.com/posts/tailscale-from-tinkering-to-practical-deployment/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>一开始，我只想解决一个具体问题：让 Hermes 能通过 SSH 管理宿主机和其他 VPS，同时尽量不把个人 SSH 私钥交给容器里的模型。&lt;/p>
+&lt;p>这个问题后来牵出了 Tailscale、Docker 网络、Tailscale SSH、子网路由、IP Pool、ZeroTier 和 EasyTier。真正有价值的结论，不是记住&amp;quot;某个参数怎么写&amp;quot;，而是把几个经常混在一起的问题拆开：网络是否可达、由谁发起连接、SSH 如何认证，以及家庭局域网如何安全转发出去。&lt;/p>
+&lt;h2 id="一-起点让-hermes-访问宿主机与-vps" class="heading-element">&lt;span>一 起点：让 Hermes 访问宿主机与 VPS&lt;/span>
+ &lt;a href="#%e4%b8%80-%e8%b5%b7%e7%82%b9%e8%ae%a9-hermes-%e8%ae%bf%e9%97%ae%e5%ae%bf%e4%b8%bb%e6%9c%ba%e4%b8%8e-vps" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;p>最初的设想很直接：在宿主机安装 Tailscale，让宿主机和 VPS 加入同一个 Tailnet，然后让 Hermes 容器直接访问远端 VPS 的 Tailscale IP。&lt;/p>
-&lt;p>这个方案确实解决了一部分问题：&lt;/p>
+&lt;p>这个方案先解决了远端访问这一部分：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -13,7 +13,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Hermes 容器 → 宿主机网络 → Tailscale → 远程 VPS&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>但它没有自动解决另一部分：&lt;/p>
+&lt;/div>&lt;p>但它并没有自动解决本机访问这一部分：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -21,22 +21,22 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Hermes 容器 → Hermes 所在宿主机&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>原因在于，Tailscale 身份属于宿主机，不属于普通 Docker 容器。容器只是借助宿主机出站，并不是一个独立的 Tailscale 节点。&lt;/p>
-&lt;p>这时必须区分两件事：&lt;/p>
+&lt;/div>&lt;p>原因在于，Tailscale 身份属于宿主机，而不属于普通 Docker 容器。容器只是借助宿主机出站，并不是独立的 Tailscale 节点。&lt;/p>
+&lt;p>这里需要把两件事分开：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>网络可达性&lt;/strong>：容器能不能访问目标机器的 TCP 端口；&lt;/li>
 &lt;li>&lt;strong>SSH 身份认证&lt;/strong>：目标机器如何确认连接者是谁，以及允许登录哪个 Linux 用户。&lt;/li>
 &lt;/ul>
-&lt;p>Tailscale 解决的是第一层；只有启用 Tailscale SSH 时，它才会进一步接管第二层。&lt;/p>
-&lt;h2 id="二-tailscalezerotier-和-easytier不是完全相同的选择" class="heading-element">&lt;span>二 Tailscale、ZeroTier 和 EasyTier，不是完全相同的选择&lt;/span>
- &lt;a href="#%e4%ba%8c-tailscalezerotier-%e5%92%8c-easytier%e4%b8%8d%e6%98%af%e5%ae%8c%e5%85%a8%e7%9b%b8%e5%90%8c%e7%9a%84%e9%80%89%e6%8b%a9" class="heading-mark">
+&lt;p>Tailscale 解决的是第一层；只有启用 Tailscale SSH，它才会进一步接管第二层。&lt;/p>
+&lt;h2 id="二-tailscalezerotier-和-easytier-的职责不同" class="heading-element">&lt;span>二 Tailscale、ZeroTier 和 EasyTier 的职责不同&lt;/span>
+ &lt;a href="#%e4%ba%8c-tailscalezerotier-%e5%92%8c-easytier-%e7%9a%84%e8%81%8c%e8%b4%a3%e4%b8%8d%e5%90%8c" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;h3 id="1-tailscale身份优先" class="heading-element">&lt;span>1 Tailscale：身份优先&lt;/span>
  &lt;a href="#1-tailscale%e8%ba%ab%e4%bb%bd%e4%bc%98%e5%85%88" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h3>&lt;p>Tailscale 的优势在于把网络连接和身份管理放在了一起：&lt;/p>
+&lt;/h3>&lt;p>Tailscale 的优势，是把网络连接和身份管理放在了一起：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -56,20 +56,29 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ↓
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Tailscale SSH&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>它基于 WireGuard，默认提供 NAT 穿透、DERP 中继、MagicDNS、ACL、子网路由和 Tailscale SSH。对于管理 VPS 和基础设施来说，整体体验比较完整。&lt;/p>
+&lt;/div>&lt;p>它基于 WireGuard，提供 NAT 穿透、DERP 中继、MagicDNS、ACL、子网路由和 Tailscale SSH。对 VPS 和基础设施管理来说，这套能力比较完整。&lt;/p>
 &lt;h3 id="2-zerotier虚拟网络优先" class="heading-element">&lt;span>2 ZeroTier：虚拟网络优先&lt;/span>
  &lt;a href="#2-zerotier%e8%99%9a%e6%8b%9f%e7%bd%91%e7%bb%9c%e4%bc%98%e5%85%88" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h3>&lt;p>ZeroTier 更像一个虚拟交换网络。它的规则、Tag、Capability 和 Flow Rules 很灵活，对某些二层网络、广播、组播和 mDNS 场景更友好。&lt;/p>
-&lt;p>但 ZeroTier 的网络身份不会自动变成 Linux 的 SSH 身份。它可以控制“能不能访问目标机器的 22 端口”，却不会替代 SSH 私钥、SSH Agent 或证书。&lt;/p>
-&lt;h3 id="3-easytier自建和国内网络灵活性优先" class="heading-element">&lt;span>3 EasyTier：自建和国内网络灵活性优先&lt;/span>
+&lt;/h3>&lt;p>ZeroTier 更像一个虚拟交换网络。它的规则、Tag、Capability 和 Flow Rules 都很灵活，在某些二层网络、广播、组播和 mDNS 场景下更友好。&lt;/p>
+&lt;p>但 ZeroTier 的网络身份不会自动变成 Linux 的 SSH 身份。它可以控制&amp;quot;能否访问目标机器的 22 端口&amp;quot;，却不能替代 SSH 私钥、SSH Agent 或证书。&lt;/p>
+&lt;p>新版 Central（&lt;code>central.zerotier.com&lt;/code>）引入了 Organizations 和新的 Flow Rules 模板，管理界面比旧版更现代，但核心协议仍是虚拟二层网络。ZeroTier 的优势没有本质变化，仍然集中在：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">适合需要完整二层、广播、组播、mDNS、Device Posture 的场景&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="3-easytier自建和国内网络灵活性优先" class="heading-element">&lt;span>3 EasyTier：自建和国内网络灵活性优先&lt;/span>
  &lt;a href="#3-easytier%e8%87%aa%e5%bb%ba%e5%92%8c%e5%9b%bd%e5%86%85%e7%bd%91%e7%bb%9c%e7%81%b5%e6%b4%bb%e6%80%a7%e4%bc%98%e5%85%88" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h3>&lt;p>EasyTier 更适合希望自己控制节点、中继和地址规划的人。它支持 P2P、公共节点、自建节点、子网代理和 OpenWrt/LuCI 相关方案，也可以使用自己规划的虚拟网段。&lt;/p>
-&lt;p>但它同样没有 Tailscale SSH。EasyTier 能解决“网络怎么连”，不能解决“SSH 如何免传统私钥登录”。&lt;/p>
-&lt;p>因此，三者的取舍可以简单概括为：&lt;/p>
+&lt;/h3>&lt;p>EasyTier 更适合希望自行控制节点、中继和地址规划的人。它支持 P2P、公共节点、自建节点、子网代理和 OpenWrt/LuCI 相关方案，也可以使用自行规划的虚拟网段。&lt;/p>
+&lt;p>但它同样没有 Tailscale SSH。EasyTier 能解决&amp;quot;网络如何连接&amp;quot;，不能解决&amp;quot;SSH 如何免传统私钥登录&amp;quot;。&lt;/p>
+&lt;p>另外，EasyTier 主模式是 TUN，也就是三层 IP 网络；它目前不能原样替代 ZeroTier 的完整二层虚拟以太网能力。像 mDNS 广播、ARP、NetBIOS、AirPrint 自动发现这类依赖二层帧的协议，EasyTier 会缺失。&lt;/p>
+&lt;p>因此，三者的取舍可以概括为：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -79,15 +88,96 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Tailscale：身份和管理体验优先
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ZeroTier：虚拟二层网络优先
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EasyTier：自建、可控和灵活性优先&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EasyTier：自建、可控和国内链路灵活性优先&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>我的实际需求是 Hermes 管理宿主机和 VPS，并希望尽量减少 SSH 私钥暴露，所以最终仍然选择 Tailscale 作为主网络。&lt;/p>
-&lt;h2 id="三-第一次验证不要凭延迟猜中继" class="heading-element">&lt;span>三 第一次验证：不要凭延迟猜中继&lt;/span>
- &lt;a href="#%e4%b8%89-%e7%ac%ac%e4%b8%80%e6%ac%a1%e9%aa%8c%e8%af%81%e4%b8%8d%e8%a6%81%e5%87%ad%e5%bb%b6%e8%bf%9f%e7%8c%9c%e4%b8%ad%e7%bb%a7" class="heading-mark">
+&lt;/div>&lt;h3 id="4-vps-管理优先使用宿主机原生-tailscale" class="heading-element">&lt;span>4 VPS 管理优先使用宿主机原生 Tailscale&lt;/span>
+ &lt;a href="#4-vps-%e7%ae%a1%e7%90%86%e4%bc%98%e5%85%88%e4%bd%bf%e7%94%a8%e5%ae%bf%e4%b8%bb%e6%9c%ba%e5%8e%9f%e7%94%9f-tailscale" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;p>普通的系统 &lt;code>ping&lt;/code> 只能说明 ICMP 可达，不能说明 Tailscale 当前走的是直连、DERP 还是 Peer Relay。&lt;/p>
-&lt;p>真正应该使用：&lt;/p>
+&lt;/h3>&lt;p>VPS 上的 Tailscale 有两种安装方式：&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>方式&lt;/th>
+ &lt;th>最合适场景&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>直接命令安装&lt;/td>
+ &lt;td>管理 VPS 宿主机、发布子网路由、作为救援通道&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>Docker 安装&lt;/td>
+ &lt;td>让某个容器加入 Tailnet，提供独立服务&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>Docker 版 Tailscale 可以正常运行，但如果目标是：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">通过 Tailscale 访问 VPS 宿主机
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">通过 Tailscale 发布 VPS 后面的网段&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>那么 Docker 方式的限制就会暴露出来：&lt;/p>
+&lt;ul>
+&lt;li>容器重建可能丢失节点身份，必须持久化 &lt;code>/var/lib/tailscale&lt;/code>；&lt;/li>
+&lt;li>默认 userspace networking 不能完整替代宿主机 TUN 接口；&lt;/li>
+&lt;li>Docker 服务异常会导致 Tailscale 通道一起断掉；&lt;/li>
+&lt;li>子网路由、iptables、返回路径比直接安装复杂。&lt;/li>
+&lt;/ul>
+&lt;p>因此，更稳妥的做法是 &lt;strong>在 VPS 宿主机原生安装 &lt;code>tailscale&lt;/code>&lt;/strong>，让 &lt;code>tailscaled&lt;/code> 作为 systemd 服务运行。Docker 适合只给单个应用分配 Tailnet 身份，不适合把 Tailscale 作为 VPS 管理通道。&lt;/p>
+&lt;h3 id="5-三网共存按区域分工不按设备铺满" class="heading-element">&lt;span>5 三网共存按区域分工，不按设备铺满&lt;/span>
+ &lt;a href="#5-%e4%b8%89%e7%bd%91%e5%85%b1%e5%ad%98%e6%8c%89%e5%8c%ba%e5%9f%9f%e5%88%86%e5%b7%a5%e4%b8%8d%e6%8c%89%e8%ae%be%e5%a4%87%e9%93%ba%e6%bb%a1" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h3>&lt;p>同时使用 Tailscale、EasyTier、ZeroTier 时，三者可以共存，但最容易出问题的地方是：&lt;/p>
+&lt;ul>
+&lt;li>虚拟网段重复；&lt;/li>
+&lt;li>路由抢同一个目标；&lt;/li>
+&lt;li>DNS 多次接管冲突；&lt;/li>
+&lt;li>多个 Exit Node 抢默认路由；&lt;/li>
+&lt;li>Docker 容器内外看到的接口不一样。&lt;/li>
+&lt;/ul>
+&lt;p>因此，不要把&amp;quot;三套网络都装到每一台设备上&amp;quot;。更合理的做法是按区域分工：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">国外 VPS：Tailscale 为主
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">国内服务器 / 家庭环境：EasyTier 为主
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">需要二层、广播、组播：ZeroTier 按需启用
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Hermes 宿主机 / 管理电脑：同时加入 Tailscale 和 EasyTier&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>并且把三段网在逻辑上彻底分开：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">Tailscale：100.64.0.0/10，官方分配，IP Pool 可按 tag 裁剪
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EasyTier：10.126.126.0/24（示例）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ZeroTier：10.200.0.0/24（按需）
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">家庭 LAN：保持现有 192.168.1.0/24&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>不要&lt;/strong>让两个 VPN 同时发布同一个家庭 LAN 网段，也&lt;strong>不要&lt;/strong>同时启用多个 0.0.0.0/0 Exit Node。&lt;/p>
+&lt;h2 id="三-第一次验证不要只凭延迟判断中继" class="heading-element">&lt;span>三 第一次验证：不要只凭延迟判断中继&lt;/span>
+ &lt;a href="#%e4%b8%89-%e7%ac%ac%e4%b8%80%e6%ac%a1%e9%aa%8c%e8%af%81%e4%b8%8d%e8%a6%81%e5%8f%aa%e5%87%ad%e5%bb%b6%e8%bf%9f%e5%88%a4%e6%96%ad%e4%b8%ad%e7%bb%a7" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>系统自带的 &lt;code>ping&lt;/code> 只能说明 ICMP 可达，不能说明 Tailscale 当前走的是直连、DERP 还是 Peer Relay。&lt;/p>
+&lt;p>应当直接使用：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -103,7 +193,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">tailscale ping 100.123.36.113&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>一次实际结果是：&lt;/p>
+&lt;/div>&lt;p>一次实际结果如下：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -119,7 +209,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">via 198.23.242.105:41641&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>说明已经建立了 UDP 点对点直连，而不是经过：&lt;/p>
+&lt;/div>&lt;p>这说明已经建立 UDP 点对点直连，而不是经过：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -129,9 +219,10 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">DERP(...)
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">peer-relay(...)&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>第一次普通 &lt;code>ping&lt;/code> 的延迟较高、后续下降，也不能单独作为结论。Tailscale 通常先通过中继完成发现和协商，随后尝试升级为直连。判断路径时，应以 &lt;code>tailscale ping&lt;/code> 或正在传输时的 &lt;code>tailscale status&lt;/code> 为准。&lt;/p>
-&lt;h2 id="四-为什么-tailscale-status-有时不显示-direct" class="heading-element">&lt;span>四 为什么 &lt;code>tailscale status&lt;/code> 有时不显示 direct&lt;/span>
- &lt;a href="#%e5%9b%9b-%e4%b8%ba%e4%bb%80%e4%b9%88-tailscale-status-%e6%9c%89%e6%97%b6%e4%b8%8d%e6%98%be%e7%a4%ba-direct" class="heading-mark">
+&lt;/div>&lt;p>&lt;code>tailscale ping&lt;/code> 显示的 &lt;code>via 198.23.242.105:41641&lt;/code> 后面是对方公网地址和 WireGuard 端口，说明两端已经 UDP 打洞成功，当前使用的是直连。&lt;/p>
+&lt;p>第一次普通 &lt;code>ping&lt;/code> 延迟较高、随后下降，也不能单独作为结论。Tailscale 通常先通过中继完成发现和协商，随后尝试升级为直连。判断路径时，应以 &lt;code>tailscale ping&lt;/code>，或有持续传输时的 &lt;code>tailscale status&lt;/code> 为准。&lt;/p>
+&lt;h2 id="四-空闲状态下-tailscale-status-可能省略-direct" class="heading-element">&lt;span>四 空闲状态下 &lt;code>tailscale status&lt;/code> 可能省略 direct&lt;/span>
+ &lt;a href="#%e5%9b%9b-%e7%a9%ba%e9%97%b2%e7%8a%b6%e6%80%81%e4%b8%8b-tailscale-status-%e5%8f%af%e8%83%bd%e7%9c%81%e7%95%a5-direct" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;p>当连接没有持续业务流量时，&lt;code>tailscale status&lt;/code> 可能显示：&lt;/p>
@@ -142,8 +233,8 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">idle, tx ... rx ...&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>这不是“没有直连”，而是当前连接处于空闲状态，输出中省略了实时路径信息。&lt;/p>
-&lt;p>持续产生流量时再看：&lt;/p>
+&lt;/div>&lt;p>这不表示&amp;quot;没有直连&amp;quot;，而是当前连接处于空闲状态，输出省略了实时路径信息。&lt;/p>
+&lt;p>持续产生流量后再查看：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -159,7 +250,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">tailscale status&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>典型状态才会显示：&lt;/p>
+&lt;/div>&lt;p>在这种情况下，典型状态会显示：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -167,7 +258,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">active; direct 198.23.242.105:41641&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>如果是中继，则会显示：&lt;/p>
+&lt;/div>&lt;p>使用中继时，会显示：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -175,8 +266,27 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">active; relay &amp;#34;xxx&amp;#34;&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="五-tailscale-ssh固定使用-22-端口但不会破坏普通-ssh" class="heading-element">&lt;span>五 Tailscale SSH：固定使用 22 端口，但不会破坏普通 SSH&lt;/span>
- &lt;a href="#%e4%ba%94-tailscale-ssh%e5%9b%ba%e5%ae%9a%e4%bd%bf%e7%94%a8-22-%e7%ab%af%e5%8f%a3%e4%bd%86%e4%b8%8d%e4%bc%9a%e7%a0%b4%e5%9d%8f%e6%99%ae%e9%80%9a-ssh" class="heading-mark">
+&lt;/div>&lt;p>从外部判断连接是否直连时，不要只看 &lt;code>ping&lt;/code> 延迟。&lt;code>tailscale ping&lt;/code> 的返回更直接：出现 &lt;code>via DERP(...)&lt;/code> 或 &lt;code>peer-relay(...)&lt;/code> 就不是直连；出现 &lt;code>via &amp;lt;公网IP&amp;gt;:&amp;lt;端口&amp;gt;&lt;/code> 则大概率已经直连。&lt;/p>
+&lt;h2 id="五-通过命令输出判断直连与中继" class="heading-element">&lt;span>五 通过命令输出判断直连与中继&lt;/span>
+ &lt;a href="#%e4%ba%94-%e9%80%9a%e8%bf%87%e5%91%bd%e4%bb%a4%e8%be%93%e5%87%ba%e5%88%a4%e6%96%ad%e7%9b%b4%e8%bf%9e%e4%b8%8e%e4%b8%ad%e7%bb%a7" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>可以从两个层面判断：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>ICMP 直连&lt;/strong>：&lt;code>tailscale ping&lt;/code> 输出里出现 &lt;code>direct&lt;/code>；&lt;/li>
+&lt;li>&lt;strong>UDP 打洞成功&lt;/strong>：输出里出现 &lt;code>via &amp;lt;公网IP&amp;gt;:&amp;lt;端口&amp;gt;&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;p>例如输出：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">pong from ... via DERP(japan1:41641) in 25ms&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这说明走的是 relay 服务器，而不是直连。实际测试中，小米机器到日本 VPS 可以做到 33ms 以内的 P2P；部分国内机器之间由于移动 CGNAT 较重，先经过 DERP、再升级为 P2P，也完全正常。&lt;/p>
+&lt;h2 id="六-tailscale-ssh固定使用-22-端口但不会破坏普通-ssh" class="heading-element">&lt;span>六 Tailscale SSH：固定使用 22 端口，但不会破坏普通 SSH&lt;/span>
+ &lt;a href="#%e5%85%ad-tailscale-ssh%e5%9b%ba%e5%ae%9a%e4%bd%bf%e7%94%a8-22-%e7%ab%af%e5%8f%a3%e4%bd%86%e4%b8%8d%e4%bc%9a%e7%a0%b4%e5%9d%8f%e6%99%ae%e9%80%9a-ssh" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;p>Tailscale SSH 是这次方案里最关键的功能之一。启用后，目标设备的 Tailscale IP 上的 TCP 22 端口由 Tailscale SSH 接管：&lt;/p>
@@ -189,7 +299,7 @@
 &lt;/div>
 &lt;/div>&lt;p>它使用 Tailscale 节点身份和 Tailnet 策略认证，不要求客户端提供传统 SSH 私钥。&lt;/p>
 &lt;p>但 Tailscale SSH 有一个限制：它目前固定使用端口 22，不能改成自定义端口。&lt;/p>
-&lt;p>如果系统普通 SSH 已经改成了 2222 端口，启用 Tailscale SSH 后可以形成这样的并存关系：&lt;/p>
+&lt;p>若系统普通 SSH 已经改成 2222 端口，启用 Tailscale SSH 后可以形成这样的并存关系：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -232,8 +342,8 @@
 &lt;li>&lt;code>--accept-dns=false&lt;/code>：不接受 Tailscale 下发的系统 DNS 配置；&lt;/li>
 &lt;li>&lt;code>--ssh&lt;/code>：启用 Tailscale SSH 服务端。&lt;/li>
 &lt;/ul>
-&lt;h2 id="六-hostnameip-和人类记忆" class="heading-element">&lt;span>六 Hostname、IP 和人类记忆&lt;/span>
- &lt;a href="#%e5%85%ad-hostnameip-%e5%92%8c%e4%ba%ba%e7%b1%bb%e8%ae%b0%e5%bf%86" class="heading-mark">
+&lt;h2 id="七-hostnameip-与日常记忆" class="heading-element">&lt;span>七 Hostname、IP 与日常记忆&lt;/span>
+ &lt;a href="#%e4%b8%83-hostnameip-%e4%b8%8e%e6%97%a5%e5%b8%b8%e8%ae%b0%e5%bf%86" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h2>&lt;p>默认 Tailscale 地址来自：&lt;/p>
@@ -244,7 +354,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">100.64.0.0/10&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>这个地址空间很大，随机分配出来的地址不适合人工记忆。后来我把一台 VPS 的名称和地址明确改成：&lt;/p>
+&lt;/div>&lt;p>这个地址空间很大，随机分配出来的地址不适合人工记忆。我把一台 VPS 的名称和地址明确设为：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -254,7 +364,7 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">设备名：ccs-3c4g
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Tailscale IP：100.98.76.105&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>Hostname 不能包含空格，适合使用：&lt;/p>
+&lt;/div>&lt;p>Hostname 不能包含空格，适合使用以下形式：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -276,7 +386,7 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">广州生产 VPS
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">my vps&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>机器名称和备注应该分开。Hostname 用于 DNS、SSH 和设备识别；中文说明放到资产清单或备注里。&lt;/p>
+&lt;/div>&lt;p>机器名称和备注应当分开。Hostname 用于 DNS、SSH 和设备识别；中文说明放到资产清单或备注里。&lt;/p>
 &lt;p>日常连接优先使用：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -293,11 +403,11 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh root@100.98.76.105&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="七-要不要把整个-tailnet-改成一个小网段" class="heading-element">&lt;span>七 要不要把整个 Tailnet 改成一个小网段&lt;/span>
- &lt;a href="#%e4%b8%83-%e8%a6%81%e4%b8%8d%e8%a6%81%e6%8a%8a%e6%95%b4%e4%b8%aa-tailnet-%e6%94%b9%e6%88%90%e4%b8%80%e4%b8%aa%e5%b0%8f%e7%bd%91%e6%ae%b5" class="heading-mark">
+&lt;/div>&lt;h2 id="八-tailnet-地址空间与实际路由范围" class="heading-element">&lt;span>八 Tailnet 地址空间与实际路由范围&lt;/span>
+ &lt;a href="#%e5%85%ab-tailnet-%e5%9c%b0%e5%9d%80%e7%a9%ba%e9%97%b4%e4%b8%8e%e5%ae%9e%e9%99%85%e8%b7%af%e7%94%b1%e8%8c%83%e5%9b%b4" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;p>Tailscale 默认使用 &lt;code>/10&lt;/code>，但并不意味着所有 &lt;code>100.64.0.0/10&lt;/code> 流量都会被强制送进 Tailscale。&lt;/p>
+&lt;/h2>&lt;p>Tailscale 默认使用 &lt;code>/10&lt;/code>，但这不意味着所有 &lt;code>100.64.0.0/10&lt;/code> 流量都会被强制送进 Tailscale。&lt;/p>
 &lt;p>在 Linux 上，正常情况下主要是已知 Tailnet 节点对应的 &lt;code>/32&lt;/code> 路由进入 &lt;code>tailscale0&lt;/code>。未被使用的地址仍然走原来的默认路由。&lt;/p>
 &lt;p>在 &lt;code>ccs-3c4g&lt;/code> 上实际检查过：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -307,7 +417,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ip route get 100.98.76.1&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>未使用的地址仍走普通网卡和默认网关，而不是 &lt;code>tailscale0&lt;/code>。因此，移动宽带使用 CGNAT 的事实并不自动意味着 Tailscale 必然冲突。&lt;/p>
+&lt;/div>&lt;p>未使用的地址仍走普通网卡和默认网关，而不是 &lt;code>tailscale0&lt;/code>。因此，移动宽带使用 CGNAT，并不自动意味着 Tailscale 一定冲突。&lt;/p>
 &lt;p>Tailscale 确实支持 Beta 版 IP Pool，可以把分配范围限制到一个较小的子网，例如：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -338,13 +448,126 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>这样新加入的管理员设备会从这个池中自动分配地址，不需要每台设备都去后台手工指定。&lt;/p>
+&lt;/div>&lt;p>这样新加入的管理员设备会从这个池中自动分配地址，不必逐台在后台手工指定。&lt;/p>
 &lt;p>需要注意：IP Pool 只保证地址属于这个范围，不保证自动分配一定从 &lt;code>.10&lt;/code>、&lt;code>.11&lt;/code>、&lt;code>.12&lt;/code> 顺序开始。已有设备通常也不会自动全部迁移，关键设备才需要在后台或通过 API 单独调整。&lt;/p>
-&lt;h2 id="八-最终网络结构kwrt-负责家庭子网转发" class="heading-element">&lt;span>八 最终网络结构：KWRT 负责家庭子网转发&lt;/span>
- &lt;a href="#%e5%85%ab-%e6%9c%80%e7%bb%88%e7%bd%91%e7%bb%9c%e7%bb%93%e6%9e%84kwrt-%e8%b4%9f%e8%b4%a3%e5%ae%b6%e5%ba%ad%e5%ad%90%e7%bd%91%e8%bd%ac%e5%8f%91" class="heading-mark">
+&lt;h2 id="九-用-ip-pool-与-tag-规划-vps-地址" class="heading-element">&lt;span>九 用 IP Pool 与 Tag 规划 VPS 地址&lt;/span>
+ &lt;a href="#%e4%b9%9d-%e7%94%a8-ip-pool-%e4%b8%8e-tag-%e8%a7%84%e5%88%92-vps-%e5%9c%b0%e5%9d%80" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;p>家庭网络并不需要把 Tailscale 安装到每一台设备上。更合理的方式是把 KWRT 路由器作为 Subnet Router：&lt;/p>
+&lt;/h2>&lt;p>Tailscale 默认从 &lt;code>100.64.0.0/10&lt;/code> 中随机分配地址。这个范围太大，不方便按用途记忆。官方提供了 IP Pool，可以按 tag 限定新节点的分配范围。&lt;/p>
+&lt;p>这里有两个关键点：&lt;/p>
+&lt;ul>
+&lt;li>IP Pool 目前是 &lt;strong>beta&lt;/strong> 功能；&lt;/li>
+&lt;li>&lt;strong>安装时不能指定某个具体 IP&lt;/strong>，只能通过 &lt;code>tag&lt;/code> 间接决定&amp;quot;从哪个 /24 里自动拿一个&amp;quot;。&lt;/li>
+&lt;/ul>
+&lt;p>假设想把地址按用途分开：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">tag:vps-oversea → 100.98.76.0/24
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tag:vps-cn → 100.98.77.0/24
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tag:home → 100.98.78.0/24&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>第一步，在 Tailscale 管理后台修改 Access Controls，加上 tagOwners 和 nodeAttrs：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;tagOwners&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;tag:vps-oversea&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;autogroup:admin&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;tag:vps-cn&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;autogroup:admin&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;tag:home&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;autogroup:admin&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;nodeAttrs&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;target&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;tag:vps-oversea&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ipPool&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;100.98.76.0/24&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;target&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;tag:vps-cn&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ipPool&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;100.98.77.0/24&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;target&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;tag:home&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ipPool&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;100.98.78.0/24&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>第二步，为每种用途生成带 tag 的 auth key，而不是复用个人 key：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">国外 VPS：tag:vps-oversea
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">国内 VPS：tag:vps-cn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">家庭路由：tag:home&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>生成时勾选 Reusable、指定对应 tag、不要勾 Ephemeral。&lt;/p>
+&lt;p>第三步，VPS 安装时只传入 auth key 和 hostname：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -fsSL https://tailscale.com/install.sh &lt;span class="p">|&lt;/span> sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo tailscale up &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --auth-key&lt;span class="o">=&lt;/span>tskey-auth-xxxx &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --hostname&lt;span class="o">=&lt;/span>overseas-vps-01 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --accept-dns&lt;span class="o">=&lt;/span>false&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>节点加入后，会自动变成 tagged 设备，并从对应 &lt;code>/24&lt;/code> 中拿到地址。验证：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">tailscale status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tailscale ip -4&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>若已有一台设备被手工固定为 &lt;code>100.98.76.105&lt;/code>，后续给它添加同样的 &lt;code>tag:vps-oversea&lt;/code>，新节点仍会从这个网段分配，不会与它冲突。更关键的是：&lt;strong>不要把同一台机器同时打多个用途 tag&lt;/strong>，否则它可能命中多个 ipPool，分配结果反而不稳定。&lt;/p>
+&lt;p>对于个人电脑、笔记本、手机，不要打 tag。它们走默认分配即可，也便于和其他人账号区分。Tag 只给 VPS、路由器、CI 这类服务设备用。&lt;/p>
+&lt;h2 id="十-最终网络结构由-kwrt-负责家庭子网转发" class="heading-element">&lt;span>十 最终网络结构：由 KWRT 负责家庭子网转发&lt;/span>
+ &lt;a href="#%e5%8d%81-%e6%9c%80%e7%bb%88%e7%bd%91%e7%bb%9c%e7%bb%93%e6%9e%84%e7%94%b1-kwrt-%e8%b4%9f%e8%b4%a3%e5%ae%b6%e5%ba%ad%e5%ad%90%e7%bd%91%e8%bd%ac%e5%8f%91" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>家庭网络不需要在每台设备上安装 Tailscale。更合理的做法，是把 KWRT 路由器作为 Subnet Router：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -372,7 +595,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── 家庭宿主机
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> └── 其他局域网设备&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>配置过程是：&lt;/p>
+&lt;/div>&lt;p>配置分为以下几个环节：&lt;/p>
 &lt;h3 id="1-在-kwrt-安装-tailscale" class="heading-element">&lt;span>1 在 KWRT 安装 Tailscale&lt;/span>
  &lt;a href="#1-%e5%9c%a8-kwrt-%e5%ae%89%e8%a3%85-tailscale" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -385,7 +608,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">tailscale&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>如果需要 LuCI 图形界面，再安装：&lt;/p>
+&lt;/div>&lt;p>需要 LuCI 图形界面时，再安装：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -393,7 +616,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">luci-app-tailscale&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>但 LuCI 插件只是管理层，核心连接仍然是 &lt;code>tailscale&lt;/code> 和 &lt;code>tailscaled&lt;/code>。&lt;/p>
+&lt;/div>&lt;p>但 LuCI 插件只是管理层，核心连接仍由 &lt;code>tailscale&lt;/code> 和 &lt;code>tailscaled&lt;/code> 提供。&lt;/p>
 &lt;h3 id="2-开启-ip-转发" class="heading-element">&lt;span>2 开启 IP 转发&lt;/span>
  &lt;a href="#2-%e5%bc%80%e5%90%af-ip-%e8%bd%ac%e5%8f%91" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -465,7 +688,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">tailscale → lan&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>也就是允许远程 Tailnet 设备访问家庭局域网。初始阶段保留默认 SNAT，不要急着关闭。这样家庭设备不需要额外添加返回 &lt;code>100.64.0.0/10&lt;/code> 的路由。&lt;/p>
+&lt;/div>&lt;p>这表示允许远程 Tailnet 设备访问家庭局域网。初始阶段保留默认 SNAT，不要急着关闭；这样家庭设备不需要额外添加返回 &lt;code>100.64.0.0/10&lt;/code> 的路由。&lt;/p>
 &lt;h3 id="6-远端客户端接受子网路由" class="heading-element">&lt;span>6 远端客户端接受子网路由&lt;/span>
  &lt;a href="#6-%e8%bf%9c%e7%ab%af%e5%ae%a2%e6%88%b7%e7%ab%af%e6%8e%a5%e5%8f%97%e5%ad%90%e7%bd%91%e8%b7%af%e7%94%b1" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -488,40 +711,110 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ping 192.168.1.1
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping 192.168.1.100&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>子网发布、后台批准、ACL 允许、客户端接受路由是四个不同环节，少任何一个都可能“看起来配置了但实际不通”。&lt;/p>
-&lt;h2 id="九-最终采用的原则" class="heading-element">&lt;span>九 最终采用的原则&lt;/span>
- &lt;a href="#%e4%b9%9d-%e6%9c%80%e7%bb%88%e9%87%87%e7%94%a8%e7%9a%84%e5%8e%9f%e5%88%99" class="heading-mark">
+&lt;/div>&lt;p>子网发布、后台批准、ACL 放行、客户端接受路由是四个不同环节，缺少任何一个，都可能出现&amp;quot;看起来配置了但实际不通&amp;quot;的情况。&lt;/p>
+&lt;h2 id="十一-tailscale-免费计划的适用边界" class="heading-element">&lt;span>十一 Tailscale 免费计划的适用边界&lt;/span>
+ &lt;a href="#%e5%8d%81%e4%b8%80-tailscale-%e5%85%8d%e8%b4%b9%e8%ae%a1%e5%88%92%e7%9a%84%e9%80%82%e7%94%a8%e8%be%b9%e7%95%8c" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;p>折腾到最后，方案收敛成了几条简单原则。&lt;/p>
+&lt;/h2>&lt;p>Tailscale Personal（免费）计划包含：&lt;/p>
+&lt;ul>
+&lt;li>最多 6 个用户；&lt;/li>
+&lt;li>无限用户设备；&lt;/li>
+&lt;li>最多 3 个 ACL groups；&lt;/li>
+&lt;li>最多 50 个 tagged 设备。&lt;/li>
+&lt;/ul>
+&lt;p>这意味着：&lt;/p>
+&lt;ul>
+&lt;li>管理你自己和家人、少量同事，通常够用；&lt;/li>
+&lt;li>SOHO / 家庭实验室的 VPS、路由器、NAS 如果都打 tag，要注意 50 台上限；&lt;/li>
+&lt;li>多租户分组能力在免费版里只有 3 个，复杂企业场景会不够。&lt;/li>
+&lt;/ul>
+&lt;p>以我目前的规模：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">两三台国外 VPS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">两三台国内 VPS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">家庭 KWRT
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">管理电脑&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Personal 计划足够使用。团队扩大后，再考虑 Standard 或按 tagged resource 付费扩展。&lt;/p>
+&lt;h2 id="十二-easytier-接口名称与-docker-部署注意事项" class="heading-element">&lt;span>十二 EasyTier 接口名称与 Docker 部署注意事项&lt;/span>
+ &lt;a href="#%e5%8d%81%e4%ba%8c-easytier-%e6%8e%a5%e5%8f%a3%e5%90%8d%e7%a7%b0%e4%b8%8e-docker-%e9%83%a8%e7%bd%b2%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>使用 Docker 版 EasyTier 时，最容易遇到的是两个实际问题：&lt;/p>
+&lt;ul>
+&lt;li>接口名称是什么；&lt;/li>
+&lt;li>如何把接口名称固定下来。&lt;/li>
+&lt;/ul>
+&lt;p>具体情况取决于 EasyTier 是直接安装在宿主机，还是运行在 Docker 中。&lt;/p>
+&lt;p>直接安装在宿主机时，可以通过参数控制 TUN 接口名：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">--dev-name easytier&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>不指定时由系统决定，通常是 &lt;code>easytier&lt;/code> 或 &lt;code>tun&lt;/code>，不同机器之间不保证一致。&lt;/p>
+&lt;p>Docker 版的情况没有这么直接。容器里的 &lt;code>easytier&lt;/code> 看到的接口属于容器网络命名空间，宿主机不一定能直接 &lt;code>ip link&lt;/code> 看到它。除非你使用：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">network_mode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">host&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">cap_add&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">NET_ADMIN&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">NET_RAW&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">devices&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/dev/net/tun:/dev/net/tun&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果不把 TUN 放到宿主机命名空间，容器重建或迁移后，设备名、PID、接口编号都可能变化。更可靠的做法，是在 EasyTier 配置中显式指定 &lt;code>dev-name&lt;/code>，并持久化这份配置。&lt;/p>
+&lt;h2 id="十三-最终采用的原则" class="heading-element">&lt;span>十三 最终采用的原则&lt;/span>
+ &lt;a href="#%e5%8d%81%e4%b8%89-%e6%9c%80%e7%bb%88%e9%87%87%e7%94%a8%e7%9a%84%e5%8e%9f%e5%88%99" class="heading-mark">
+ &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
+ &lt;/a>
+&lt;/h2>&lt;p>最后，方案收敛为几条简单原则。&lt;/p>
 &lt;h3 id="1-tailscale-负责网络ssh-负责权限" class="heading-element">&lt;span>1 Tailscale 负责网络，SSH 负责权限&lt;/span>
  &lt;a href="#1-tailscale-%e8%b4%9f%e8%b4%a3%e7%bd%91%e7%bb%9cssh-%e8%b4%9f%e8%b4%a3%e6%9d%83%e9%99%90" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
 &lt;/h3>&lt;p>Tailscale 解决设备之间如何安全到达；Tailscale SSH 或普通 OpenSSH 负责登录认证；Linux 用户、sudoers 和强制命令负责限制操作权限。&lt;/p>
-&lt;p>不能把“能访问 22 端口”误认为“已经完成安全的 SSH 管理”。&lt;/p>
-&lt;h3 id="2-宿主机原生-tailscale优先" class="heading-element">&lt;span>2 宿主机原生 Tailscale优先&lt;/span>
- &lt;a href="#2-%e5%ae%bf%e4%b8%bb%e6%9c%ba%e5%8e%9f%e7%94%9f-tailscale%e4%bc%98%e5%85%88" class="heading-mark">
+&lt;p>不能把&amp;quot;能访问 22 端口&amp;quot;等同于&amp;quot;已经完成安全的 SSH 管理&amp;quot;。&lt;/p>
+&lt;h3 id="2-宿主机原生-tailscale-优先" class="heading-element">&lt;span>2 宿主机原生 Tailscale 优先&lt;/span>
+ &lt;a href="#2-%e5%ae%bf%e4%b8%bb%e6%9c%ba%e5%8e%9f%e7%94%9f-tailscale-%e4%bc%98%e5%85%88" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h3>&lt;p>Hermes Docker 网络先保持不变：&lt;/p>
+&lt;/h3>&lt;p>Hermes 的 Docker 网络先保持不变：&lt;/p>
 &lt;ul>
 &lt;li>不改原有 bridge；&lt;/li>
 &lt;li>不改已发布端口；&lt;/li>
 &lt;li>不急着加入 Sidecar；&lt;/li>
 &lt;li>不在 Hermes 主容器里硬塞一个长期运行的 &lt;code>tailscaled&lt;/code>。&lt;/li>
 &lt;/ul>
-&lt;p>如果宿主机原生 Tailscale 已经能让容器访问目标 Tailnet IP，就先用最小改动方案。&lt;/p>
+&lt;p>只要宿主机原生 Tailscale 已经能让容器访问目标 Tailnet IP，就先采用最小改动方案。&lt;/p>
 &lt;h3 id="3-tailscale-ssh-只在真正需要时启用" class="heading-element">&lt;span>3 Tailscale SSH 只在真正需要时启用&lt;/span>
  &lt;a href="#3-tailscale-ssh-%e5%8f%aa%e5%9c%a8%e7%9c%9f%e6%ad%a3%e9%9c%80%e8%a6%81%e6%97%b6%e5%90%af%e7%94%a8" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h3>&lt;p>Tailscale SSH 固定占用 Tailscale IP 的 22 端口，但不影响公网自定义 SSH 端口。公网普通 SSH 仍然保留作为救援通道，不要在新方案刚上线时把所有旧通道一起删掉。&lt;/p>
+&lt;/h3>&lt;p>Tailscale SSH 固定占用 Tailscale IP 的 22 端口，但不影响公网自定义 SSH 端口。公网普通 SSH 仍然保留为救援通道，不要在新方案刚上线时把所有旧通道一起删掉。&lt;/p>
 &lt;h3 id="4-子网路由优先放在路由器上" class="heading-element">&lt;span>4 子网路由优先放在路由器上&lt;/span>
  &lt;a href="#4-%e5%ad%90%e7%bd%91%e8%b7%af%e7%94%b1%e4%bc%98%e5%85%88%e6%94%be%e5%9c%a8%e8%b7%af%e7%94%b1%e5%99%a8%e4%b8%8a" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h3>&lt;p>家庭 LAN 的出口节点应该是 KWRT，而不是 Hermes 容器，也不是某个临时 VPS。这样网络边界清楚，路由器重启和配置也更容易理解。&lt;/p>
+&lt;/h3>&lt;p>家庭 LAN 的出口节点应当是 KWRT，而不是 Hermes 容器或某台临时 VPS。这样网络边界清楚，路由器重启后的状态和配置也更容易理解。&lt;/p>
 &lt;h3 id="5-ip-用于规划hostname-用于日常使用" class="heading-element">&lt;span>5 IP 用于规划，Hostname 用于日常使用&lt;/span>
  &lt;a href="#5-ip-%e7%94%a8%e4%ba%8e%e8%a7%84%e5%88%92hostname-%e7%94%a8%e4%ba%8e%e6%97%a5%e5%b8%b8%e4%bd%bf%e7%94%a8" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -547,11 +840,11 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kwrt-home&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>不要把整套基础设施建立在一张需要人工背诵的 IP 表上。&lt;/p>
-&lt;h2 id="十-结尾真正解决的不是一个-vpn-问题" class="heading-element">&lt;span>十 结尾：真正解决的不是一个 VPN 问题&lt;/span>
- &lt;a href="#%e5%8d%81-%e7%bb%93%e5%b0%be%e7%9c%9f%e6%ad%a3%e8%a7%a3%e5%86%b3%e7%9a%84%e4%b8%8d%e6%98%af%e4%b8%80%e4%b8%aa-vpn-%e9%97%ae%e9%a2%98" class="heading-mark">
+&lt;h2 id="十四-结尾解决的其实不是一个-vpn-问题" class="heading-element">&lt;span>十四 结尾：解决的其实不是一个 VPN 问题&lt;/span>
+ &lt;a href="#%e5%8d%81%e5%9b%9b-%e7%bb%93%e5%b0%be%e8%a7%a3%e5%86%b3%e7%9a%84%e5%85%b6%e5%ae%9e%e4%b8%8d%e6%98%af%e4%b8%80%e4%b8%aa-vpn-%e9%97%ae%e9%a2%98" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>
-&lt;/h2>&lt;p>这次折腾表面上是在比较 Tailscale、ZeroTier 和 EasyTier，实际上是在重新划分基础设施的责任边界：&lt;/p>
+&lt;/h2>&lt;p>表面上，这次是在比较 Tailscale、ZeroTier 和 EasyTier；实际上，是在重新划分基础设施的责任边界：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -569,7 +862,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">授权：登录后能做什么
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">容灾：原来的救援通道是否还在&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>Tailscale 最终被选中，不是因为它在每个维度都最好，而是因为它在这套具体需求里最省心：&lt;/p>
+&lt;/div>&lt;p>在这套具体需求里，Tailscale 不是每个维度都最好，但最适合作为主网络：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -585,7 +878,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Hostname：负责日常记忆
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">普通公网 SSH：保留为救援通道&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>最重要的收获是：&lt;strong>不要为了追求一个“完美网络”把所有东西都重构一遍。先验证最小路径，确认真实路由和真实权限，再决定是否引入 Sidecar、代理或第二套 Overlay 网络。&lt;/strong>&lt;/p>
+&lt;/div>&lt;p>最终的立场也很明确：国外 VPS 和 Hermes 侧以 Tailscale 为主；国内网络按需使用 EasyTier；只有明确需要二层网络、广播或组播时，才启用 ZeroTier。&lt;/p>
+&lt;p>最重要的收获是：&lt;strong>不要为了追求一个&amp;quot;完美网络&amp;quot;把所有东西都重构一遍。先验证最小路径，确认真实路由和真实权限，再决定是否引入 Sidecar、代理或第二套 Overlay 网络。&lt;/strong>&lt;/p>
 &lt;h2 id="参考" class="heading-element">&lt;span>参考&lt;/span>
  &lt;a href="#%e5%8f%82%e8%80%83" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
@@ -596,9 +890,15 @@
 &lt;li>🔗 &lt;a href="https://tailscale.com/docs/features/subnet-routers"target="_blank" rel="external nofollow noopener noreferrer">Tailscale 子网路由&lt;/a>&lt;/li>
 &lt;li>🔗 &lt;a href="https://tailscale.com/docs/reference/ip-pool"target="_blank" rel="external nofollow noopener noreferrer">Tailscale IP Pool&lt;/a>&lt;/li>
 &lt;li>🔗 &lt;a href="https://tailscale.com/docs/reference/connection-types"target="_blank" rel="external nofollow noopener noreferrer">Tailscale 连接类型&lt;/a>&lt;/li>
+&lt;li>🔗 &lt;a href="https://tailscale.com/docs/features/containers/docker"target="_blank" rel="external nofollow noopener noreferrer">Tailscale Docker 配置&lt;/a>&lt;/li>
+&lt;li>🔗 &lt;a href="https://tailscale.com/docs/features/containers/docker/docker-params"target="_blank" rel="external nofollow noopener noreferrer">Tailscale Docker 参数&lt;/a>&lt;/li>
 &lt;li>🔗 &lt;a href="https://docs.zerotier.com/rules/"target="_blank" rel="external nofollow noopener noreferrer">ZeroTier Rules Engine&lt;/a>&lt;/li>
+&lt;li>🔗 &lt;a href="https://docs.zerotier.com/new-central/"target="_blank" rel="external nofollow noopener noreferrer">ZeroTier New Central&lt;/a>&lt;/li>
 &lt;li>🔗 &lt;a href="https://github.com/EasyTier/EasyTier"target="_blank" rel="external nofollow noopener noreferrer">EasyTier GitHub&lt;/a>&lt;/li>
+&lt;li>🔗 &lt;a href="https://easytier.cn/en/"target="_blank" rel="external nofollow noopener noreferrer">EasyTier 官方文档&lt;/a>&lt;/li>
 &lt;li>🔗 &lt;a href="https://openwrt.org/docs/guide-user/services/vpn/tailscale/start"target="_blank" rel="external nofollow noopener noreferrer">OpenWrt Tailscale 文档&lt;/a>&lt;/li>
+&lt;li>🔗 &lt;a href="https://tailscale.com/docs/features/access-control/auth-keys"target="_blank" rel="external nofollow noopener noreferrer">Tailscale Auth Keys&lt;/a>&lt;/li>
+&lt;li>🔗 &lt;a href="https://tailscale.com/docs/features/tags"target="_blank" rel="external nofollow noopener noreferrer">Tailscale Tags&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>第一次玩暗黑4：国服S14召唤死灵从零到70级</title><link>https://blog.iqzhi.com/posts/diablo-4-season-14-minion-necromancer-beginner-guide/</link><pubDate>Wed, 22 Jul 2026 07:23:36 +0800</pubDate><guid>https://blog.iqzhi.com/posts/diablo-4-season-14-minion-necromancer-beginner-guide/</guid><category domain="https://blog.iqzhi.com/categories/%E6%99%BA%E8%B6%A3%E9%9A%8F%E7%AC%94/">智趣随笔</category><description>&lt;p>第一次认真玩《暗黑破坏神 IV》，我选了国服第14赛季的召唤死灵。理由很现实：骷髅替我扛怪，宠物负责捡材料，我只要在后面上诅咒、炸尸体，怎么看都像一份适合新人的工作。&lt;/p>
 &lt;p>真正玩起来才发现，难点并不全在打怪。赛季与永恒怎么选、剧情要不要跳、地狱狂潮为什么没有宝箱、骷髅能不能集火、精魂为什么自动归零，以及70级后突然出现的巅峰盘，任何一个系统都足以让新人停下来查半天。&lt;/p>
 &lt;p>这篇文章记录的是我从建号到70级真正遇到的问题。版本以2026年7月的国服第14赛季、3.1版本为准；旧赛季攻略里的等级上限、技能树和巅峰路线，不能直接照搬。&lt;/p>
